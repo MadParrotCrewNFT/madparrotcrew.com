@@ -16,6 +16,7 @@ export default {
     ]
   },
   css: [
+    'modern-normalize/modern-normalize.css',
     '~/assets/scss/main.scss'
   ],
 
