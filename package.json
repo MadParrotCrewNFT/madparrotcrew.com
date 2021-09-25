@@ -6,9 +6,9 @@
     "dev": "nuxt --open",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate -m --fail-on-error",
+    "generate": "rimraf dist && nuxt generate -m --fail-on-error",
     "lint": "eslint --ext \".js,.vue,.ts\" --ignore-path .gitignore --fix .",
-    "test": "jest"
+    "test": "rimraf coverage && jest"
   },
   "dependencies": {
     "@nuxtjs/pwa": "^3.3.5",
@@ -32,6 +32,7 @@
     "eslint-plugin-vue": "^7.12.1",
     "fibers": "^5.0.0",
     "jest": "^27.0.5",
+    "rimraf": "^3.0.2",
     "sass": "^1.42.1",
     "sass-loader": "^10.2.0",
     "ts-jest": "^27.0.3",
