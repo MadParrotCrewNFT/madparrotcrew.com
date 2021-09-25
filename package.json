@@ -2,6 +2,9 @@
   "name": "NotoriousParrotPosse",
   "version": "1.0.0",
   "private": true,
+  "contributors": [
+    "Jack Domleo <jackdomleo7@gmail.com> (https://jackdomleo.dev)"
+  ],
   "scripts": {
     "dev": "nuxt --open",
     "build": "nuxt build",
