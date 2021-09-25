@@ -1,3 +1,5 @@
+const siteconfig = require('./siteconfig.json')
+
 export default {
   ssr: false,
   target: 'static',
@@ -27,11 +29,16 @@ export default {
   ],
   modules: [
     '@nuxtjs/pwa',
-    '@nuxtjs/robots'
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap' // Always declare last
   ],
   robots: {
     UserAgent: '*',
-    Allow: '/'
+    Allow: '/',
+    Sitemap: `${siteconfig.base_url}/sitemap.xml`
+  },
+  sitemap: {
+    hostname: siteconfig.base_url
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
