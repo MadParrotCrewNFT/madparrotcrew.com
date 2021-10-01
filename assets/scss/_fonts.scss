@@ -1,0 +1,41 @@
+$font-family-saira-stencil-one: 'SairaStencilOne';
+$saira-stencil-one-weights: (
+  "Regular": 400
+);
+
+$font-family-opensans: 'OpenSans';
+$opensans-weights: (
+  "Regular": 400,
+  "Bold": 700
+);
+
+:root {
+  --font-family-saira-stencil-one: '#{$font-family-saira-stencil-one}', Arial, Helvetica, sans-serif;
+  --font-family-opensans: '#{$font-family-opensans}', Arial, Helvetica, sans-serif;
+}
+
+@each $name, $weight in $saira-stencil-one-weights {
+  @font-face {
+    font-family: '#{$font-family-saira-stencil-one}';
+    src:
+      local('#{$font-family-saira-stencil-one}'),
+      url(~assets/fonts/SairaStencilOne/SairaStencilOne-#{$name}.woff2) format('woff2'),
+      url(~assets/fonts/SairaStencilOne/SairaStencilOne-#{$name}.woff) format('woff');
+    font-weight: $weight;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
+@each $name, $weight in $opensans-weights {
+  @font-face {
+    font-family: '#{$font-family-opensans}';
+    src:
+      local('#{$font-family-opensans}'),
+      url(~assets/fonts/OpenSans/OpenSans-#{$name}.woff2) format('woff2'),
+      url(~assets/fonts/OpenSans/OpenSans-#{$name}.woff) format('woff');
+    font-weight: $weight;
+    font-style: normal;
+    font-display: swap;
+  }
+}
