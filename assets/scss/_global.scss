@@ -1,7 +1,7 @@
 ::selection {
   text-shadow: none;
-  color: #fff;
-  background-color: #00f;
+  color: #000;
+  background-color: var(--npp-green);
 }
 
 html {
@@ -21,6 +21,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--npp-light-grey);
 }
 
 img {
@@ -47,4 +48,13 @@ svg {
 iframe {
   height: 100%;
   width: 100%
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--npp-grey);
 }
