@@ -1,20 +1,23 @@
 <template>
   <div>
-    <btn>Click me</btn>
-    <btn square>+</btn>
-    <btn color="green" square>+</btn>
-    <btn square inverted>-</btn>
-    <btn color="green" square inverted>-</btn>
+    <header>
+      <navigation />
+    </header>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { Btn } from '@/components'
+import { Navigation } from '@/components'
 
 export default Vue.extend({
-  components: { Btn }
+  components: { Navigation }
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+header {
+  background-color: skyblue;
+  min-height: 80vh;
+}
+</style>
