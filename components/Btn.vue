@@ -1,5 +1,5 @@
 <template>
-  <button @click="$emit('click')" class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted }]">
+  <button @click="$emit('click')" class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted }]" :disabled="disabled">
     <slot />
   </button>
 </template>
@@ -22,6 +22,10 @@ export default Vue.extend({
       default: false
     },
     inverted: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     }
@@ -62,6 +66,10 @@ export default Vue.extend({
   &--inverted {
     background-color: #fff;
     color: var(--btn-color);
+  }
+
+  &:disabled {
+    opacity: 0.5;
   }
 }
 </style>
