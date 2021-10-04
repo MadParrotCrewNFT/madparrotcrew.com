@@ -1,5 +1,5 @@
 <template>
-  <button class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted }]">
+  <button @click="$emit('click')" class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted }]">
     <slot />
   </button>
 </template>
@@ -35,7 +35,7 @@ export default Vue.extend({
   cursor: pointer;
   background-color: var(--btn-color);
   border: 1px solid var(--btn-color);
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-standard);
   color: #fff;
   font-size: var(--font-size-subheading);
   font-weight: 800;
