@@ -29,6 +29,7 @@ export default {
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/robots',
+    '@nuxtjs/svg-sprite',
     '@nuxtjs/sitemap' // Always declare last
   ],
   robots: {
@@ -37,7 +38,8 @@ export default {
     Sitemap: `${siteconfig.base_url}/sitemap.xml`
   },
   sitemap: {
-    hostname: siteconfig.base_url
+    hostname: siteconfig.base_url,
+    exclude: ['/_icons']
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
