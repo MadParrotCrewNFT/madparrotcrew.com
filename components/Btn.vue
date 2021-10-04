@@ -64,7 +64,7 @@ export default Vue.extend({
   }
 
   &--inverted {
-    background-color: #fff;
+    background-color: transparent;
     color: var(--btn-color);
   }
 
