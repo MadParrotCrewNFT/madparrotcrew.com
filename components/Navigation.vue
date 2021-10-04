@@ -1,8 +1,10 @@
 <template>
   <div class="navbar">
     <a href="#home" class="navbar__logo">
-      <img src="https://picsum.photos/128" :alt="`${siteconfig.brand_name} logo`" />
-      <span class="sr-only">Home</span>
+      <h1>
+        <img src="https://picsum.photos/128" :alt="`${siteconfig.brand_name} logo`" />
+        <span class="sr-only">{{ siteconfig.brand_name }}</span>
+      </h1>
     </a>
     <nav class="navbar__nav">
       <ul class="navbar__nav-list">
@@ -127,6 +129,20 @@ export default Vue.extend({
     overflow: hidden;
     height: 8rem;
     width: 8rem;
+    display: grid;
+    place-items: center;
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-family-open-sans);
+      font-size: var(--font-size-body);
+      text-align: center;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
   }
 
   &__nav {
