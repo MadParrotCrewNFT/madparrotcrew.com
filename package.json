@@ -42,5 +42,9 @@
     "sass-loader": "^10.2.0",
     "ts-jest": "^27.0.5",
     "vue-jest": "^3.0.7"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=7"
   }
 }
