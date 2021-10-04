@@ -1,0 +1,78 @@
+<template>
+  <div class="calculator">
+    <h2>Join the posse</h2>
+    <div class="calculator__buttons">
+      <btn @click="parrotNumber--" color="green" square inverted :disabled="parrotNumber === 1">
+        -
+        <span class="sr-only">Minus 1 parrot</span>
+      </btn>
+      <label for="noOfParrots" class="sr-only">Number of parrots</label>
+      <input id="noOfParrots" v-model="parrotNumber" readonly />
+      <btn @click="parrotNumber++" color="green" square>
+        +
+        <span class="sr-only">Plus 1 parrot</span>
+      </btn>
+    </div>
+    <p>Mint <strong>1</strong> parrot for <strong>0.05</strong> (+ gas fee)</p>
+    <btn class="calculator__cta">Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}</btn>
+  </div>
+</template>
+
+<script lang="ts">
+import Vue from 'vue'
+import { Btn } from '@/components'
+
+export default Vue.extend({
+  name: 'Calcualtor',
+  components: { Btn },
+  data () {
+    return {
+      parrotNumber: 1
+    }
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+.calculator {
+  background-color: rgba(255, 255, 255, 0.9);
+  max-width: 23rem;
+  border-radius: var(--border-radius-standard);
+  padding: 2rem 3.625rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    font-size: var(--font-size-heading);
+    margin: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-block: 1.5rem;
+  }
+
+  input {
+    height: 4rem;
+    width: 4rem;
+    border: 0;
+    border-radius: var(--border-radius-standard);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 800;
+    font-size: var(--font-size-heading);
+    text-align: center;
+    cursor: default;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__cta {
+    margin-top: 1rem;
+  }
+}
+</style>

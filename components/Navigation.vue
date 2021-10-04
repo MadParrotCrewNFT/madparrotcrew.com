@@ -134,7 +134,7 @@ export default Vue.extend({
 
     h1 {
       margin: 0;
-      font-family: var(--font-family-open-sans);
+      font-family: var(--font-family-opensans);
       font-size: var(--font-size-body);
       text-align: center;
     }
