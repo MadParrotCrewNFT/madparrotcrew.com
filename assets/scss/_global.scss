@@ -7,6 +7,7 @@
 html {
   font-family: sans-serif;
   font-size: 100%;
+  line-height: 1.5rem;
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
@@ -24,6 +25,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: var(--npp-light-grey);
   font-family: var(--font-family-opensans);
+  overflow-x: hidden;
 }
 
 img {

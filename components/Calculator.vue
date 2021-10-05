@@ -13,8 +13,8 @@
         <span class="sr-only">Plus 1 parrot</span>
       </btn>
     </div>
-    <p>Mint <strong>1</strong> parrot for <strong>0.05</strong> (+ gas fee)</p>
-    <btn class="calculator__cta">Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}</btn>
+    <p role="text">Mint <strong>1</strong> parrot for <strong>0.05</strong> <span class="sr-only">ethereum</span> (+ gas fee)</p>
+    <btn @click="ctaClicked()" class="calculator__cta">Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}</btn>
   </div>
 </template>
 
@@ -28,6 +28,11 @@ export default Vue.extend({
   data () {
     return {
       parrotNumber: 1
+    }
+  },
+  methods: {
+    ctaClicked (): void {
+      window.alert("Sqwark sqwark! Minting parrots! (Not really, it's just pretend for now)")
     }
   }
 })
