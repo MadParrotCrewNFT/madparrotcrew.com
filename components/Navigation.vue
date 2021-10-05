@@ -1,17 +1,15 @@
 <template>
   <div class="navbar">
-    <a href="#home" class="navbar__logo">
-      <h1>
-        <img src="https://picsum.photos/128" :alt="`${siteconfig.brand_name} logo`" />
-        <span class="sr-only">{{ siteconfig.brand_name }}</span>
-      </h1>
-    </a>
+    <h1 class="navbar__logo">
+      <img src="https://picsum.photos/128" :alt="`${siteconfig.brand_name} logo`" />
+      <span class="sr-only">{{ siteconfig.brand_name }}</span>
+    </h1>
     <nav class="navbar__nav">
       <ul class="navbar__nav-list">
         <li v-for="navItem in navItems" :key="navItem.url">
-          <nuxt-link :to="navItem.url">
+          <a :href="navItem.url" :class="{ 'active': isTheChosenOne(navItem.url) }">
             {{ navItem.text }}
-          </nuxt-link>
+          </a>
         </li>
       </ul>
     </nav>
@@ -108,6 +106,11 @@ export default Vue.extend({
         }
       ]
     }
+  },
+  methods: {
+    isTheChosenOne (toUrl: string): boolean {
+      return this.$route.hash === toUrl
+    }
   }
 })
 </script>
@@ -173,7 +176,7 @@ export default Vue.extend({
 
         &:hover,
         &:focus,
-        &.nuxt-link-exact-active {
+        &.active {
           background-color: var(--npp-green);
           color: #fff;
         }
