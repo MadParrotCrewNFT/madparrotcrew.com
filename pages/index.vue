@@ -35,6 +35,16 @@
         </ol>
       </div>
     </section>
+    <section id="bonus-traits" class="bonus">
+      <h2>Bonus traits</h2>
+      <ul class="bonus__things">
+        <li v-for="bonusTrait in bonusTraits" :key="bonusTrait.image">
+          <img src="https://picsum.photos/128" :alt="bonusTrait.image.alt">
+          <h3>{{ bonusTrait.title }}</h3>
+          <p>{{ bonusTrait.body }}</p>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -47,6 +57,15 @@ interface IRoadmapCheckpoint {
   title: string;
   body: string;
   percentage: number;
+}
+
+interface IBonusTrait {
+  image: {
+    src: string;
+    alt: string;
+  };
+  title: string;
+  body: string;
 }
 
 export default Vue.extend({
@@ -78,6 +97,34 @@ export default Vue.extend({
           title: 'Heading goes here',
           body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ante nibh, vestibulum ac faucibus in, ornare sit amet erat.',
           percentage: 100
+        }
+      ]
+    },
+    bonusTraits (): IBonusTrait[] {
+      return [
+        {
+          image: {
+            src: 'gold-beak.svg',
+            alt: 'A golden parrot beak'
+          },
+          title: 'Goldbeak Club',
+          body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in ante tortor. Vivamus hendrerit justo at ligula molestie, eu luctus lorem placerat.'
+        },
+        {
+          image: {
+            src: 'powah-ring.svg',
+            alt: 'Gold ring with the Etherum logo'
+          },
+          title: 'Ring of Powah',
+          body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in ante tortor. Vivamus hendrerit justo at ligula molestie, eu luctus lorem placerat.'
+        },
+        {
+          image: {
+            src: 'npp-tatoo.svg',
+            alt: 'Tattoo with the NPP logo'
+          },
+          title: 'NPP Tatoo',
+          body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in ante tortor. Vivamus hendrerit justo at ligula molestie, eu luctus lorem placerat.'
         }
       ]
     }
@@ -212,6 +259,7 @@ export default Vue.extend({
       display: flex;
       align-items: center;
       white-space: nowrap;
+      margin: 0;
     }
 
     &-symbol {
@@ -243,6 +291,66 @@ export default Vue.extend({
     p {
       margin: 0;
       line-height: 1.4;
+    }
+  }
+}
+
+.bonus {
+  padding: 6.25rem 1rem 5.5rem 1rem;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    font-size: var(--font-size-title);
+    text-align: center;
+  }
+
+  &__things {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem 1rem;
+    place-items: center;
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+
+    @media (min-width: $responsive-small-tablet) {
+      grid-template-columns: repeat(2, 1fr);
+
+      li:nth-child(3) {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: $responsive-large-tablet) {
+      grid-template-columns: repeat(3, 1fr);
+
+      li {
+        grid-column: span 1 !important;
+      }
+    }
+
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 23rem;
+
+      img {
+        height: 8rem;
+        width: 8rem;
+      }
+
+      h3 {
+        font-size: var(--font-size-subtitle);
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        margin: 0;
+      }
     }
   }
 }
