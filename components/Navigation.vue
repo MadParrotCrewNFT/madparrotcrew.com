@@ -134,13 +134,10 @@ export default Vue.extend({
     width: 8rem;
     display: grid;
     place-items: center;
-
-    h1 {
-      margin: 0;
-      font-family: var(--font-family-opensans);
-      font-size: var(--font-size-body);
-      text-align: center;
-    }
+    margin: 0;
+    font-family: var(--font-family-opensans);
+    font-size: var(--font-size-body);
+    text-align: center;
 
     img {
       height: 100%;
