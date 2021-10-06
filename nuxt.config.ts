@@ -24,8 +24,14 @@ export default {
   plugins: [
   ],
   buildModules: [
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
+    '@nuxtjs/style-resources'
   ],
+  styleResources: {
+    scss: [
+      '~/assets/scss/responsive-vars.scss'
+    ]
+  },
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/robots',

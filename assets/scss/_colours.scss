@@ -1,13 +1,17 @@
 $npp-green: #70a288;
+$npp-light-green: #e9F1ed;
 $npp-dark-blue: #031d44;
 $npp-beige: #dab785;
+$npp-light-beige: #f7f0e6;
 $npp-grey: #595959;
 $npp-light-grey: #757575;
 
 :root {
   --npp-green: #{$npp-green};
+  --npp-light-green: #{$npp-light-green};
   --npp-dark-blue: #{$npp-dark-blue};
   --npp-beige: #{$npp-beige};
+  --npp-light-beige: #{$npp-light-beige};
   --npp-grey: #{$npp-grey};
   --npp-light-grey: #{$npp-light-grey};
 }
