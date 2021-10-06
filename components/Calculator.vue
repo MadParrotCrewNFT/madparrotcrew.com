@@ -2,19 +2,23 @@
   <div class="calculator">
     <h2>Join the posse</h2>
     <div class="calculator__buttons">
-      <btn @click="parrotNumber--" color="green" square inverted :disabled="parrotNumber === 1">
+      <btn color="green" square inverted :disabled="parrotNumber === 1" @click="parrotNumber--">
         -
         <span class="sr-only">Minus 1 parrot</span>
       </btn>
       <label for="noOfParrots" class="sr-only">Number of parrots</label>
-      <input id="noOfParrots" v-model="parrotNumber" readonly />
-      <btn @click="parrotNumber++" color="green" square>
+      <input id="noOfParrots" v-model="parrotNumber" readonly>
+      <btn color="green" square @click="parrotNumber++">
         +
         <span class="sr-only">Plus 1 parrot</span>
       </btn>
     </div>
-    <p role="text">Mint <strong>1</strong> parrot for <strong>0.05</strong> <span class="sr-only">ethereum</span> (+ gas fee)</p>
-    <btn @click="ctaClicked()" class="calculator__cta">Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}</btn>
+    <p role="text">
+      Mint <strong>1</strong> parrot for <strong>0.05</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+    </p>
+    <btn class="calculator__cta" @click="ctaClicked()">
+      Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
+    </btn>
   </div>
 </template>
 

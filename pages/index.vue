@@ -21,10 +21,16 @@
         <ol class="roadmap__cards">
           <li v-for="roadmapCheckpoint in roadmapCheckpoints" :key="roadmapCheckpoint.percentage">
             <card>
-              <h3 class="card__title">{{ roadmapCheckpoint.title }}</h3>
+              <h3 class="card__title">
+                {{ roadmapCheckpoint.title }}
+              </h3>
               <p>{{ roadmapCheckpoint.body }}</p>
             </card>
-            <div class="roadmap__percentage"><p role="text">{{ roadmapCheckpoint.percentage }}<span class="roadmap__percentage-symbol">%</span></p></div>
+            <div class="roadmap__percentage">
+              <p role="text">
+                {{ roadmapCheckpoint.percentage }}<span class="roadmap__percentage-symbol">%</span>
+              </p>
+            </div>
           </li>
         </ol>
       </div>

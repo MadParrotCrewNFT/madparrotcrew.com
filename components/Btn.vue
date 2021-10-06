@@ -1,5 +1,5 @@
 <template>
-  <button @click="$emit('click')" class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted }]" :disabled="disabled">
+  <button class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted }]" :disabled="disabled" @click="$emit('click')">
     <slot />
   </button>
 </template>
