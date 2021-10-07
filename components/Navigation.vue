@@ -2,7 +2,7 @@
   <div class="navbar">
     <h1 class="navbar__logo">
       <img src="https://picsum.photos/128" :alt="`${siteconfig.brand_name} logo`">
-      <span class="sr-only">{{ siteconfig.brand_name }}</span>
+      <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
     </h1>
     <nav class="navbar__nav">
       <ul class="navbar__nav-list">
