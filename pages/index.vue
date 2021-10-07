@@ -55,6 +55,26 @@
         </li>
       </ul>
     </section>
+    <section id="team" class="team">
+      <div>
+        <h2>The team</h2>
+        <ul class="team__people">
+          <li v-for="member in teamMembers" :key="member.name">
+            <img src="https://picsum.photos/144/154" :alt="member.image.alt">
+            <h3>{{ member.name }}</h3>
+            <p>{{ member.job }}</p>
+            <ul class="team__socials">
+              <li v-for="social in member.socials" :key="social.platform">
+                <a :href="social.url" :title="social.platform" target="_blank">
+                  <svg-icon :name="social.platform.toLowerCase()" />
+                  <span class="sr-only">{{ social.platform }}</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
     <section id="faqs" class="faqs">
       <h2>FAQs</h2>
     </section>
@@ -88,6 +108,19 @@ interface IParrotDistribution {
   };
   title: string;
   body: string;
+}
+
+interface ITeamMember {
+  image: {
+    src: string;
+    alt: string;
+  },
+  name: string;
+  job: string;
+  socials: {
+    platform: string;
+    url: string;
+  }[]
 }
 
 export default Vue.extend({
@@ -175,6 +208,46 @@ export default Vue.extend({
           },
           title: '9990-10,000',
           body: 'These will be auctioned off.'
+        }
+      ]
+    },
+    teamMembers (): ITeamMember[] {
+      return [
+        {
+          image: {
+            src: 'sheftali-parrot.svg',
+            alt: 'Red parrot'
+          },
+          name: 'Sheftali',
+          job: 'Artist/Web Designer',
+          socials: [
+            {
+              platform: 'Twitter',
+              url: 'https://twitter.com/iamsheftali'
+            },
+            {
+              platform: 'Instagram',
+              url: 'https://linkedin.com'
+            }
+          ]
+        },
+        {
+          image: {
+            src: 'iacove-parrot.svg',
+            alt: 'Blue parrot'
+          },
+          name: 'Iacove',
+          job: 'Smart Contract Developer',
+          socials: [
+            {
+              platform: 'Twitter',
+              url: 'https://twitter.com'
+            },
+            {
+              platform: 'Instagram',
+              url: 'https://linkedin.com'
+            }
+          ]
         }
       ]
     }
@@ -475,6 +548,81 @@ export default Vue.extend({
     margin-bottom: 2.5rem;
     font-size: var(--font-size-title);
     text-align: center;
+  }
+}
+
+.team {
+  height: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  div {
+    background-color: #fff;
+    border-radius: var(--border-radius-standard);
+    max-width: 48rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 2.625rem 9rem 4rem 9rem;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: var(--font-size-title);
+      text-align: center;
+    }
+  }
+
+  &__people {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+
+    @media (min-width: $responsive-standard-tablet) {
+      grid-template-columns: repeat(2, 50%);
+    }
+
+    img {
+      height: 9rem;
+      width: 9.625rem;
+    }
+
+    > li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 0;
+        font-size: var(--font-size-subtitle);
+      }
+
+      p {
+        margin: 0;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &__socials {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+
+    a {
+      height: 1.5rem;
+      width: 1.5rem;
+      display: block;
+    }
   }
 }
 </style>
