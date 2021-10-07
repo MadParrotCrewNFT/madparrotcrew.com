@@ -38,10 +38,20 @@
     <section id="bonus-traits" class="bonus">
       <h2>Bonus traits</h2>
       <ul class="bonus__things">
-        <li v-for="bonusTrait in bonusTraits" :key="bonusTrait.image">
+        <li v-for="bonusTrait in bonusTraits" :key="bonusTrait.image.src">
           <img src="https://picsum.photos/128" :alt="bonusTrait.image.alt">
           <h3>{{ bonusTrait.title }}</h3>
           <p>{{ bonusTrait.body }}</p>
+        </li>
+      </ul>
+    </section>
+    <section id="distribution" class="parrot">
+      <h2>Parrot distribution</h2>
+      <ul class="parrot__things">
+        <li v-for="distribution in parrotDistribution" :key="distribution.image.src">
+          <img src="https://picsum.photos/128" :alt="distribution.image.alt">
+          <h3>{{ distribution.title }}</h3>
+          <p>{{ distribution.body }}</p>
         </li>
       </ul>
     </section>
@@ -60,6 +70,15 @@ interface IRoadmapCheckpoint {
 }
 
 interface IBonusTrait {
+  image: {
+    src: string;
+    alt: string;
+  };
+  title: string;
+  body: string;
+}
+
+interface IParrotDistribution {
   image: {
     src: string;
     alt: string;
@@ -125,6 +144,34 @@ export default Vue.extend({
           },
           title: 'NPP Tatoo',
           body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in ante tortor. Vivamus hendrerit justo at ligula molestie, eu luctus lorem placerat.'
+        }
+      ]
+    },
+    parrotDistribution (): IParrotDistribution[] {
+      return [
+        {
+          image: {
+            src: 'prize-box.svg',
+            alt: 'Prize box'
+          },
+          title: '1-100',
+          body: 'These are reserved for founders and giveaways.'
+        },
+        {
+          image: {
+            src: 'egg-nest.svg',
+            alt: 'Nest with eggs'
+          },
+          title: '101-9990',
+          body: 'These will be available to the public via minting.'
+        },
+        {
+          image: {
+            src: 'gavel.svg',
+            alt: 'Gavel'
+          },
+          title: '9990-10,000',
+          body: 'These will be auctioned off.'
         }
       ]
     }
@@ -297,6 +344,67 @@ export default Vue.extend({
 
 .bonus {
   padding: 6.25rem 1rem 5.5rem 1rem;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    font-size: var(--font-size-title);
+    text-align: center;
+  }
+
+  &__things {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem 1rem;
+    place-items: center;
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+
+    @media (min-width: $responsive-small-tablet) {
+      grid-template-columns: repeat(2, 1fr);
+
+      li:nth-child(3) {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: $responsive-large-tablet) {
+      grid-template-columns: repeat(3, 1fr);
+
+      li {
+        grid-column: span 1 !important;
+      }
+    }
+
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 23rem;
+
+      img {
+        height: 8rem;
+        width: 8rem;
+      }
+
+      h3 {
+        font-size: var(--font-size-subtitle);
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.parrot {
+  padding: 6.25rem 1rem 22rem 1rem;
+  background-color: var(--npp-light-green);
 
   h2 {
     margin-top: 0;
