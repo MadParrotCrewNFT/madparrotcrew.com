@@ -55,6 +55,9 @@
         </li>
       </ul>
     </section>
+    <section id="faqs" class="faqs">
+      <h2>FAQs</h2>
+    </section>
   </div>
 </template>
 
@@ -460,6 +463,18 @@ export default Vue.extend({
         margin: 0;
       }
     }
+  }
+}
+
+.faqs {
+  padding: 21rem 1rem 3.5rem 1rem;
+  background-color: var(--npp-light-beige);
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    font-size: var(--font-size-title);
+    text-align: center;
   }
 }
 </style>
