@@ -14,7 +14,7 @@
       </btn>
     </div>
     <p role="text">
-      Mint <strong>1</strong> parrot for <strong>0.05</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+      Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <strong>{{ (parrotNumber * etherumValuePerParrot).toFixed(2) }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
     </p>
     <btn class="calculator__cta" @click="ctaClicked()">
       Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
@@ -31,7 +31,8 @@ export default Vue.extend({
   components: { Btn },
   data () {
     return {
-      parrotNumber: 1
+      parrotNumber: 1,
+      etherumValuePerParrot: 0.05
     }
   },
   methods: {
