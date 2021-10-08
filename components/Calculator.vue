@@ -47,6 +47,7 @@ export default Vue.extend({
 .calculator {
   background-color: rgba(255, 255, 255, 0.9);
   max-width: 23rem;
+  min-width: 22rem;
   border-radius: var(--border-radius-standard);
   padding: 2rem 3.625rem;
   display: flex;
