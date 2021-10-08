@@ -78,6 +78,18 @@
     <section id="faqs" class="faqs">
       <h2>FAQs</h2>
     </section>
+    <footer class="footer">
+      <ul class="footer__social">
+        <li v-for="socialLink in socialLinks" :key="socialLink.text">
+          <a :href="socialLink.url" target="_blank">
+            <svg-icon :name="socialLink.icon" />
+            <span class="sr-only">{{ socialLink.text }}</span>
+          </a>
+        </li>
+      </ul>
+      <img class="footer__logo" src="https://picsum.photos/128" :alt="`${siteconfig.brand_name} logo`">
+      <address class="footer__contact">Smart contract: <a class="link" href="mailto:" rel="norefferer nofollow noopener">abcdefghijklmnopqrstuvwxyz</a></address>
+    </footer>
   </div>
 </template>
 
@@ -85,6 +97,7 @@
 import Vue from 'vue'
 import { Navigation, Calculator, Card } from '@/components'
 import siteconfig from '@/siteconfig.json'
+import { ISocialLink } from '@/store'
 
 interface IRoadmapCheckpoint {
   title: string;
@@ -250,6 +263,9 @@ export default Vue.extend({
           ]
         }
       ]
+    },
+    socialLinks (): ISocialLink[] {
+      return this.$store.state.socialLinks
     }
   }
 })
@@ -624,6 +640,44 @@ export default Vue.extend({
       width: 1.5rem;
       display: block;
     }
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 1rem 0.25rem 1rem;
+
+  &__social {
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    height: 100%;
+
+    li, a {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding-inline: 0.125rem;
+    }
+
+    svg {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+
+  &__logo {
+    height: 8rem;
+    width: 8rem;
+    margin-block: 1.5rem;
+  }
+
+  &__contact {
+    font-size: var(--font-size-small);
+    font-style: normal;
   }
 }
 </style>

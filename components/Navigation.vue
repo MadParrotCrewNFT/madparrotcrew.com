@@ -29,16 +29,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import siteconfig from '@/siteconfig.json'
+import { ISocialLink } from '@/store'
 
 interface INavItem {
   text: string;
   url: string;
-}
-
-interface ISocialLink {
-  text: string;
-  url: string;
-  icon: string;
 }
 
 export default Vue.extend({
@@ -78,33 +73,7 @@ export default Vue.extend({
       ]
     },
     socialLinks (): ISocialLink[] {
-      return [
-        {
-          text: 'Discord',
-          url: 'https://discord.com',
-          icon: 'discord'
-        },
-        {
-          text: 'Twitter',
-          url: 'https://twitter.com',
-          icon: 'twitter'
-        },
-        {
-          text: 'OpenSea',
-          url: 'https://opensea.io',
-          icon: 'opensea'
-        },
-        {
-          text: 'Etherscan',
-          url: 'https://etherscan.io',
-          icon: 'etherscan'
-        },
-        {
-          text: 'Instagram',
-          url: 'https://www.instagram.com',
-          icon: 'instagram'
-        }
-      ]
+      return this.$store.state.socialLinks
     }
   },
   methods: {
