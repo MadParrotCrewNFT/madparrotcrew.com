@@ -2,13 +2,13 @@
   <div class="calculator">
     <h2>Join the posse</h2>
     <div class="calculator__buttons">
-      <btn color="green" square inverted :disabled="parrotNumber === 1" @click="parrotNumber--">
+      <btn color="green" square inverted :disabled="parrotNumber <= 1" @click="parrotNumber--">
         -
         <span class="sr-only">Minus 1 parrot</span>
       </btn>
       <label for="noOfParrots" class="sr-only">Number of parrots</label>
       <input id="noOfParrots" v-model="parrotNumber" readonly>
-      <btn color="green" square @click="parrotNumber++">
+      <btn color="green" square :disabled="parrotNumber >= 5" @click="parrotNumber++">
         +
         <span class="sr-only">Plus 1 parrot</span>
       </btn>
