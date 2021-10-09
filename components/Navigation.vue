@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <h1 class="navbar__logo">
-      <img src="https://picsum.photos/128" :alt="`${siteconfig.brand_name} logo`">
+      <img src="~assets/images/logo.svg" :alt="`${siteconfig.brand_name} logo`">
       <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
     </h1>
     <nav class="navbar__nav">
@@ -101,6 +101,7 @@ export default Vue.extend({
     overflow: hidden;
     height: 8rem;
     width: 8rem;
+    padding: 0.5rem;
     display: grid;
     place-items: center;
     margin: 0;
