@@ -87,20 +87,27 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .navbar {
   position: relative;
-  top: 4rem;
+  top: 2rem;
   width: 100vw;
-  background-color: #fff;
   height: 3.5rem;
   display: flex;
   align-items: center;
   justify-content: space-around;
 
+  @media (min-width: $responsive-large-mobile) {
+    top: 4rem;
+  }
+
+  @media (min-width: $responsive-standard-tablet) {
+    background-color: #fff;
+  }
+
   &__logo {
     border-radius: 50%;
     background-color: #fff;
     overflow: hidden;
-    height: 8rem;
-    width: 8rem;
+    height: 4.75rem;
+    width: 4.75rem;
     padding: 0.5rem;
     display: grid;
     place-items: center;
@@ -109,6 +116,11 @@ export default Vue.extend({
     font-size: var(--font-size-body);
     text-align: center;
 
+    @media (min-width: $responsive-large-mobile) {
+      height: 8rem;
+      width: 8rem;
+    }
+
     img {
       height: 100%;
       width: 100%;
@@ -116,61 +128,70 @@ export default Vue.extend({
   }
 
   &__nav {
-    display: flex;
-    height: 100%;
+    display: none;
 
-    &-list {
+    @media (min-width: $responsive-standard-tablet) {
       display: flex;
-      list-style-type: none;
-      margin: 0;
       height: 100%;
 
-      li, a {
+      &-list {
         display: flex;
-        align-items: center;
+        list-style-type: none;
+        margin: 0;
         height: 100%;
-      }
 
-      a {
-        font-family: var(--font-family-saira-stencil-one);
-        font-size: var(--font-size-subheading);
-        color: var(--npp-grey);
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        transition-property: background-color, color;
-        transition: 160ms ease;
-        white-space: nowrap;
+        li, a {
+          display: flex;
+          align-items: center;
+          height: 100%;
+        }
 
-        &:hover,
-        &:focus,
-        &.active {
-          background-color: var(--npp-green);
-          color: #fff;
+        a {
+          font-family: var(--font-family-saira-stencil-one);
+          font-size: var(--font-size-subheading);
+          color: var(--npp-grey);
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+          transition-property: background-color, color;
+          transition: 160ms ease;
+          white-space: nowrap;
+
+          &:hover,
+          &:focus,
+          &.active {
+            background-color: var(--npp-green);
+            color: #fff;
+          }
         }
       }
     }
   }
 
   &__social {
-    display: flex;
-    height: 100%;
+    display: none;
 
-    &-list {
+    @media (min-width: $responsive-large-tablet) {
       display: flex;
-      list-style-type: none;
-      margin: 0;
       height: 100%;
 
-      li, a {
+      &-list {
         display: flex;
-        align-items: center;
+        list-style-type: none;
+        padding-left: 0;
+        margin: 0;
         height: 100%;
-        padding-inline: 0.125rem;
-      }
 
-      svg {
-        height: 2rem;
-        width: 2rem;
+        li, a {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          padding-inline: 0.125rem;
+        }
+
+        svg {
+          height: 2rem;
+          width: 2rem;
+        }
       }
     }
   }
