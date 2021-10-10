@@ -14,7 +14,7 @@
       </btn>
     </div>
     <p role="text">
-      Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <strong>{{ (parrotNumber * etherumValuePerParrot).toFixed(2) }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+      Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__etherum" aria-hidden="true" src="~assets/images/etherum-logo.svg" alt="Etherum logo"> <strong>{{ (parrotNumber * etherumValuePerParrot).toFixed(2) }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
     </p>
     <btn class="calculator__cta" @click="ctaClicked()">
       Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
@@ -80,6 +80,12 @@ export default Vue.extend({
     &:focus {
       outline: none;
     }
+  }
+
+  &__etherum {
+    width: 1rem;
+    height: 1.625rem;
+    vertical-align: middle;
   }
 
   &__cta {
