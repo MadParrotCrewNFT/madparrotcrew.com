@@ -39,7 +39,7 @@
       <h2>Bonus traits</h2>
       <ul class="bonus__things">
         <li v-for="bonusTrait in bonusTraits" :key="bonusTrait.image.src">
-          <img src="https://picsum.photos/128" :alt="bonusTrait.image.alt">
+          <img :src="require(`@/assets/images/${bonusTrait.image.src}`)" :alt="bonusTrait.image.alt">
           <h3>{{ bonusTrait.title }}</h3>
           <p>{{ bonusTrait.body }}</p>
         </li>
