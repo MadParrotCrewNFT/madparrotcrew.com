@@ -16,24 +16,22 @@
       </div>
     </section>
     <section id="roadmap" class="roadmap">
-      <div>
-        <h2>Roadmap</h2>
-        <ol class="roadmap__cards">
-          <li v-for="roadmapCheckpoint in roadmapCheckpoints" :key="roadmapCheckpoint.percentage">
-            <card>
-              <h3 class="card__title">
-                {{ roadmapCheckpoint.title }}
-              </h3>
-              <p>{{ roadmapCheckpoint.body }}</p>
-            </card>
-            <div class="roadmap__percentage">
-              <p role="text">
-                {{ roadmapCheckpoint.percentage }}<span class="roadmap__percentage-symbol">%</span>
-              </p>
-            </div>
-          </li>
-        </ol>
-      </div>
+      <h2>Roadmap</h2>
+      <ol class="roadmap__cards">
+        <li v-for="roadmapCheckpoint in roadmapCheckpoints" :key="roadmapCheckpoint.percentage">
+          <card>
+            <h3 class="card__title">
+              {{ roadmapCheckpoint.title }}
+            </h3>
+            <p>{{ roadmapCheckpoint.body }}</p>
+          </card>
+          <div class="roadmap__percentage">
+            <p role="text">
+              {{ roadmapCheckpoint.percentage }}<span class="roadmap__percentage-symbol">%</span>
+            </p>
+          </div>
+        </li>
+      </ol>
     </section>
     <section id="bonus-traits" class="bonus">
       <h2>Bonus traits</h2>
@@ -307,34 +305,15 @@ export default Vue.extend({
 }
 
 .roadmap {
-  position: relative;
   background-color: var(--npp-light-beige);
   padding: 2.25rem 1rem 3.5rem 1rem;
-
-  &::before {
-    content: '';
-    background-color: #fff;
-    width: 100vw;
-    height: 16rem;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @media (min-width: $responsive-small-tablet) {
     padding-top: 4.125rem;
     padding-bottom: 5.5rem;
-
-    &::before {
-      display: none;
-    }
-  }
-
-  > div {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
   h2 {
