@@ -3,5 +3,14 @@
 /* These are in a different file to the SCSS variables so that the CSS variables aren't polluting the DOM */
 
 :root {
+  --responsive-small-mobile: #{$responsive-small-mobile};
+  --responsive-standard-mobile: #{$responsive-standard-mobile};
+  --responsive-large-mobile: #{$responsive-large-mobile};
+  --responsive-small-tablet: #{$responsive-small-tablet};
   --responsive-standard-tablet: #{$responsive-standard-tablet};
+  --responsive-large-tablet: #{$responsive-large-tablet};
+  --responsive-small-desktop: #{$responsive-small-desktop};
+  --responsive-standard-desktop: #{$responsive-standard-desktop};
+  --responsive-large-desktop: #{$responsive-large-desktop};
+  --responsive-4k-desktop: #{$responsive-4k-desktop};
 }
