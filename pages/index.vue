@@ -11,8 +11,9 @@
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         </div>
       </div>
-      <div>
-        BG image
+      <div class="about__parrots">
+        <img src="~/assets/images/about-parrots-mobile.svg" alt="Two parrots waving">
+        <img src="~/assets/images/about-parrots-desktop.svg" alt="Two parrots waving">
       </div>
     </section>
     <section id="roadmap" class="roadmap">
@@ -308,18 +309,73 @@ export default Vue.extend({
 
 .about {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin-block: 9rem;
+  grid-template-columns: 1fr;
+  background: linear-gradient(180deg, rgba(209,67,0,1) 0%, rgba(217,103,49,1) 100%);
+  color: #fff;
+  text-align: center;
+
+  @media (min-width: $responsive-large-tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    background: #fff;
+    color: currentColor;
+    text-align: left;
+  }
 
   &__text {
     max-width: 23rem;
     margin-inline: auto;
+    margin-top: 2.5rem;
+    margin-bottom: 9rem;
+    padding-inline: 1rem;
+
+    @media (min-width: $responsive-large-tablet) {
+      margin-block: 9rem;
+    }
   }
 
   h2 {
-    font-size: var(--font-size-subtitle);
+    font-size: var(--font-size-title);
     margin-top: 0;
-    margin-bottom: 2.75rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+
+    @media (min-width: $responsive-large-tablet) {
+      margin-bottom: 2.75rem;
+      color: currentColor;
+    }
+  }
+
+  &__parrots {
+    position: relative;
+    text-align: left;
+
+    img {
+      &[src *= "mobile"] {
+        position: relative;
+        bottom: -1.8rem;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 250px;
+        margin-top: -10rem;
+
+        @media (min-width: $responsive-large-tablet) {
+          display: none;
+        }
+      }
+
+      &[src *= "desktop"] {
+        display: none;
+
+        @media (min-width: $responsive-large-tablet) {
+          position: absolute;
+          display: block;
+          height: 110%;
+          bottom: -3rem;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
   }
 }
 
