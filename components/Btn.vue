@@ -41,14 +41,18 @@ export default Vue.extend({
   border: 1px solid var(--btn-color);
   border-radius: var(--border-radius-standard);
   color: #fff;
-  font-size: var(--font-size-subheading);
+  font-size: var(--font-size-large);
   font-weight: 800;
   font-family: var(--font-family-opensans);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 4rem;
+  height: 3.25rem;
   padding: 1.125rem 1.5rem;
+
+  @media (min-width: $responsive-large-mobile) {
+    height: 4rem;
+  }
 
   &--square {
     height: 3rem;

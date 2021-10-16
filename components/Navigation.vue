@@ -148,7 +148,7 @@ export default Vue.extend({
 
         a {
           font-family: var(--font-family-saira-stencil-one);
-          font-size: var(--font-size-subheading);
+          font-size: var(--font-size-large);
           color: var(--npp-grey);
           text-decoration: none;
           padding: 0.5rem 1rem;

@@ -274,16 +274,33 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .header {
   position: relative;
-  background-color: skyblue;
-  min-height: 36rem;
-  height: 90vh;
-  max-height: 46rem;
+  background-image: url(~assets/images/header-bg-desktop.png);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+
+  @media (min-width: $responsive-standard-tablet) {
+    min-height: 36rem;
+    height: 90vh;
+    max-height: 46rem;
+  }
 
   &__calculator {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-top: 4rem;
+    margin-inline: 1rem;
+
+    @media (min-width: $responsive-large-mobile) {
+      margin-top: 8rem;
+      margin-inline: auto;
+    }
+
+    @media (min-width: $responsive-standard-tablet) {
+      margin-top: 0;
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 }
 
