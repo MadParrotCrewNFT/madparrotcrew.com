@@ -372,7 +372,7 @@ export default Vue.extend({
 
   &__percentage {
     border-radius: 50%;
-    background-color: var(--npp-dark-blue);
+    background-color: var(--npp-orange);
     color: #fff;
     display: grid;
     place-items: center;
