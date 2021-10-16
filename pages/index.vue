@@ -43,13 +43,15 @@
         </li>
       </ul>
     </section>
-    <section id="distribution" class="parrot">
-      <h2>Parrot distribution</h2>
-      <ul class="parrot__things">
+    <section id="distribution" class="distribution">
+      <h2>Distribution</h2>
+      <ul class="distribution__cards">
         <li v-for="distribution in parrotDistribution" :key="distribution.image.src">
-          <img src="https://picsum.photos/128" :alt="distribution.image.alt">
-          <h3>{{ distribution.title }}</h3>
-          <p>{{ distribution.body }}</p>
+          <card class="distribution__card">
+            <img :src="require(`@/assets/images/${distribution.image.src}`)" :alt="distribution.image.alt">
+            <h3>{{ distribution.title }}</h3>
+            <p>{{ distribution.body }}</p>
+          </card>
         </li>
       </ul>
     </section>
@@ -201,15 +203,15 @@ export default Vue.extend({
         {
           image: {
             src: 'prize-box.svg',
-            alt: 'Prize box'
+            alt: 'Prize box with a parrot egg inside'
           },
           title: '1-100',
           body: 'These are reserved for founders and giveaways.'
         },
         {
           image: {
-            src: 'egg-nest.svg',
-            alt: 'Nest with eggs'
+            src: 'egg-incubator.svg',
+            alt: 'Parrot eggs inside incubators'
           },
           title: '101-9990',
           body: 'These will be available to the public via minting.'
@@ -219,7 +221,7 @@ export default Vue.extend({
             src: 'gavel.svg',
             alt: 'Gavel'
           },
-          title: '9990-10,000',
+          title: '9991-10,000',
           body: 'These will be auctioned off.'
         }
       ]
@@ -492,9 +494,17 @@ export default Vue.extend({
   }
 }
 
-.parrot {
-  padding: 6.25rem 1rem 22rem 1rem;
+.distribution {
+  padding: 6.25rem 1rem 3rem 1rem;
   background-color: var(--npp-light-green);
+
+  @media (min-width: $responsive-standard-tablet) {
+    padding-bottom: 4rem;
+  }
+
+  @media (min-width: $responsive-small-desktop) {
+    padding-inline: 6rem;
+  }
 
   h2 {
     margin-top: 0;
@@ -503,17 +513,25 @@ export default Vue.extend({
     text-align: center;
   }
 
-  &__things {
+  &__cards {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 3rem 1rem;
+    gap: 0.5rem;
     place-items: center;
     list-style-type: none;
     padding-left: 0;
     margin: 0;
 
+    li {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
     @media (min-width: $responsive-small-tablet) {
       grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
 
       li:nth-child(3) {
         grid-column: span 2;
@@ -527,28 +545,30 @@ export default Vue.extend({
         grid-column: span 1 !important;
       }
     }
+  }
 
-    li {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      max-width: 23rem;
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    max-width: 23rem;
+    width: 100%;
 
-      img {
-        height: 8rem;
-        width: 8rem;
-      }
+    img {
+      height: 8rem;
+      width: 8rem;
+    }
 
-      h3 {
-        font-size: var(--font-size-subtitle);
-        margin-top: 1.5rem;
-        margin-bottom: 0.75rem;
-      }
+    h3 {
+      font-size: var(--font-size-subtitle);
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
 
-      p {
-        margin: 0;
-      }
+    p {
+      margin: 0;
     }
   }
 }
