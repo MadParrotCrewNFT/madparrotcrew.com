@@ -155,6 +155,7 @@ export default Vue.extend({
           transition-property: background-color, color;
           transition: 160ms ease;
           white-space: nowrap;
+          user-select: none;
 
           &:hover,
           &:focus,
