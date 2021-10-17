@@ -45,7 +45,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .calculator {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #fff;
   max-width: 100%;
   margin-top: 4rem;
   border-radius: var(--border-radius-standard);
@@ -55,6 +55,7 @@ export default Vue.extend({
   align-items: center;
 
   @media (min-width: $responsive-large-mobile) {
+    background-color: rgba(255, 255, 255, 0.9);
     max-width: 23rem;
     min-width: 22rem;
     padding-inline: 3.625rem;

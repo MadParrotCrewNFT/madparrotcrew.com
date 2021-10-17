@@ -59,21 +59,54 @@
     <section id="team" class="team">
       <div>
         <h2>The team</h2>
-        <ul class="team__people">
+        <ul class="team__people team__people--mobile">
           <li v-for="member in teamMembers" :key="member.name">
-            <img src="https://picsum.photos/144/154" :alt="member.image.alt">
-            <h3>{{ member.name }}</h3>
-            <p>{{ member.job }}</p>
+            <card class="team__card">
+              <img :src="require(`@/assets/images/${member.image.src}`)" :alt="member.image.alt">
+              <div>
+                <h3>{{ member.name }}</h3>
+                <p>{{ member.job }}</p>
+                <ul class="team__socials">
+                  <li v-for="social in member.socials" :key="social.platform">
+                    <a :href="social.url" :title="social.platform" target="_blank">
+                      <svg-icon :name="social.platform.toLowerCase()" />
+                      <span class="sr-only">{{ social.platform }}</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </card>
+          </li>
+        </ul>
+        <div class="team__people team__people--desktop">
+          <div class="team__people--1">
+            <h3>{{ teamMembers[0].name }}</h3>
+            <p>{{ teamMembers[0].job }}</p>
             <ul class="team__socials">
-              <li v-for="social in member.socials" :key="social.platform">
+              <li v-for="social in teamMembers[0].socials" :key="social.platform">
                 <a :href="social.url" :title="social.platform" target="_blank">
                   <svg-icon :name="social.platform.toLowerCase()" />
                   <span class="sr-only">{{ social.platform }}</span>
                 </a>
               </li>
             </ul>
-          </li>
-        </ul>
+          </div>
+          <div class="team__parrots">
+            <img src="https://picsum.photos/568/444" alt="Two parrots smoking cigars">
+          </div>
+          <div class="team__people--2">
+            <h3>{{ teamMembers[1].name }}</h3>
+            <p>{{ teamMembers[1].job }}</p>
+            <ul class="team__socials">
+              <li v-for="social in teamMembers[1].socials" :key="social.platform">
+                <a :href="social.url" :title="social.platform" target="_blank">
+                  <svg-icon :name="social.platform.toLowerCase()" />
+                  <span class="sr-only">{{ social.platform }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
     <section id="faqs" class="faqs">
@@ -235,8 +268,12 @@ export default Vue.extend({
             alt: 'Red parrot'
           },
           name: 'Sheftali',
-          job: 'Artist/Web Designer',
+          job: 'All the arty stuff',
           socials: [
+            {
+              platform: 'Discord',
+              url: 'https://discord.com'
+            },
             {
               platform: 'Twitter',
               url: 'https://twitter.com/iamsheftali'
@@ -253,7 +290,7 @@ export default Vue.extend({
             alt: 'Blue parrot'
           },
           name: 'Iacove',
-          job: 'Smart Contract Developer',
+          job: 'All the techy stuff',
           socials: [
             {
               platform: 'Twitter',
@@ -355,7 +392,7 @@ export default Vue.extend({
         bottom: -1.8rem;
         left: 50%;
         transform: translateX(-50%);
-        height: 250px;
+        height: 15.625rem;
         margin-top: -10rem;
 
         @media (min-width: $responsive-large-tablet) {
@@ -552,7 +589,7 @@ export default Vue.extend({
 
 .distribution {
   padding: 6.25rem 1rem 3rem 1rem;
-  background-color: var(--npp-light-green);
+  background-color: var(--npp-lightest-green);
 
   @media (min-width: $responsive-standard-tablet) {
     padding-bottom: 4rem;
@@ -629,6 +666,129 @@ export default Vue.extend({
   }
 }
 
+.team {
+  background-color: var(--npp-light-green);
+  padding: 2.5rem 1rem 3.5rem 1rem;
+
+  @media (min-width: $responsive-standard-tablet) {
+    background-color: #fff;
+    padding-top: 2.75rem;
+    padding-bottom: 0;
+  }
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    font-size: var(--font-size-title);
+    text-align: center;
+    color: #fff;
+
+    @media (min-width: $responsive-standard-tablet) {
+      color: currentColor;
+    }
+  }
+
+  &__people {
+    @media (max-width: calc($responsive-standard-tablet - 1px)) {
+      padding-left: 0;
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      li {
+        .team__card {
+          flex-direction: row;
+          padding: 1.5rem 1rem;
+          position: relative;
+          text-align: right;
+
+          img {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 110%;
+          }
+
+          > div {
+            width: 100%;
+          }
+
+          h3 {
+            font-size: var(--font-size-subtitle);
+            margin: 0;
+          }
+
+          p {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+          }
+        }
+
+        &:nth-child(even) {
+          .team__card {
+            text-align: left;
+
+            img {
+              right: 0;
+              left: unset;
+            }
+          }
+        }
+      }
+    }
+    @media (min-width: $responsive-standard-tablet) {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 1rem;
+
+      &--1 {
+        text-align: right;
+      }
+
+      h3 {
+        font-size: var(--font-size-subtitle);
+        margin: 0;
+      }
+
+      p {
+        margin-top: 0;
+        margin-bottom: 0.75rem;
+      }
+    }
+
+    &--mobile {
+      @media (min-width: $responsive-standard-tablet) {
+        display: none;
+      }
+    }
+
+    &--desktop {
+      @media (max-width: calc($responsive-standard-tablet - 1px)) {
+        display: none;
+      }
+    }
+  }
+
+  &__socials {
+    display: inline-flex;
+    gap: 0.5rem;
+    padding-left: 0;
+    list-style-type: none;
+    margin: 0;
+
+    a {
+      display: block;
+      height: 100%;
+    }
+
+    svg {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+}
+
 .faqs {
   padding: 21rem 1rem 3.5rem 1rem;
   background-color: var(--npp-light-beige);
@@ -641,87 +801,11 @@ export default Vue.extend({
   }
 }
 
-.team {
-  height: 0;
-  position: relative;
-  display: flex;
-  align-items: center;
-
-  div {
-    background-color: #fff;
-    border-radius: var(--border-radius-standard);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-    max-width: 48rem;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 2.625rem 9rem 4rem 9rem;
-
-    h2 {
-      margin-top: 0;
-      margin-bottom: 1rem;
-      font-size: var(--font-size-title);
-      text-align: center;
-    }
-  }
-
-  &__people {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-
-    @media (min-width: $responsive-standard-tablet) {
-      grid-template-columns: repeat(2, 50%);
-    }
-
-    img {
-      height: 9rem;
-      width: 9.625rem;
-    }
-
-    > li {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      h3 {
-        margin-top: 1.5rem;
-        margin-bottom: 0;
-        font-size: var(--font-size-subtitle);
-      }
-
-      p {
-        margin: 0;
-        white-space: nowrap;
-      }
-    }
-  }
-
-  &__socials {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    list-style-type: none;
-    padding-left: 0;
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-
-    a {
-      height: 1.5rem;
-      width: 1.5rem;
-      display: block;
-    }
-  }
-}
-
 .footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2.5rem 1rem 0.25rem 1rem;
+  padding: 2.5rem 1rem 3rem 1rem;
 
   &__social {
     display: flex;
