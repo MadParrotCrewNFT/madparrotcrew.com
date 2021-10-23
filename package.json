@@ -7,8 +7,8 @@
   ],
   "scripts": {
     "dev": "nuxt --open",
-    "start": "nuxt start",
-    "generate": "rimraf dist && nuxt generate -m --fail-on-error",
+    "start": "npm run generate && nuxt start --open",
+    "generate": "npm ci && rimraf dist && nuxt generate -m --fail-on-error",
     "lint": "eslint --ext \".js,.vue,.ts\" --ignore-path .gitignore --fix ."
   },
   "dependencies": {
