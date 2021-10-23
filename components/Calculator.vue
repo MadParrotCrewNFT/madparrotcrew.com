@@ -14,7 +14,7 @@
       </btn>
     </div>
     <p role="text">
-      Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__etherum" aria-hidden="true" src="~assets/images/etherum-logo.svg" alt="Etherum logo"> <strong>{{ (parrotNumber * etherumValuePerParrot).toFixed(2) }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+      Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__etherum" aria-hidden="true" src="~assets/images/etherum-logo.svg" alt="Etherum logo"> <strong>{{ calculateEtherum() }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
     </p>
     <btn class="calculator__cta" @click="mintParrots()">
       Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
@@ -32,12 +32,23 @@ export default Vue.extend({
   data () {
     return {
       parrotNumber: 1,
-      etherumValuePerParrot: 0.05
+      etherumValuePerParrot: 0.075
+    }
+  },
+  computed: {
+    countParrotValueDecimals (): number {
+      if(Math.floor(this.etherumValuePerParrot) === this.etherumValuePerParrot) return 0;
+      return this.etherumValuePerParrot.toString().split(".")[1].length || 0; 
     }
   },
   methods: {
     mintParrots (): void {
       window.alert("Sqwark sqwark! Minting parrots! (Not really, it's just pretend for now)")
+    },
+    calculateEtherum (): number {
+      const tempEtherumValuePerParrot = this.etherumValuePerParrot * 1000 // Prevents floating point calculation errors
+      const value = tempEtherumValuePerParrot * this.parrotNumber
+      return Number((value / 1000).toFixed(this.countParrotValueDecimals))
     }
   }
 })
@@ -57,8 +68,8 @@ export default Vue.extend({
   @media (min-width: $responsive-large-mobile) {
     background-color: rgba(255, 255, 255, 0.9);
     max-width: 23rem;
-    min-width: 22rem;
-    padding-inline: 3.625rem;
+    min-width: 23rem;
+    padding-inline: 3.25rem;
   }
 
   h2 {

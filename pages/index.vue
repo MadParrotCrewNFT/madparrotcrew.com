@@ -328,6 +328,8 @@ export default Vue.extend({
   &__calculator {
     margin-top: 4rem;
     margin-inline: 1rem;
+    position: relative;
+    top: 1rem;
 
     @media (min-width: $responsive-large-mobile) {
       margin-top: 8rem;
@@ -770,6 +772,11 @@ export default Vue.extend({
     }
   }
 
+  &__parrots {
+    display: flex;
+    justify-content: center;
+  }
+
   &__socials {
     display: inline-flex;
     gap: 0.5rem;
@@ -790,12 +797,12 @@ export default Vue.extend({
 }
 
 .faqs {
-  padding: 21rem 1rem 3.5rem 1rem;
+  padding: 3rem 1rem;
   background-color: var(--npp-light-beige);
 
   h2 {
     margin-top: 0;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1rem;
     font-size: var(--font-size-title);
     text-align: center;
   }
