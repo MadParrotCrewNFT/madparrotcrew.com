@@ -110,7 +110,35 @@
       </div>
     </section>
     <section id="faqs" class="faqs">
-      <h2>FAQs</h2>
+      <div class="faqs__inner">
+        <h2>FAQs</h2>
+        <accordion>
+          <accordion-item id="1" heading-tag="h3" heading="Accordion title">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <btn color="dark-blue" small>I'm ready to mint</btn>
+          </accordion-item>
+          <accordion-item id="2" heading-tag="h3" heading="Accordion title">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <btn color="dark-blue" small>I'm ready to mint</btn>
+          </accordion-item>
+          <accordion-item id="3" heading-tag="h3" heading="Accordion title">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <btn color="dark-blue" small>I'm ready to mint</btn>
+          </accordion-item>
+          <accordion-item id="4" heading-tag="h3" heading="Accordion title">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <btn color="dark-blue" small>I'm ready to mint</btn>
+          </accordion-item>
+          <accordion-item id="5" heading-tag="h3" heading="Accordion title">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <btn color="dark-blue" small>I'm ready to mint</btn>
+          </accordion-item>
+          <accordion-item id="6" heading-tag="h3" heading="Accordion title">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <btn color="dark-blue" small>I'm ready to mint</btn>
+          </accordion-item>
+        </accordion>
+      </div>
     </section>
     <footer class="footer">
       <ul class="footer__social">
@@ -131,7 +159,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Navigation, Calculator, Card } from '@/components'
+import { Navigation, Calculator, Card, Accordion, AccordionItem, Btn } from '@/components'
 import siteconfig from '@/siteconfig.json'
 import { ISocialLink } from '@/store'
 
@@ -173,7 +201,7 @@ interface ITeamMember {
 }
 
 export default Vue.extend({
-  components: { Navigation, Calculator, Card },
+  components: { Navigation, Calculator, Card, Accordion, AccordionItem, Btn },
   data () {
     return {
       siteconfig
@@ -797,8 +825,20 @@ export default Vue.extend({
 }
 
 .faqs {
-  padding: 3rem 1rem;
-  background-color: var(--npp-light-beige);
+  @media (min-width: $responsive-small-desktop) {
+    padding-inline: 13rem;
+  }
+
+  &__inner {
+    padding: 3rem 1rem;
+    background-color: var(--npp-light-beige);
+    // max-width: 64rem;
+    // margin-inline: auto;
+
+    @media (min-width: $responsive-standard-tablet) {
+      padding: 3rem 6.25rem 4.5rem 6.25rem;
+    }
+  }
 
   h2 {
     margin-top: 0;
