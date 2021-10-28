@@ -831,6 +831,22 @@ export default Vue.extend({
             height: 110%;
           }
 
+          &::after {
+            content: '';
+            pointer-events: none;
+            background-image: url(~assets/images/sheftali-parrot-wing.svg);
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: cover;
+            height: 125px;
+            width: 52px;
+            position: absolute;
+            left: 0.3rem;
+            top: 3rem;
+            transform-origin: top;
+            animation: swing-wing 5s infinite;
+          }
+
           > div {
             width: 100%;
           }
@@ -853,6 +869,14 @@ export default Vue.extend({
             img {
               right: 0;
               left: unset;
+            }
+
+            &::after {
+              background-image: url(~assets/images/iacove-parrot-wing.svg);
+              left: unset;
+              right: 0.6rem;
+              top: 3rem;
+              animation: swing-wing 6s infinite 1s;
             }
           }
         }
