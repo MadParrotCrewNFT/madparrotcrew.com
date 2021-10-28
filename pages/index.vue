@@ -2,7 +2,9 @@
   <div>
     <header class="header">
       <navigation />
-      <calculator class="header__calculator" />
+      <div class="header__calculator-wrapper">
+        <calculator class="header__calculator" />
+      </div>
       <div class="header__curve">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
           <path d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z" fill="currentColor"></path>
@@ -345,6 +347,15 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@keyframes swing-wing {
+  0%, 100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(15deg)
+  }
+}
+
 .header {
   position: relative;
   background-image: url(~assets/images/header-bg-desktop.png);
@@ -383,22 +394,73 @@ export default Vue.extend({
   }
 
   &__calculator {
-    margin-top: 4rem;
-    margin-inline: 1rem;
     position: relative;
-    top: 1rem;
 
-    @media (min-width: $responsive-large-mobile) {
-      margin-top: 8rem;
-      margin-inline: auto;
-    }
+    &-wrapper {
+      margin-top: 4rem;
+      margin-inline: 1rem;
+      position: relative;
+      top: 1rem;
 
-    @media (min-width: $responsive-standard-tablet) {
-      margin-top: 0;
-      position: absolute;
-      top: 60%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      @media (min-width: $responsive-large-mobile) {
+        margin-top: 8rem;
+        margin-inline: auto;
+        max-width: max-content;
+      }
+
+      @media (min-width: $responsive-standard-tablet) {
+        margin-top: 0;
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &::before {
+        content: '';
+        pointer-events: none;
+        background-image: url(~assets/images/header-parrot-mobile.svg);
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: cover;
+        width: 90px;
+        height: 190px;
+        position: absolute;
+        top: -5rem;
+        left: 2rem;
+
+        @media (min-width: $responsive-standard-tablet) {
+          top: -2rem;
+        }
+
+        @media (min-width: $responsive-large-tablet) {
+          display: none;
+        }
+      }
+
+      &::after {
+        content: '';
+        pointer-events: none;
+        background-image: url(~assets/images/header-parrot-wing-mobile.svg);
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: cover;
+        width: 34px;
+        height: 82px;
+        position: absolute;
+        top: -2rem;
+        left: 2rem;
+        transform-origin: top;
+        animation: swing-wing 5s infinite;
+
+        @media (min-width: $responsive-standard-tablet) {
+          top: 1rem;
+        }
+
+        @media (min-width: $responsive-large-tablet) {
+          display: none;
+        }
+      }
     }
   }
 }

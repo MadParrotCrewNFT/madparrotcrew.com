@@ -66,10 +66,13 @@ export default Vue.extend({
   align-items: center;
 
   @media (min-width: $responsive-large-mobile) {
-    background-color: rgba(255, 255, 255, 0.9);
     max-width: 23rem;
     min-width: 23rem;
     padding-inline: 3.25rem;
+  }
+
+  @media (min-width: $responsive-large-tablet) {
+    background-color: rgba(255, 255, 255, 0.9);
   }
 
   h2 {
