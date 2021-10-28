@@ -1,5 +1,5 @@
 <template>
-  <card class="accord-item">
+  <card :id="`accord-item-${id}`" class="accord-item">
     <tag :is="headingTag" class="accord-item__header">
       <button :id="`accord-item-${id}__header`"
               :aria-expanded="isAccordOpen.toString()"
