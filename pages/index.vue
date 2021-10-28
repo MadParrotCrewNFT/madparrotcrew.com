@@ -3,6 +3,11 @@
     <header class="header">
       <navigation />
       <calculator class="header__calculator" />
+      <div class="header__curve">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z" fill="currentColor"></path>
+        </svg>
+      </div>
     </header>
     <section id="about" class="about">
       <div>
@@ -351,6 +356,30 @@ export default Vue.extend({
     min-height: 36rem;
     height: 90vh;
     max-height: 46rem;
+  }
+
+  &__curve {
+    display: none;
+
+    @media (min-width: $responsive-large-tablet) {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+
+      svg {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        display: block;
+        width: calc(110% + 1.3px);
+        height: 38px;
+        color: #fff;
+      }
+    }
   }
 
   &__calculator {
