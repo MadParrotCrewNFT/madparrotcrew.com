@@ -252,7 +252,7 @@ export default Vue.extend({
         {
           image: {
             src: 'powah-ring.svg',
-            alt: 'Gold ring with the Etherum logo'
+            alt: 'Gold ring with the Ethereum logo'
           },
           title: 'Ring of Powah',
           body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in ante tortor. Vivamus hendrerit justo at ligula molestie, eu luctus lorem placerat.'
@@ -349,10 +349,19 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @keyframes swing-wing {
   0%, 100% {
-    transform: rotate(-10deg);
+    transform: rotate(-20deg);
   }
   50% {
-    transform: rotate(15deg)
+    transform: rotate(6deg)
+  }
+}
+
+@keyframes swing-wing-reverse {
+  0%, 100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(20deg)
   }
 }
 
@@ -876,7 +885,7 @@ export default Vue.extend({
               left: unset;
               right: 0.6rem;
               top: 3rem;
-              animation: swing-wing 6s infinite 1s;
+              animation: swing-wing-reverse 6s infinite 1s;
             }
           }
         }

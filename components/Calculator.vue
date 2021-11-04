@@ -14,7 +14,7 @@
       </btn>
     </div>
     <p role="text">
-      Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__etherum" aria-hidden="true" src="~assets/images/etherum-logo.svg" alt="Etherum logo"> <strong>{{ calculateEtherum() }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+      Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum() }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
     </p>
     <btn class="calculator__cta" @click="mintParrots()">
       Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
@@ -32,22 +32,22 @@ export default Vue.extend({
   data () {
     return {
       parrotNumber: 1,
-      etherumValuePerParrot: 0.075
+      ethereumValuePerParrot: 0.075
     }
   },
   computed: {
     countParrotValueDecimals (): number {
-      if(Math.floor(this.etherumValuePerParrot) === this.etherumValuePerParrot) return 0;
-      return this.etherumValuePerParrot.toString().split(".")[1].length || 0; 
+      if(Math.floor(this.ethereumValuePerParrot) === this.ethereumValuePerParrot) return 0;
+      return this.ethereumValuePerParrot.toString().split(".")[1].length || 0; 
     }
   },
   methods: {
     mintParrots (): void {
       window.alert("Sqwark sqwark! Minting parrots! (Not really, it's just pretend for now)")
     },
-    calculateEtherum (): number {
-      const tempEtherumValuePerParrot = this.etherumValuePerParrot * 1000 // Prevents floating point calculation errors
-      const value = tempEtherumValuePerParrot * this.parrotNumber
+    calculateEthereum (): number {
+      const tempEthereumValuePerParrot = this.ethereumValuePerParrot * 1000 // Prevents floating point calculation errors
+      const value = tempEthereumValuePerParrot * this.parrotNumber
       return Number((value / 1000).toFixed(this.countParrotValueDecimals))
     }
   }
@@ -107,7 +107,7 @@ export default Vue.extend({
     }
   }
 
-  &__etherum {
+  &__ethereum {
     width: 1rem;
     height: 1.625rem;
     vertical-align: middle;
