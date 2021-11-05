@@ -78,6 +78,17 @@ export default Vue.extend({
         padding: 1.5rem;
       }
 
+      &:focus {
+        outline: none;
+
+        svg {
+          outline: 1px solid;
+          outline-color: Highlight;
+          outline-color: -webkit-focus-ring-color;
+          outline-offset: 1px;
+        }
+      }
+
       &[aria-expanded="true"] {
         svg {
           transform: rotate(180deg);
@@ -88,7 +99,7 @@ export default Vue.extend({
     svg {
       height: var(--font-size-body);
       width: var(--font-size-body);
-      transition: transform 450ms ease;
+      transition: transform 260ms ease;
     }
   }
 
