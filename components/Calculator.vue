@@ -37,8 +37,8 @@ export default Vue.extend({
   },
   computed: {
     countParrotValueDecimals (): number {
-      if(Math.floor(this.ethereumValuePerParrot) === this.ethereumValuePerParrot) return 0;
-      return this.ethereumValuePerParrot.toString().split(".")[1].length || 0; 
+      if (Math.floor(this.ethereumValuePerParrot) === this.ethereumValuePerParrot) { return 0 }
+      return this.ethereumValuePerParrot.toString().split('.')[1].length || 0
     }
   },
   methods: {

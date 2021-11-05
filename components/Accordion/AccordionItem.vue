@@ -1,21 +1,25 @@
 <template>
   <card :id="`accord-item-${id}`" class="accord-item">
     <tag :is="headingTag" class="accord-item__header">
-      <button :id="`accord-item-${id}__header`"
-              :aria-expanded="isAccordOpen.toString()"
-              :aria-controls="`accord-item-${id}__panel`"
-              @click="isAccordOpen = !isAccordOpen">
+      <button
+        :id="`accord-item-${id}__header`"
+        :aria-expanded="isAccordOpen.toString()"
+        :aria-controls="`accord-item-${id}__panel`"
+        @click="isAccordOpen = !isAccordOpen"
+      >
         <span>{{ heading }}</span>
         <svg-icon name="chevron" />
       </button>
     </tag>
-    <section class="accord-item__body"
-             :class="{'accord-item__body--hidden': !isAccordOpen}"
-             :id="`accord-item-${id}__panel`"
-             :aria-labelledby="`accord-item-${id}__header`">
-             <div class="accord-item__body-inner">
-               <slot />
-             </div>
+    <section
+      :id="`accord-item-${id}__panel`"
+      class="accord-item__body"
+      :class="{'accord-item__body--hidden': !isAccordOpen}"
+      :aria-labelledby="`accord-item-${id}__header`"
+    >
+      <div class="accord-item__body-inner">
+        <slot />
+      </div>
     </section>
   </card>
 </template>
@@ -27,11 +31,6 @@ import { Card } from '@/components'
 export default Vue.extend({
   name: 'AccordionItem',
   components: { Card },
-  data () {
-    return {
-      isAccordOpen: false
-    }
-  },
   props: {
     headingTag: {
       type: String,
@@ -50,6 +49,11 @@ export default Vue.extend({
     heading: {
       type: String,
       required: true
+    }
+  },
+  data () {
+    return {
+      isAccordOpen: false
     }
   }
 })

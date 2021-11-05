@@ -6,11 +6,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import AccordionItem from './AccordionItem.vue'
 
 export default Vue.extend({
-  name: 'Accordion',
-  components: { AccordionItem }
+  name: 'Accordion'
 })
 </script>
 
