@@ -8,8 +8,7 @@
   "scripts": {
     "dev": "nuxt --open",
     "start": "npm run generate && nuxt start --open",
-    "generate": "npm ci && rimraf dist && nuxt generate -m --fail-on-error",
-    "lint": "eslint --ext \".js,.vue,.ts\" --ignore-path .gitignore --fix ."
+    "generate": "rimraf node_modules && npm ci && rimraf dist && nuxt generate -m --fail-on-error"
   },
   "dependencies": {
     "@nuxtjs/pwa": "^3.3.5",
@@ -17,26 +16,20 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/style-resources": "^1.2.1",
     "@nuxtjs/svg-sprite": "^0.5.2",
-    "core-js": "^3.18.3",
+    "core-js": "^3.19.2",
     "modern-normalize": "^1.1.0",
     "nuxt": "^2.15.8"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.15.8",
-    "@nuxt/types": "^2.15.8",
+    "@babel/eslint-parser": "^7.16.3",
     "@nuxt/typescript-build": "^2.1.0",
-    "@nuxtjs/eslint-config-typescript": "^6.0.1",
-    "@nuxtjs/eslint-module": "^3.0.2",
     "babel-core": "7.0.0-bridge.0",
-    "eslint": "^7.27.0",
-    "eslint-plugin-nuxt": "^2.0.0",
-    "eslint-plugin-vue": "^7.19.1",
     "rimraf": "^3.0.2",
-    "sass": "^1.43.2",
+    "sass": "^1.44.0",
     "sass-loader": "^10.2.0"
   },
   "engines": {
-    "node": ">=14",
+    "node": ">=16",
     "npm": ">=8"
   }
 }
