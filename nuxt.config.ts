@@ -5,6 +5,9 @@ export default {
   target: 'static',
   head: {
     title: 'Notorious Parrot Posse',
+    htmlAttrs: {
+      lang: 'en-GB'
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
