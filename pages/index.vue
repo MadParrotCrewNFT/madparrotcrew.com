@@ -92,7 +92,8 @@
             <ul class="team__socials">
               <li v-for="social in teamMembers[0].socials" :key="social.platform">
                 <a :href="social.url" :title="social.platform" target="_blank">
-                  <svg-icon :name="social.platform.toLowerCase()" />
+                  <img v-if="social.platform.toLowerCase() === 'instagram'" src="~assets/images/instagram.svg" :alt="social.platform" >
+                  <svg-icon v-else :name="social.platform.toLowerCase()" />
                   <span class="sr-only">{{ social.platform }}</span>
                 </a>
               </li>
@@ -107,7 +108,8 @@
             <ul class="team__socials">
               <li v-for="social in teamMembers[1].socials" :key="social.platform">
                 <a :href="social.url" :title="social.platform" target="_blank">
-                  <svg-icon :name="social.platform.toLowerCase()" />
+                  <img v-if="social.platform.toLowerCase() === 'instagram'" src="~assets/images/instagram.svg" :alt="social.platform" >
+                  <svg-icon v-else :name="social.platform.toLowerCase()" />
                   <span class="sr-only">{{ social.platform }}</span>
                 </a>
               </li>
@@ -163,7 +165,8 @@
       <ul class="footer__social">
         <li v-for="socialLink in socialLinks" :key="socialLink.text">
           <a :href="socialLink.url" target="_blank">
-            <svg-icon :name="socialLink.icon" />
+            <img v-if="socialLink.icon === 'instagram'" src="~assets/images/instagram.svg" :alt="socialLink.text" >
+            <svg-icon v-else :name="socialLink.icon" />
             <span class="sr-only">{{ socialLink.text }}</span>
           </a>
         </li>
@@ -318,16 +321,12 @@ export default Vue.extend({
           job: 'All the arty stuff',
           socials: [
             {
-              platform: 'Discord',
-              url: 'https://discord.com'
-            },
-            {
               platform: 'Twitter',
               url: 'https://twitter.com/iamsheftali'
             },
             {
               platform: 'Instagram',
-              url: 'https://linkedin.com'
+              url: 'https://instagram.com'
             }
           ]
         },
@@ -342,10 +341,6 @@ export default Vue.extend({
             {
               platform: 'Twitter',
               url: 'https://twitter.com'
-            },
-            {
-              platform: 'Instagram',
-              url: 'https://linkedin.com'
             }
           ]
         }

@@ -17,7 +17,8 @@
       <ul class="navbar__social-list">
         <li v-for="socialLink in socialLinks" :key="socialLink.url">
           <a :href="socialLink.url" target="_blank" :title="socialLink.text">
-            <svg-icon :name="socialLink.icon" />
+            <img v-if="socialLink.icon === 'instagram'" src="~assets/images/instagram.svg" :alt="socialLink.text" >
+            <svg-icon v-else :name="socialLink.icon" />
             <span class="sr-only">{{ socialLink.text }}</span>
           </a>
         </li>
