@@ -53,6 +53,7 @@ export default Vue.extend({
   justify-content: center;
   height: 3.25rem;
   padding: 1.125rem 1.5rem;
+  user-select: none;
 
   @media (min-width: $responsive-large-mobile) {
     height: 4rem;
