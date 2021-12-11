@@ -374,12 +374,13 @@ export default Vue.extend({
 
 .header {
   position: relative;
-  background-image: url(~assets/images/header-bg-desktop.png);
+  background-image: url(~assets/images/header-bg-mobile.png);
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;
 
   @media (min-width: $responsive-standard-tablet) {
+    background-image: url(~assets/images/header-bg-desktop.png);
     min-height: 36rem;
     height: 90vh;
     max-height: 46rem;
