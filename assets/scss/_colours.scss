@@ -1,21 +1,21 @@
-$npp-green: #70a288;
-$npp-light-green: #B6D2A0;
-$npp-lightest-green: #e9F1ed;
-$npp-dark-blue: #031d44;
-$npp-beige: #dab785;
-$npp-light-beige: #f7f0e6;
-$npp-orange: #da6832;
-$npp-grey: #595959;
-$npp-light-grey: #757575;
+$mpc-green: #70a288;
+$mpc-light-green: #B6D2A0;
+$mpc-lightest-green: #e9F1ed;
+$mpc-dark-blue: #031d44;
+$mpc-beige: #dab785;
+$mpc-light-beige: #f7f0e6;
+$mpc-orange: #da6832;
+$mpc-grey: #595959;
+$mpc-light-grey: #757575;
 
 :root {
-  --npp-green: #{$npp-green};
-  --npp-light-green: #{$npp-light-green};
-  --npp-lightest-green: #{$npp-lightest-green};
-  --npp-dark-blue: #{$npp-dark-blue};
-  --npp-beige: #{$npp-beige};
-  --npp-light-beige: #{$npp-light-beige};
-  --npp-orange: #{$npp-orange};
-  --npp-grey: #{$npp-grey};
-  --npp-light-grey: #{$npp-light-grey};
+  --mpc-green: #{$mpc-green};
+  --mpc-light-green: #{$mpc-light-green};
+  --mpc-lightest-green: #{$mpc-lightest-green};
+  --mpc-dark-blue: #{$mpc-dark-blue};
+  --mpc-beige: #{$mpc-beige};
+  --mpc-light-beige: #{$mpc-light-beige};
+  --mpc-orange: #{$mpc-orange};
+  --mpc-grey: #{$mpc-grey};
+  --mpc-light-grey: #{$mpc-light-grey};
 }

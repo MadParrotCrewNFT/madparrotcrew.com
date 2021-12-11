@@ -1,10 +1,15 @@
 {
-  "name": "NotoriousParrotPosse",
-  "version": "1.0.0",
+  "name": "MadParrotCrew",
   "private": true,
+  "description": "Website source code for madparrotcrew.com",
+  "author": "Mad Parrot Crew team",
   "contributors": [
     "Jack Domleo <jackdomleo7@gmail.com> (https://jackdomleo.dev)"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MadParrotCrew/madparrotcrew.com.git"
+  },
   "scripts": {
     "dev": "nuxt --open",
     "start": "npm run generate && nuxt start --open",

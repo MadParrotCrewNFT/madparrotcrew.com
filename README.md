@@ -1,6 +1,11 @@
-# NotoriousParrotPosse
+# maddparrotcrew.com
 
 ## Build Setup
+
+1. Clone repo locally `git clone https://github.com/MadParrotCrew/madparrotcrew.com.git`
+2. Go into project `cd madparrotcrew.com`
+3. Clean install project dependencies `npm ci`
+4. You're ready to go, run `npm start` to run and view in production mode
 
 ```bash
 # clean install dependencies

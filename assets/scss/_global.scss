@@ -1,7 +1,7 @@
 ::selection {
   text-shadow: none;
   color: #000;
-  background-color: var(--npp-light-green);
+  background-color: var(--mpc-light-green);
 }
 
 html {
@@ -20,7 +20,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--npp-light-grey);
+  color: var(--mpc-light-grey);
   font-family: var(--font-family-opensans);
   font-size: var(--font-size-body);
   line-height: 1.5;
@@ -64,7 +64,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--npp-grey);
+  color: var(--mpc-grey);
   font-family: var(--font-family-saira-stencil-one);
   letter-spacing: normal;
 }

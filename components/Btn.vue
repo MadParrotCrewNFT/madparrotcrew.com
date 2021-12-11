@@ -39,7 +39,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .btn {
-  --btn-color: var(--npp-dark-blue);
+  --btn-color: var(--mpc-dark-blue);
   cursor: pointer;
   background-color: var(--btn-color);
   border: 1px solid var(--btn-color);
@@ -66,7 +66,7 @@ export default Vue.extend({
   }
 
   &--green {
-    --btn-color: var(--npp-green);
+    --btn-color: var(--mpc-green);
     background-color: var(--btn-color);
     border-color: var(--btn-color);
   }

@@ -4,7 +4,7 @@ export default {
   ssr: false,
   target: 'static',
   head: {
-    title: 'Notorious Parrot Posse',
+    title: `${siteconfig.brand_name} | The Official NFT`,
     htmlAttrs: {
       lang: 'en-GB'
     },

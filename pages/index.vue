@@ -14,7 +14,7 @@
     <section id="about" class="about">
       <div>
         <div class="about__text">
-          <h2>About <span :aria-label="siteconfig.brand_name">NPP</span></h2>
+          <h2>About <span :aria-label="siteconfig.brand_name">MPC</span></h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         </div>
       </div>
@@ -271,10 +271,10 @@ export default Vue.extend({
         },
         {
           image: {
-            src: 'npp-tatoo.svg',
-            alt: 'Tattoo with the NPP logo'
+            src: 'mpc-tattoo.svg',
+            alt: 'Tattoo with the mpc logo'
           },
-          title: 'NPP Tatoo',
+          title: 'MPC Tattoo',
           body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in ante tortor. Vivamus hendrerit justo at ligula molestie, eu luctus lorem placerat.'
         }
       ]
@@ -559,7 +559,7 @@ export default Vue.extend({
 }
 
 .roadmap {
-  background-color: var(--npp-light-beige);
+  background-color: var(--mpc-light-beige);
   padding: 2.25rem 1rem 3.5rem 1rem;
   display: flex;
   flex-direction: column;
@@ -609,7 +609,7 @@ export default Vue.extend({
 
   &__percentage {
     border-radius: 50%;
-    background-color: var(--npp-orange);
+    background-color: var(--mpc-orange);
     color: #fff;
     display: grid;
     place-items: center;
@@ -731,7 +731,7 @@ export default Vue.extend({
 
 .distribution {
   padding: 6.25rem 1rem 3rem 1rem;
-  background-color: var(--npp-lightest-green);
+  background-color: var(--mpc-lightest-green);
 
   @media (min-width: $responsive-standard-tablet) {
     padding-bottom: 4rem;
@@ -809,7 +809,7 @@ export default Vue.extend({
 }
 
 .team {
-  background-color: var(--npp-light-green);
+  background-color: var(--mpc-light-green);
   padding: 2.5rem 1rem 3.5rem 1rem;
 
   @media (min-width: $responsive-standard-tablet) {
@@ -967,7 +967,7 @@ export default Vue.extend({
 
   &__inner {
     padding: 3rem 1rem;
-    background-color: var(--npp-light-beige);
+    background-color: var(--mpc-light-beige);
     // max-width: 64rem;
     // margin-inline: auto;
 

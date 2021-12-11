@@ -47,7 +47,7 @@ export default Vue.extend({
     navItems (): INavItem[] {
       return [
         {
-          text: 'About NPP',
+          text: 'About MPC',
           url: '#about'
         },
         {
@@ -149,7 +149,7 @@ export default Vue.extend({
         a {
           font-family: var(--font-family-saira-stencil-one);
           font-size: var(--font-size-large);
-          color: var(--npp-grey);
+          color: var(--mpc-grey);
           text-decoration: none;
           padding: 0.5rem 1rem;
           transition-property: background-color, color;
@@ -160,7 +160,7 @@ export default Vue.extend({
           &:hover,
           &:focus,
           &.active {
-            background-color: var(--npp-green);
+            background-color: var(--mpc-green);
             color: #fff;
           }
         }
