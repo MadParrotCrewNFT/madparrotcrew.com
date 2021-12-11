@@ -617,7 +617,7 @@ export default Vue.extend({
     max-height: 3.75rem;
     min-width: 3.75rem;
     max-width: 3.75rem;
-    font-family: var(--font-family-saira-stencil-one);
+    font-family: var(--font-family-ampersand);
     font-size: var(--font-size-body);
 
     @media (min-width: $responsive-small-tablet) {
