@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <h1 class="navbar__logo">
-      <img src="~assets/images/logo.svg" :alt="`${siteconfig.brand_name} logo`">
+      <nav-logo />
       <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
     </h1>
     <nav class="navbar__nav">
@@ -29,6 +29,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { Logo } from '@/components'
 import siteconfig from '@/siteconfig.json'
 import { ISocialLink } from '@/store'
 
@@ -39,6 +40,7 @@ interface INavItem {
 
 export default Vue.extend({
   name: 'Navigation',
+  components: { 'nav-logo': Logo },
   data () {
     return {
       siteconfig
@@ -48,7 +50,7 @@ export default Vue.extend({
     navItems (): INavItem[] {
       return [
         {
-          text: 'About MPC',
+          text: 'About',
           url: '#about'
         },
         {
@@ -56,8 +58,8 @@ export default Vue.extend({
           url: '#roadmap'
         },
         {
-          text: 'Bonus traits',
-          url: '#bonus-traits'
+          text: 'Bonus Trait',
+          url: '#bonus-trait'
         },
         {
           text: 'Distribution',
@@ -88,43 +90,27 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .navbar {
   position: relative;
-  top: 2rem;
+  top: 0;
   width: 100vw;
   height: 3.5rem;
   display: flex;
   align-items: center;
   justify-content: space-around;
 
-  @media (min-width: $responsive-large-mobile) {
-    top: 4rem;
-  }
-
   @media (min-width: $responsive-standard-tablet) {
     background-color: #fff;
   }
 
   &__logo {
-    border-radius: 50%;
-    background-color: #fff;
-    overflow: hidden;
-    height: 4.75rem;
-    width: 4.75rem;
-    padding: 0.5rem;
-    display: grid;
-    place-items: center;
     margin: 0;
-    font-family: var(--font-family-opensans);
-    font-size: var(--font-size-body);
-    text-align: center;
+    color: #fff;
 
-    @media (min-width: $responsive-large-mobile) {
-      height: 8rem;
-      width: 8rem;
+    @media (min-width: $responsive-standard-tablet) {
+      color: #000;
     }
 
     img {
       height: 100%;
-      width: 100%;
     }
   }
 
