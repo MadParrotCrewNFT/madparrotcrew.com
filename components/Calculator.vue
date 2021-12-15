@@ -1,24 +1,31 @@
 <template>
   <div class="calculator">
-    <h2>Join the posse</h2>
-    <div class="calculator__buttons">
-      <btn color="green" square inverted :disabled="parrotNumber <= 1" @click="parrotNumber--">
-        -
-        <span class="sr-only">Minus 1 parrot</span>
-      </btn>
-      <label for="noOfParrots" class="sr-only">Number of parrots</label>
-      <input id="noOfParrots" v-model="parrotNumber" readonly>
-      <btn color="green" square :disabled="parrotNumber >= 5" @click="parrotNumber++">
-        +
-        <span class="sr-only">Plus 1 parrot</span>
-      </btn>
+    <h2>Minting now available!</h2>
+    <div v-if="!connected">
+      <p v-if="$store.state.connectionError === null">Connect your Metamask wallet to begin.</p>
+      <p v-else>{{ $store.state.connectionError }}</p>
+      <btn :disabled="!isMetamaskInstalled" @click="connect()">Connect Wallet</btn>
     </div>
-    <p role="text">
-      Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum() }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
-    </p>
-    <btn class="calculator__cta" @click="mintParrots()">
-      Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
-    </btn>
+    <template v-else>
+      <div class="calculator__buttons">
+        <btn color="green" square inverted :disabled="parrotNumber <= 1" @click="parrotNumber--">
+          -
+          <span class="sr-only">Minus 1 parrot</span>
+        </btn>
+        <label for="noOfParrots" class="sr-only">Number of parrots</label>
+        <input id="noOfParrots" v-model="parrotNumber" readonly>
+        <btn color="green" square :disabled="parrotNumber >= 5" @click="parrotNumber++">
+          +
+          <span class="sr-only">Plus 1 parrot</span>
+        </btn>
+      </div>
+      <p role="text">
+        Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum() }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+      </p>
+      <btn class="calculator__cta" @click="mintParrots()">
+        Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
+      </btn>
+    </template>
   </div>
 </template>
 
@@ -36,19 +43,29 @@ export default Vue.extend({
     }
   },
   computed: {
-    countParrotValueDecimals (): number {
-      if (Math.floor(this.ethereumValuePerParrot) === this.ethereumValuePerParrot) { return 0 }
-      return this.ethereumValuePerParrot.toString().split('.')[1].length || 0
+    isMetamaskInstalled (): boolean {
+      const { ethereum } = window
+      if (!ethereum) this.$store.commit("setConnectionError", "Metamask is not installed.")
+      return ethereum
+    },
+    connected (): boolean {
+      return this.$store.state.account !== null
     }
   },
+  mounted () {
+    this.$store.dispatch("checkIfConnected")
+  },
   methods: {
+    async connect (): Promise<void> {
+      await this.$store.dispatch("connect", true)
+    },
     mintParrots (): void {
       window.alert("Sqwark sqwark! Minting parrots! (Not really, it's just pretend for now)")
     },
     calculateEthereum (): number {
       const tempEthereumValuePerParrot = this.ethereumValuePerParrot * 1000 // Prevents floating point calculation errors
       const value = tempEthereumValuePerParrot * this.parrotNumber
-      return Number((value / 1000).toFixed(this.countParrotValueDecimals))
+      return Number((value / 1000).toFixed(3))
     }
   }
 })
