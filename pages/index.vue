@@ -172,7 +172,7 @@
           </a>
         </li>
       </ul>
-      <img class="footer__logo" src="~assets/images/logo.svg" :alt="`${siteconfig.brand_name} logo`">
+      <img class="footer__logo" src="" :alt="`${siteconfig.brand_name} logo`">
       <address class="footer__contact">
         Smart contract: <a class="link" href="mailto:" rel="norefferer nofollow noopener">abcdefghijklmnopqrstuvwxyz</a>
       </address>
