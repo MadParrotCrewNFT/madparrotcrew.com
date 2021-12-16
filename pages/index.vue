@@ -486,13 +486,12 @@ export default Vue.extend({
     position: relative;
 
     &-wrapper {
-      margin-top: 4rem;
+      margin-top: 6rem;
       margin-inline: 1rem;
       position: relative;
       top: 1rem;
 
       @media (min-width: $responsive-large-mobile) {
-        margin-top: 8rem;
         margin-inline: auto;
         max-width: max-content;
       }

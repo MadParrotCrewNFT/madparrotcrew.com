@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <h1 class="navbar__logo">
-      <nav-logo />
+      <logo />
       <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
     </h1>
     <nav class="navbar__nav">
@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Logo } from '@/components'
+import Logo from '@/components/Logo.vue'
 import siteconfig from '@/siteconfig.json'
 import { ISocialLink } from '@/store'
 
@@ -40,7 +40,7 @@ interface INavItem {
 
 export default Vue.extend({
   name: 'Navigation',
-  components: { 'nav-logo': Logo },
+  components: { Logo },
   data () {
     return {
       siteconfig
