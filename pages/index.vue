@@ -379,7 +379,7 @@ export default Vue.extend({
   position: relative;
   background-image: url(~assets/images/header-bg-mobile.png);
   background-repeat: no-repeat;
-  background-position: bottom;
+  background-position: top;
   background-size: cover;
 
   @media (min-width: $responsive-standard-tablet) {
@@ -387,6 +387,10 @@ export default Vue.extend({
     min-height: 36rem;
     height: 90vh;
     max-height: 40rem;
+  }
+
+  @media (min-width: $responsive-small-desktop) {
+    background-position: center;
   }
 
   // Parrot
@@ -402,15 +406,15 @@ export default Vue.extend({
       height: 646px;
       position: absolute;
       bottom: -17rem;
-      left: 1rem;
+      right: 1rem;
     }
 
     @media (min-width: $responsive-small-desktop) {
-      left: 8rem
+      right: 8rem
     }
 
     @media (min-width: $responsive-standard-desktop) {
-      left: 17rem
+      right: 17rem
     }
   }
 
@@ -427,17 +431,17 @@ export default Vue.extend({
       height: 306px;
       position: absolute;
       bottom: -5rem;
-      left: 1rem;
+      right: 1rem;
       transform-origin: top;
-      animation: swing-wing 5s infinite;
+      animation: swing-wing-reverse 5s infinite;
     }
 
     @media (min-width: $responsive-small-desktop) {
-      left: 8rem
+      right: 8rem
     }
 
     @media (min-width: $responsive-standard-desktop) {
-      left: 17rem
+      right: 17rem
     }
   }
 
@@ -505,19 +509,16 @@ export default Vue.extend({
       &::before {
         content: '';
         pointer-events: none;
-        background-image: url(~assets/images/header-parrot.svg);
+        background-image: url(~assets/images/header-parrot-mobile.svg);
         background-repeat: no-repeat;
         background-position: bottom;
         background-size: cover;
         width: 90px;
         height: 190px;
         position: absolute;
-        top: -5rem;
-        left: 2rem;
-
-        @media (min-width: $responsive-standard-tablet) {
-          top: -2rem;
-        }
+        top: -6rem;
+        left: 50%;
+        transform: translateX(-50%);
 
         @media (min-width: $responsive-large-tablet) {
           display: none;
@@ -528,21 +529,18 @@ export default Vue.extend({
       &::after {
         content: '';
         pointer-events: none;
-        background-image: url(~assets/images/header-parrot-wing.svg);
+        background-image: url(~assets/images/header-parrot-wing-mobile.svg);
         background-repeat: no-repeat;
         background-position: bottom;
         background-size: cover;
         width: 34px;
         height: 82px;
         position: absolute;
-        top: -2rem;
-        left: 2rem;
+        top: -3.3rem;
+        left: calc(50% - 2.7rem);
+        transform: translateX(50%);
         transform-origin: top;
         animation: swing-wing 5s infinite;
-
-        @media (min-width: $responsive-standard-tablet) {
-          top: 1rem;
-        }
 
         @media (min-width: $responsive-large-tablet) {
           display: none;

@@ -91,7 +91,6 @@ export default Vue.extend({
 .calculator {
   background-color: #fff;
   max-width: 100%;
-  margin-top: 4rem;
   border-radius: var(--border-radius-standard);
   padding: 2rem 1rem;
   display: flex;
@@ -102,10 +101,6 @@ export default Vue.extend({
     max-width: 23rem;
     min-width: 23rem;
     padding-inline: 3.25rem;
-  }
-
-  @media (min-width: $responsive-large-tablet) {
-    background-color: rgba(255, 255, 255, 0.9);
   }
 
   h2 {
