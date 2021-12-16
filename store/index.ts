@@ -19,13 +19,8 @@ interface IState {
 export const state = () => ({
   socialLinks: [
     {
-      text: 'Discord',
-      url: 'https://discord.com',
-      icon: 'discord'
-    },
-    {
       text: 'Twitter',
-      url: 'https://twitter.com',
+      url: config.SOCIAL.TWITTER,
       icon: 'twitter'
     },
     {
@@ -40,7 +35,7 @@ export const state = () => ({
     },
     {
       text: 'Instagram',
-      url: 'https://www.instagram.com',
+      url: config.SOCIAL.INSTAGRAM,
       icon: 'instagram'
     }
   ],

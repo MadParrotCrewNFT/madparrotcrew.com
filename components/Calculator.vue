@@ -31,6 +31,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import Web3 from 'web3'
 import ABI from '@/abi.json'
 import config from '@/config.json'
 import { Btn } from '@/components'
@@ -41,7 +42,7 @@ export default Vue.extend({
   data () {
     return {
       parrotNumber: 1,
-      ethereumValuePerParrot: config.DISPLAY_COST,
+      ethereumValuePerParrot: config.ETH_COST,
       isClaimingNFT: false
     }
   },
@@ -70,7 +71,7 @@ export default Vue.extend({
         .send({
           to: config.CONTRACT_ADDRESS,
           from: this.$store.state.account,
-          value: String(config.WEI_COST * this.parrotNumber),
+          value: String(Number(Web3.utils.toWei(String(config.ETH_COST))) * this.parrotNumber),
           gasLimit: String(config.GAS_LIMIT * this.parrotNumber)
         })
         .once("error", (err: unknown) => {

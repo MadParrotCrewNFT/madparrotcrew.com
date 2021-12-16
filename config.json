@@ -9,10 +9,19 @@
   "NFT_NAME": "SYNERGY",
   "SYMBOL": "SGY",
   "MAX_SUPPLY": 10000,
-  "WEI_COST": 75000000000000000,
-  "DISPLAY_COST": 0.075,
+  "ETH_COST": 0.075,
   "GAS_LIMIT": 300000,
   "MARKETPLACE": "OPENSEA",
   "MARKETPLACE_LINK": "https://opensea.io/collection/Testproj",
-  "SHOW_BACKGROUND": true
+  "SOCIAL": {
+    "TWITTER": "https://twitter.com/madparrotcrew",
+    "INSTAGRAM": "https://www.instagram.com"
+  },
+  "SHEFTALI": {
+    "TWITTER": "https://twitter.com/iamsheftali",
+    "INSTAGRAM": "https://instagram.com"
+  },
+  "IACOVE": {
+    "TWITTER": "https://twitter.com"
+  }
 }

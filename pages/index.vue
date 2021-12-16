@@ -325,11 +325,11 @@ export default Vue.extend({
           socials: [
             {
               platform: 'Twitter',
-              url: 'https://twitter.com/iamsheftali'
+              url: config.SHEFTALI.TWITTER
             },
             {
               platform: 'Instagram',
-              url: 'https://instagram.com'
+              url: config.SHEFTALI.INSTAGRAM
             }
           ]
         },
@@ -343,7 +343,7 @@ export default Vue.extend({
           socials: [
             {
               platform: 'Twitter',
-              url: 'https://twitter.com'
+              url: config.IACOVE.TWITTER
             }
           ]
         }
