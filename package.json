@@ -2,8 +2,11 @@
   "name": "MadParrotCrew",
   "private": true,
   "description": "Website source code for madparrotcrew.com",
+  "homepage": "https://madparrotcrew.com",
   "author": "Mad Parrot Crew team",
   "contributors": [
+    "Sheftali (https://github.com/sheftali)",
+    "Iacove (https://github.com/Iacove)",
     "Jack Domleo <jackdomleo7@gmail.com> (https://jackdomleo.dev)"
   ],
   "repository": {
