@@ -172,7 +172,7 @@
           </a>
         </li>
       </ul>
-      <img class="footer__logo" src="" :alt="`${siteconfig.brand_name} logo`">
+      <logo class="footer__logo" />
       <address class="footer__contact">
         Verified smart contract: <a class="link" :href="config.SCAN_LINK" rel="norefferer nofollow noopener" target="_blank">{{ config.CONTRACT_ADDRESS }}</a>
       </address>
@@ -182,7 +182,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Navigation, Calculator, Card, Accordion, AccordionItem, Btn } from '@/components'
+import { Navigation, Calculator, Card, Accordion, AccordionItem, Btn, Logo } from '@/components'
 import siteconfig from '@/siteconfig.json'
 import config from '@/config.json'
 import { ISocialLink } from '@/store'
@@ -225,7 +225,7 @@ interface ITeamMember {
 }
 
 export default Vue.extend({
-  components: { Navigation, Calculator, Card, Accordion, AccordionItem, Btn },
+  components: { Navigation, Calculator, Card, Accordion, AccordionItem, Btn, Logo },
   data () {
     return {
       siteconfig,
@@ -1075,14 +1075,15 @@ export default Vue.extend({
   }
 
   &__logo {
-    height: 8rem;
-    width: 8rem;
+    width: 9rem;
     margin-block: 1.5rem;
+    color: #000;
   }
 
   &__contact {
     font-size: var(--font-size-small);
     font-style: normal;
+    text-align: center;
   }
 }
 </style>
