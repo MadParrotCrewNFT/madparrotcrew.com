@@ -125,37 +125,37 @@
         <accordion>
           <accordion-item id="1" heading-tag="h3" heading="Accordion title">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn color="dark-blue" small>
+            <btn to="#mint" color="dark-blue" small>
               I'm ready to mint
             </btn>
           </accordion-item>
           <accordion-item id="2" heading-tag="h3" heading="Accordion title">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn color="dark-blue" small>
+            <btn to="#mint" color="dark-blue" small>
               I'm ready to mint
             </btn>
           </accordion-item>
           <accordion-item id="3" heading-tag="h3" heading="Accordion title">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn color="dark-blue" small>
+            <btn to="#mint" color="dark-blue" small>
               I'm ready to mint
             </btn>
           </accordion-item>
           <accordion-item id="4" heading-tag="h3" heading="Accordion title">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn color="dark-blue" small>
+            <btn to="#mint" color="dark-blue" small>
               I'm ready to mint
             </btn>
           </accordion-item>
           <accordion-item id="5" heading-tag="h3" heading="Accordion title">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn color="dark-blue" small>
+            <btn to="#mint" color="dark-blue" small>
               I'm ready to mint
             </btn>
           </accordion-item>
           <accordion-item id="6" heading-tag="h3" heading="Accordion title">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn color="dark-blue" small>
+            <btn to="#mint" color="dark-blue" small>
               I'm ready to mint
             </btn>
           </accordion-item>

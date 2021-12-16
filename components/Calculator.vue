@@ -1,5 +1,5 @@
 <template>
-  <div class="calculator">
+  <div id="mint" class="calculator">
     <h2>Minting now available!</h2>
     <div v-if="!isConnected">
       <p v-if="$store.state.connectionError === null">Connect your wallet to begin.</p>

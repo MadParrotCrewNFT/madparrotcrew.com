@@ -1,5 +1,8 @@
 <template>
-  <button class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }]" :disabled="disabled || isLoading" @click="$emit('click')">
+  <a v-if="to" :href="to" class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }]">
+    <slot />
+  </a>
+  <button v-else class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }]" :disabled="disabled || isLoading" @click="$emit('click')">
     <slot />
     <spinner v-if="isLoading" />
   </button>
@@ -10,37 +13,41 @@ import Vue from 'vue'
 import Spinner from './Spinner.vue'
 
 export default Vue.extend({
-    name: "Btn",
-    components: { Spinner },
-    props: {
-        color: {
-            type: String as () => "dark-blue" | "green",
-            default: "dark-blue",
-            validator: (value: string): boolean => {
-                return ["dark-blue", "green"].includes(value);
-            }
-        },
-        square: {
-            type: Boolean,
-            default: false
-        },
-        inverted: {
-            type: Boolean,
-            default: false
-        },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        isLoading: {
-            type: Boolean,
-            default: false
-        },
-        small: {
-            type: Boolean,
-            default: false
-        }
+  name: "Btn",
+  components: { Spinner },
+  props: {
+    color: {
+      type: String as () => "dark-blue" | "green",
+      default: "dark-blue",
+      validator: (value: string): boolean => {
+        return ["dark-blue", "green"].includes(value);
+      }
+    },
+    square: {
+      type: Boolean,
+      default: false
+    },
+    inverted: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    isLoading: {
+      type: Boolean,
+      default: false
+    },
+    small: {
+      type: Boolean,
+      default: false
+    },
+    to: {
+      type: String,
+      default: undefined
     }
+  }
 })
 </script>
 
@@ -62,6 +69,7 @@ export default Vue.extend({
   height: 3.25rem;
   padding: 1.125rem 1.5rem;
   user-select: none;
+  text-decoration: none;
 
   @media (min-width: $responsive-large-mobile) {
     height: 4rem;
