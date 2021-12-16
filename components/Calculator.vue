@@ -4,17 +4,17 @@
     <div v-if="!isConnected">
       <p v-if="$store.state.connectionError === null">Connect your wallet to begin.</p>
       <p v-else>{{ $store.state.connectionError }}</p>
-      <btn :disabled="!isWalletInstalled" @click="connect()">Connect Wallet</btn>
+      <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet">Connect Wallet</btn>
     </div>
     <template v-else>
       <div class="calculator__buttons">
-        <btn color="green" square inverted :disabled="parrotNumber <= 1" @click="parrotNumber--">
+        <btn color="green" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT" @click="parrotNumber--">
           -
           <span class="sr-only">Minus 1 parrot</span>
         </btn>
         <label for="noOfParrots" class="sr-only">Number of parrots</label>
         <input id="noOfParrots" v-model="parrotNumber" readonly>
-        <btn color="green" square :disabled="parrotNumber >= 5" @click="parrotNumber++">
+        <btn color="green" square :disabled="parrotNumber >= 5 || isClaimingNFT" @click="parrotNumber++">
           +
           <span class="sr-only">Plus 1 parrot</span>
         </btn>
@@ -22,7 +22,7 @@
       <p role="text">
         Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum() }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
       </p>
-      <btn class="calculator__cta" @click="mintParrots()">
+      <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT">
         Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
       </btn>
     </template>
@@ -41,7 +41,8 @@ export default Vue.extend({
   data () {
     return {
       parrotNumber: 1,
-      ethereumValuePerParrot: config.DISPLAY_COST
+      ethereumValuePerParrot: config.DISPLAY_COST,
+      isClaimingNFT: false
     }
   },
   computed: {
@@ -62,6 +63,7 @@ export default Vue.extend({
       await this.$store.dispatch("connect", true)
     },
     mintParrots (): void {
+      this.isClaimingNFT = true
       const contract = new window.web3.eth.Contract(ABI, this.$store.state.contractAddress)
       contract.methods
         .mint(this.parrotNumber)
@@ -72,9 +74,11 @@ export default Vue.extend({
           gasLimit: String(config.GAS_LIMIT * this.parrotNumber)
         })
         .once("error", (err: unknown) => {
+          this.isClaimingNFT = false
           console.error(err)
         })
         .then((receipt: any) => {
+          this.isClaimingNFT = false
           console.log('receipt', receipt)
         })
     },

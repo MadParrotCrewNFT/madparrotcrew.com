@@ -11,7 +11,8 @@ interface IState {
   socialLinks: ISocialLink[];
   contractAddress: string;
   account: null | Record<string, any>;
-  connectionError: null | string
+  isConnectingToWallet: boolean;
+  connectionError: null | string;
   
 }
 
@@ -45,12 +46,16 @@ export const state = () => ({
   ],
   contractAddress: config.CONTRACT_ADDRESS,
   account: null,
+  isConnectingToWallet: false,
   connectionError: null
 } as IState)
 
 export const mutations = {
   setAccount(state: IState, account: null | Record<string, any>): void {
     state.account = account
+  },
+  setIsConnectingToWallet(state: IState, value: boolean): void {
+    state.isConnectingToWallet = value
   },
   setConnectionError(state: IState, error: string): void {
     state.connectionError = error
@@ -59,6 +64,7 @@ export const mutations = {
 
 export const actions = {
   async connect({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }): Promise<void> {
+    commit("setIsConnectingToWallet", true)
     try {
       const { ethereum } = window
       if (!ethereum) { // Is a wallet installed?
@@ -72,6 +78,7 @@ export const actions = {
       console.error(error)
       commit("setConnectionError", "Wallet account request refused.")
     }
+    commit("setIsConnectingToWallet", false)
   },
   async checkIfConnected({ commit }: { commit: (mutation: string, value: any) => void }) {
     const { ethereum } = window

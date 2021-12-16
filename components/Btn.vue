@@ -1,39 +1,46 @@
 <template>
-  <button class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }]" :disabled="disabled" @click="$emit('click')">
+  <button class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }]" :disabled="disabled || isLoading" @click="$emit('click')">
     <slot />
+    <spinner v-if="isLoading" />
   </button>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import Spinner from './Spinner.vue'
 
 export default Vue.extend({
-  name: 'Btn',
-  props: {
-    color: {
-      type: String as () => 'dark-blue' | 'green',
-      default: 'dark-blue',
-      validator: (value: string): boolean => {
-        return ['dark-blue', 'green'].includes(value)
-      }
-    },
-    square: {
-      type: Boolean,
-      default: false
-    },
-    inverted: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    small: {
-      type: Boolean,
-      default: false
+    name: "Btn",
+    components: { Spinner },
+    props: {
+        color: {
+            type: String as () => "dark-blue" | "green",
+            default: "dark-blue",
+            validator: (value: string): boolean => {
+                return ["dark-blue", "green"].includes(value);
+            }
+        },
+        square: {
+            type: Boolean,
+            default: false
+        },
+        inverted: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        isLoading: {
+            type: Boolean,
+            default: false
+        },
+        small: {
+            type: Boolean,
+            default: false
+        }
     }
-  }
 })
 </script>
 
@@ -49,6 +56,7 @@ export default Vue.extend({
   font-weight: 800;
   font-family: var(--font-family-opensans);
   display: inline-flex;
+  gap: 1rem;
   align-items: center;
   justify-content: center;
   height: 3.25rem;
@@ -83,6 +91,12 @@ export default Vue.extend({
 
   &:disabled {
     opacity: 0.5;
+    cursor: default;
+  }
+
+  ::v-deep svg {
+    height: 2rem;
+    width: 2rem;
   }
 }
 </style>
