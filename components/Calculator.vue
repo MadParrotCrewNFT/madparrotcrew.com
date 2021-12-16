@@ -108,6 +108,12 @@ export default Vue.extend({
     margin: 0;
   }
 
+  p {
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 22px;
+  }
+
   &__buttons {
     display: flex;
     align-items: center;
