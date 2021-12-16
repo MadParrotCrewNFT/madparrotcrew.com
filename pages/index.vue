@@ -174,7 +174,7 @@
       </ul>
       <img class="footer__logo" src="" :alt="`${siteconfig.brand_name} logo`">
       <address class="footer__contact">
-        Smart contract: <a class="link" href="mailto:" rel="norefferer nofollow noopener">abcdefghijklmnopqrstuvwxyz</a>
+        Verified smart contract: <a class="link" :href="config.SCAN_LINK" rel="norefferer nofollow noopener" target="_blank">{{ config.CONTRACT_ADDRESS }}</a>
       </address>
     </footer>
   </div>
@@ -184,6 +184,7 @@
 import Vue from 'vue'
 import { Navigation, Calculator, Card, Accordion, AccordionItem, Btn } from '@/components'
 import siteconfig from '@/siteconfig.json'
+import config from '@/config.json'
 import { ISocialLink } from '@/store'
 
 interface IRoadmapCheckpoint {
@@ -227,7 +228,8 @@ export default Vue.extend({
   components: { Navigation, Calculator, Card, Accordion, AccordionItem, Btn },
   data () {
     return {
-      siteconfig
+      siteconfig,
+      config
     }
   },
   computed: {

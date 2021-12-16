@@ -1,10 +1,10 @@
 <template>
   <div class="calculator">
     <h2>Minting now available!</h2>
-    <div v-if="!connected">
-      <p v-if="$store.state.connectionError === null">Connect your Metamask wallet to begin.</p>
+    <div v-if="!isConnected">
+      <p v-if="$store.state.connectionError === null">Connect your wallet to begin.</p>
       <p v-else>{{ $store.state.connectionError }}</p>
-      <btn :disabled="!isMetamaskInstalled" @click="connect()">Connect Wallet</btn>
+      <btn :disabled="!isWalletInstalled" @click="connect()">Connect Wallet</btn>
     </div>
     <template v-else>
       <div class="calculator__buttons">
@@ -31,6 +31,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import ABI from '@/abi.json'
+import config from '@/config.json'
 import { Btn } from '@/components'
 
 export default Vue.extend({
@@ -39,16 +41,16 @@ export default Vue.extend({
   data () {
     return {
       parrotNumber: 1,
-      ethereumValuePerParrot: 0.075
+      ethereumValuePerParrot: config.DISPLAY_COST
     }
   },
   computed: {
-    isMetamaskInstalled (): boolean {
+    isWalletInstalled (): boolean {
       const { ethereum } = window
-      if (!ethereum) this.$store.commit("setConnectionError", "Metamask is not installed.")
+      if (!ethereum) this.$store.commit("setConnectionError", "Wallet is not installed.")
       return ethereum
     },
-    connected (): boolean {
+    isConnected (): boolean {
       return this.$store.state.account !== null
     }
   },
@@ -60,7 +62,21 @@ export default Vue.extend({
       await this.$store.dispatch("connect", true)
     },
     mintParrots (): void {
-      window.alert("Sqwark sqwark! Minting parrots! (Not really, it's just pretend for now)")
+      const contract = new window.web3.eth.Contract(ABI, this.$store.state.contractAddress)
+      contract.methods
+        .mint(this.parrotNumber)
+        .send({
+          to: config.CONTRACT_ADDRESS,
+          from: this.$store.state.account,
+          value: String(config.WEI_COST * this.parrotNumber),
+          gasLimit: String(config.GAS_LIMIT * this.parrotNumber)
+        })
+        .once("error", (err: unknown) => {
+          console.error(err)
+        })
+        .then((receipt: any) => {
+          console.log('receipt', receipt)
+        })
     },
     calculateEthereum (): number {
       const tempEthereumValuePerParrot = this.ethereumValuePerParrot * 1000 // Prevents floating point calculation errors

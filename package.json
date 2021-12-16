@@ -23,7 +23,8 @@
     "@nuxtjs/svg-sprite": "^0.5.2",
     "core-js": "^3.19.2",
     "modern-normalize": "^1.1.0",
-    "nuxt": "^2.15.8"
+    "nuxt": "^2.15.8",
+    "web3": "^1.6.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.3",

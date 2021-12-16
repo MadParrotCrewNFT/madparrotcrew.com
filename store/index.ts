@@ -1,3 +1,6 @@
+import Web3 from "web3"
+import config from '@/config.json'
+
 export interface ISocialLink {
   text: string;
   url: string;
@@ -6,6 +9,7 @@ export interface ISocialLink {
 
 interface IState {
   socialLinks: ISocialLink[];
+  contractAddress: string;
   account: null | Record<string, any>;
   connectionError: null | string
   
@@ -25,12 +29,12 @@ export const state = () => ({
     },
     {
       text: 'OpenSea',
-      url: 'https://opensea.io',
+      url: config.MARKETPLACE_LINK,
       icon: 'opensea'
     },
     {
       text: 'Etherscan',
-      url: 'https://etherscan.io',
+      url: config.SCAN_LINK,
       icon: 'etherscan'
     },
     {
@@ -39,6 +43,7 @@ export const state = () => ({
       icon: 'instagram'
     }
   ],
+  contractAddress: config.CONTRACT_ADDRESS,
   account: null,
   connectionError: null
 } as IState)
@@ -56,21 +61,21 @@ export const actions = {
   async connect({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }): Promise<void> {
     try {
       const { ethereum } = window
-      if (!ethereum) { // Is Metamask installed?
-        commit("setConnectionError", "Metamask is not installed.")
+      if (!ethereum) { // Is a wallet installed?
+        commit("setConnectionError", "Wallet not installed.")
         return
       }
-      if (!(await dispatch("checkIfConnected"))) { // User has granted access to Metamask?
+      if (!(await dispatch("checkIfConnected"))) { // User has granted access to wallet?
         await dispatch("requestAccess")
       }
-      await dispatch("checkNetwork")
     } catch (error) {
       console.error(error)
-      commit("setConnectionError", "Metamask account request refused.")
+      commit("setConnectionError", "Wallet account request refused.")
     }
   },
   async checkIfConnected({ commit }: { commit: (mutation: string, value: any) => void }) {
     const { ethereum } = window
+    window.web3 = new Web3(ethereum)
     const accounts = await ethereum.request({ method: "eth_accounts" })
     if (accounts.length !== 0) {
       commit("setAccount", accounts[0])
