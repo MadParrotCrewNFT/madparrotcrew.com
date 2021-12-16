@@ -1,4 +1,5 @@
 const siteconfig = require('./siteconfig.json')
+const config = require('./config.json')
 
 export default {
   ssr: false,
@@ -54,10 +55,18 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     meta: {
+      description: '',
       ogHost: siteconfig.base_url,
       ogSiteName: siteconfig.brand_name.full,
       ogType: 'website',
-      twitterCard: 'summary_large_image'
+      ogImage: {
+        path: '/og-image.png',
+        width: '1200',
+        height: '630',
+        type: 'image/png'
+      },
+      twitterCard: 'summary_large_image',
+      twitterSite: config.SOCIAL.TWITTER
     },
     manifest: {
       name: siteconfig.brand_name.full,
