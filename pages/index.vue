@@ -3,7 +3,8 @@
     <header class="header">
       <navigation />
       <div class="header__calculator-wrapper">
-        <calculator class="header__calculator" />
+        <calculator v-if="config.MINTING_LIVE" class="header__calculator" />
+        <img v-else class="header__soon" src="~assets/images/minting-coming-soon.png" alt="Minting coming soon" width="424" height="245" loading="lazy" />
       </div>
       <div class="header__curve">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -482,14 +483,19 @@ export default Vue.extend({
     }
   }
 
+  &__soon {
+    width: 26.5rem;
+    position: relative;
+  }
+
   &__calculator {
     position: relative;
 
     &-wrapper {
-      margin-top: 6rem;
+      margin-top: 2rem;
       margin-inline: 1rem;
       position: relative;
-      top: 1rem;
+      top: 5.5rem;
 
       @media (min-width: $responsive-large-mobile) {
         margin-inline: auto;

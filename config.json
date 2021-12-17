@@ -1,4 +1,5 @@
 {
+  "MINTING_LIVE": false,
   "CONTRACT_ADDRESS": "0x0473321e5c0A1dEEbAABC88241845FC4828E798B",
   "SCAN_LINK": "https://rinkeby.etherscan.io/address/0x0473321e5c0a1deebaabc88241845fc4828e798b",
   "NETWORK": {
