@@ -62,6 +62,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .accord-item {
   padding: 0;
+  width: 100%;
 
   &__header {
     margin: 0;
