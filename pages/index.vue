@@ -98,21 +98,22 @@
         <h2>The team</h2>
         <ul class="team__people team__people--mobile">
           <li v-for="member in teamMembers" :key="member.name">
-            <card class="team__card">
-              <img :src="require(`@/assets/images/${member.image.src}`)" :alt="member.image.alt">
-              <div>
-                <h3>{{ member.name }}</h3>
-                <p>{{ member.job }}</p>
-                <ul class="team__socials">
-                  <li v-for="social in member.socials" :key="social.platform">
-                    <a :href="social.url" :title="social.platform" target="_blank">
-                      <svg-icon :name="social.platform.toLowerCase()" />
-                      <span class="sr-only">{{ social.platform }}</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </card>
+          <div class="team-member__img">
+            <img :src="require(`@/assets/images/${member.image.src}`)" :alt="member.image.alt" loading ="lazy" height="172" width="157" />
+          </div>
+            <div>
+              <h3>{{ member.name }}</h3>
+              <p>{{ member.job }}</p>
+              <ul class="team__socials">
+                <li v-for="social in member.socials" :key="social.platform">
+                  <a :href="social.url" :title="social.platform" target="_blank">
+                    <img v-if="social.platform.toLowerCase() === 'instagram'" src="~assets/images/instagram-white.svg" :alt="social.platform" loading="lazy" />
+                    <svg-icon v-else :name="`${social.platform.toLowerCase()}-white`" />
+                    <span class="sr-only">{{ social.platform }}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </li>
         </ul>
         <div class="team__people team__people--desktop">
@@ -286,7 +287,7 @@ export default Vue.extend({
       return [
         {
           image: {
-            src: 'sheftali-parrot.svg',
+            src: 'sheftali-parrot.png',
             alt: 'A purple parrot wearing a waste coat holding a torch'
           },
           name: 'Sheftali',
@@ -304,7 +305,7 @@ export default Vue.extend({
         },
         {
           image: {
-            src: 'iacove-parrot.svg',
+            src: 'iacove-parrot.png',
             alt: 'A grey parrot holding a wrench'
           },
           name: 'Iac',
@@ -884,12 +885,13 @@ export default Vue.extend({
 }
 
 .team {
-  background-color: var(--mpc-light-green);
-  padding: 2.5rem 1rem 20.5rem 1rem;
+  background-color: var(--mpc-burgandy);
+  padding: 3.125rem 1.5rem 4.5rem 1.5rem;
 
   @media (min-width: $responsive-small-desktop) {
     background-color: #fff;
     padding-top: 2.75rem;
+    padding-bottom: 20.5rem;
   }
 
   h2 {
@@ -905,105 +907,90 @@ export default Vue.extend({
   }
 
   &__people {
-    @media (max-width: calc($responsive-small-desktop - 1px)) {
-      padding-left: 0;
-      list-style-type: none;
+    &--mobile {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      align-items: center;
+      gap: 4rem;
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
 
-      li {
-        .team__card {
-          flex-direction: row;
-          padding: 1.5rem 1rem;
-          position: relative;
-          text-align: right;
+      .team-member__img {
+        background-color: #fff;
+        border-radius: 50%;
+        height: 126px;
+        width: 126px;
+        position: relative;
 
-          img {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            height: 110%;
+        img {
+          max-width: unset;
+          position: absolute;
+          
+          &[src*="sheftali"] {
+            top: -23px;
+            right: 4px;
           }
 
-          &::after {
-            content: '';
-            pointer-events: none;
-            background-image: url(~assets/images/sheftali-parrot-wing.svg);
-            background-repeat: no-repeat;
-            background-position: bottom;
-            background-size: cover;
-            height: 125px;
-            width: 52px;
-            position: absolute;
-            left: 0.3rem;
-            top: 3rem;
-            transform-origin: top;
-          }
-
-          > div {
-            width: 100%;
-          }
-
-          h3 {
-            font-size: var(--font-size-subtitle);
-            margin: 0;
-          }
-
-          p {
-            margin-top: 0;
-            margin-bottom: 0.75rem;
+          &[src*="iacove"] {
+            top: -26px;
+            left: -2px;
           }
         }
-
-        &:nth-child(even) {
-          .team__card {
-            text-align: left;
-
-            img {
-              right: 0;
-              left: unset;
-            }
-
-            &::after {
-              background-image: url(~assets/images/iacove-parrot-wing.svg);
-              left: unset;
-              right: 0.6rem;
-              top: 3rem;
-            }
-          }
-        }
-      }
-    }
-    @media (min-width: $responsive-small-desktop) {
-      display: grid;
-      grid-template-columns: 1fr 568px 1fr;
-      gap: 1rem;
-
-      &--1 {
-        text-align: right;
       }
 
       h3 {
-        font-size: var(--font-size-subtitle);
-        margin: 0;
+        font-size: var(--font-size-heading);
+        color: var(--mpc-gold);
+        text-align: center;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
       }
 
       p {
-        margin-top: 0;
-        margin-bottom: 0.75rem;
+        color: #fff;
+        text-align: center;
+        margin: 0;
       }
-    }
 
-    &--mobile {
+      .team__socials {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        
+        svg {
+          color: #fff;
+        }
+      }
+
       @media (min-width: $responsive-small-desktop) {
         display: none;
       }
     }
 
     &--desktop {
-      @media (max-width: calc($responsive-small-desktop - 1px)) {
-        display: none;
+      display: none;
+
+      @media (min-width: $responsive-small-desktop) {
+        display: grid;
+        grid-template-columns: 1fr 568px 1fr;
+        gap: 1rem;
+
+        .team__people--1 {
+          text-align: right;
+        }
+
+        h3 {
+          font-size: var(--font-size-subtitle);
+          margin: 0;
+        }
+
+        p {
+          margin-top: 0;
+          margin-bottom: 0.75rem;
+        }
       }
     }
   }
