@@ -325,24 +325,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-@keyframes swing-wing {
-  0%, 100% {
-    transform: rotate(-20deg);
-  }
-  50% {
-    transform: rotate(6deg)
-  }
-}
-
-@keyframes swing-wing-reverse {
-  0%, 100% {
-    transform: rotate(-6deg);
-  }
-  50% {
-    transform: rotate(20deg)
-  }
-}
-
 .header {
   position: relative;
   background-image: url(~assets/images/header-bg-mobile.png);
@@ -401,7 +383,6 @@ export default Vue.extend({
       bottom: -5rem;
       right: 1rem;
       transform-origin: top;
-      animation: swing-wing-reverse 5s infinite;
     }
 
     @media (min-width: $responsive-small-desktop) {
@@ -512,7 +493,6 @@ export default Vue.extend({
         left: calc(50% - 2.7rem);
         transform: translateX(50%);
         transform-origin: top;
-        animation: swing-wing 5s infinite;
 
         @media (min-width: $responsive-large-tablet) {
           display: none;
@@ -959,7 +939,6 @@ export default Vue.extend({
             left: 0.3rem;
             top: 3rem;
             transform-origin: top;
-            animation: swing-wing 5s infinite;
           }
 
           > div {
@@ -991,7 +970,6 @@ export default Vue.extend({
               left: unset;
               right: 0.6rem;
               top: 3rem;
-              animation: swing-wing-reverse 6s infinite 1s;
             }
           }
         }
