@@ -76,13 +76,13 @@
     </section>
     <section id="distribution" class="distribution">
       <h2>Distribution</h2>
-      <ul class="distribution__cards">
+      <ul class="distribution__things">
         <li v-for="distribution in parrotDistribution" :key="distribution.image.src">
-          <card class="distribution__card">
+          <div class="distribution__img">
             <img :src="require(`@/assets/images/${distribution.image.src}`)" :alt="distribution.image.alt">
-            <h3>{{ distribution.title }}</h3>
-            <p>{{ distribution.body }}</p>
-          </card>
+          </div>
+          <h3>{{ distribution.title }}</h3>
+          <p>{{ distribution.body }}</p>
         </li>
       </ul>
     </section>
@@ -222,15 +222,6 @@ interface IRoadmapCheckpoint {
   percentage: number;
 }
 
-interface IBonusTrait {
-  image: {
-    src: string;
-    alt: string;
-  };
-  title: string;
-  body: string;
-}
-
 interface IParrotDistribution {
   image: {
     src: string;
@@ -286,34 +277,6 @@ export default Vue.extend({
         }
       ]
     },
-    bonusTraits (): IBonusTrait[] {
-      return [
-        {
-          image: {
-            src: 'gold-beak.svg',
-            alt: 'A golden parrot beak'
-          },
-          title: 'Goldbeak Club',
-          body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in ante tortor. Vivamus hendrerit justo at ligula molestie, eu luctus lorem placerat.'
-        },
-        {
-          image: {
-            src: 'powah-ring.svg',
-            alt: 'Gold ring with the Ethereum logo'
-          },
-          title: 'Ring of Powah',
-          body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in ante tortor. Vivamus hendrerit justo at ligula molestie, eu luctus lorem placerat.'
-        },
-        {
-          image: {
-            src: 'mpc-tattoo.svg',
-            alt: 'Tattoo with the mpc logo'
-          },
-          title: 'MPC Tattoo',
-          body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in ante tortor. Vivamus hendrerit justo at ligula molestie, eu luctus lorem placerat.'
-        }
-      ]
-    },
     parrotDistribution (): IParrotDistribution[] {
       return [
         {
@@ -322,23 +285,15 @@ export default Vue.extend({
             alt: 'Prize box with a parrot egg inside'
           },
           title: '1-100',
-          body: 'These are reserved for founders and giveaways.'
+          body: 'These are reserved for founders, early supporters and giveaways.'
         },
         {
           image: {
             src: 'egg-incubator.svg',
             alt: 'Parrot eggs inside incubators'
           },
-          title: '101-9990',
+          title: '101-10,000',
           body: 'These will be available to the public via minting.'
-        },
-        {
-          image: {
-            src: 'gavel.svg',
-            alt: 'Gavel'
-          },
-          title: '9991-10,000',
-          body: 'These will be auctioned off.'
         }
       ]
     },
@@ -897,8 +852,8 @@ export default Vue.extend({
 }
 
 .distribution {
-  padding: 6.25rem 1rem 3rem 1rem;
-  background-color: var(--mpc-lightest-green);
+  padding: 6.25rem 1.5rem 3rem 1.5rem;
+  background-color: var(--mpc-navy);
 
   @media (min-width: $responsive-standard-tablet) {
     padding-bottom: 4rem;
@@ -910,15 +865,16 @@ export default Vue.extend({
 
   h2 {
     margin-top: 0;
-    margin-bottom: 2.5rem;
+    margin-bottom: 4rem;
     font-size: var(--font-size-title);
     text-align: center;
+    color: #fff;
   }
 
-  &__cards {
+  &__things {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.5rem;
+    gap: 2.5rem;
     place-items: center;
     list-style-type: none;
     padding-left: 0;
@@ -928,50 +884,37 @@ export default Vue.extend({
       height: 100%;
       width: 100%;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
     }
 
-    @media (min-width: $responsive-small-tablet) {
+    @media (min-width: $responsive-standard-tablet) {
       grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-
-      li:nth-child(3) {
-        grid-column: span 2;
-      }
-    }
-
-    @media (min-width: $responsive-large-tablet) {
-      grid-template-columns: repeat(3, 1fr);
-
-      li {
-        grid-column: span 1 !important;
-      }
     }
   }
 
-  &__card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  &__img {
+    display: grid;
+    place-items: center;
+    background-color: #fff;
     text-align: center;
-    height: 100%;
-    max-width: 23rem;
-    width: 100%;
+    height: 224px;
+    width: 224px;
+    border-radius: 50%;
+    padding: 2.5rem;
+  }
 
-    img {
-      height: 8rem;
-      width: 8rem;
-    }
+  h3 {
+    color: var(--mpc-gold);
+    font-size: var(--font-size-subtitle);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
 
-    h3 {
-      font-size: var(--font-size-subtitle);
-      margin-top: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    p {
-      margin: 0;
-    }
+  p {
+    color: #fff;
+    margin: 0;
+    text-align: center;
   }
 }
 
