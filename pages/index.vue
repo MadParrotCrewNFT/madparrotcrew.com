@@ -154,39 +154,23 @@
         <accordion>
           <accordion-item id="1" heading-tag="h3" heading="Accordion title">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn to="#mint" color="dark-blue" small>
-              I'm ready to mint
-            </btn>
           </accordion-item>
           <accordion-item id="2" heading-tag="h3" heading="Accordion title">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn to="#mint" color="dark-blue" small>
-              I'm ready to mint
-            </btn>
           </accordion-item>
           <accordion-item id="3" heading-tag="h3" heading="Accordion title">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn to="#mint" color="dark-blue" small>
-              I'm ready to mint
-            </btn>
           </accordion-item>
           <accordion-item id="4" heading-tag="h3" heading="Accordion title">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn to="#mint" color="dark-blue" small>
-              I'm ready to mint
-            </btn>
           </accordion-item>
           <accordion-item id="5" heading-tag="h3" heading="Accordion title">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn to="#mint" color="dark-blue" small>
-              I'm ready to mint
-            </btn>
           </accordion-item>
-          <accordion-item id="6" heading-tag="h3" heading="Accordion title">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <btn to="#mint" color="dark-blue" small>
-              I'm ready to mint
-            </btn>
+          <accordion-item id="6" heading-tag="h3" heading="Will there be any one-of-ones?">
+            <p>
+              Yeah of course! It wouldn't be a sick collection without some one-of-ones now would it? We're going to release 10, and they'll be nothing like you've seen before.
+            </p>
           </accordion-item>
         </accordion>
       </div>
