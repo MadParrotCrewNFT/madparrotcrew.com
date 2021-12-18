@@ -15,14 +15,36 @@
     </header>
     <section id="about" class="about">
       <div>
-        <div class="about__text">
-          <h2>About <span :aria-label="siteconfig.brand_name">MPC</span></h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <div class="about__parrots--desktop">
+          <img src="~assets/images/about-parrot-back.png" alt="An orange parrot smoking a cigar" loading="lazy" />
+          <img src="~assets/images/about-parrot-front.png" alt="A green parrot wearing a tuxedo drinking red wine" loading="lazy" />
+          <img src="~assets/images/about-parrot-feet.png" alt="" loading="lazy" />
         </div>
       </div>
-      <div class="about__parrots">
-        <img src="~/assets/images/about-parrots-mobile.svg" alt="Two parrots waving">
-        <img src="~/assets/images/about-parrots-desktop.svg" alt="Two parrots waving">
+      <div class="about__text">
+        <h2>
+          First rule of <span :aria-label="siteconfig.brand_name">MPC</span> is...
+        </h2>
+        <p aria-describedby="fight-club">
+          ...not to steal quotes from Fight Club<span aria-hidden="true">*</span>.
+        </p>
+        <p aria-describedby="to-be-clear">
+          The {{ siteconfig.brand_name }} are a bunch of randomly generated parrots who like to wear goofy shit, drink lots, fight more and can often be spotted holding anything (and everything) from a glass of wine to a deadly Katana<span aria-hidden="true">**</span>.
+        </p>
+        <p>
+          You can check out the <a :href="config.SCAN_LINK" target="_blank" rel="norefferer noopener" class="link">verified smart contract</a> on etherscan.
+        </p>
+        <p id="fight-club" class="small" style="margin-top: 3rem">
+          <span aria-hidden="true">*</span> It's a great film, check it out.
+        </p>
+        <p id="to-be-clear" class="small">
+          <span aria-hidden="true">**</span> Just so we're clear, we don't condone violence of any kind nor do we endorse the idea that parrots are deadly psychopaths. However, we do find the idea of a parrot holding nunchucks, smoking a joint or sporting an afro is absolutely fucking hilarious and we hope you do as well.
+        </p>
+      </div>
+      <div class="about__parrots--mobile">
+        <img src="~assets/images/about-parrot-back.png" alt="An orange parrot smoking a cigar" loading="lazy" />
+        <img src="~assets/images/about-parrot-front.png" alt="A green parrot wearing a tuxedo drinking red wine" loading="lazy" />
+        <img src="~assets/images/about-parrot-feet.png" alt="" loading="lazy" />
       </div>
     </section>
     <section id="roadmap" class="roadmap">
@@ -43,7 +65,7 @@
         </li>
       </ol>
     </section>
-    <section id="bonus-traits" class="bonus">
+    <section id="bonus-trait" class="bonus">
       <h2>Bonus traits</h2>
       <ul class="bonus__things">
         <li v-for="bonusTrait in bonusTraits" :key="bonusTrait.image.src">
@@ -556,29 +578,58 @@ export default Vue.extend({
 }
 
 .about {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  background: linear-gradient(180deg, rgba(209,67,0,1) 0%, rgba(217,103,49,1) 100%);
+  background-color: var(--mpc-purple);
   color: #fff;
   text-align: center;
 
   @media (min-width: $responsive-large-tablet) {
-    grid-template-columns: repeat(2, 1fr);
+    position: unset;
+    grid-template-columns: 2fr 1fr;
     background: #fff;
     color: currentColor;
     text-align: left;
   }
 
+  @media (min-width: $responsive-small-desktop) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  > div::nth-child(1) {
+    max-width: 800px;
+  }
+
   &__text {
     position: relative;
-    max-width: 23rem;
+    max-width: 30rem;
     margin-inline: auto;
-    margin-top: 2.5rem;
-    margin-bottom: 9rem;
+    margin-top: 6rem;
+    margin-bottom: 12rem;
     padding-inline: 1rem;
 
+    @media (min-width: $responsive-standard-tablet) {
+      margin-top: 2rem;
+    }
+
     @media (min-width: $responsive-large-tablet) {
-      margin-block: 9rem;
+      margin-top: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (min-width: $responsive-small-desktop) {
+      max-width: 35.5rem;
+      margin-top: 5.125rem;
+      margin-bottom: 2.875rem;
+    }
+
+    a {
+      font-weight: 700;
+
+      @media (max-width: $responsive-large-tablet + 0.0625em) {
+        color: #fff;
+      }
     }
   }
 
@@ -595,33 +646,74 @@ export default Vue.extend({
   }
 
   &__parrots {
-    position: relative;
-    text-align: left;
+    &--mobile {
+      background-image: url(~assets/images/about-oval.svg);
+      background-position: bottom;
+      background-repeat: no-repeat;
+      background-size: contain;
 
-    img {
-      &[src *= "mobile"] {
-        position: relative;
-        bottom: -1.8rem;
-        left: 50%;
-        transform: translateX(-50%);
-        height: 15.625rem;
-        margin-top: -10rem;
-
-        @media (min-width: $responsive-large-tablet) {
-          display: none;
-        }
+      @media (min-width: $responsive-large-tablet) {
+        display: none;
       }
 
-      &[src *= "desktop"] {
-        display: none;
+      img {
+        position: absolute;
+        left: 45%;
+        transform: translateX(-50%);
 
-        @media (min-width: $responsive-large-tablet) {
+        &[src*="back"] {
+          width: 140px;
+          transform: rotate(2deg);
+          bottom: -2rem;
+        }
+
+        &[src*="front"] {
+          width: 128px;
+          bottom: -4.5rem;
+        }
+
+        &[src*="feet"] {
+          width: 32px;
+          bottom: -1rem;
+          z-index: 1;
+        }
+      }
+    }
+
+    &--desktop {
+      display: none;
+
+      @media (min-width: $responsive-large-tablet) {
+        display: block;
+        position: relative;
+        bottom: 6%;
+        height: 106%;
+        background-image: url(~assets/images/about-oval.svg);
+        background-position: bottom;
+        background-repeat: no-repeat;
+        background-size: contain;
+
+        img {
           position: absolute;
-          display: block;
-          height: 110%;
-          bottom: -3rem;
-          left: 50%;
+          left: 40%;
           transform: translateX(-50%);
+
+          &[src*="back"] {
+            width: 320px;
+            transform: rotate(2deg);
+            bottom: -4rem;
+          }
+
+          &[src*="front"] {
+            width: 350px;
+            bottom: -13rem;
+          }
+
+          &[src*="feet"] {
+            width: 86px;
+            bottom: -3rem;
+            z-index: 1;
+          }
         }
       }
     }
@@ -629,6 +721,7 @@ export default Vue.extend({
 }
 
 .roadmap {
+  position: relative;
   background-color: var(--mpc-light-beige);
   padding: 2.25rem 1rem 3.5rem 1rem;
   display: flex;
