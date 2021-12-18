@@ -1,5 +1,5 @@
-const siteconfig = require('./siteconfig.json')
-const config = require('./config.json')
+import siteconfig from './siteconfig.json'
+import config from './config.json'
 
 export default {
   ssr: false,
@@ -57,7 +57,7 @@ export default {
     meta: {
       description: "Mad Parrot Crew consists of 10,000 unique parrot NFTs — unique digital collectibles living on the Ethereum blockchain. Owning a Mad Parrot means you're in in the crew and grants you access to members-only benefits.",
       ogHost: siteconfig.base_url,
-      ogSiteName: siteconfig.brand_name.full,
+      ogSiteName: siteconfig.brand_name,
       ogType: 'website',
       ogImage: {
         path: '/og-image.png',
@@ -69,8 +69,7 @@ export default {
       twitterSite: config.SOCIAL.TWITTER
     },
     manifest: {
-      name: siteconfig.brand_name.full,
-      short_name: siteconfig.brand_name.short,
+      name: siteconfig.brand_name,
       /* icons: handled by pwa.icons module, */
       description: '',
       start_url: '/',
