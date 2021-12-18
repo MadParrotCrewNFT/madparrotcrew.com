@@ -122,7 +122,7 @@
             <ul class="team__socials">
               <li v-for="social in teamMembers[0].socials" :key="social.platform">
                 <a :href="social.url" :title="social.platform" target="_blank">
-                  <img v-if="social.platform.toLowerCase() === 'instagram'" src="~assets/images/instagram.svg" :alt="social.platform" >
+                  <img v-if="social.platform.toLowerCase() === 'instagram'" src="~assets/images/instagram.svg" :alt="social.platform" loading="lazy" />
                   <svg-icon v-else :name="social.platform.toLowerCase()" />
                   <span class="sr-only">{{ social.platform }}</span>
                 </a>
@@ -130,7 +130,8 @@
             </ul>
           </div>
           <div class="team__parrots">
-            <img src="https://picsum.photos/568/444" alt="Two parrots smoking cigars">
+            <img src="~assets/images/team-desktop.png" alt="Two parrots holding torches and a wrench" loading="lazy" height="654" width="568" />
+            <img src="~assets/images/team-feet.png" alt="" loading="lazy" height="131" width="90" />
           </div>
           <div class="team__people--2">
             <h3>{{ teamMembers[1].name }}</h3>
@@ -138,7 +139,7 @@
             <ul class="team__socials">
               <li v-for="social in teamMembers[1].socials" :key="social.platform">
                 <a :href="social.url" :title="social.platform" target="_blank">
-                  <img v-if="social.platform.toLowerCase() === 'instagram'" src="~assets/images/instagram.svg" :alt="social.platform" >
+                  <img v-if="social.platform.toLowerCase() === 'instagram'" src="~assets/images/instagram.svg" :alt="social.platform" loading="lazy" />
                   <svg-icon v-else :name="social.platform.toLowerCase()" />
                   <span class="sr-only">{{ social.platform }}</span>
                 </a>
@@ -286,7 +287,7 @@ export default Vue.extend({
         {
           image: {
             src: 'sheftali-parrot.svg',
-            alt: 'Red parrot'
+            alt: 'A purple parrot wearing a waste coat holding a torch'
           },
           name: 'Sheftali',
           job: 'All the arty stuff',
@@ -304,10 +305,10 @@ export default Vue.extend({
         {
           image: {
             src: 'iacove-parrot.svg',
-            alt: 'Blue parrot'
+            alt: 'A grey parrot holding a wrench'
           },
-          name: 'Iacove',
-          job: 'All the techy stuff',
+          name: 'Iac',
+          job: 'All the web3 stuff',
           socials: [
             {
               platform: 'Twitter',
@@ -884,28 +885,27 @@ export default Vue.extend({
 
 .team {
   background-color: var(--mpc-light-green);
-  padding: 2.5rem 1rem 3.5rem 1rem;
+  padding: 2.5rem 1rem 20.5rem 1rem;
 
-  @media (min-width: $responsive-standard-tablet) {
+  @media (min-width: $responsive-small-desktop) {
     background-color: #fff;
     padding-top: 2.75rem;
-    padding-bottom: 0;
   }
 
   h2 {
     margin-top: 0;
-    margin-bottom: 2.5rem;
+    margin-bottom: 4.875rem;
     font-size: var(--font-size-title);
     text-align: center;
     color: #fff;
 
-    @media (min-width: $responsive-standard-tablet) {
+    @media (min-width: $responsive-small-desktop) {
       color: currentColor;
     }
   }
 
   &__people {
-    @media (max-width: calc($responsive-standard-tablet - 1px)) {
+    @media (max-width: calc($responsive-small-desktop - 1px)) {
       padding-left: 0;
       list-style-type: none;
       display: flex;
@@ -975,9 +975,9 @@ export default Vue.extend({
         }
       }
     }
-    @media (min-width: $responsive-standard-tablet) {
+    @media (min-width: $responsive-small-desktop) {
       display: grid;
-      grid-template-columns: 1fr 2fr 1fr;
+      grid-template-columns: 1fr 568px 1fr;
       gap: 1rem;
 
       &--1 {
@@ -996,21 +996,41 @@ export default Vue.extend({
     }
 
     &--mobile {
-      @media (min-width: $responsive-standard-tablet) {
+      @media (min-width: $responsive-small-desktop) {
         display: none;
       }
     }
 
     &--desktop {
-      @media (max-width: calc($responsive-standard-tablet - 1px)) {
+      @media (max-width: calc($responsive-small-desktop - 1px)) {
         display: none;
       }
     }
   }
 
   &__parrots {
-    display: flex;
-    justify-content: center;
+    display: none;
+
+    @media (min-width: $responsive-small-desktop) {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      
+      img {
+        position: absolute;
+
+        &[src*="team-desktop"] {
+          width: 568px;
+        }
+
+        &[src*="feet"] {
+          width: 90px;
+          bottom: -24rem;
+          left: 9.9rem;
+          z-index: 1;
+        }
+      }
+    }
   }
 
   &__socials {
@@ -1033,6 +1053,8 @@ export default Vue.extend({
 }
 
 .faqs {
+  position: relative;
+
   @media (min-width: $responsive-small-desktop) {
     padding-inline: 13rem;
   }
