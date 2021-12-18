@@ -19,6 +19,11 @@ interface IState {
 export const state = () => ({
   socialLinks: [
     {
+      text: 'Discord',
+      url: config.SOCIAL.DISCORD,
+      icon: 'discord'
+    },
+    {
       text: 'Twitter',
       url: config.SOCIAL.TWITTER,
       icon: 'twitter'
