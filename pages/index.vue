@@ -188,9 +188,11 @@
         </li>
       </ul>
       <logo class="footer__logo" />
-      <address class="footer__contact">
-        Verified smart contract: <a class="link" :href="config.SCAN_LINK" rel="norefferer nofollow noopener" target="_blank">{{ config.CONTRACT_ADDRESS }}</a>
-      </address>
+      <ul class="footer__links">
+        <li>
+          <a class="link" :href="config.SCAN_LINK" rel="norefferer nofollow noopener" target="_blank">Smart contract</a>
+        </li>
+      </ul>
     </footer>
   </div>
 </template>
@@ -1097,10 +1099,23 @@ export default Vue.extend({
     color: #000;
   }
 
-  &__contact {
+  &__links {
     font-size: var(--font-size-small);
     font-style: normal;
     text-align: center;
+    padding-left: 0;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    li:not(:nth-child(1)) {
+      &::before {
+        content: '·';
+        margin-right: 0.25rem;
+      }
+    }
   }
 }
 </style>
