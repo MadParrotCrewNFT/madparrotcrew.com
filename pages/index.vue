@@ -65,15 +65,14 @@
         </li>
       </ol>
     </section>
-    <section id="bonus-trait" class="bonus">
-      <h2>Bonus traits</h2>
-      <ul class="bonus__things">
-        <li v-for="bonusTrait in bonusTraits" :key="bonusTrait.image.src">
-          <img :src="require(`@/assets/images/${bonusTrait.image.src}`)" :alt="bonusTrait.image.alt">
-          <h3>{{ bonusTrait.title }}</h3>
-          <p>{{ bonusTrait.body }}</p>
-        </li>
-      </ul>
+    <section id="bonus-trait" class="bonus bonus--desktop">
+      <div class="bonus__image">
+        <img src="~assets/images/diamond-beak.png" alt="A diamond parrot beak" loading="lazy" height="120" width="120" />
+      </div>
+      <h2>Diamond beak club</h2>
+      <p>
+        If your parrot has a diamond beak, something good happens (tba)
+      </p>
     </section>
     <section id="distribution" class="distribution">
       <h2>Distribution</h2>
@@ -86,6 +85,13 @@
           </card>
         </li>
       </ul>
+    </section>
+    <section id="bonus-trait" class="bonus bonus--mobile">
+      <img src="~assets/images/diamond-beak.png" alt="A diamond parrot beak" loading="lazy" height="64" width="64" />
+      <h2>Diamond beak club</h2>
+      <p>
+        If your parrot has a diamond beak, something good happens (tba)
+      </p>
     </section>
     <section id="team" class="team">
       <div>
@@ -730,7 +736,7 @@ export default Vue.extend({
 
   @media (min-width: $responsive-small-tablet) {
     padding-top: 4.125rem;
-    padding-bottom: 5.5rem;
+    padding-bottom: 10rem;
   }
 
   h2 {
@@ -833,62 +839,60 @@ export default Vue.extend({
 }
 
 .bonus {
-  padding: 6.25rem 1rem 5.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &--mobile {
+    padding: 3rem 1.5rem;
+
+    img {
+      height: 64px;
+      width: 64px;
+    }
+
+    @media (min-width: $responsive-standard-tablet) {
+      display: none;
+    }
+  }
+
+  &--desktop {
+    display: none;
+
+    @media (min-width: $responsive-standard-tablet) {
+      display: flex;
+      position: relative;
+      padding: 6.25rem 1rem 5.5rem 1rem;
+
+      .bonus__image {
+        position: absolute;
+        top: -84px;
+        height: 168px;
+        width: 168px;
+        background-color: var(--mpc-burgandy);
+        border: 10px solid #fff;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        box-shadow: inset 0px 0px 6px 5px rgba(0, 0, 0, 0.7);
+      }
+
+      p {
+        max-width: 368px;
+      }
+    }
+  }
 
   h2 {
     margin-top: 0;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     font-size: var(--font-size-title);
     text-align: center;
   }
 
-  &__things {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem 1rem;
-    place-items: center;
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-
-    @media (min-width: $responsive-small-tablet) {
-      grid-template-columns: repeat(2, 1fr);
-
-      li:nth-child(3) {
-        grid-column: span 2;
-      }
-    }
-
-    @media (min-width: $responsive-large-tablet) {
-      grid-template-columns: repeat(3, 1fr);
-
-      li {
-        grid-column: span 1 !important;
-      }
-    }
-
-    li {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      max-width: 23rem;
-
-      img {
-        height: 8rem;
-        width: 8rem;
-      }
-
-      h3 {
-        font-size: var(--font-size-subtitle);
-        margin-top: 1.5rem;
-        margin-bottom: 0.75rem;
-      }
-
-      p {
-        margin: 0;
-      }
-    }
+  p {
+    text-align: center;
+    margin-block: 0;
   }
 }
 
