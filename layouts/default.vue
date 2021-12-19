@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="page">
     <navigation />
-    <Nuxt />
+    <div class="page__body">
+      <Nuxt />
+    </div>
     <site-footer />
   </div>
 </template>
@@ -15,3 +17,21 @@ export default Vue.extend({
   components: { Navigation, SiteFooter }
 })
 </script>
+
+<style lang="scss" scoped>
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    > * {
+      flex: 1;
+    }
+  }
+}
+</style>
