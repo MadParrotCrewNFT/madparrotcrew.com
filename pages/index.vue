@@ -1,7 +1,6 @@
 <template>
   <div>
     <header class="header">
-      <navigation />
       <div class="header__calculator-wrapper">
         <calculator v-if="config.MINTING_LIVE" class="header__calculator" />
         <img v-else class="header__soon" src="~assets/images/minting-coming-soon.png" alt="Minting coming soon" width="424" height="245" loading="lazy" />
@@ -181,32 +180,14 @@
         </accordion>
       </div>
     </section>
-    <footer class="footer">
-      <ul class="footer__social">
-        <li v-for="socialLink in socialLinks" :key="socialLink.text">
-          <a :href="socialLink.url" target="_blank">
-            <img v-if="socialLink.icon === 'instagram'" src="~assets/images/instagram.svg" :alt="socialLink.text" >
-            <svg-icon v-else :name="socialLink.icon" />
-            <span class="sr-only">{{ socialLink.text }}</span>
-          </a>
-        </li>
-      </ul>
-      <logo class="footer__logo" />
-      <ul class="footer__links">
-        <li v-if="config.MINTING_LIVE">
-          <a class="link" :href="config.SCAN_LINK" rel="norefferer nofollow noopener" target="_blank">Smart contract</a>
-        </li>
-      </ul>
-    </footer>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { Navigation, Calculator, Card, Accordion, AccordionItem, Btn, Logo } from '@/components'
+import { Calculator, Card, Accordion, AccordionItem, Btn, Logo } from '@/components'
 import siteconfig from '@/siteconfig.json'
 import config from '@/config.json'
-import { ISocialLink } from '@/store'
 
 interface IRoadmapCheckpoint {
   title: string;
@@ -237,7 +218,7 @@ interface ITeamMember {
 }
 
 export default Vue.extend({
-  components: { Navigation, Calculator, Card, Accordion, AccordionItem, Btn, Logo },
+  components: { Calculator, Card, Accordion, AccordionItem, Btn, Logo },
   data () {
     return {
       siteconfig,
@@ -324,9 +305,6 @@ export default Vue.extend({
           ]
         }
       ]
-    },
-    socialLinks (): ISocialLink[] {
-      return this.$store.state.socialLinks
     }
   }
 })
@@ -447,7 +425,7 @@ export default Vue.extend({
     position: relative;
 
     &-wrapper {
-      margin-top: 2rem;
+      padding-top: 3.5rem;
       margin-inline: 1rem;
       position: relative;
       top: 5.5rem;
@@ -478,7 +456,7 @@ export default Vue.extend({
         width: 90px;
         height: 190px;
         position: absolute;
-        top: -6rem;
+        top: -2.5rem;
         left: 50%;
         transform: translateX(-50%);
 
@@ -498,7 +476,7 @@ export default Vue.extend({
         width: 34px;
         height: 82px;
         position: absolute;
-        top: -3.3rem;
+        top: 0.2rem;
         left: calc(50% - 2.6rem);
 
         @media (min-width: $responsive-large-tablet) {
@@ -1089,58 +1067,6 @@ export default Vue.extend({
     margin-bottom: 1rem;
     font-size: var(--font-size-title);
     text-align: center;
-  }
-}
-
-.footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2.5rem 1rem 3rem 1rem;
-
-  &__social {
-    display: flex;
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-    height: 100%;
-
-    li, a {
-      display: flex;
-      align-items: center;
-      height: 100%;
-      padding-inline: 0.125rem;
-    }
-
-    svg {
-      height: 2rem;
-      width: 2rem;
-    }
-  }
-
-  &__logo {
-    width: 9rem;
-    margin-block: 1.5rem;
-    color: #000;
-  }
-
-  &__links {
-    font-size: var(--font-size-small);
-    font-style: normal;
-    text-align: center;
-    padding-left: 0;
-    margin: 0;
-    list-style-type: none;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-
-    li:not(:nth-child(1)) {
-      &::before {
-        content: '·';
-        margin-right: 0.25rem;
-      }
-    }
   }
 }
 </style>

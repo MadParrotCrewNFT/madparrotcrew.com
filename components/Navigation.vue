@@ -7,7 +7,7 @@
           <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
         </nuxt-link>
       </h1>
-      <nav v-if="isHomepage" class="navbar__nav">
+      <nav v-if="showNavItems" class="navbar__nav">
         <ul class="navbar__nav-list">
           <li v-for="navItem in navItems" :key="navItem.url">
             <a :href="navItem.url" :class="{ 'active': isTheChosenOne(navItem.url) }">
@@ -47,8 +47,12 @@ export default Vue.extend({
   components: { Logo },
   data () {
     return {
-      siteconfig
+      siteconfig,
+      showNavItems: true
     }
+  },
+  mounted () {
+    this.showNavItems = window.location.pathname === '/'
   },
   computed: {
     navItems (): INavItem[] {
@@ -81,9 +85,11 @@ export default Vue.extend({
     },
     socialLinks (): ISocialLink[] {
       return this.$store.state.socialLinks
-    },
-    isHomepage (): boolean {
-      return window.location.pathname === '/'
+    }
+  },
+  watch: {
+    $route (): void {
+      this.showNavItems = window.location.pathname === '/'
     }
   },
   methods: {
@@ -96,12 +102,14 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .navbar {
-  position: relative;
+  position: absolute;
+  z-index: 2;
   top: 0;
   width: 100vw;
   height: 3.5rem;
 
   @media (min-width: $responsive-standard-tablet) {
+    position: relative;
     background-color: #fff;
   }
 
