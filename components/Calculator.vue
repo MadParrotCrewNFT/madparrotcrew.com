@@ -63,6 +63,9 @@ export default Vue.extend({
       if (accounts.length === 0) {
         this.$store.commit('setAccount', null)
       }
+      else {
+        this.$store.commit('setAccount', accounts[0])
+      }
     })
   },
   methods: {
