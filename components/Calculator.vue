@@ -59,14 +59,16 @@ export default Vue.extend({
   mounted () {
     this.$store.dispatch("checkIfConnected")
 
-    window.ethereum.on("accountsChanged", (accounts: string) => {
-      if (accounts.length === 0) {
-        this.$store.commit('setAccount', null)
-      }
-      else {
-        this.$store.commit('setAccount', accounts[0])
-      }
-    })
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", (accounts: string) => {
+        if (accounts.length === 0) {
+          this.$store.commit('setAccount', null)
+        }
+        else {
+          this.$store.commit('setAccount', accounts[0])
+        }
+      })
+    }
   },
   methods: {
     async connect (): Promise<void> {
