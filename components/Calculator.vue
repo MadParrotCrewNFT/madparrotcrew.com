@@ -19,10 +19,10 @@
           <span class="sr-only">Plus 1 parrot</span>
         </btn>
       </div>
-      <p role="text">
+      <p role="text" id="how-many-parrots">
         Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum() }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
       </p>
-      <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT">
+      <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" aria-describedby="how-many-parrots">
         Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
       </btn>
     </template>
