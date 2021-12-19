@@ -338,8 +338,8 @@ export default Vue.extend({
       background-repeat: no-repeat;
       background-position: bottom;
       background-size: cover;
-      width: 314px;
-      height: 646px;
+      width: 19.625rem;
+      height: 40.375rem;
       position: absolute;
       bottom: -17rem;
       right: 1rem;
@@ -363,8 +363,8 @@ export default Vue.extend({
       background-repeat: no-repeat;
       background-position: bottom;
       background-size: cover;
-      width: 125px;
-      height: 306px;
+      width: 7.8125rem;
+      height: 19.125rem;
       position: absolute;
       bottom: -5rem;
       right: 1rem;
@@ -397,7 +397,7 @@ export default Vue.extend({
         transform: translateX(-50%);
         display: block;
         width: calc(110% + 1.3px);
-        height: 38px;
+        height: 2.375rem;
         color: #fff;
       }
     }
@@ -453,8 +453,8 @@ export default Vue.extend({
         background-repeat: no-repeat;
         background-position: bottom;
         background-size: cover;
-        width: 90px;
-        height: 190px;
+        width: 5.625rem;
+        height: 11.875rem;
         position: absolute;
         top: -2.5rem;
         left: 50%;
@@ -473,8 +473,8 @@ export default Vue.extend({
         background-repeat: no-repeat;
         background-position: bottom;
         background-size: cover;
-        width: 34px;
-        height: 82px;
+        width: 2.125rem;
+        height: 5.125rem;
         position: absolute;
         top: 0.2rem;
         left: calc(50% - 2.6rem);
@@ -514,8 +514,8 @@ export default Vue.extend({
       grid-template-columns: repeat(2, 1fr);
     }
 
-    > div::nth-child(1) {
-      max-width: 800px;
+    > div:nth-child(1) {
+      max-width: 50rem;
     }
   }
 
@@ -580,18 +580,18 @@ export default Vue.extend({
         transform: translateX(-50%);
 
         &[src*="back"] {
-          width: 140px;
+          width: 8.75rem;
           transform: rotate(2deg);
           bottom: -2rem;
         }
 
         &[src*="front"] {
-          width: 128px;
+          width: 8rem;
           bottom: -4.5rem;
         }
 
         &[src*="feet"] {
-          width: 32px;
+          width: 2rem;
           bottom: -1rem;
           z-index: 1;
         }
@@ -617,18 +617,18 @@ export default Vue.extend({
           transform: translateX(-50%);
 
           &[src*="back"] {
-            width: 320px;
+            width: 20rem;
             transform: rotate(2deg);
             bottom: -4rem;
           }
 
           &[src*="front"] {
-            width: 350px;
+            width: 21.875rem;
             bottom: -13rem;
           }
 
           &[src*="feet"] {
-            width: 86px;
+            width: 5.375rem;
             bottom: -3rem;
             z-index: 1;
           }
@@ -759,8 +759,8 @@ export default Vue.extend({
     padding: 3rem 1.5rem;
 
     img {
-      height: 64px;
-      width: 64px;
+      height: 4rem;
+      width: 4rem;
     }
 
     @media (min-width: $responsive-standard-tablet) {
@@ -778,19 +778,19 @@ export default Vue.extend({
 
       .bonus__image {
         position: absolute;
-        top: -84px;
-        height: 168px;
-        width: 168px;
+        top: -5.25rem;
+        height: 10.5rem;
+        width: 10.5rem;
         background-color: var(--mpc-burgandy);
         border: 10px solid #fff;
         display: grid;
         place-items: center;
         border-radius: 50%;
-        box-shadow: inset 0px 0px 6px 5px rgba(0, 0, 0, 0.7);
+        box-shadow: inset 0 0 0.375rem 0.3125rem rgba(0, 0, 0, 0.7);
       }
 
       p {
-        max-width: 368px;
+        max-width: 23rem;
       }
     }
   }
@@ -860,8 +860,8 @@ export default Vue.extend({
     place-items: center;
     background-color: #fff;
     text-align: center;
-    height: 224px;
-    width: 224px;
+    height: 14rem;
+    width: 14rem;
     border-radius: 50%;
     padding: 2.5rem;
   }
@@ -919,8 +919,8 @@ export default Vue.extend({
       .team-member__img {
         background-color: #fff;
         border-radius: 50%;
-        height: 126px;
-        width: 126px;
+        height: 7.875rem;
+        width: 7.875rem;
         position: relative;
 
         img {
@@ -928,13 +928,13 @@ export default Vue.extend({
           position: absolute;
           
           &[src*="sheftali"] {
-            top: -23px;
-            right: 4px;
+            top: -1.4275rem;
+            right: 0.25rem;
           }
 
           &[src*="iacove"] {
-            top: -26px;
-            left: -2px;
+            top: -1.625rem;
+            left: -0.125rem;
           }
         }
       }
@@ -975,7 +975,7 @@ export default Vue.extend({
 
       @media (min-width: $responsive-small-desktop) {
         display: grid;
-        grid-template-columns: 1fr 568px 1fr;
+        grid-template-columns: 1fr 35.5rem 1fr;
         gap: 1rem;
 
         .team__people--1 {
@@ -1012,11 +1012,11 @@ export default Vue.extend({
         position: absolute;
 
         &[src*="team-desktop"] {
-          width: 568px;
+          width: 35.5rem;
         }
 
         &[src*="feet"] {
-          width: 90px;
+          width: 5.625rem;
           bottom: -19rem;
           left: 9.9rem;
           z-index: 1;

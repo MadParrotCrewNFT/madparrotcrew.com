@@ -33,7 +33,7 @@ export default Vue.extend({
 .t-and-c {
   background-color: #fff;
   padding: 3rem 2rem;
-  max-width: 568px;
+  max-width: 35.5rem;
   margin: 2.5rem auto;
   border-radius: var(--border-radius-standard);
 

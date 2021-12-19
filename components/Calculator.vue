@@ -115,8 +115,8 @@ export default Vue.extend({
 
   p {
     text-align: center;
-    margin-top: 12px;
-    margin-bottom: 22px;
+    margin-top: 0.75rem;
+    margin-bottom: 1.375rem;
   }
 
   &__buttons {
@@ -135,7 +135,7 @@ export default Vue.extend({
     width: 4rem;
     border: 0;
     border-radius: var(--border-radius-standard);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
     font-weight: 800;
     font-size: var(--font-size-heading);
     text-align: center;
