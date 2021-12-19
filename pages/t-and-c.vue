@@ -42,6 +42,8 @@ export default Vue.extend({
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    background-attachment: fixed;
+    padding: 1rem;
 
     @media (min-width: $responsive-standard-tablet) {
       background-image: url(~assets/images/header-bg-desktop.png);
