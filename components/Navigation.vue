@@ -2,10 +2,12 @@
   <div class="navbar">
     <div class="navbar__inner">
       <h1 class="navbar__logo">
-        <logo />
-        <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
+        <nuxt-link to="/">
+          <logo />
+          <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
+        </nuxt-link>
       </h1>
-      <nav class="navbar__nav">
+      <nav v-if="isHomepage" class="navbar__nav">
         <ul class="navbar__nav-list">
           <li v-for="navItem in navItems" :key="navItem.url">
             <a :href="navItem.url" :class="{ 'active': isTheChosenOne(navItem.url) }">
@@ -79,6 +81,9 @@ export default Vue.extend({
     },
     socialLinks (): ISocialLink[] {
       return this.$store.state.socialLinks
+    },
+    isHomepage (): boolean {
+      return window.location.pathname === '/'
     }
   },
   methods: {
@@ -112,10 +117,13 @@ export default Vue.extend({
 
   &__logo {
     margin: 0;
-    color: #fff;
 
-    @media (min-width: $responsive-standard-tablet) {
-      color: #000;
+    a {
+      color: #fff;
+
+      @media (min-width: $responsive-standard-tablet) {
+        color: #000;
+      }
     }
 
     img {
