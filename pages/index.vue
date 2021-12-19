@@ -893,7 +893,7 @@ export default Vue.extend({
   @media (min-width: $responsive-small-desktop) {
     background-color: #fff;
     padding-top: 2.75rem;
-    padding-bottom: 20.5rem;
+    padding-bottom: 15.5rem;
   }
 
   h2 {
@@ -984,6 +984,11 @@ export default Vue.extend({
           text-align: right;
         }
 
+        .team__people--1,
+        .team__people--2 {
+          padding-top: 5rem;
+        }
+
         h3 {
           font-size: var(--font-size-subtitle);
           margin: 0;
@@ -1014,7 +1019,7 @@ export default Vue.extend({
 
         &[src*="feet"] {
           width: 90px;
-          bottom: -24rem;
+          bottom: -19rem;
           left: 9.9rem;
           z-index: 1;
         }
