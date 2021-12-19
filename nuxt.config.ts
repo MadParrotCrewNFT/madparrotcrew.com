@@ -29,8 +29,13 @@ export default {
   ],
   buildModules: [
     '@nuxt/typescript-build',
+    '@nuxtjs/google-analytics',
     '@nuxtjs/style-resources'
   ],
+  googleAnalytics: {
+    id: 'UA-215627717-1',
+    dev: process.env.NODE_ENV === 'development'
+  },
   styleResources: {
     scss: [
       '~/assets/scss/responsive-vars.scss'
