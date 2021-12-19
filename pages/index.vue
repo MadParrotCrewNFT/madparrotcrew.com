@@ -910,13 +910,17 @@ export default Vue.extend({
 
   &__people {
     &--mobile {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: grid;
+      grid-template-columns: 1fr;
+      place-items: center;
       gap: 4rem;
       list-style-type: none;
       padding-left: 0;
       margin: 0;
+
+      @media (min-width: $responsive-small-tablet) {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
       .team-member__img {
         background-color: #fff;
