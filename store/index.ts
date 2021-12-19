@@ -28,16 +28,21 @@ export const state = () => ({
       url: config.SOCIAL.TWITTER,
       icon: 'twitter'
     },
-    {
-      text: 'OpenSea',
-      url: config.MARKETPLACE_LINK,
-      icon: 'opensea'
-    },
-    {
-      text: 'Etherscan',
-      url: config.SCAN_LINK,
-      icon: 'etherscan'
-    },
+    ...(config.MINTING_LIVE
+      ? [
+        {
+          text: 'OpenSea',
+          url: config.MARKETPLACE_LINK,
+          icon: 'opensea'
+        },
+        {
+          text: 'Etherscan',
+          url: config.SCAN_LINK,
+          icon: 'etherscan'
+        }
+      ]
+      : []
+    ),
     {
       text: 'Instagram',
       url: config.SOCIAL.INSTAGRAM,

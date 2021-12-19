@@ -31,7 +31,7 @@
         <p aria-describedby="to-be-clear">
           The {{ siteconfig.brand_name }} are a bunch of randomly generated parrots who like to wear goofy shit, drink lots, fight more and can often be spotted holding anything (and everything) from a glass of wine to a deadly Katana<span aria-hidden="true">**</span>.
         </p>
-        <p>
+        <p v-if="config.MINTING_LIVE">
           You can check out the <a :href="config.SCAN_LINK" target="_blank" rel="norefferer noopener" class="link">verified smart contract</a> on etherscan.
         </p>
         <p id="fight-club" class="small" style="margin-top: 3rem">
@@ -189,7 +189,7 @@
       </ul>
       <logo class="footer__logo" />
       <ul class="footer__links">
-        <li>
+        <li v-if="config.MINTING_LIVE">
           <a class="link" :href="config.SCAN_LINK" rel="norefferer nofollow noopener" target="_blank">Smart contract</a>
         </li>
       </ul>
