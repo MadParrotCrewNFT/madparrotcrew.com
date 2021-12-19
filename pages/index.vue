@@ -14,37 +14,39 @@
       <div class="header__block"></div>
     </header>
     <section id="about" class="about">
-      <div>
-        <div class="about__parrots--desktop">
+      <div class="about__inner">
+        <div>
+          <div class="about__parrots--desktop">
+            <img src="~assets/images/about-parrot-back.png" alt="An orange parrot smoking a cigar" loading="lazy" />
+            <img src="~assets/images/about-parrot-front.png" alt="A green parrot wearing a tuxedo drinking red wine" loading="lazy" />
+            <img src="~assets/images/about-parrot-feet.png" alt="" loading="lazy" />
+          </div>
+        </div>
+        <div class="about__text">
+          <h2>
+            First rule of <span :aria-label="siteconfig.brand_name">MPC</span> is...
+          </h2>
+          <p aria-describedby="fight-club">
+            ...not to steal quotes from Fight Club<span aria-hidden="true">*</span>.
+          </p>
+          <p aria-describedby="to-be-clear">
+            The {{ siteconfig.brand_name }} are a bunch of randomly generated parrots who like to wear goofy shit, drink lots, fight more and can often be spotted holding anything (and everything) from a glass of wine to a deadly Katana<span aria-hidden="true">**</span>.
+          </p>
+          <p v-if="config.MINTING_LIVE">
+            You can check out the <a :href="config.SCAN_LINK" target="_blank" rel="norefferer noopener" class="link">verified smart contract</a> on etherscan.
+          </p>
+          <p id="fight-club" class="small" style="margin-top: 3rem">
+            <span aria-hidden="true">*</span> It's a great film, check it out.
+          </p>
+          <p id="to-be-clear" class="small">
+            <span aria-hidden="true">**</span> Just so we're clear, we don't condone violence of any kind nor do we endorse the idea that parrots are deadly psychopaths. However, we do find the idea of a parrot holding nunchucks, smoking a joint or sporting an afro is absolutely fucking hilarious and we hope you do as well.
+          </p>
+        </div>
+        <div class="about__parrots--mobile">
           <img src="~assets/images/about-parrot-back.png" alt="An orange parrot smoking a cigar" loading="lazy" />
           <img src="~assets/images/about-parrot-front.png" alt="A green parrot wearing a tuxedo drinking red wine" loading="lazy" />
           <img src="~assets/images/about-parrot-feet.png" alt="" loading="lazy" />
         </div>
-      </div>
-      <div class="about__text">
-        <h2>
-          First rule of <span :aria-label="siteconfig.brand_name">MPC</span> is...
-        </h2>
-        <p aria-describedby="fight-club">
-          ...not to steal quotes from Fight Club<span aria-hidden="true">*</span>.
-        </p>
-        <p aria-describedby="to-be-clear">
-          The {{ siteconfig.brand_name }} are a bunch of randomly generated parrots who like to wear goofy shit, drink lots, fight more and can often be spotted holding anything (and everything) from a glass of wine to a deadly Katana<span aria-hidden="true">**</span>.
-        </p>
-        <p v-if="config.MINTING_LIVE">
-          You can check out the <a :href="config.SCAN_LINK" target="_blank" rel="norefferer noopener" class="link">verified smart contract</a> on etherscan.
-        </p>
-        <p id="fight-club" class="small" style="margin-top: 3rem">
-          <span aria-hidden="true">*</span> It's a great film, check it out.
-        </p>
-        <p id="to-be-clear" class="small">
-          <span aria-hidden="true">**</span> Just so we're clear, we don't condone violence of any kind nor do we endorse the idea that parrots are deadly psychopaths. However, we do find the idea of a parrot holding nunchucks, smoking a joint or sporting an afro is absolutely fucking hilarious and we hope you do as well.
-        </p>
-      </div>
-      <div class="about__parrots--mobile">
-        <img src="~assets/images/about-parrot-back.png" alt="An orange parrot smoking a cigar" loading="lazy" />
-        <img src="~assets/images/about-parrot-front.png" alt="A green parrot wearing a tuxedo drinking red wine" loading="lazy" />
-        <img src="~assets/images/about-parrot-feet.png" alt="" loading="lazy" />
       </div>
     </section>
     <section id="roadmap" class="roadmap">
@@ -75,16 +77,18 @@
       </p>
     </section>
     <section id="distribution" class="distribution">
-      <h2>Distribution</h2>
-      <ul class="distribution__things">
-        <li v-for="distribution in parrotDistribution" :key="distribution.image.src">
-          <div class="distribution__img">
-            <img :src="require(`@/assets/images/${distribution.image.src}`)" :alt="distribution.image.alt">
-          </div>
-          <h3>{{ distribution.title }}</h3>
-          <p>{{ distribution.body }}</p>
-        </li>
-      </ul>
+      <div class="distribution__inner">
+        <h2>Distribution</h2>
+        <ul class="distribution__things">
+          <li v-for="distribution in parrotDistribution" :key="distribution.image.src">
+            <div class="distribution__img">
+              <img :src="require(`@/assets/images/${distribution.image.src}`)" :alt="distribution.image.alt">
+            </div>
+            <h3>{{ distribution.title }}</h3>
+            <p>{{ distribution.body }}</p>
+          </li>
+        </ul>
+      </div>
     </section>
     <section id="bonus-trait" class="bonus bonus--mobile">
       <img src="~assets/images/diamond-beak.png" alt="A diamond parrot beak" loading="lazy" height="64" width="64" />
@@ -507,26 +511,34 @@ export default Vue.extend({
 
 .about {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
   background-color: var(--mpc-purple);
   color: #fff;
   text-align: center;
 
   @media (min-width: $responsive-large-tablet) {
     position: unset;
-    grid-template-columns: 2fr 1fr;
     background: #fff;
     color: currentColor;
     text-align: left;
   }
 
-  @media (min-width: $responsive-small-desktop) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  &__inner {
+    max-width: var(--max-max-width);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
 
-  > div::nth-child(1) {
-    max-width: 800px;
+    @media (min-width: $responsive-large-tablet) {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    @media (min-width: $responsive-small-desktop) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    > div::nth-child(1) {
+      max-width: 800px;
+    }
   }
 
   &__text {
@@ -830,6 +842,11 @@ export default Vue.extend({
     padding-inline: 6rem;
   }
 
+  &__inner {
+    max-width: var(--max-max-width);
+    margin-inline: auto;
+  }
+
   h2 {
     margin-top: 0;
     margin-bottom: 4rem;
@@ -1059,8 +1076,8 @@ export default Vue.extend({
   &__inner {
     padding: 3rem 1rem;
     background-color: var(--mpc-light-beige);
-    // max-width: 64rem;
-    // margin-inline: auto;
+    max-width: var(--max-max-width);
+    margin-inline: auto;
 
     @media (min-width: $responsive-standard-tablet) {
       padding: 3rem 6.25rem 4.5rem 6.25rem;

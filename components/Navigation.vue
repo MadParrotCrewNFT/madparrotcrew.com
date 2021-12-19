@@ -1,28 +1,30 @@
 <template>
   <div class="navbar">
-    <h1 class="navbar__logo">
-      <logo />
-      <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
-    </h1>
-    <nav class="navbar__nav">
-      <ul class="navbar__nav-list">
-        <li v-for="navItem in navItems" :key="navItem.url">
-          <a :href="navItem.url" :class="{ 'active': isTheChosenOne(navItem.url) }">
-            {{ navItem.text }}
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <div class="navbar__social">
-      <ul class="navbar__social-list">
-        <li v-for="socialLink in socialLinks" :key="socialLink.url">
-          <a :href="socialLink.url" target="_blank" :title="socialLink.text">
-            <img v-if="socialLink.icon === 'instagram'" src="~assets/images/instagram.svg" :alt="socialLink.text" >
-            <svg-icon v-else :name="socialLink.icon" />
-            <span class="sr-only">{{ socialLink.text }}</span>
-          </a>
-        </li>
-      </ul>
+    <div class="navbar__inner">
+      <h1 class="navbar__logo">
+        <logo />
+        <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
+      </h1>
+      <nav class="navbar__nav">
+        <ul class="navbar__nav-list">
+          <li v-for="navItem in navItems" :key="navItem.url">
+            <a :href="navItem.url" :class="{ 'active': isTheChosenOne(navItem.url) }">
+              {{ navItem.text }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="navbar__social">
+        <ul class="navbar__social-list">
+          <li v-for="socialLink in socialLinks" :key="socialLink.url">
+            <a :href="socialLink.url" target="_blank" :title="socialLink.text">
+              <img v-if="socialLink.icon === 'instagram'" src="~assets/images/instagram.svg" :alt="socialLink.text" >
+              <svg-icon v-else :name="socialLink.icon" />
+              <span class="sr-only">{{ socialLink.text }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -93,12 +95,19 @@ export default Vue.extend({
   top: 0;
   width: 100vw;
   height: 3.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
 
   @media (min-width: $responsive-standard-tablet) {
     background-color: #fff;
+  }
+
+  &__inner {
+    max-width: var(--max-max-width);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    position: relative;
+    margin-inline: auto;
   }
 
   &__logo {
