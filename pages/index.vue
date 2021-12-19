@@ -386,7 +386,6 @@ export default Vue.extend({
       position: absolute;
       bottom: -5rem;
       right: 1rem;
-      transform-origin: top;
     }
 
     @media (min-width: $responsive-small-desktop) {
@@ -448,6 +447,8 @@ export default Vue.extend({
       margin-inline: 1rem;
       position: relative;
       top: 5.5rem;
+      position: relative;
+      z-index: 1;
 
       @media (min-width: $responsive-large-mobile) {
         margin-inline: auto;
@@ -494,9 +495,7 @@ export default Vue.extend({
         height: 82px;
         position: absolute;
         top: -3.3rem;
-        left: calc(50% - 2.7rem);
-        transform: translateX(50%);
-        transform-origin: top;
+        left: calc(50% - 2.6rem);
 
         @media (min-width: $responsive-large-tablet) {
           display: none;
