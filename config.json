@@ -10,7 +10,7 @@
   "NFT_NAME": "SYNERGY",
   "SYMBOL": "SGY",
   "MAX_SUPPLY": 10000,
-  "ETH_COST": 0.075,
+  "ETH_COST": 0.07,
   "GAS_LIMIT": 300000,
   "MARKETPLACE": "OPENSEA",
   "MARKETPLACE_LINK": "https://opensea.io/collection/Testproj",
