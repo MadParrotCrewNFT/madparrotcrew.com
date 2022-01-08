@@ -1,9 +1,9 @@
 <template>
   <div class="page">
     <navigation />
-    <div class="page__body">
+    <main class="page__body">
       <Nuxt />
-    </div>
+    </main>
     <site-footer />
   </div>
 </template>
