@@ -12,7 +12,10 @@ html {
   font-family: sans-serif;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+
+  @media (min-width: $responsive-standard-tablet) {
+    scroll-padding-top: 5rem;
+  }
 }
 
 *,
