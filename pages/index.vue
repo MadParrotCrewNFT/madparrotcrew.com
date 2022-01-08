@@ -161,7 +161,7 @@
             <p>A collection of 10,000 randomly generated NFTs on the Ethereum blockchain.</p>
           </accordion-item>
           <accordion-item id="2" heading-tag="h3" heading="Who created the Mad Parrots?">
-            <p><a :href="config.SHEFTALI.TWITTER" target="_blank" rel="noopener noreferrer">Sheftali</a> and <a :href="config.IACOVE.TWITTER" target="_blank" rel="noopener noreferrer">Iacove</a>.</p>
+            <p><a :href="config.SHEFTALI.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Sheftali</a> and <a :href="config.IACOVE.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Iacove</a>.</p>
           </accordion-item>
           <accordion-item id="3" heading-tag="h3" heading="What's the mint price for a Mad Parrot and how many can I get?">
             <p>{{ config.ETH_COST }} ETH per Mad Parrot, plus gas. You're allowed up to {{ config.MAX_MINT_PARROTS }} Mad Parrots per wallet.</p>
@@ -170,7 +170,7 @@
             <p>The mint will be split out in 4 stages, (2475 parrots each) the first stage will be in <time datetime="2022-02">mid-February 2022</time>.</p>
           </accordion-item>
           <accordion-item id="5" heading-tag="h3" heading="Will there be giveaways?">
-            <p>Eww no. Jk, of course there will be giveaways! Check the <a href="#roadmap">roadmap</a>.</p>
+            <p>Eww no. Jk, of course there will be giveaways! Check the <a href="#roadmap" class="link">roadmap</a>.</p>
           </accordion-item>
           <accordion-item id="6" heading-tag="h3" heading="Will there be any one-of-ones?">
             <p>
