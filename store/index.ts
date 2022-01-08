@@ -79,6 +79,7 @@ export const actions = {
       if (!(await dispatch("checkIfConnected"))) { // User has granted access to wallet?
         await dispatch("requestAccess")
       }
+      await dispatch("checkNetwork")
     } catch (error) {
       console.error(error)
       commit("setConnectionError", "Wallet account request refused.")
@@ -102,5 +103,31 @@ export const actions = {
       method: "eth_requestAccounts",
     });
     commit("setAccount", accounts[0])
+  },
+  async checkNetwork({ commit, dispatch }: { commit: any, dispatch: any }) {
+    const { ethereum } = window
+    let chainId = await ethereum.request({ method: "eth_chainId" })
+    const requiredChainId = `0x${config.NETWORK.ID}`
+    if (chainId !== requiredChainId) {
+      if (!(await dispatch("switchNetwork"))) {
+        commit(
+          "setConnectionError",
+          `You are not connected to the ${config.NETWORK.NAME} network!`
+        )
+      }
+    }
+  },
+  async switchNetwork(): Promise<boolean> {
+    try {
+      const { ethereum } = window
+      await ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: `0x${config.NETWORK.ID}` }],
+      })
+      return true
+    } catch (err) {
+      console.error(err)
+      return false
+    }
   }
 }
