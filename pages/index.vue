@@ -157,20 +157,20 @@
       <div class="faqs__inner">
         <h2>FAQs</h2>
         <accordion>
-          <accordion-item id="1" heading-tag="h3" heading="Accordion title">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <accordion-item id="1" heading-tag="h3" heading="What's the Mad Parrot Crew (MPC)?">
+            <p>A collection of 10,000 randomly generated NFTs on the Ethereum blockchain.</p>
           </accordion-item>
-          <accordion-item id="2" heading-tag="h3" heading="Accordion title">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <accordion-item id="2" heading-tag="h3" heading="Who created the Mad Parrots?">
+            <p><a :href="config.SHEFTALI.TWITTER" target="_blank" rel="noopener noreferrer">Sheftali</a> and <a :href="config.IACOVE.TWITTER" target="_blank" rel="noopener noreferrer">Iacove</a>.</p>
           </accordion-item>
-          <accordion-item id="3" heading-tag="h3" heading="Accordion title">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <accordion-item id="3" heading-tag="h3" heading="What's the mint price for a Mad Parrot and how many can I get?">
+            <p>{{ config.ETH_COST }} ETH per Mad Parrot, plus gas. You're allowed up to {{ config.MAX_MINT_PARROTS }} Mad Parrots per wallet.</p>
           </accordion-item>
-          <accordion-item id="4" heading-tag="h3" heading="Accordion title">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <accordion-item id="4" heading-tag="h3" heading="Wen mint?">
+            <p>The mint will be split out in 4 stages, (2475 parrots each) the first stage will be in <time datetime="2022-02">mid-February 2022</time>.</p>
           </accordion-item>
-          <accordion-item id="5" heading-tag="h3" heading="Accordion title">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <accordion-item id="5" heading-tag="h3" heading="Will there be giveaways?">
+            <p>Eww no. Jk, of course there will be giveaways! Check the <a href="#roadmap">roadmap</a>.</p>
           </accordion-item>
           <accordion-item id="6" heading-tag="h3" heading="Will there be any one-of-ones?">
             <p>

@@ -14,7 +14,7 @@
         </btn>
         <label for="noOfParrots" class="sr-only">Number of parrots</label>
         <input id="noOfParrots" v-model="parrotNumber" readonly>
-        <btn color="green" square :disabled="parrotNumber >= 5 || isClaimingNFT" @click="parrotNumber++">
+        <btn color="green" square :disabled="parrotNumber >= config.MAX_MINT_PARROTS || isClaimingNFT" @click="parrotNumber++">
           +
           <span class="sr-only">Plus 1 parrot</span>
         </btn>
@@ -41,6 +41,7 @@ export default Vue.extend({
   components: { Btn },
   data () {
     return {
+      config,
       parrotNumber: 1,
       ethereumValuePerParrot: config.ETH_COST,
       isClaimingNFT: false
