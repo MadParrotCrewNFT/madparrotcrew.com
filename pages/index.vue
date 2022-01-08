@@ -66,13 +66,13 @@
         </li>
       </ol>
     </section>
-    <section id="bonus-trait" class="bonus bonus--desktop">
+    <section id="diamond-beak-club" class="bonus bonus--desktop">
       <div class="bonus__image">
         <img src="~assets/images/diamond-beak.png" alt="A diamond parrot beak" loading="lazy" height="120" width="120" />
       </div>
-      <h2>Diamond beak club</h2>
+      <h2>Diamond-beak club</h2>
       <p>
-        If your parrot has a diamond beak, something good happens (tba)
+        If your Mad Parrot was lucky enough to be born with a Diamond-beak, you may want to <span aria-label="hold on for dear life">HODL</span>. Half of the monthly royalties will be distributed evenly across all diamond-beak Mad Parrot holders.
       </p>
     </section>
     <section id="distribution" class="distribution">
@@ -89,11 +89,11 @@
         </ul>
       </div>
     </section>
-    <section id="bonus-trait" class="bonus bonus--mobile">
+    <section id="diamond-beak-club" class="bonus bonus--mobile">
       <img src="~assets/images/diamond-beak.png" alt="A diamond parrot beak" loading="lazy" height="64" width="64" />
-      <h2>Diamond beak club</h2>
+      <h2>Diamond-beak club</h2>
       <p>
-        If your parrot has a diamond beak, something good happens (tba)
+        If your Mad Parrot was lucky enough to be born with a Diamond-beak, you may want to <span aria-label="hold on for dear life">HODL</span>. Half of the monthly royalties will be distributed evenly across all diamond-beak Mad Parrot holders.
       </p>
     </section>
     <section id="team" class="team">
@@ -790,7 +790,7 @@ export default Vue.extend({
       }
 
       p {
-        max-width: 23rem;
+        max-width: 35.375rem;
       }
     }
   }

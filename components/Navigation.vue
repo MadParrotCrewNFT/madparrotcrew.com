@@ -66,8 +66,8 @@ export default Vue.extend({
           url: '#roadmap'
         },
         {
-          text: 'Bonus Trait',
-          url: '#bonus-trait'
+          text: 'Diamond-beak Club',
+          url: '#diamond-beak-club'
         },
         {
           text: 'Distribution',
