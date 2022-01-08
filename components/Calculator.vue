@@ -4,7 +4,7 @@
     <div v-if="!isConnected">
       <p v-if="$store.state.connectionError === null">Connect your wallet to begin.</p>
       <p v-else>{{ $store.state.connectionError }}</p>
-      <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet">Connect Wallet</btn>
+      <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
     </div>
     <template v-else>
       <div class="calculator__buttons">
@@ -22,7 +22,7 @@
       <p role="text" id="how-many-parrots">
         Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum() }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
       </p>
-      <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" aria-describedby="how-many-parrots">
+      <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" icon="wallet" aria-describedby="how-many-parrots">
         Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
       </btn>
     </template>

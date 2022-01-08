@@ -4,6 +4,7 @@
   </a>
   <button v-else class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }]" :disabled="disabled || isLoading" @click="$emit('click')">
     <slot />
+    <svg-icon v-if="icon && !isLoading" :name="icon" />
     <spinner v-if="isLoading" />
   </button>
 </template>
@@ -46,6 +47,10 @@ export default Vue.extend({
     to: {
       type: String,
       default: undefined
+    },
+    icon: {
+      type: String,
+      default: undefined
     }
   }
 })
@@ -80,6 +85,11 @@ export default Vue.extend({
     min-width: 3rem;
     max-width: 3rem;
     padding: 0;
+
+    ::v-deep svg {
+      height: 2rem;
+      width: 2rem;
+    }
   }
 
   &--green {
@@ -103,8 +113,8 @@ export default Vue.extend({
   }
 
   ::v-deep svg {
-    height: 2rem;
-    width: 2rem;
+    height: var(--font-size-heading);
+    width: var(--font-size-heading);
   }
 }
 </style>
