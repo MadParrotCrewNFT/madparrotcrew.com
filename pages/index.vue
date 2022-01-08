@@ -66,7 +66,7 @@
         </li>
       </ol>
     </section>
-    <section id="diamond-beak-club" class="bonus bonus--desktop">
+    <section v-if="showDesktopBonusSection" id="diamond-beak-club" class="bonus bonus--desktop">
       <div class="bonus__image">
         <img src="~assets/images/diamond-beak.png" alt="A diamond parrot beak" loading="lazy" height="120" width="120" />
       </div>
@@ -89,7 +89,7 @@
         </ul>
       </div>
     </section>
-    <section id="diamond-beak-club" class="bonus bonus--mobile">
+    <section v-if="!showDesktopBonusSection" id="diamond-beak-club" class="bonus bonus--mobile">
       <img src="~assets/images/diamond-beak.png" alt="A diamond parrot beak" loading="lazy" height="64" width="64" />
       <h2>Diamond-beak club</h2>
       <p>
@@ -226,6 +226,10 @@ export default Vue.extend({
     }
   },
   computed: {
+    showDesktopBonusSection (): boolean {
+      const showDesktopWidth = window.getComputedStyle(document.documentElement).getPropertyValue('--responsive-standard-tablet')
+      return window.matchMedia(`(min-width: ${showDesktopWidth})`).matches
+    },
     roadmapCheckpoints (): IRoadmapCheckpoint[] {
       return [
         {
