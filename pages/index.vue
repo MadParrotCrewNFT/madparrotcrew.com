@@ -226,10 +226,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    showDesktopBonusSection (): boolean {
-      const showDesktopWidth = window.getComputedStyle(document.documentElement).getPropertyValue('--responsive-standard-tablet')
-      return window.matchMedia(`(min-width: ${showDesktopWidth})`).matches
-    },
     roadmapCheckpoints (): IRoadmapCheckpoint[] {
       return [
         {
@@ -309,6 +305,12 @@ export default Vue.extend({
           ]
         }
       ]
+    }
+  },
+  methods: {
+    showDesktopBonusSection (): boolean {
+      const showDesktopWidth = window.getComputedStyle(document.documentElement).getPropertyValue('--responsive-standard-tablet')
+      return window.matchMedia(`(min-width: ${showDesktopWidth})`).matches
     }
   }
 })

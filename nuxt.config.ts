@@ -2,7 +2,6 @@ import siteconfig from './siteconfig.json'
 import config from './config.json'
 
 export default {
-  ssr: false,
   target: 'static',
   head: {
     title: `${siteconfig.brand_name} | The Official NFT`,
