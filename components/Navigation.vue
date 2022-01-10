@@ -137,7 +137,7 @@ export default Vue.extend({
   }
 
   &__inner {
-    max-width: var(--max-max-width);
+    max-width: 120rem;
     display: flex;
     align-items: center;
     justify-content: space-around;

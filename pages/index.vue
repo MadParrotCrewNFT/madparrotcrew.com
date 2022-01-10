@@ -507,7 +507,7 @@ export default Vue.extend({
   }
 
   &__inner {
-    max-width: var(--max-max-width);
+    max-width: 85rem;
     margin-inline: auto;
     display: grid;
     grid-template-columns: 1fr;
@@ -827,7 +827,7 @@ export default Vue.extend({
   }
 
   &__inner {
-    max-width: var(--max-max-width);
+    max-width: 85rem;
     margin-inline: auto;
   }
 
@@ -1060,7 +1060,7 @@ export default Vue.extend({
   &__inner {
     padding: 3rem 1rem;
     background-color: var(--mpc-light-beige);
-    max-width: var(--max-max-width);
+    max-width: 85rem;
     margin-inline: auto;
 
     @media (min-width: $responsive-standard-tablet) {
