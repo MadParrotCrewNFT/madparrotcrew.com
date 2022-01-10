@@ -1,13 +1,13 @@
 <template>
-  <div class="navbar" :class="{ 'navbar--open': isMobileNavOpen }">
+  <div class="navbar" :class="{ 'navbar--open': isMobileNavOpen, 'navbar--white-bg': setWhiteBgMobile }">
     <div class="navbar__inner">
-      <h1 class="navbar__logo" :class="{ 'navbar__logo--open': isMobileNavOpen }">
+      <h1 class="navbar__logo">
         <nuxt-link to="/">
           <logo />
           <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
         </nuxt-link>
       </h1>
-      <button class="navbar__hamburger" :class="{ 'navbar__hamburger--open': isMobileNavOpen }" @click="isMobileNavOpen = !isMobileNavOpen">
+      <button v-if="showNavItems" class="navbar__hamburger" :class="{ 'navbar__hamburger--open': isMobileNavOpen }" @click="isMobileNavOpen = !isMobileNavOpen">
         <span></span>
         <span></span>
         <span>{{ isMobileNavOpen ? 'Close' : 'Menu' }}</span>
@@ -63,11 +63,9 @@ export default Vue.extend({
     return {
       siteconfig,
       showNavItems: true,
-      isMobileNavOpen: false
+      isMobileNavOpen: false,
+      setWhiteBgMobile: false
     }
-  },
-  mounted () {
-    this.showNavItems = window.location.pathname === '/'
   },
   computed: {
     navItems (): INavItem[] {
@@ -107,7 +105,22 @@ export default Vue.extend({
       this.showNavItems = window.location.pathname === '/'
     }
   },
+  mounted () {
+    this.showNavItems = window.location.pathname === '/'
+    window.addEventListener('scroll', this.handleScroll)
+    this.handleScroll()
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
+    handleScroll (): void {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        this.setWhiteBgMobile = true
+      } else {
+        this.setWhiteBgMobile = false
+      }
+    },
     isTheChosenOne (toUrl: string): boolean {
       return this.$route.hash === toUrl
     }
@@ -119,20 +132,25 @@ export default Vue.extend({
 @use 'sass:math';
 
 .navbar {
-  position: absolute;
+  position: fixed;
   z-index: 2;
   top: 0;
   width: 100vw;
   height: 3.5rem;
+  transition: all 240ms ease;
 
   @media (min-width: $responsive-standard-tablet) {
-    position: relative;
     background-color: #fff;
   }
 
-  &--open {
+  &--open,
+  &--white-bg {
     @media (max-width: $responsive-standard-tablet - math.div(1em, 16)) {
       background-color: #fff;
+
+      .navbar__logo a {
+        color: #3c3c3c;
+      }
     }
   }
 
@@ -159,14 +177,6 @@ export default Vue.extend({
 
     img {
       height: 100%;
-    }
-
-    &--open {
-      @media (max-width: $responsive-standard-tablet - math.div(1em, 16)) {
-        a {
-          color: #3c3c3c;
-        }
-      }
     }
   }
 

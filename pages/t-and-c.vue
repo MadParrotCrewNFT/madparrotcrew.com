@@ -34,7 +34,7 @@ export default Vue.extend({
   background-color: #fff;
   padding: 3rem 2rem;
   max-width: 35.5rem;
-  margin: 2.5rem auto;
+  margin: 4rem auto 2.5rem auto;
   border-radius: var(--border-radius-standard);
 
   &__bg {

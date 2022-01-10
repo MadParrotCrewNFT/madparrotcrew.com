@@ -222,7 +222,8 @@ export default Vue.extend({
   data () {
     return {
       siteconfig,
-      config
+      config,
+      showDesktopBonusSection: false
     }
   },
   computed: {
@@ -307,10 +308,17 @@ export default Vue.extend({
       ]
     }
   },
+  mounted () {
+    window.addEventListener('resize', this.canShowDesktopBonusSection)
+    this.canShowDesktopBonusSection()
+  },
+  destroyed () {
+    window.removeEventListener('resize', this.canShowDesktopBonusSection)
+  },
   methods: {
-    showDesktopBonusSection (): boolean {
+    canShowDesktopBonusSection(): void {
       const showDesktopWidth = window.getComputedStyle(document.documentElement).getPropertyValue('--responsive-standard-tablet')
-      return window.matchMedia(`(min-width: ${showDesktopWidth})`).matches
+      this.showDesktopBonusSection = window.matchMedia(`(min-width: ${showDesktopWidth})`).matches
     }
   }
 })
