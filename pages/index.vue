@@ -48,6 +48,28 @@
         </div>
       </div>
     </section>
+    <section id="crew-perks" class="perks">
+      <div class="perks__inner">
+        <div class="perks__text">
+          <h2>Crew Perks</h2>
+          <p>Being a Mad Parrot token holder entitles you to the following:</p>
+          <ul>
+            <li>IP (Intellectual Property) rights over your Mad Parrot(s)</li>
+            <li>You're automatically enlisted in exclusive monthly giveaways for a FREE PFP derivative by Sheftali***</li>
+            <li>Exclusive access to the limited supply run of merch</li>
+            <li>Permission to enter the Mad Parrot Crew's Discord server</li>
+            <li>Access to the private Crew section of the website (coming soon) which will allow you to generate digital art unique to your Mad Parrot(s) such as custom device wallpapers, PFP backgrounds etc</li>
+          </ul>
+          <p>A crew is only as strong as it's members, so aside from the above you also have a say in the decisions we make. Ultimately it will be on the founders to execute, but as a crew member your voice will be heard.</p>
+        </div>
+        <div class="perks__parrots">
+          <img src="~/assets/images/perk-parrot-1.png" alt="" />
+          <img src="~/assets/images/perk-parrot-2.png" alt="" />
+          <img src="~/assets/images/perk-parrot-3.png" alt="" />
+          <img src="~/assets/images/perk-parrot-4.png" alt="" />
+        </div>
+      </div>
+    </section>
     <section id="roadmap" class="roadmap">
       <h2>Roadmap</h2>
       <ol class="roadmap__cards">
@@ -647,6 +669,94 @@ export default Vue.extend({
             z-index: 1;
           }
         }
+      }
+    }
+  }
+}
+
+.perks {
+  position: relative;
+  background-color: var(--mpc-burgandy);
+  color: #fff;
+  padding: 2.875rem 1rem;
+
+  @media (min-width: $responsive-small-desktop) {
+    padding: 4rem 2rem;
+  }
+
+  &__inner {
+    max-width: 73rem;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @media (min-width: $responsive-small-desktop) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  h2 {
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: var(--font-size-title);
+
+    @media (min-width: $responsive-small-desktop) {
+      margin-bottom: 2.375rem;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: $responsive-small-desktop) {
+      align-items: flex-start;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    ul {
+      margin-block: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      @media (min-width: $responsive-small-desktop) {
+        margin-top: 1.675rem;
+        margin-bottom: 3.625rem;
+        gap: 0.875rem;
+      }
+    }
+  }
+
+  &__parrots {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: stretch;
+    gap: 1rem;
+    margin-top: 2.625rem;
+
+    @media (min-width: $responsive-small-desktop) {
+      margin-top: 0;
+      gap: 2rem;
+    }
+
+    img {
+      @media (min-width: $responsive-small-tablet) {
+        max-width: 16.75rem;
+      }
+
+      &:nth-child(odd) {
+        place-self: flex-end;
+      }
+
+      &:nth-child(even) {
+        place-self: flex-start;
       }
     }
   }

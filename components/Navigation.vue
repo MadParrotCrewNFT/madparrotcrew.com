@@ -75,6 +75,10 @@ export default Vue.extend({
           url: '#about'
         },
         {
+          text: 'Crew Perks',
+          url: '#crew-perks'
+        },
+        {
           text: 'Roadmap',
           url: '#roadmap'
         },
