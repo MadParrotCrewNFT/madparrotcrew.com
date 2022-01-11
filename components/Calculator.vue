@@ -4,7 +4,7 @@
     <div v-if="!isConnected">
       <p v-if="$store.state.connectionError === null">Connect your wallet to begin.</p>
       <p v-else>{{ $store.state.connectionError }}</p>
-      <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
+      <btn :disabled="!isWalletInstalled()" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
     </div>
     <template v-else>
       <div class="calculator__buttons">
@@ -48,11 +48,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    isWalletInstalled (): boolean {
-      const { ethereum } = window
-      if (!ethereum) this.$store.commit("setConnectionError", "Wallet is not installed.")
-      return ethereum
-    },
     isConnected (): boolean {
       return this.$store.state.account !== null
     }
@@ -72,6 +67,11 @@ export default Vue.extend({
     }
   },
   methods: {
+    async isWalletInstalled (): Promise<boolean> {
+      const isConnected: Promise<boolean> = await this.$store.dispatch("checkIfConnected")
+      if (!isConnected) this.$store.commit("setConnectionError", "Wallet is not installed.")
+      return isConnected
+    },
     async connect (): Promise<void> {
       await this.$store.dispatch("connect", true)
     },
