@@ -759,11 +759,13 @@ export default Vue.extend({
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
+      padding-left: 1.5rem;
 
       @media (min-width: $responsive-small-desktop) {
         margin-top: 1.675rem;
         margin-bottom: 3.625rem;
         gap: 0.875rem;
+        padding-right: 5rem;
       }
     }
   }
