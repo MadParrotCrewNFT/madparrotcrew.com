@@ -71,22 +71,77 @@
       </div>
     </section>
     <section id="roadmap" class="roadmap">
-      <h2>Roadmap</h2>
-      <ol class="roadmap__cards">
-        <li v-for="roadmapCheckpoint in roadmapCheckpoints" :key="roadmapCheckpoint.percentage">
-          <card>
-            <h3 class="card__title">
-              {{ roadmapCheckpoint.title }}
-            </h3>
-            <p>{{ roadmapCheckpoint.body }}</p>
-          </card>
-          <div class="roadmap__percentage">
-            <p role="text">
-              {{ roadmapCheckpoint.percentage }}<span class="roadmap__percentage-symbol">%</span>
-            </p>
-          </div>
-        </li>
-      </ol>
+      <div class="roadmap__inner">
+        <h2>Roadmap</h2>
+        <p>We’ve split up the mint process into 4 stages and are giving away some cool prizes to early supporters!</p>
+        <ol class="roadmap__cards">
+          <li>
+            <card>
+              <h3 class="card__title">
+                Stage 1 - Dya like Dags?
+              </h3>
+              <p>Some Mad Parrots are released into the wild</p>
+              <p>Community Wallet setup, 15ETH deposited</p>
+              <p>After all Mad Parrots from Stage 1 are claimed, all token holders will be enrolled in a giveaway for the Bored Ape Kennel Club NFT!</p>
+            </card>
+            <div class="roadmap__percentage">
+              <p role="text">
+                1
+              </p>
+            </div>
+          </li>
+          <li>
+            <card>
+              <h3 class="card__title">
+                Stage 2 - Fly me... (Pt.1)
+              </h3>
+              <p>More Mad Parrots are released into the wild</p>
+              <p>15ETH deposited into the Community Wallet</p>
+              <p>We purchase land in the sandbox and start looking into building our clubhouse!</p>
+              <p>After all Mad Parrots from Stage 2 are claimed, all token holders will be enrolled in a giveaway for 5 Mad Parrots as well as 10ETH!</p>
+            </card>
+            <div class="roadmap__percentage">
+              <p role="text">
+                2
+              </p>
+            </div>
+          </li>
+          <li>
+            <card>
+              <h3 class="card__title">
+                Stage 3 - Release the Mutant
+              </h3>
+              <p>More Mad Parrots are released into the wild</p>
+              <p>15ETH Deposited into the Community Wallet</p>
+              <p>Merch designs revealed and we start looking into manufacturers & suppliers</p>
+              <p>After all Mad Parrots from Stage 3 are claimed, all token holders will be enrolled in a giveaway for the Mutant Ape Yacht Club NFT!</p>
+            </card>
+            <div class="roadmap__percentage">
+              <p role="text">
+                3
+              </p>
+            </div>
+          </li>
+          <li>
+            <card>
+              <h3 class="card__title">
+                Stage 4 - ...To the moon (Pt. 2)
+              </h3>
+              <p>Final batch of the Mad Parrots are released into the wild</p>
+              <p>25ETH deposited into the Community Wallet</p>
+              <p>Operation: ‘For Better or Worse’ begins</p>
+              <p>After all Mad Parrots from Stage 4 are claimed, all token holders will be enrolled in a giveaway for 10 Mad Parrots as well as 15ETH!</p>
+            </card>
+            <div class="roadmap__percentage">
+              <p role="text">
+                4
+              </p>
+            </div>
+          </li>
+        </ol>
+        <h3>...and much more</h3>
+        <p>We’re committed to ensuring the Mad Parrot Crew lives on way past the roadmap illustrated above. We'll continue to contribute to the web3 space and give back to the community that has made all this possible. If you know me (Sheftali) and are familiar with my work then you know creating art is a passion of mine which will never slow down, plus Iac’s fascination in Web3 grows daily. While we’re not fans of over-promising (who is?) we have ideas, and we’re ambitious, and if it can be done we’ll do our best to deliver (with outside help if need).</p>
+      </div>
     </section>
     <section v-if="showDesktopBonusSection" id="diamond-beak-club" class="bonus bonus--desktop">
       <div class="bonus__image">
@@ -211,12 +266,6 @@ import { Calculator, Card, Accordion, AccordionItem, Btn, Logo } from '@/compone
 import siteconfig from '@/siteconfig.json'
 import config from '@/config.json'
 
-interface IRoadmapCheckpoint {
-  title: string;
-  body: string;
-  percentage: number;
-}
-
 interface IParrotDistribution {
   image: {
     src: string;
@@ -249,30 +298,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    roadmapCheckpoints (): IRoadmapCheckpoint[] {
-      return [
-        {
-          title: 'Heading goes here',
-          body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ante nibh, vestibulum ac faucibus in, ornare sit amet erat.',
-          percentage: 25
-        },
-        {
-          title: 'Heading goes here',
-          body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ante nibh, vestibulum ac faucibus in, ornare sit amet erat.',
-          percentage: 50
-        },
-        {
-          title: 'Heading goes here',
-          body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ante nibh, vestibulum ac faucibus in, ornare sit amet erat.',
-          percentage: 75
-        },
-        {
-          title: 'Heading goes here',
-          body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ante nibh, vestibulum ac faucibus in, ornare sit amet erat.',
-          percentage: 100
-        }
-      ]
-    },
     parrotDistribution (): IParrotDistribution[] {
       return [
         {
@@ -766,44 +791,54 @@ export default Vue.extend({
   position: relative;
   background-color: var(--mpc-light-beige);
   padding: 2.25rem 1rem 3.5rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
-  @media (min-width: $responsive-small-tablet) {
+  @media (min-width: $responsive-standard-tablet) {
     padding-top: 4.125rem;
     padding-bottom: 10rem;
   }
 
+  &__inner {
+    max-width: 73rem;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   h2 {
     margin-top: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     font-size: var(--font-size-title);
+  }
 
-    @media (min-width: $responsive-small-tablet) {
-      margin-bottom: 2.375rem;
-    }
+  p {
+    margin: 0;
   }
 
   &__cards {
     padding-left: 0;
     list-style-type: none;
-    margin: 0;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
+
+    @media (min-width: $responsive-standard-tablet) {
+      margin-block: 3.5rem;
+    }
 
     li {
       display: flex;
       justify-content: space-between;
       gap: 1rem;
 
-      @media (min-width: $responsive-small-tablet) {
+      @media (min-width: $responsive-standard-tablet) {
         display: grid;
         grid-template-areas: "card card percentage . .";
         grid-template-columns: repeat(5, 1fr);
-        place-items: center;
+        justify-items: center;
 
         &:nth-child(even) {
           grid-template-areas: ". . percentage card card";
@@ -813,25 +848,21 @@ export default Vue.extend({
   }
 
   &__percentage {
-    border-radius: 50%;
-    background-color: var(--mpc-orange);
-    color: #fff;
-    display: grid;
-    place-items: center;
-    min-height: 3.75rem;
-    max-height: 3.75rem;
-    min-width: 3.75rem;
-    max-width: 3.75rem;
-    font-family: var(--font-family-ampersand);
-    font-size: var(--font-size-body);
+    display: none;
 
-    @media (min-width: $responsive-small-tablet) {
+    @media (min-width: $responsive-standard-tablet) {
       grid-area: percentage;
-      min-height: 7.5rem;
-      max-height: 7.5rem;
-      min-width: 7.5rem;
-      max-width: 7.5rem;
+      min-height: 4.375rem;
+      max-height: 4.375rem;
+      min-width: 4.375rem;
+      max-width: 4.375rem;
       font-size: var(--font-size-title);
+      border-radius: 50%;
+      background-color: var(--mpc-orange);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-family-ampersand);
     }
 
     p {
@@ -840,20 +871,12 @@ export default Vue.extend({
       white-space: nowrap;
       margin: 0;
     }
-
-    &-symbol {
-      font-size: var(--font-size-small);
-
-      @media (min-width: $responsive-small-tablet) {
-        font-size: var(--font-size-subtitle);
-      }
-    }
   }
 
   .card {
-    @media (min-width: $responsive-small-tablet) {
+    @media (min-width: $responsive-standard-tablet) {
       grid-area: card;
-      max-width: 23rem;
+      max-width: 29.25rem;
     }
 
     &__title {
@@ -862,15 +885,29 @@ export default Vue.extend({
       margin-bottom: 0.25rem;
       line-height: 1.4;
 
-      @media (min-width: $responsive-small-tablet) {
+      @media (min-width: $responsive-standard-tablet) {
         margin-bottom: 1rem;
       }
     }
 
     p {
-      margin: 0;
+      margin-block: 0.5rem;
       line-height: 1.4;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
+  }
+
+  h3 {
+    font-size: var(--font-size-title);
+    margin-top: 0;
+    margin-bottom: 0.75rem;
   }
 }
 

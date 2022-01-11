@@ -214,6 +214,7 @@ export default Vue.extend({
         width: 1rem;
         border-radius: 2rem;
         left: 0.45rem;
+        z-index: 1;
       }
 
       &:nth-last-child(1) {
