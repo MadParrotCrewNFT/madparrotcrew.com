@@ -1,9 +1,11 @@
 <template>
   <div>
     <header class="header">
-      <div class="header__calculator-wrapper">
-        <calculator v-if="config.MINTING_LIVE" class="header__calculator" />
-        <img v-else class="header__soon" src="~assets/images/minting-coming-soon.png" alt="Minting coming soon" width="424" height="245" loading="lazy" />
+      <div class="header__inner">
+        <div class="header__calculator-wrapper">
+          <calculator v-if="config.MINTING_LIVE" class="header__calculator" />
+          <img v-else class="header__soon" src="~assets/images/minting-coming-soon.png" alt="Minting coming soon" width="424" height="245" loading="lazy" />
+        </div>
       </div>
       <div class="header__curve">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -390,53 +392,60 @@ export default Vue.extend({
     background-position: center;
   }
 
-  // Parrot
-  &::before {
-    @media (min-width: $responsive-large-tablet) {
-      content: '';
-      pointer-events: none;
-      background-image: url(~assets/images/header-parrot.svg);
-      background-repeat: no-repeat;
-      background-position: bottom;
-      background-size: cover;
-      width: 19.625rem;
-      height: 40.375rem;
-      position: absolute;
-      bottom: -17rem;
-      right: 1rem;
+  &__inner {
+    position: relative;
+    height: 100%;
+    max-width: 120rem;
+    margin-inline: auto;
+
+    // Parrot
+    &::before {
+      @media (min-width: $responsive-large-tablet) {
+        content: '';
+        pointer-events: none;
+        background-image: url(~assets/images/header-parrot.svg);
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: cover;
+        width: 19.625rem;
+        height: 40.375rem;
+        position: absolute;
+        bottom: -17rem;
+        right: 1rem;
+      }
+
+      @media (min-width: $responsive-small-desktop) {
+        right: 8rem
+      }
+
+      @media (min-width: $responsive-standard-desktop) {
+        right: 17rem
+      }
     }
 
-    @media (min-width: $responsive-small-desktop) {
-      right: 8rem
-    }
+    // Parrot wing
+    &::after {
+      @media (min-width: $responsive-large-tablet) {
+        content: '';
+        pointer-events: none;
+        background-image: url(~assets/images/header-parrot-wing.svg);
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: cover;
+        width: 7.8125rem;
+        height: 19.125rem;
+        position: absolute;
+        bottom: -5rem;
+        right: 1rem;
+      }
 
-    @media (min-width: $responsive-standard-desktop) {
-      right: 17rem
-    }
-  }
+      @media (min-width: $responsive-small-desktop) {
+        right: 8rem
+      }
 
-  // Parrot wing
-  &::after {
-    @media (min-width: $responsive-large-tablet) {
-      content: '';
-      pointer-events: none;
-      background-image: url(~assets/images/header-parrot-wing.svg);
-      background-repeat: no-repeat;
-      background-position: bottom;
-      background-size: cover;
-      width: 7.8125rem;
-      height: 19.125rem;
-      position: absolute;
-      bottom: -5rem;
-      right: 1rem;
-    }
-
-    @media (min-width: $responsive-small-desktop) {
-      right: 8rem
-    }
-
-    @media (min-width: $responsive-standard-desktop) {
-      right: 17rem
+      @media (min-width: $responsive-standard-desktop) {
+        right: 17rem
+      }
     }
   }
 

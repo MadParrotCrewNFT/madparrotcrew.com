@@ -262,7 +262,7 @@ export default Vue.extend({
   &__nav {
     @media (max-width: $responsive-large-tablet - math.div(1em, 16)) {
       position: absolute;
-      top: -25rem;
+      top: -27rem;
       left: 0;
       width: 100%;
       background-color: #fff;
