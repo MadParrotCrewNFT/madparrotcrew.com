@@ -139,13 +139,13 @@ export default Vue.extend({
   height: 3.5rem;
   transition: all 240ms ease;
 
-  @media (min-width: $responsive-standard-tablet) {
+  @media (min-width: $responsive-large-tablet) {
     background-color: #fff;
   }
 
   &--open,
   &--white-bg {
-    @media (max-width: $responsive-standard-tablet - math.div(1em, 16)) {
+    @media (max-width: $responsive-large-tablet - math.div(1em, 16)) {
       background-color: #fff;
 
       .navbar__logo a {
@@ -155,13 +155,14 @@ export default Vue.extend({
   }
 
   &__inner {
-    max-width: 120rem;
+    max-width: 73rem;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     height: 100%;
     position: relative;
     margin-inline: auto;
+    padding-inline: 1rem;
   }
 
   &__logo {
@@ -170,7 +171,7 @@ export default Vue.extend({
     a {
       color: #fff;
 
-      @media (min-width: $responsive-standard-tablet) {
+      @media (min-width: $responsive-large-tablet) {
         color: #000;
       }
     }
@@ -195,7 +196,7 @@ export default Vue.extend({
     align-items: stretch;
     gap: 0.1875rem;
 
-    @media (min-width: $responsive-standard-tablet) {
+    @media (min-width: $responsive-large-tablet) {
       display: none;
     }
 
@@ -254,7 +255,7 @@ export default Vue.extend({
   }
 
   &__nav {
-    @media (max-width: $responsive-standard-tablet - math.div(1em, 16)) {
+    @media (max-width: $responsive-large-tablet - math.div(1em, 16)) {
       position: absolute;
       top: -25rem;
       left: 0;
@@ -290,7 +291,7 @@ export default Vue.extend({
         display: flex;
         list-style-type: none;
         padding-left: 0;
-        margin: 0.5rem auto;
+        margin: 2rem auto 1.5rem auto;
         height: 100%;
         gap: 0.75rem;
 
@@ -308,7 +309,7 @@ export default Vue.extend({
       }
     }
 
-    @media (min-width: $responsive-standard-tablet) {
+    @media (min-width: $responsive-large-tablet) {
       display: flex;
       height: 100%;
       position: unset;
@@ -356,7 +357,7 @@ export default Vue.extend({
   &__social {
     display: none;
 
-    @media (min-width: $responsive-large-tablet) {
+    @media (min-width: $responsive-small-desktop) {
       display: flex;
       height: 100%;
 

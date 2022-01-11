@@ -78,6 +78,7 @@ export default Vue.extend({
       width: 100%;
       cursor: pointer;
       font-size: var(--font-size-large);
+      text-align: left;
 
       @media (min-width: $responsive-standard-tablet) {
         padding: 1.5rem;
@@ -99,6 +100,10 @@ export default Vue.extend({
           transform: rotate(180deg);
         }
       }
+    }
+
+    span {
+      flex: 1;
     }
 
     svg {

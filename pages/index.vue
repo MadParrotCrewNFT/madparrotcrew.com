@@ -835,7 +835,7 @@ export default Vue.extend({
   }
 
   &__inner {
-    max-width: 85rem;
+    max-width: 73rem;
     margin-inline: auto;
   }
 
@@ -1068,7 +1068,7 @@ export default Vue.extend({
   &__inner {
     padding: 3rem 1rem;
     background-color: var(--mpc-light-beige);
-    max-width: 85rem;
+    max-width: 73rem;
     margin-inline: auto;
 
     @media (min-width: $responsive-standard-tablet) {
