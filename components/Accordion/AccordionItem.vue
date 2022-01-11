@@ -104,6 +104,7 @@ export default Vue.extend({
 
     span {
       flex: 1;
+      padding-right: 1rem;
     }
 
     svg {
