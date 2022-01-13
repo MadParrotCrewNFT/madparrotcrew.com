@@ -19,6 +19,9 @@ $ npm run generate
 
 # build for production and launch server (use this to run production mode)
 $ npm run start
+
+# build for production and deploy it to the remote gh-pages (GitHub Pages) branch (make sure all local changes have been pushed & your local git status is clean before running)
+$ npm run deploy
 ```
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
