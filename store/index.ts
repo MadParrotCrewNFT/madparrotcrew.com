@@ -126,7 +126,7 @@ export const actions = {
   async checkIfConnected({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }) {
     if (!(await dispatch("isAWalletInstalled"))) return false
     const { ethereum } = window
-    window.web3Provider = new ethers.providers.Web3Provider(window.web3);
+    window.web3Provider = new ethers.providers.Web3Provider(ethereum);
     const accounts = await ethereum.request({ method: "eth_accounts" })
     if (accounts.length !== 0) {
       commit("setAccount", accounts[0])
