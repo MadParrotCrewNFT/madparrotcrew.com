@@ -17,7 +17,8 @@
     "dev": "nuxt --open",
     "start": "npm run generate && nuxt start --open",
     "generate": "concurrently \"rimraf node_modules\" \"rimraf dist\" && npm ci && nuxt generate -m --fail-on-error",
-    "deploy": "npm run generate && push-dir --dir=dist --branch=gh-pages --cleanup"
+    "deploy": "npm run generate && push-dir --dir=dist --branch=gh-pages --cleanup",
+    "typechain" : "npx typechain --target=ethers-v5 --out-dir contract/types contract/abi/MadParrotCrew.json"
   },
   "dependencies": {
     "@nuxtjs/pwa": "^3.3.5",
@@ -26,6 +27,7 @@
     "@nuxtjs/style-resources": "^1.2.1",
     "@nuxtjs/svg-sprite": "^0.5.2",
     "core-js": "^3.20.3",
+    "ethers": "^5.5.3",
     "modern-normalize": "^1.1.0",
     "nuxt": "^2.15.8",
     "web3": "^1.7.0"
@@ -34,13 +36,15 @@
     "@babel/eslint-parser": "^7.16.5",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/google-analytics": "^2.4.0",
+    "@typechain/ethers-v5": "^9.0.0",
     "@types/node": "^17.0.9",
     "babel-core": "7.0.0-bridge.0",
     "concurrently": "^7.0.0",
     "push-dir": "^0.4.1",
     "rimraf": "^3.0.2",
     "sass": "^1.48.0",
-    "sass-loader": "^10.2.1"
+    "sass-loader": "^10.2.1",
+    "typechain": "^7.0.0"
   },
   "engines": {
     "node": ">=16",

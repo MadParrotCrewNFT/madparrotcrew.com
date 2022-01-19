@@ -32,6 +32,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Web3 from 'web3'
+import ethers from 'ethers';
 import ABI from '@/abi.json'
 import config from '@/config.json'
 import { Btn } from '@/components'
@@ -44,7 +45,6 @@ export default Vue.extend({
       config,
       parrotNumber: 1,
       ethereumValuePerParrot: config.ETH_COST,
-      isClaimingNFT: false,
       isWalletInstalled: false,
       isCorrectNetwork: true
     }
@@ -52,6 +52,15 @@ export default Vue.extend({
   computed: {
     isConnected (): boolean {
       return this.$store.state.account !== null
+    }
+    isClaimingNFT (): boolean {
+      return this.$store.state.isClaimingNFT
+    }
+    ethCostPerParrot (): ethers.BigNumber {
+      return this.$state.state.contractState.mintPrice;
+    }
+    formatterCostPerParrot (): string {
+      return ethers.utils.formatEther(this.ethCostPerParrot);
     }
   },
   async mounted () {
@@ -80,25 +89,7 @@ export default Vue.extend({
       await this.$store.dispatch("connect", true)
     },
     mintParrots (): void {
-      this.isClaimingNFT = true
-      const numberOfParrots = this.parrotNumber > this.config.MAX_MINT_PARROTS ? this.config.MAX_MINT_PARROTS : this.parrotNumber
-      const contract = new window.web3.eth.Contract(ABI, this.$store.state.contractAddress)
-      contract.methods
-        .mint(this.parrotNumber)
-        .send({
-          to: config.CONTRACT_ADDRESS,
-          from: this.$store.state.account,
-          value: String(Number(Web3.utils.toWei(String(config.ETH_COST))) * numberOfParrots),
-          gasLimit: String(config.GAS_LIMIT * this.parrotNumber)
-        })
-        .once("error", (err: unknown) => {
-          this.isClaimingNFT = false
-          console.error(err)
-        })
-        .then((receipt: any) => {
-          this.isClaimingNFT = false
-          console.log('receipt', receipt)
-        })
+      await this.$store.dispatch("mintParrots", this.parrotNumber);
     },
     calculateEthereum (): number {
       const tempEthereumValuePerParrot = this.ethereumValuePerParrot * 1000 // Prevents floating point calculation errors
