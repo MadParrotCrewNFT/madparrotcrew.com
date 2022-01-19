@@ -435,6 +435,7 @@ export default Vue.extend({
         width: 7.8125rem;
         height: 19.125rem;
         position: absolute;
+        z-index: 1;
         bottom: -5rem;
         right: 1rem;
       }
