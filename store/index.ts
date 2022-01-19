@@ -13,7 +13,6 @@ interface IState {
   account: null | Record<string, any>;
   isConnectingToWallet: boolean;
   connectionError: null | string;
-  
 }
 
 export const state = () => ({
@@ -62,31 +61,37 @@ export const mutations = {
   setIsConnectingToWallet(state: IState, value: boolean): void {
     state.isConnectingToWallet = value
   },
-  setConnectionError(state: IState, error: string): void {
+  setConnectionError(state: IState, error: string | null): void {
     state.connectionError = error
   }
 }
 
 export const actions = {
+  isAWalletInstalled ({ commit }: { commit: (mutation: string, value: any) => void }): boolean {
+    const { ethereum } = window
+    if (!ethereum) {
+      commit("setConnectionError", "A wallet is not installed.")
+      return false
+    }
+    else return true
+  },
   async connect({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }): Promise<void> {
     commit("setIsConnectingToWallet", true)
     try {
-      const { ethereum } = window
-      if (!ethereum) { // Is a wallet installed?
-        commit("setConnectionError", "Wallet not installed.")
-        return
-      }
+      if (!(await dispatch("isAWalletInstalled"))) return
       if (!(await dispatch("checkIfConnected"))) { // User has granted access to wallet?
         await dispatch("requestAccess")
       }
-      await dispatch("checkNetwork")
+      commit("setConnectionError", null)
+      if (!(await dispatch("isCorrectNetwork"))) await dispatch("switchNetwork")
     } catch (error) {
       console.error(error)
       commit("setConnectionError", "Wallet account request refused.")
     }
     commit("setIsConnectingToWallet", false)
   },
-  async checkIfConnected({ commit }: { commit: (mutation: string, value: any) => void }) {
+  async checkIfConnected({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }) {
+    if (!(await dispatch("isAWalletInstalled"))) return false
     const { ethereum } = window
     window.web3 = new Web3(ethereum)
     const accounts = await ethereum.request({ method: "eth_accounts" })
@@ -104,30 +109,29 @@ export const actions = {
     });
     commit("setAccount", accounts[0])
   },
-  async checkNetwork({ commit, dispatch }: { commit: any, dispatch: any }) {
-    const { ethereum } = window
-    let chainId = await ethereum.request({ method: "eth_chainId" })
-    const requiredChainId = `0x${config.NETWORK.ID}`
-    if (chainId !== requiredChainId) {
-      if (!(await dispatch("switchNetwork"))) {
-        commit(
-          "setConnectionError",
-          `You are not connected to the ${config.NETWORK.NAME} network!`
-        )
-      }
+  async isCorrectNetwork({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }): Promise<boolean> {
+    if ((await dispatch("checkIfConnected"))) {
+      const { ethereum } = window
+      let chainId = await ethereum.request({ method: "eth_chainId" })
+      const requiredChainId = `0x${config.NETWORK.ID}`
+      const isCorrect = chainId === requiredChainId
+      if (isCorrect) commit("setConnectionError", null)
+      else commit("setConnectionError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
+      return isCorrect
     }
+    else return false
   },
-  async switchNetwork(): Promise<boolean> {
+  async switchNetwork({ commit }: { commit: (mutation: string, value: any) => void }): Promise<void> {
     try {
       const { ethereum } = window
       await ethereum.request({
         method: "wallet_switchEthereumChain",
         params: [{ chainId: `0x${config.NETWORK.ID}` }],
       })
-      return true
+      commit("setConnectionError", null)
     } catch (err) {
       console.error(err)
-      return false
+      commit("setConnectionError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
     }
   }
 }

@@ -1,12 +1,12 @@
 <template>
   <div id="mint" class="calculator">
     <h2>Minting now available!</h2>
+    <p v-if="$store.state.connectionError" class="calculator__error">{{ $store.state.connectionError }}</p>
+    <p v-if="!$store.state.connectionError && !isConnected">Connect your wallet to begin.</p>
     <div v-if="!isConnected">
-      <p v-if="$store.state.connectionError === null">Connect your wallet to begin.</p>
-      <p v-else>{{ $store.state.connectionError }}</p>
-      <btn :disabled="!isWalletInstalled()" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
+      <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
     </div>
-    <template v-else>
+    <template v-if="isConnected">
       <div class="calculator__buttons">
         <btn color="green" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT" @click="parrotNumber--">
           -
@@ -22,7 +22,7 @@
       <p role="text" id="how-many-parrots">
         Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum() }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
       </p>
-      <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" icon="wallet" aria-describedby="how-many-parrots">
+      <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork" icon="wallet" aria-describedby="how-many-parrots">
         Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
       </btn>
     </template>
@@ -44,7 +44,9 @@ export default Vue.extend({
       config,
       parrotNumber: 1,
       ethereumValuePerParrot: config.ETH_COST,
-      isClaimingNFT: false
+      isClaimingNFT: false,
+      isWalletInstalled: false,
+      isCorrectNetwork: true
     }
   },
   computed: {
@@ -52,38 +54,41 @@ export default Vue.extend({
       return this.$store.state.account !== null
     }
   },
-  mounted () {
+  async mounted () {
     this.$store.dispatch("checkIfConnected")
+    this.isWalletInstalled = await this.$store.dispatch("isAWalletInstalled")
+    this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
 
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts: string) => {
         if (accounts.length === 0) {
           this.$store.commit('setAccount', null)
+          this.$store.commit("setConnectionError", "Wallet was disconnected.")
         }
         else {
           this.$store.commit('setAccount', accounts[0])
         }
       })
+
+      window.ethereum.on('chainChanged', async () => {
+        this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
+      })
     }
   },
   methods: {
-    async isWalletInstalled (): Promise<boolean> {
-      const isConnected: Promise<boolean> = await this.$store.dispatch("checkIfConnected")
-      if (!isConnected) this.$store.commit("setConnectionError", "Wallet is not installed.")
-      return isConnected
-    },
     async connect (): Promise<void> {
       await this.$store.dispatch("connect", true)
     },
     mintParrots (): void {
       this.isClaimingNFT = true
+      const numberOfParrots = this.parrotNumber > this.config.MAX_MINT_PARROTS ? this.config.MAX_MINT_PARROTS : this.parrotNumber
       const contract = new window.web3.eth.Contract(ABI, this.$store.state.contractAddress)
       contract.methods
         .mint(this.parrotNumber)
         .send({
           to: config.CONTRACT_ADDRESS,
           from: this.$store.state.account,
-          value: String(Number(Web3.utils.toWei(String(config.ETH_COST))) * this.parrotNumber),
+          value: String(Number(Web3.utils.toWei(String(config.ETH_COST))) * numberOfParrots),
           gasLimit: String(config.GAS_LIMIT * this.parrotNumber)
         })
         .once("error", (err: unknown) => {
@@ -113,6 +118,7 @@ export default Vue.extend({
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.75rem;
 
   @media (min-width: $responsive-large-mobile) {
     max-width: 23rem;
@@ -122,23 +128,28 @@ export default Vue.extend({
 
   h2 {
     font-size: var(--font-size-heading);
-    margin: 0;
+    margin-block: 0;
   }
 
   p {
     text-align: center;
-    margin-top: 0.75rem;
-    margin-bottom: 1.375rem;
+    margin: 0;
+  }
+
+  &__error {
+    font-size: var(--font-size-small);
+    color: var(--mpc-red);
+    margin-block: 0;
   }
 
   &__buttons {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-block: 1rem;
+    margin-block: 0.75rem;
 
     @media (min-width: $responsive-large-mobile) {
-      margin-block: 1.5rem;
+      margin-block: 1rem;
     }
   }
 
