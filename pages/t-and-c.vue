@@ -38,16 +38,12 @@ export default Vue.extend({
   border-radius: var(--border-radius-standard);
 
   &__bg {
-    background-image: url(~assets/images/header-bg-mobile.png);
+    background-image: url(~assets/images/header-bg.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
     padding: 1rem;
-
-    @media (min-width: $responsive-standard-tablet) {
-      background-image: url(~assets/images/header-bg-desktop.png);
-    }
   }
 
   h1 {

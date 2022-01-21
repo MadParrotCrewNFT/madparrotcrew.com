@@ -1,7 +1,7 @@
 <template>
-  <div class="accordion">
+  <ul class="accordion">
     <slot />
-  </div>
+  </ul>
 </template>
 
 <script lang="ts">
@@ -16,8 +16,11 @@ export default Vue.extend({
 .accordion {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 0.75rem;
+  margin: 0;
+  padding-left: 0;
+  list-style-type: none;
 
   @media (min-width: $responsive-standard-tablet) {
     gap: 1rem;

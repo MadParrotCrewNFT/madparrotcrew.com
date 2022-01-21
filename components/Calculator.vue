@@ -1,6 +1,6 @@
 <template>
   <div id="mint" class="calculator">
-    <h2>Minting now available!</h2>
+    <h2>Clubhouse now open!</h2>
     <p v-if="$store.state.connectionError" class="calculator__error">{{ $store.state.connectionError }}</p>
     <p v-if="!$store.state.connectionError && !isConnected">Connect your wallet to begin.</p>
     <div v-if="!isConnected">
@@ -114,11 +114,10 @@ export default Vue.extend({
   @media (min-width: $responsive-large-mobile) {
     max-width: 23rem;
     min-width: 23rem;
-    padding-inline: 3.25rem;
   }
 
   h2 {
-    font-size: var(--font-size-heading);
+    font-size: var(--font-size-subtitle);
     margin-block: 0;
   }
 

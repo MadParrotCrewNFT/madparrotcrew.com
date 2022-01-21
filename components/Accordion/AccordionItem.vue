@@ -1,27 +1,29 @@
 <template>
-  <card :id="`accord-item-${id}`" class="accord-item">
-    <tag :is="headingTag" class="accord-item__header">
-      <button
-        :id="`accord-item-${id}__header`"
-        :aria-expanded="isAccordOpen.toString()"
-        :aria-controls="`accord-item-${id}__panel`"
-        @click="isAccordOpen = !isAccordOpen"
+  <li>
+    <card :id="`accord-item-${id}`" class="accord-item">
+      <tag :is="headingTag" class="accord-item__header">
+        <button
+          :id="`accord-item-${id}__header`"
+          :aria-expanded="isAccordOpen.toString()"
+          :aria-controls="`accord-item-${id}__panel`"
+          @click="isAccordOpen = !isAccordOpen"
+        >
+          <span>{{ heading }}</span>
+          <svg-icon name="chevron" />
+        </button>
+      </tag>
+      <section
+        :id="`accord-item-${id}__panel`"
+        class="accord-item__body"
+        :class="{'accord-item__body--hidden': !isAccordOpen}"
+        :aria-labelledby="`accord-item-${id}__header`"
       >
-        <span>{{ heading }}</span>
-        <svg-icon name="chevron" />
-      </button>
-    </tag>
-    <section
-      :id="`accord-item-${id}__panel`"
-      class="accord-item__body"
-      :class="{'accord-item__body--hidden': !isAccordOpen}"
-      :aria-labelledby="`accord-item-${id}__header`"
-    >
-      <div class="accord-item__body-inner">
-        <slot />
-      </div>
-    </section>
-  </card>
+        <div class="accord-item__body-inner">
+          <slot />
+        </div>
+      </section>
+    </card>
+  </li>
 </template>
 
 <script lang="ts">
@@ -77,7 +79,7 @@ export default Vue.extend({
       background-color: transparent;
       width: 100%;
       cursor: pointer;
-      font-size: var(--font-size-large);
+      font-size: var(--font-size-heading);
       text-align: left;
 
       @media (min-width: $responsive-standard-tablet) {

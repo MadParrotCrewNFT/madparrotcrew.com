@@ -12,7 +12,6 @@
           <path d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z" fill="currentColor" />
         </svg>
       </div>
-      <div class="header__block"></div>
     </header>
     <section id="about" class="about">
       <div class="about__inner">
@@ -376,20 +375,15 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .header {
   position: relative;
-  background-image: url(~assets/images/header-bg-mobile.png);
+  background-image: url(~assets/images/header-bg.jpg);
   background-repeat: no-repeat;
-  background-position: top;
+  background-position: center;
   background-size: cover;
 
   @media (min-width: $responsive-standard-tablet) {
-    background-image: url(~assets/images/header-bg-desktop.png);
     min-height: 36rem;
     height: 90vh;
     max-height: 40rem;
-  }
-
-  @media (min-width: $responsive-small-desktop) {
-    background-position: center;
   }
 
   &__inner {
@@ -397,57 +391,6 @@ export default Vue.extend({
     height: 100%;
     max-width: 120rem;
     margin-inline: auto;
-
-    // Parrot
-    &::before {
-      @media (min-width: $responsive-large-tablet) {
-        content: '';
-        pointer-events: none;
-        background-image: url(~assets/images/header-parrot.svg);
-        background-repeat: no-repeat;
-        background-position: bottom;
-        background-size: cover;
-        width: 19.625rem;
-        height: 40.375rem;
-        position: absolute;
-        bottom: -17rem;
-        right: 1rem;
-      }
-
-      @media (min-width: $responsive-small-desktop) {
-        right: 8rem
-      }
-
-      @media (min-width: $responsive-standard-desktop) {
-        right: 17rem
-      }
-    }
-
-    // Parrot wing
-    &::after {
-      @media (min-width: $responsive-large-tablet) {
-        content: '';
-        pointer-events: none;
-        background-image: url(~assets/images/header-parrot-wing.svg);
-        background-repeat: no-repeat;
-        background-position: bottom;
-        background-size: cover;
-        width: 7.8125rem;
-        height: 19.125rem;
-        position: absolute;
-        z-index: 1;
-        bottom: -5rem;
-        right: 1rem;
-      }
-
-      @media (min-width: $responsive-small-desktop) {
-        right: 8rem
-      }
-
-      @media (min-width: $responsive-standard-desktop) {
-        right: 17rem
-      }
-    }
   }
 
   &__curve {
@@ -474,19 +417,6 @@ export default Vue.extend({
     }
   }
 
-  &__block {
-    display: none;
-
-    @media (min-width: $responsive-large-tablet) {
-      display: block;
-      width: 100%;
-      height: 18rem;
-      background-color: #fff;
-      position: absolute;
-      top: calc(100% - 1px);
-    }
-  }
-
   &__soon {
     width: 26.5rem;
     position: relative;
@@ -496,7 +426,7 @@ export default Vue.extend({
     position: relative;
 
     &-wrapper {
-      padding-top: 3.5rem;
+      padding-top: 2rem;
       margin-inline: 1rem;
       position: relative;
       top: 5.5rem;
@@ -514,45 +444,6 @@ export default Vue.extend({
         top: 60%;
         left: 50%;
         transform: translate(-50%, -50%);
-      }
-
-      // Parrot
-      &::before {
-        content: '';
-        pointer-events: none;
-        background-image: url(~assets/images/header-parrot-mobile.svg);
-        background-repeat: no-repeat;
-        background-position: bottom;
-        background-size: cover;
-        width: 5.625rem;
-        height: 11.875rem;
-        position: absolute;
-        top: -2.5rem;
-        left: 50%;
-        transform: translateX(-50%);
-
-        @media (min-width: $responsive-large-tablet) {
-          display: none;
-        }
-      }
-
-      // Parrot wing
-      &::after {
-        content: '';
-        pointer-events: none;
-        background-image: url(~assets/images/header-parrot-wing-mobile.svg);
-        background-repeat: no-repeat;
-        background-position: bottom;
-        background-size: cover;
-        width: 2.125rem;
-        height: 5.125rem;
-        position: absolute;
-        top: 0.2rem;
-        left: calc(50% - 2.6rem);
-
-        @media (min-width: $responsive-large-tablet) {
-          display: none;
-        }
       }
     }
   }
@@ -982,11 +873,11 @@ export default Vue.extend({
 }
 
 .distribution {
-  padding: 6.25rem 1.5rem 3rem 1.5rem;
+  padding: 3rem 1.5rem;
   background-color: var(--mpc-navy);
 
   @media (min-width: $responsive-standard-tablet) {
-    padding-bottom: 4rem;
+    padding-block: 4rem;
   }
 
   @media (min-width: $responsive-small-desktop) {
@@ -1041,9 +932,13 @@ export default Vue.extend({
 
   h3 {
     color: var(--mpc-gold);
-    font-size: var(--font-size-subtitle);
+    font-size: var(--font-size-title);
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
+
+    @media (min-width: $responsive-standard-tablet) {
+      font-size: var(--font-size-subtitle);
+    }
   }
 
   p {
@@ -1220,15 +1115,9 @@ export default Vue.extend({
 .faqs {
   position: relative;
 
-  @media (min-width: $responsive-small-desktop) {
-    padding-inline: 13rem;
-  }
-
   &__inner {
     padding: 3rem 1rem;
     background-color: var(--mpc-light-beige);
-    max-width: 73rem;
-    margin-inline: auto;
 
     @media (min-width: $responsive-standard-tablet) {
       padding: 3rem 6.25rem 4.5rem 6.25rem;
@@ -1240,6 +1129,11 @@ export default Vue.extend({
     margin-bottom: 1rem;
     font-size: var(--font-size-title);
     text-align: center;
+  }
+
+  ::v-deep .accordion {
+    max-width: 48rem;
+    margin-inline: auto;
   }
 }
 </style>

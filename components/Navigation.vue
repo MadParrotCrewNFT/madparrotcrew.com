@@ -145,13 +145,15 @@ export default Vue.extend({
 
   @media (min-width: $responsive-large-tablet) {
     background-color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
   }
 
   &--open,
   &--white-bg {
-    @media (max-width: $responsive-large-tablet - math.div(1em, 16)) {
-      background-color: #fff;
+    background-color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
 
+    @media (max-width: $responsive-large-tablet - math.div(1em, 16)) {
       .navbar__logo a {
         color: #3c3c3c;
       }
@@ -191,8 +193,8 @@ export default Vue.extend({
     border: none;
     border-radius: 0.25rem;
     color: var(--mpc-green);
-    width: 1.875rem;
-    height: 1.875rem;
+    width: 2rem;
+    height: 2rem;
     padding: 0.375rem 0.25rem;
     display: flex;
     flex-direction: column;
@@ -211,7 +213,7 @@ export default Vue.extend({
       &:not(:nth-last-child(1)) {
         background-color: var(--mpc-green);
         height: 0.1875rem;
-        width: 1rem;
+        width: 1.175rem;
         border-radius: 2rem;
         left: 0.45rem;
         z-index: 1;
@@ -220,7 +222,7 @@ export default Vue.extend({
       &:nth-last-child(1) {
         color: var(--mpc-green);
         text-transform: uppercase;
-        font-size: 0.375rem;
+        font-size: 0.5rem;
         font-weight: 700;
         bottom: 0.25rem;
         left: 50%;
@@ -329,6 +331,7 @@ export default Vue.extend({
         display: flex;
         list-style-type: none;
         margin: 0;
+        padding-left: 0;
         height: 100%;
 
         li, a {
