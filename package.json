@@ -15,9 +15,8 @@
   },
   "scripts": {
     "dev": "nuxt --open",
-    "start": "npm run generate && nuxt start --open",
-    "generate": "concurrently \"rimraf node_modules\" \"rimraf dist\" && npm ci && nuxt generate -m --fail-on-error",
-    "deploy": "npm run generate && push-dir --dir=dist --branch=gh-pages --cleanup"
+    "start": "concurrently \"rimraf node_modules\" \"rimraf dist\" && npm ci && npm run generate && nuxt start --open",
+    "generate": "nuxt generate -m --fail-on-error"
   },
   "dependencies": {
     "@nuxtjs/pwa": "^3.3.5",
@@ -37,7 +36,6 @@
     "@types/node": "^17.0.9",
     "babel-core": "7.0.0-bridge.0",
     "concurrently": "^7.0.0",
-    "push-dir": "^0.4.1",
     "rimraf": "^3.0.2",
     "sass": "^1.48.0",
     "sass-loader": "^10.2.1"
