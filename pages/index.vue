@@ -1,6 +1,7 @@
 <template>
   <div>
     <header class="header">
+      <div class="header__overlay"></div>
       <div class="header__inner">
         <div class="header__calculator-wrapper">
           <calculator v-if="config.MINTING_LIVE" class="header__calculator" />
@@ -384,6 +385,15 @@ export default Vue.extend({
     min-height: 36rem;
     height: 90vh;
     max-height: 40rem;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
   }
 
   &__inner {
