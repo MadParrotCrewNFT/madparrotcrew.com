@@ -40,7 +40,7 @@
             <span aria-hidden="true">*</span> It's a great film, check it out.
           </p>
           <p id="to-be-clear" class="small">
-            <span aria-hidden="true">**</span> Just so we're clear, we don't condone violence of any kind nor do we endorse the idea that parrots are deadly psychopaths. However, we do find the idea of a parrot holding nunchucks, smoking a joint or sporting an afro is absolutely fucking hilarious and we hope you do as well.
+            <span aria-hidden="true">**</span> Just so we're clear: We don't condone violence of any kind, nor do we endorse the idea that parrots are deadly psychopaths. However, we do find the idea of a parrot holding nunchucks, smoking a joint or sporting an afro absolutely fucking hilarious and hopefully so do you do... otherwise, you're NGMI.
           </p>
         </div>
         <div class="about__parrots--mobile">
@@ -57,12 +57,14 @@
           <p>Being a Mad Parrot token holder entitles you to the following:</p>
           <ul>
             <li>IP (Intellectual Property) rights over your Mad Parrot(s)</li>
-            <li>You're automatically enlisted in exclusive monthly giveaways for a FREE PFP derivative by Sheftali***</li>
+            <li aria-describedby="sheftali-derivs">Automatic enlistment in exclusive monthly giveaways for a FREE PFP derivative by Sheftali<span aria-hidden="true">***</span></li>
             <li>Exclusive access to the limited supply run of merch</li>
-            <li>Permission to enter the Mad Parrot Crew's Discord server</li>
             <li>Access to the private Crew section of the website (coming soon) which will allow you to generate digital art unique to your Mad Parrot(s) such as custom device wallpapers, PFP backgrounds etc</li>
           </ul>
           <p>A crew is only as strong as it's members, so aside from the above you also have a say in the decisions we make. Ultimately it will be on the founders to execute, but as a crew member your voice will be heard.</p>
+          <p id="sheftali-derivs" class="small">
+            <span aria-hidden="true">***</span> The FREE PFP derivative will only be valid on other PFP projects.
+          </p>
         </div>
         <div class="perks__parrots">
           <img src="~/assets/images/perk-parrot-1.png" alt="" />
@@ -74,7 +76,7 @@
     </section>
     <section id="roadmap" class="roadmap">
       <div class="roadmap__inner">
-        <h2>Roadmap</h2>
+        <h2>Roadmap 1.0</h2>
         <p>We’ve split up the mint process into 4 stages and are giving away some cool prizes to early supporters!</p>
         <ol class="roadmap__cards">
           <li>
@@ -141,8 +143,8 @@
             </div>
           </li>
         </ol>
-        <h3>...and much more</h3>
-        <p>We’re committed to ensuring the Mad Parrot Crew lives on way past the roadmap illustrated above. We'll continue to contribute to the web3 space and give back to the community that has made all this possible. If you know me (Sheftali) and are familiar with my work then you know creating art is a passion of mine which will never slow down, plus Iac’s fascination in Web3 grows daily. While we’re not fans of over-promising (who is?) we have ideas, and we’re ambitious, and if it can be done we’ll do our best to deliver (with outside help if need).</p>
+        <h3>Roadmap 2.0</h3>
+        <p>We’re committed to ensuring the Mad Parrot Crew lives on way past the roadmap illustrated above. Aside from Operation: 'For Better or Worse', We'll continue to contribute to the web3 space and give back to the community that has made all this possible. If you know me (Sheftali) and are familiar with my work then you know creating art is a passion of mine which will never slow down, plus Iac’s fascination in Web3 grows daily. While we’re not fans of over-promising (who is?) we do have ideas, we’re ambitious, and if it can be done we’ll do our best to deliver (with outside help if need).</p>
       </div>
     </section>
     <section v-if="showDesktopBonusSection" id="diamond-beak-club" class="bonus bonus--desktop">
@@ -237,23 +239,26 @@
         <h2>FAQs</h2>
         <accordion>
           <accordion-item id="1" heading-tag="h3" heading="What's the Mad Parrot Crew (MPC)?">
-            <p>A collection of 10,000 randomly generated NFTs on the Ethereum blockchain.</p>
+            <p>The Mad Parrot Crew is a unique collection of 10,000 randomly generated Mad Parrot NFTs on the Ethereum blockchain. They're pretty crazy, often unpredictable but actually quite lovely if you give them a chance. (They need a home, for the love of God - please take them)</p>
           </accordion-item>
           <accordion-item id="2" heading-tag="h3" heading="Who created the Mad Parrots?">
-            <p><a :href="config.SHEFTALI.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Sheftali</a> and <a :href="config.IACOVE.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Iacove</a>.</p>
+            <p>The project was founded by <a :href="config.SHEFTALI.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Sheftali</a> (artist & animator) and <a :href="config.IACOVE.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Iac</a> (web3), but no single person is bigger than the crew. All Mad Parrot holders will have a say in the directions and decisions we make going forward!</p>
           </accordion-item>
           <accordion-item id="3" heading-tag="h3" heading="What's the mint price for a Mad Parrot and how many can I get?">
-            <p>{{ config.ETH_COST }} ETH per Mad Parrot, plus gas. You're allowed up to {{ config.MAX_MINT_PARROTS }} Mad Parrots per wallet.</p>
+            <p>At the time of mint, it will cost <strong>{{ config.ETH_COST }} ETH</strong> per Mad Parrot, including gas. You'll be allowed to mint <strong>up to {{ config.MAX_MINT_PARROTS }} per wallet</strong>. In order to get more you'll have to browse on the secondary market.</p>
           </accordion-item>
           <accordion-item id="4" heading-tag="h3" heading="Wen mint?">
-            <p>The mint will be split out in 4 stages, (2475 parrots each) the first stage will be in <time datetime="2022-02">mid-February 2022</time>.</p>
+            <p>The short answer is: <strong>Q1 2022</strong>. We want to make sure we're 100% ready before we launch, ensuring no unpleasant surprises. The exact date will be revealed in Discord followed by our social channels. The mint will be split out in 4 stages, (2475 parrots each).</p>
           </accordion-item>
-          <accordion-item id="5" heading-tag="h3" heading="Will there be giveaways?">
-            <p>Eww no. Jk, of course there will be giveaways! Check the <a href="#roadmap" class="link">roadmap</a>.</p>
+          <accordion-item id="5" heading-tag="h3" heading="Is there a Whitelist?">
+            <p>Hell yeah there's a Whitelist! Whilst we are very busy grafting to bring this project to life, we do keep an eye on our community and take note of who's putting the work in. We have no problem handing out spots to people we believe would make our crew awesome, so <strong>to get Whitelist you just need to show us you care</strong>.<br><br>Being active in Discord, promoting us on Twitter, setting your PFP to one of the MPCs in the #sneak-beaks (thanks, diegoleyva!) channel and generally just showing us love will definitely increases your chances! <br><br>If you were quick enough to <a :href="config.SOCIAL.DISCORD" target="_blank" rel="noopener noreferrer" class="link">Join our Discord</a> when it launched, then you were awarded the 'Early Bird' role which also grants you Whitelist as well as other cool perks in the future.</p>
           </accordion-item>
-          <accordion-item id="6" heading-tag="h3" heading="Will there be any one-of-ones?">
+          <accordion-item id="6" heading-tag="h3" heading="Will there be giveaways?">
+            <p>Yes absolutely! As well as the giveaways detailed on the <a href="#roadmap" class="link">roadmap</a>, we'll also be <strong>running competitions</strong> on <a :href="config.SOCIAL.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Twitter</a> so make sure you're following us on there!</p>
+          </accordion-item>
+          <accordion-item id="7" heading-tag="h3" heading="Will there be any one-of-ones?">
             <p>
-              Yeah of course! It wouldn't be a sick collection without some one-of-ones now would it? We're going to release 10, and they'll be nothing like you've seen before.
+              Kiiiiinda! <strong>10x Animated Mad Parrots</strong>. We will randomly select 10 NFTs from the collection and I (Sheftali) will be animating them from scratch (just like the derivatives I'm known for). These NFTs will come with a <strong>loopable video</strong> (Suitable for <a :href="config.SOCIAL.DISCORD" target="_blank" rel="noopener noreferrer" class="link">Discord</a>) as well as the <strong>still image</strong> (Suitable for Socials).<br><br> 5 of these will be given away through <a :href="config.SOCIAL.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Twitter</a>, the other 5 will be mintable.
             </p>
           </accordion-item>
         </accordion>
@@ -665,7 +670,7 @@ export default Vue.extend({
 
       @media (min-width: $responsive-small-desktop) {
         margin-top: 1.675rem;
-        margin-bottom: 3.625rem;
+        margin-bottom: 1.675rem;
         gap: 0.875rem;
         padding-right: 5rem;
       }
