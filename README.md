@@ -1,5 +1,7 @@
 # maddparrotcrew.com
 
+[![Pipeline status](https://github.com/MadParrotCrew/madparrotcrew.com/actions/workflows/build-and-deploy.yml/badge.svg?branch=master)](https://github.com/MadParrotCrew/madparrotcrew.com/actions/workflows/build-and-deploy.yml) ![Website status](https://img.shields.io/website?url=https%3A%2F%2Fmadparrotcrew.com)
+
 ## Build Setup
 
 1. Clone repo locally `git clone https://github.com/MadParrotCrew/madparrotcrew.com.git`
