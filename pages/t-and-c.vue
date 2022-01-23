@@ -2,21 +2,13 @@
   <div class="t-and-c__bg">
     <section class="t-and-c">
       <h1>Terms & Conditions</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis auctor tincidunt. Etiam condimentum est quam. Quisque ut lectus vestibulum, euismod nibh at, lacinia nulla.
-      </p>
-      <h2>Ownership</h2>
-      <ol>
-        <li>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis auctor tincidunt. Etiam condimentum est quam. Quisque ut lectus vestibulum, euismod nibh at, lacinia nulla. 
-        </li>
-        <li>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis auctor tincidunt. Etiam condimentum est quam. Quisque ut lectus vestibulum, euismod nibh at, lacinia nulla. 
-        </li>
-        <li>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis auctor tincidunt. Etiam condimentum est quam. Quisque ut lectus vestibulum, euismod nibh at, lacinia nulla. 
-        </li>
-      </ol>
+      <p>Mad Parrot Crew (MPC) is a collection of digital artworks (NFTs) which is run on the Ethereum network.
+      <br><br>
+      This website is only an interface built to help you (the users) interact with that Ethereum smart contract.
+      <br><br>
+      The users of this site are entirely responsible for the safety and management of their own private Ethereum wallets and validating all transactions generated before approving them. Use of this website is at the user’s own risk. MPC is not liable for any incorrect or failed transactions. Furthermore, as the contract runs on Ethereum, MPC have no power to undo, reverse, or restore any transactions.
+      <br><br>
+      You use this website at your own risk and by doing so you agree full responsibility with regards to any problems, errors, and failures no matter the cause or source of those errors and accept sole responsibility for all transactions.</p>
     </section>
   </div>
 </template>
