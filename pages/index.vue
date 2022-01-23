@@ -1016,8 +1016,8 @@ export default Vue.extend({
           }
 
           &[src*="iacove"] {
-            top: -1.625rem;
-            left: -0.125rem;
+            top: -0.625rem;
+            left: -0.1875rem;
           }
         }
       }
@@ -1099,9 +1099,9 @@ export default Vue.extend({
         }
 
         &[src*="feet"] {
-          width: 5.625rem;
-          bottom: -19rem;
-          left: 9.9rem;
+          width: 5.4rem;
+          bottom: -19.7rem;
+          left: 9.95rem;
           z-index: 1;
         }
       }
