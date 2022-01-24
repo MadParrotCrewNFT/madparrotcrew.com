@@ -62,7 +62,6 @@ export default Vue.extend({
   data () {
     return {
       siteconfig,
-      showNavItems: true,
       isMobileNavOpen: false,
       setWhiteBgMobile: false
     }
@@ -104,13 +103,7 @@ export default Vue.extend({
       return this.$store.state.socialLinks
     }
   },
-  watch: {
-    $route (): void {
-      this.showNavItems = window.location.pathname === '/'
-    }
-  },
   mounted () {
-    this.showNavItems = window.location.pathname === '/'
     window.addEventListener('scroll', this.handleScroll)
     this.handleScroll()
   },
