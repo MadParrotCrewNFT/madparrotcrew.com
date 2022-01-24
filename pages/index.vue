@@ -62,6 +62,7 @@
             <li>Access to the private Crew section of the website (coming soon) which will allow you to generate digital art unique to your Mad Parrot(s) such as custom device wallpapers, PFP backgrounds etc</li>
           </ul>
           <p>A crew is only as strong as it's members, so aside from the above you also have a say in the decisions we make. Ultimately it will be on the founders to execute, but as a crew member your voice will be heard.</p>
+          <br/>
           <p id="sheftali-derivs" class="small">
             <span aria-hidden="true">***</span> The FREE PFP derivative will only be valid on other PFP projects.
           </p>
@@ -1000,7 +1001,6 @@ export default Vue.extend({
       }
 
       .team-member__img {
-        background-color: #fff;
         border-radius: 50%;
         height: 7.875rem;
         width: 7.875rem;
