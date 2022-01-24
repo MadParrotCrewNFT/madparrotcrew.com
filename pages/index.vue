@@ -1026,7 +1026,7 @@ export default Vue.extend({
         font-size: var(--font-size-heading);
         color: var(--mpc-gold);
         text-align: center;
-        margin-top: 1rem;
+        margin-top: 1.5rem;
         margin-bottom: 0.5rem;
       }
 
