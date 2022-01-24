@@ -1096,11 +1096,12 @@ export default Vue.extend({
 
         &[src*="team-desktop"] {
           width: 35.5rem;
+          bottom: -27.8rem;
         }
 
         &[src*="feet"] {
           width: 5.4rem;
-          bottom: -19.7rem;
+          bottom: -19.2rem;
           left: 9.95rem;
           z-index: 1;
         }
