@@ -7,15 +7,15 @@
           <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
         </nuxt-link>
       </h1>
-      <button v-if="showNavItems" class="navbar__hamburger" :class="{ 'navbar__hamburger--open': isMobileNavOpen }" @click="isMobileNavOpen = !isMobileNavOpen">
+      <button class="navbar__hamburger" :class="{ 'navbar__hamburger--open': isMobileNavOpen }" @click="isMobileNavOpen = !isMobileNavOpen">
         <span></span>
         <span></span>
         <span>{{ isMobileNavOpen ? 'Close' : 'Menu' }}</span>
       </button>
-      <nav v-if="showNavItems" class="navbar__nav" :class="{ 'navbar__nav--open': isMobileNavOpen }">
+      <nav class="navbar__nav" :class="{ 'navbar__nav--open': isMobileNavOpen }">
         <ul class="navbar__nav-list">
           <li v-for="navItem in navItems" :key="navItem.url">
-            <a :href="navItem.url" :class="{ 'active': isTheChosenOne(navItem.url) }" @click="isMobileNavOpen = false">
+            <a :href="($route.path !== '/' ? '/' : '') + navItem.url" :class="{ 'active': isTheChosenOne(navItem.url) }" @click="isMobileNavOpen = false">
               {{ navItem.text }}
             </a>
           </li>
@@ -62,7 +62,6 @@ export default Vue.extend({
   data () {
     return {
       siteconfig,
-      showNavItems: true,
       isMobileNavOpen: false,
       setWhiteBgMobile: false
     }
@@ -104,13 +103,7 @@ export default Vue.extend({
       return this.$store.state.socialLinks
     }
   },
-  watch: {
-    $route (): void {
-      this.showNavItems = window.location.pathname === '/'
-    }
-  },
   mounted () {
-    this.showNavItems = window.location.pathname === '/'
     window.addEventListener('scroll', this.handleScroll)
     this.handleScroll()
   },
@@ -264,16 +257,17 @@ export default Vue.extend({
   &__nav {
     @media (max-width: $responsive-large-tablet - math.div(1em, 16)) {
       position: absolute;
-      top: -27rem;
+      top: -33rem;
       left: 0;
       width: 100%;
       background-color: #fff;
       transition: all 240ms ease;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
 
       &--open {
-        top: calc(100% - 1px);
+        top: 100%;
       }
 
       .navbar__nav-list {
@@ -283,6 +277,10 @@ export default Vue.extend({
         display: flex;
         flex-direction: column;
         align-items: stretch;
+
+        li {
+          padding-block: 0.75rem;
+        }
 
         a {
           color: var(--mpc-green);
@@ -298,7 +296,7 @@ export default Vue.extend({
         display: flex;
         list-style-type: none;
         padding-left: 0;
-        margin: 2rem auto 1.5rem auto;
+        margin: 2rem auto 2.5rem auto;
         height: 100%;
         gap: 0.75rem;
 

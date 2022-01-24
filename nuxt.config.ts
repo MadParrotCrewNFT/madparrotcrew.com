@@ -59,7 +59,7 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     meta: {
-      description: "Mad Parrot Crew consists of 10,000 unique parrot NFTs — unique digital collectibles living on the Ethereum blockchain. Owning a Mad Parrot means you're in in the crew and grants you access to members-only benefits.",
+      description: "Mad Parrot Crew consists of 10,000 unique parrot NFTs living on the Ethereum blockchain.",
       ogHost: siteconfig.base_url,
       ogSiteName: siteconfig.brand_name,
       ogType: 'website',
