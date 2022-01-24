@@ -1,6 +1,6 @@
 # maddparrotcrew.com
 
-[![Pipeline status](https://github.com/MadParrotCrew/madparrotcrew.com/actions/workflows/build-and-deploy.yml/badge.svg?branch=master)](https://github.com/MadParrotCrew/madparrotcrew.com/actions/workflows/build-and-deploy.yml) ![Website status](https://img.shields.io/website?url=https%3A%2F%2Fmadparrotcrew.com)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/51a236ba-2359-40f5-927b-3de7a037fec3/deploy-status)](https://app.netlify.com/sites/optimistic-kepler-345fcf/deploys) ![Website status](https://img.shields.io/website?url=https%3A%2F%2Fmadparrotcrew.com)
 
 ## Build Setup
 
