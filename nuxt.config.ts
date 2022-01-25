@@ -4,7 +4,7 @@ import config from './config.json'
 export default {
   target: 'static',
   head: {
-    title: `${siteconfig.brand_name} | The Official NFT`,
+    title: siteconfig.brand_name,
     htmlAttrs: {
       lang: 'en-GB'
     },
