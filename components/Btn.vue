@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
 import Spinner from './Spinner.vue'
 
 export default Vue.extend({
@@ -18,10 +18,10 @@ export default Vue.extend({
   components: { Spinner },
   props: {
     color: {
-      type: String as () => "dark-blue" | "green",
+      type: String as PropType<"dark-blue" | "grey">,
       default: "dark-blue",
       validator: (value: string): boolean => {
-        return ["dark-blue", "green"].includes(value);
+        return ["dark-blue", "grey"].includes(value);
       }
     },
     square: {
@@ -92,8 +92,8 @@ export default Vue.extend({
     }
   }
 
-  &--green {
-    --btn-color: var(--mpc-green);
+  &--grey {
+    --btn-color: var(--mpc-dark-grey);
     background-color: var(--btn-color);
     border-color: var(--btn-color);
   }

@@ -73,7 +73,7 @@ export default Vue.extend({
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: var(--mpc-green);
+      color: var(--mpc-dark-grey);
       padding: 0.875rem 1rem;
       border: 0;
       background-color: transparent;

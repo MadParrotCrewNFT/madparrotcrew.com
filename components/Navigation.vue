@@ -185,7 +185,7 @@ export default Vue.extend({
     background-color: #fff;
     border: none;
     border-radius: 0.25rem;
-    color: var(--mpc-green);
+    color: var(--mpc-dark-grey);
     width: 2rem;
     height: 2rem;
     padding: 0.375rem 0.25rem;
@@ -204,7 +204,7 @@ export default Vue.extend({
       transition: all 240ms ease;
 
       &:not(:nth-last-child(1)) {
-        background-color: var(--mpc-green);
+        background-color: var(--mpc-dark-grey);
         height: 0.1875rem;
         width: 1.175rem;
         border-radius: 2rem;
@@ -213,7 +213,7 @@ export default Vue.extend({
       }
 
       &:nth-last-child(1) {
-        color: var(--mpc-green);
+        color: var(--mpc-dark-grey);
         text-transform: uppercase;
         font-size: 0.5rem;
         font-weight: 700;
@@ -283,7 +283,7 @@ export default Vue.extend({
         }
 
         a {
-          color: var(--mpc-green);
+          color: var(--mpc-dark-grey);
           font-size: var(--font-size-subtitle);
           font-family: var(--font-family-ampersand);
           text-decoration: none;
@@ -352,7 +352,7 @@ export default Vue.extend({
           &:hover,
           &:focus,
           &.active {
-            background-color: var(--mpc-green);
+            background-color: var(--mpc-dark-grey);
             color: #fff;
           }
         }
