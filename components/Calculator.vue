@@ -14,13 +14,13 @@
         </btn>
         <label for="noOfParrots" class="sr-only">Number of parrots</label>
         <input id="noOfParrots" v-model="parrotNumber" readonly>
-        <btn color="grey" square :disabled="parrotNumber >= config.MAX_MINT_PARROTS || isClaimingNFT" @click="parrotNumber++">
+        <btn color="grey" square :disabled="$store.state.contractState && (parrotNumber >= $store.state.contractState.maxMintPerWallet || isClaimingNFT)" @click="parrotNumber++">
           +
           <span class="sr-only">Plus 1 parrot</span>
         </btn>
       </div>
       <p role="text" id="how-many-parrots">
-        Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum() }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+        Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
       </p>
       <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork" icon="wallet" aria-describedby="how-many-parrots">
         Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
@@ -31,20 +31,16 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Web3 from 'web3'
-import ethers from 'ethers';
-import ABI from '@/abi.json'
-import config from '@/config.json'
+import { ethers } from 'ethers';
 import { Btn } from '@/components'
+import { IContractState } from '@/store'
 
 export default Vue.extend({
   name: 'Calcualtor',
   components: { Btn },
   data () {
     return {
-      config,
       parrotNumber: 1,
-      ethereumValuePerParrot: config.ETH_COST,
       isWalletInstalled: false,
       isCorrectNetwork: true
     }
@@ -52,19 +48,24 @@ export default Vue.extend({
   computed: {
     isConnected (): boolean {
       return this.$store.state.account !== null
-    }
+    },
     isClaimingNFT (): boolean {
       return this.$store.state.isClaimingNFT
-    }
-    ethCostPerParrot (): ethers.BigNumber {
-      return this.$state.state.contractState.mintPrice;
-    }
-    formatterCostPerParrot (): string {
-      return ethers.utils.formatEther(this.ethCostPerParrot);
+    },
+    calculateEthereum (): string {
+      if (!this.$store.state.contractState?.priceInWei) return ''
+      // @ts-ignore
+      const tempPriceInWei: ethers.BigNumber = {
+        _hex: `0x${(parseInt((this.$store.state.contractState as IContractState).priceInWei._hex, 16) * this.parrotNumber).toString(16)}`,
+        _isBigNumber: (this.$store.state.contractState as IContractState).priceInWei._isBigNumber
+      }
+      return ethers.utils.formatEther(tempPriceInWei)
     }
   },
   async mounted () {
-    this.$store.dispatch("checkIfConnected")
+    if (await this.$store.dispatch("checkIfConnected")) {
+      await this.$store.dispatch("getContractState")
+    }
     this.isWalletInstalled = await this.$store.dispatch("isAWalletInstalled")
     this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
 
@@ -88,13 +89,8 @@ export default Vue.extend({
     async connect (): Promise<void> {
       await this.$store.dispatch("connect", true)
     },
-    mintParrots (): void {
+    async mintParrots (): Promise<void> {
       await this.$store.dispatch("mintParrots", this.parrotNumber);
-    },
-    calculateEthereum (): number {
-      const tempEthereumValuePerParrot = this.ethereumValuePerParrot * 1000 // Prevents floating point calculation errors
-      const value = tempEthereumValuePerParrot * this.parrotNumber
-      return Number((value / 1000).toFixed(3))
     }
   }
 })

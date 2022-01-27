@@ -1,4 +1,4 @@
-import ethers from 'ethers';
+import { ethers } from 'ethers';
 import config from '@/config.json'
 import MadParrotCrewABI from '@/contract/abi/MadParrotCrew.json';
 import { MadParrotCrew } from '@/contract/types';
@@ -8,11 +8,12 @@ export interface ISocialLink {
   url: string;
   icon: string;
 }
-interface IContractState {
-  isSaleActive: boolean; // can use these params to drive your UI instead of a config value
+export interface IContractState {
+  isSaleActive: boolean;
   isWhitelistActive: boolean;
-  mintPrice: ethers.BigNumber; //These are 256 bit numbers
+  priceInWei: ethers.BigNumber;
   numberMinted: ethers.BigNumber;
+  maxMintPerWallet: number;
 }
 interface IUserContractState {
   isWhitelisted: boolean;
@@ -117,6 +118,7 @@ export const actions = {
       }
       commit("setConnectionError", null)
       if (!(await dispatch("isCorrectNetwork"))) await dispatch("switchNetwork")
+      await dispatch('getContractState')
     } catch (error) {
       console.error(error)
       commit("setConnectionError", "Wallet account request refused.")
@@ -168,15 +170,16 @@ export const actions = {
       commit("setConnectionError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
     }
   },
-  async getContractState({ commit }: { commit: (mutation: string, value: any) => void }): Promise <void> {
+  async getContractState({ commit, state }: { commit: (mutation: string, value: any) => void, state: IState }): Promise <void> {
     try {
       // Sorry, not familiar with this version of flux/redux so I'm pretending like I'm getting the state properly
-      const contract = new ethers.Contract(this.$store.state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew;  
+      const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew
       const contractState: IContractState = {
-        isSaleActive: await contract.isSaleActive(), // Iac hasn't added these yet, but assuming he does, you just import the ABI and run `npm run typechain` to get new types
-        isWhitelistActive: await contract.isWhitelistActive(),
-        mintPrice: await contract.mintPrice(),
+        isSaleActive: false, // await contract.isSaleActive(), // Iac hasn't added these yet, but assuming he does, you just import the ABI and run `npm run typechain` to get new types
+        isWhitelistActive: false, //await contract.isWhitelistActive(),
+        priceInWei: await contract.priceInWei(),
         numberMinted: await contract.totalSupply(),
+        maxMintPerWallet: parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
         //... and anything else you want to grab from the contract once it exists
       }
       commit("setContractState", contractState);
@@ -184,51 +187,5 @@ export const actions = {
       console.log(err);
       commit("setConnectionError", "Sorry, something went wrong. Please try again later."); // or something
     }
-  },
-  async getUserContractState({ commit }: { commit: (mutation: string, value: any) => void }): Promise <void> {
-    try {
-      // Go get the merkle proof from the backend so you can show them ahead of time if they're whitelisted
-      // axios.get(....)
-      const merkleProof = ["0xblahblahblah", "0xblahblahblah"];
-      // Sorry, not familiar with this version of flux/redux so I'm pretending like I'm getting the state properly
-      const contract = new ethers.Contract(this.$store.state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew;  
-      const numberMinted = await contract.numberMinted(this.$store.state.account); // pass in the address
-      const userContractState: IUserContractState = {
-        isWhitelisted: merkleProof.length > 0,
-        merkleProof,
-        numberMinted
-      }
-      commit("setUserContractState", userContractState);
-    } catch (err) {
-      console.error(err)
-      commit("setConnectionError", `Sorry, you aren't on our whitelist.`); //or something. 
-    }
-  },
-  async mintParrots({ commit }: { commit: (mutation: string, value: any) => void }): Promise <void> {
-    try {
-      // perhaps there is a more global way to hang on to this contract ref but I don't know it in this context
-      const numberOfParrots = 1; //I have no clue how to grab it from the dispatch param, sorry.
-      const contract = new ethers.Contract(this.$store.state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew;  
-      const isSaleActive = store.contractState.isSaleActive;
-      const isWhitelistMint = store.contractState.isWhitelistActive && !isSaleActive; //sale supersedes all
-      if (isWhitelistMint) {
-        // they probably shouldn't have got here if there is no merkleproof, so act accordingly
-        const tx = await contract.whitelistMint(numberOfParrots, store.userContractState.merkleProof, {
-          value: store.contractState.mintPrice.mul(numberOfParrots), // this is in wei
-        }); 
-        commit('setMintTx', tx);
-      } else if (isSaleActive) {
-        const tx = await contract.publicMint(numberOfParrots, {
-          value: store.contractState.mintPrice.mul(numberOfParrots), // this is in wei
-        }); 
-        commit('setMintTx', tx);
-      } else {
-        // nothing is active so deal with it, though we shouldn't have had the chance to get here.
-      }
-    } catch (err) {
-      console.log(err);
-      commit("setMintingError", "Sorry, something went wrong. Please try again later."); // or something
-    }
-  },
-  
+  }
 }
