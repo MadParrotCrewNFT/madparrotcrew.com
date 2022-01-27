@@ -18,7 +18,7 @@
     "dev": "nuxt --open",
     "start": "npm run generate && nuxt start --open",
     "generate": "concurrently \"rimraf node_modules\" \"rimraf dist\" && npm ci && nuxt generate -m --fail-on-error",
-    "typechain" : "npx typechain --target=ethers-v5 --out-dir contract/types contract/abi/MadParrotCrew.json"
+    "typechain": "npx typechain --target=ethers-v5 --out-dir contract/types contract/abi/MadParrotCrew.json"
   },
   "dependencies": {
     "@nuxtjs/pwa": "^3.3.5",
@@ -29,8 +29,7 @@
     "core-js": "^3.20.3",
     "ethers": "^5.5.3",
     "modern-normalize": "^1.1.0",
-    "nuxt": "^2.15.8",
-    "web3": "^1.7.0"
+    "nuxt": "^2.15.8"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",
