@@ -14,6 +14,7 @@
     "url": "git+https://github.com/MadParrotCrew/madparrotcrew.com.git"
   },
   "scripts": {
+    "postinstall": "npm run typechain",
     "dev": "nuxt --open",
     "start": "npm run generate && nuxt start --open",
     "generate": "concurrently \"rimraf node_modules\" \"rimraf dist\" && npm ci && nuxt generate -m --fail-on-error",
