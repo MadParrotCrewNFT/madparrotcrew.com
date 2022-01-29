@@ -12,7 +12,9 @@ export interface IContractState {
   isSaleActive: boolean;
   isWhitelistActive: boolean;
   priceInWei: ethers.BigNumber;
-  numberMinted: ethers.BigNumber;
+  maxSupply: number;
+  numberMinted: number;
+  supplyLeft: number;
   maxMintPerWallet: number;
 }
 interface IUserContractState {
@@ -174,11 +176,15 @@ export const actions = {
     try {
       // Sorry, not familiar with this version of flux/redux so I'm pretending like I'm getting the state properly
       const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew
+      const maxSupply = parseInt(await(await contract.functions.maxSupply())[0]._hex, 16)
+      const numberMinted = parseInt(await (await contract.totalSupply())._hex, 16)
       const contractState: IContractState = {
-        isSaleActive: false, // await contract.isSaleActive(), // Iac hasn't added these yet, but assuming he does, you just import the ABI and run `npm run typechain` to get new types
-        isWhitelistActive: false, //await contract.isWhitelistActive(),
+        isSaleActive: await (await contract.functions.publicSaleActive())[0],
+        isWhitelistActive: await (await contract.functions.whitelistSaleActive())[0],
         priceInWei: await contract.priceInWei(),
-        numberMinted: await contract.totalSupply(),
+        maxSupply,
+        numberMinted,
+        supplyLeft: maxSupply - numberMinted,
         maxMintPerWallet: parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
         //... and anything else you want to grab from the contract once it exists
       }

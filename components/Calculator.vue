@@ -1,6 +1,9 @@
 <template>
   <div id="mint" class="calculator">
     <h2>Clubhouse now open!</h2>
+    <p v-if="$store.state.contractState">
+      <strong>{{ $store.state.contractState.numberMinted }}</strong>/{{ $store.state.contractState.maxSupply }}
+    </p>
     <p v-if="$store.state.connectionError" class="calculator__error">{{ $store.state.connectionError }}</p>
     <p v-if="!$store.state.connectionError && !isConnected">Connect your wallet to begin.</p>
     <div v-if="!isConnected">
@@ -14,7 +17,7 @@
         </btn>
         <label for="noOfParrots" class="sr-only">Number of parrots</label>
         <input id="noOfParrots" v-model="parrotNumber" readonly>
-        <btn color="grey" square :disabled="$store.state.contractState && (parrotNumber >= $store.state.contractState.maxMintPerWallet || isClaimingNFT)" @click="parrotNumber++">
+        <btn color="grey" square :disabled="!$store.state.contractState || ($store.state.contractState && (parrotNumber >= $store.state.contractState.maxMintPerWallet || parrotNumber >= $store.state.contractState.supplyLeft || isClaimingNFT))" @click="parrotNumber++">
           +
           <span class="sr-only">Plus 1 parrot</span>
         </btn>
