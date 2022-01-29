@@ -4,8 +4,8 @@
       <div class="header__overlay"></div>
       <div class="header__inner">
         <div class="header__calculator-wrapper">
-          <calculator v-if="config.MINTING_LIVE" class="header__calculator" />
-          <img v-else class="header__soon" src="~assets/images/minting-coming-soon.png" alt="Minting coming soon" width="424" height="245" loading="lazy" />
+          <calculator v-if="$store.state.contractState && config.MINTING_LIVE" class="header__calculator" />
+          <img v-else-if="$store.state.contractState && !config.MINTING_LIVE" class="header__soon" src="~assets/images/minting-coming-soon.png" alt="Minting coming soon" width="424" height="245" loading="lazy" />
         </div>
       </div>
       <div class="header__curve">
@@ -365,9 +365,12 @@ export default Vue.extend({
       ]
     }
   },
-  mounted () {
+  async mounted () {
     window.addEventListener('resize', this.canShowDesktopBonusSection)
     this.canShowDesktopBonusSection()
+    if (await this.$store.dispatch("checkIfConnected")) {
+      await this.$store.dispatch("getContractState")
+    }
   },
   destroyed () {
     window.removeEventListener('resize', this.canShowDesktopBonusSection)

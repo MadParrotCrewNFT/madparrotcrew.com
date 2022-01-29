@@ -51,7 +51,7 @@ export const state = () => ({
       ? [
         {
           text: 'OpenSea',
-          url: config.MARKETPLACE_LINK,
+          url: config.OPENSEA_LINK,
           icon: 'opensea'
         },
         {
@@ -182,7 +182,7 @@ export const actions = {
         isSaleActive: await (await contract.functions.publicSaleActive())[0],
         isWhitelistActive: await (await contract.functions.whitelistSaleActive())[0],
         priceInWei: await contract.priceInWei(),
-        maxSupply,
+        maxSupply, // Max supply will only be 10000 at the end of stage 4 since they are releasing the parrots in stages
         numberMinted,
         supplyLeft: maxSupply - numberMinted,
         maxMintPerWallet: parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost

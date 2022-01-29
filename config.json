@@ -7,8 +7,7 @@
     "SYMBOL": "ETHER",
     "ID": 4
   },
-  "MARKETPLACE": "OPENSEA",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/Testproj",
+  "OPENSEA_LINK": "https://opensea.io/collection/Testproj",
   "SOCIAL": {
     "DISCORD": "https://discord.gg/EVYDTdFU8j",
     "TWITTER": "https://twitter.com/madparrotcrew",

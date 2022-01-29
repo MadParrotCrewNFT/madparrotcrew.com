@@ -1,33 +1,46 @@
 <template>
   <div id="mint" class="calculator">
-    <h2>Clubhouse now open!</h2>
-    <p v-if="$store.state.contractState">
-      <strong>{{ $store.state.contractState.numberMinted }}</strong>/{{ $store.state.contractState.maxSupply }}
-    </p>
-    <p v-if="$store.state.connectionError" class="calculator__error">{{ $store.state.connectionError }}</p>
-    <p v-if="!$store.state.connectionError && !isConnected">Connect your wallet to begin.</p>
-    <div v-if="!isConnected">
-      <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
-    </div>
-    <template v-if="isConnected">
-      <div class="calculator__buttons">
-        <btn color="grey" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT" @click="parrotNumber--">
-          -
-          <span class="sr-only">Minus 1 parrot</span>
-        </btn>
-        <label for="noOfParrots" class="sr-only">Number of parrots</label>
-        <input id="noOfParrots" v-model="parrotNumber" readonly>
-        <btn color="grey" square :disabled="!$store.state.contractState || ($store.state.contractState && (parrotNumber >= $store.state.contractState.maxMintPerWallet || parrotNumber >= $store.state.contractState.supplyLeft || isClaimingNFT))" @click="parrotNumber++">
-          +
-          <span class="sr-only">Plus 1 parrot</span>
-        </btn>
-      </div>
-      <p role="text" id="how-many-parrots">
-        Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+    <div v-if="$store.state.contractState && $store.state.contractState.numberMinted === $store.state.contractState.maxSupply && $store.state.contractState.maxSupply === 10000" class="calculator__sold-out">
+      <!-- Only show this section if all 10,000 parrots have been minted -->
+      <h2>Sold out</h2>
+      <p v-if="$store.state.contractState">
+        <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
       </p>
-      <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork" icon="wallet" aria-describedby="how-many-parrots">
-        Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
-      </btn>
+      <p>
+        All Mad Parrots have been claimed, but you can still get one on the secondary marketplace.
+      </p>
+      <btn :to="config.OPENSEA_LINK" icon="opensea-white">OpenSea collection</btn>
+    </div>
+    <template v-else>
+      <h2>Clubhouse now open!</h2>
+      <p v-if="$store.state.contractState">
+        <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
+      </p>
+      <p v-if="$store.state.connectionError" class="calculator__error">{{ $store.state.connectionError }}</p>
+      <p v-if="!$store.state.connectionError && !isConnected">Connect your wallet to begin.</p>
+      <div v-if="!isConnected">
+        <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
+      </div>
+      <template v-if="isConnected">
+        <div class="calculator__buttons">
+          <btn color="grey" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT" @click="parrotNumber--">
+            -
+            <span class="sr-only">Minus 1 parrot</span>
+          </btn>
+          <label for="noOfParrots" class="sr-only">Number of parrots</label>
+          <input id="noOfParrots" v-model="parrotNumber" readonly>
+          <btn color="grey" square :disabled="!$store.state.contractState || ($store.state.contractState && (parrotNumber >= $store.state.contractState.maxMintPerWallet || parrotNumber >= $store.state.contractState.supplyLeft || isClaimingNFT))" @click="parrotNumber++">
+            +
+            <span class="sr-only">Plus 1 parrot</span>
+          </btn>
+        </div>
+        <p role="text" id="how-many-parrots">
+          Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+        </p>
+        <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork" icon="wallet" aria-describedby="how-many-parrots">
+          Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
+        </btn>
+      </template>
     </template>
   </div>
 </template>
@@ -35,14 +48,19 @@
 <script lang="ts">
 import Vue from 'vue'
 import { ethers } from 'ethers';
+// @ts-ignore
+import commaNumber from 'comma-number'
 import { Btn } from '@/components'
 import { IContractState } from '@/store'
+import config from '@/config.json'
 
 export default Vue.extend({
   name: 'Calcualtor',
   components: { Btn },
   data () {
     return {
+      config,
+      commaNumber,
       parrotNumber: 1,
       isWalletInstalled: false,
       isCorrectNetwork: true
@@ -166,6 +184,21 @@ export default Vue.extend({
 
   &__cta {
     margin-top: 1rem;
+  }
+
+  &__sold-out {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+
+    h2 {
+      font-size: var(--font-size-title);
+    }
+
+    ::v-deep .btn {
+      margin-top: 1.25rem;
+    }
   }
 }
 </style>

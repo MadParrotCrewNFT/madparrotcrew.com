@@ -26,6 +26,7 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/style-resources": "^1.2.1",
     "@nuxtjs/svg-sprite": "^0.5.2",
+    "comma-number": "^2.1.0",
     "core-js": "^3.20.3",
     "ethers": "^5.5.3",
     "modern-normalize": "^1.1.0",
