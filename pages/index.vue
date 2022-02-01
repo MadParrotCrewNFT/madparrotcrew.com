@@ -77,17 +77,18 @@
     </section>
     <section id="roadmap" class="roadmap">
       <div class="roadmap__inner">
-        <h2>Roadmap 1.0</h2>
+        <h2>Roadmap 1.0 (Mint)</h2>
         <p>We’ve split up the mint process into 4 stages and are giving away some cool prizes to early supporters!</p>
         <ol class="roadmap__cards">
           <li>
             <card>
               <h3 class="card__title">
-                Stage 1 - Dya like Dags?
+                Stage 1 - Fly me... (Pt. 1)
               </h3>
               <p>Some Mad Parrots are released into the wild</p>
               <p>Community Wallet setup, 15ETH deposited</p>
-              <p>After all Mad Parrots from Stage 1 are claimed, all token holders will be enrolled in a giveaway for the Bored Ape Kennel Club NFT!</p>
+              <p>We purchase land in the sandbox and start looking into building our clubhouse!</p>
+              <p>After all Mad Parrots from Stage 1 are claimed, all token holders will be enrolled in a giveaway for 5 Mad Parrots as well as 10ETH</p>
             </card>
             <div class="roadmap__percentage">
               <p role="text">
@@ -98,12 +99,11 @@
           <li>
             <card>
               <h3 class="card__title">
-                Stage 2 - Fly me... (Pt.1)
+                Stage 2 - Do you like dags?
               </h3>
               <p>More Mad Parrots are released into the wild</p>
               <p>15ETH deposited into the Community Wallet</p>
-              <p>We purchase land in the sandbox and start looking into building our clubhouse!</p>
-              <p>After all Mad Parrots from Stage 2 are claimed, all token holders will be enrolled in a giveaway for 5 Mad Parrots as well as 10ETH!</p>
+              <p>After all Mad Parrots from Stage 2 are claimed, all token holders will be enrolled in a giveaway for the Bored Ape Kennel Club NFT</p>
             </card>
             <div class="roadmap__percentage">
               <p role="text">
@@ -114,12 +114,12 @@
           <li>
             <card>
               <h3 class="card__title">
-                Stage 3 - Release the Mutant
+                Stage 3 - ...To the moon (Pt. 2)
               </h3>
               <p>More Mad Parrots are released into the wild</p>
               <p>15ETH Deposited into the Community Wallet</p>
               <p>Merch designs revealed and we start looking into manufacturers & suppliers</p>
-              <p>After all Mad Parrots from Stage 3 are claimed, all token holders will be enrolled in a giveaway for the Mutant Ape Yacht Club NFT!</p>
+              <p>After all Mad Parrots from Stage 3 are claimed, all token holders will be enrolled in a giveaway for 10 Mad Parrots as well as 15ETH</p>
             </card>
             <div class="roadmap__percentage">
               <p role="text">
@@ -130,12 +130,12 @@
           <li>
             <card>
               <h3 class="card__title">
-                Stage 4 - ...To the moon (Pt. 2)
+                Stage 4 - Release the Mutant
               </h3>
               <p>Final batch of the Mad Parrots are released into the wild</p>
-              <p>25ETH deposited into the Community Wallet</p>
+              <p>15ETH deposited into the Community Wallet</p>
               <p>Operation: ‘For Better or Worse’ begins</p>
-              <p>After all Mad Parrots from Stage 4 are claimed, all token holders will be enrolled in a giveaway for 10 Mad Parrots as well as 15ETH!</p>
+              <p>After all Mad Parrots from Stage 4 are claimed, all token holders will be enrolled in a giveaway for the Mutant Ape Yacht Club NFT</p>
             </card>
             <div class="roadmap__percentage">
               <p role="text">
@@ -145,7 +145,13 @@
           </li>
         </ol>
         <h3>Roadmap 2.0</h3>
-        <p>We’re committed to ensuring the Mad Parrot Crew lives on way past the roadmap illustrated above. Aside from Operation: 'For Better or Worse', We'll continue to contribute to the web3 space and give back to the community that has made all this possible. If you know me (Sheftali) and are familiar with my work then you know creating art is a passion of mine which will never slow down, plus Iac’s fascination in Web3 grows daily. While we’re not fans of over-promising (who is?) we do have ideas, we’re ambitious, and if it can be done we’ll do our best to deliver (with outside help if need).</p>
+        <p><strong>Operation: ‘For Better or Worse’</strong><br/>One of our crew members picked up a bug in the jungle whilst on a heist job. (an actual bug, not a virus - cmon people, too soon) Our hostage-turned scientist, Dr. Tetrarch Tomb was able to churn out an elixir based on very little research and no huma... parrot testing. The results when applied to a Mad Parrot? It could go either way, you’ll have to wait and see.</p>
+        <br/>
+        <p><strong>TL:DR:</strong> Elixir (Free mint to all Mad Parrot holders), applied to a Mad Parrot will create another variant - it'll either be more crazy, or slightly more innocent. Whatever the case, there will also be another elixir on the secondary market which if applied will guarantee the 'other' variant. (You'll get a chance to have both variants per Mad Parrot owned).</p>
+        <br/>
+        <p><strong>...and much more</strong><br/>We’re committed to ensuring the Mad Parrot Crew lives on way past the roadmap illustrated above. We'll continue to contribute to the web3 space and give back to the community that has made all this possible. If you know me (Sheftali) and are familiar with my work then you know creating art is a passion of mine which will never slow down, plus Iac’s fascination in Web3 grows daily. While we’re not fans of over-promising (who is?) we have ideas, and we’re ambitious, and if it can be done we’ll do our best to deliver (with outside help if need).</p>
+        <br/>
+        <p style="align-self: flex-start;">All giveaway draws will be streamed live in <a :href="config.SOCIAL.DISCORD" target="_blank" class="link">Discord</a>.</p>
       </div>
     </section>
     <section v-if="showDesktopBonusSection" id="diamond-beak-club" class="bonus bonus--desktop">
