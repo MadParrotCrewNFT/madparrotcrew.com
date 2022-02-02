@@ -2,6 +2,8 @@
 
 /* These are in a different file to the SCSS variables so that the CSS variables aren't polluting the DOM */
 
+@use './responsive-vars' as *;
+
 :root {
   --responsive-small-mobile: #{$responsive-small-mobile};
   --responsive-standard-mobile: #{$responsive-standard-mobile};

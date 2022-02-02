@@ -1,11 +1,10 @@
 @use 'sass:math';
 
-@import './responsive-vars.scss';
-@import './responsive';
-@import './colours';
-@import './fonts';
-@import './global';
-@import './font-sizes';
-@import './sr-only';
-@import './borders';
-@import './link';
+@use './responsive' as *;
+@use './colours' as *;
+@use './fonts' as *;
+@use './global' as *;
+@use './font-sizes' as *;
+@use './sr-only' as *;
+@use './borders' as *;
+@use './link' as *;
