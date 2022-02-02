@@ -454,7 +454,6 @@ export default Vue.extend({
     position: relative;
 
     &-wrapper {
-      padding-top: 2rem;
       margin-inline: 1rem;
       position: relative;
       top: 5.5rem;

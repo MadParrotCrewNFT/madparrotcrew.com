@@ -22,6 +22,7 @@
         <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
       </div>
       <template v-if="isConnected">
+        <p v-if="$store.state.contractState && $store.state.contractState.alreadyMinted > 0">You have already minted {{ $store.state.contractState.alreadyMinted }} {{ $store.state.contractState.alreadyMinted === 1 ? 'parrot' : 'parrots' }}</p>
         <div class="calculator__buttons">
           <btn color="grey" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT" @click="parrotNumber--">
             -
@@ -29,7 +30,7 @@
           </btn>
           <label for="noOfParrots" class="sr-only">Number of parrots</label>
           <input id="noOfParrots" v-model="parrotNumber" readonly>
-          <btn color="grey" square :disabled="!$store.state.contractState || ($store.state.contractState && (parrotNumber >= $store.state.contractState.maxMintPerWallet || parrotNumber >= $store.state.contractState.supplyLeft || isClaimingNFT))" @click="parrotNumber++">
+          <btn color="grey" square :disabled="!$store.state.contractState || ($store.state.contractState && (parrotNumber >= $store.state.contractState.maxAllowedToMint || parrotNumber >= $store.state.contractState.supplyLeft || isClaimingNFT))" @click="parrotNumber++">
             +
             <span class="sr-only">Plus 1 parrot</span>
           </btn>
@@ -91,7 +92,7 @@ export default Vue.extend({
     this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
 
     if (window.ethereum) {
-      window.ethereum.on("accountsChanged", (accounts: string) => {
+      window.ethereum.on("accountsChanged", (accounts: string[]) => {
         if (accounts.length === 0) {
           this.$store.commit('setAccount', null)
           this.$store.commit("setConnectionError", "Wallet was disconnected.")

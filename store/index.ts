@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-import axios, { Axios, AxiosResponse } from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import config from '@/config.json'
 import MadParrotCrewABI from '@/contract/abi/MadParrotCrew.json'
 import { MadParrotCrew } from '@/contract/types'
@@ -18,6 +18,8 @@ export interface IContractState {
   numberMinted: number;
   supplyLeft: number;
   maxMintPerWallet: number;
+  alreadyMinted: number;
+  maxAllowedToMint: number;
 }
 interface IUserContractState {
   isWhitelisted: boolean;
@@ -25,7 +27,7 @@ interface IUserContractState {
 }
 interface IState {
   contractAddress: string;
-  account: null | Record<string, any>;
+  account: null | string;
   isConnectingToWallet: boolean;
   connectionError: null | string;
   contractState: null | IContractState;
@@ -47,7 +49,7 @@ export const state = () => ({
 } as IState)
 
 export const mutations = {
-  setAccount(state: IState, account: null | Record<string, any>): void {
+  setAccount(state: IState, account: null | string): void {
     state.account = account
   },
   setIsConnectingToWallet(state: IState, value: boolean): void {
@@ -148,6 +150,8 @@ export const actions = {
       const numberMinted = parseInt(await (await contract.totalSupply())._hex, 16)
       const isPublicMintActive = await (await contract.functions.publicSaleActive())[0]
       const isWhitelistMintActive = await (await contract.functions.whitelistSaleActive())[0]
+      const maxMintPerWallet = parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
+      const alreadyMinted = parseInt(await (await contract.functions.addressToMinted(state.account!))[0]._hex, 16)
       const contractState: IContractState = {
         isPublicMintActive,
         isWhitelistMintActive,
@@ -156,7 +160,9 @@ export const actions = {
         maxSupply, // Max supply will only be 10000 at the end of stage 4 since they are releasing the parrots in stages
         numberMinted,
         supplyLeft: maxSupply - numberMinted,
-        maxMintPerWallet: parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
+        maxMintPerWallet,
+        alreadyMinted,
+        maxAllowedToMint: maxMintPerWallet - alreadyMinted
       }
       commit("setContractState", contractState)
     } catch (err) {
@@ -173,7 +179,7 @@ export const actions = {
         isWhitelisted: merkleProof.length > 0,
         merkleProof
       }
-      commit("setUserContractState", userContractState);
+      commit("setUserContractState", userContractState)
     } catch (err) {
       console.error(err)
       commit("setConnectionError", "Sorry, something went wrong checking if you're a whitelisted user.")
@@ -184,7 +190,7 @@ export const actions = {
     if (!state.contractState) await dispatch("getContractState")
     if (!state.userContractState) await dispatch("getUserContractState")
     try {
-      numberOfParrots = numberOfParrots > state.contractState!.maxMintPerWallet ? state.contractState!.maxMintPerWallet : numberOfParrots
+      numberOfParrots = numberOfParrots > state.contractState!.maxAllowedToMint ? state.contractState!.maxAllowedToMint : numberOfParrots
       const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew
       const isPublicMintActive = state.contractState!.isPublicMintActive
       const isWhitelistMintActive = state.contractState!.isWhitelistMintActive && !isPublicMintActive // Public mint supersedes all
