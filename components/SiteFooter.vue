@@ -14,7 +14,7 @@
       <li>
         <nuxt-link to="/t-and-c" class="link">Terms & Conditions</nuxt-link>
       </li>
-      <li v-if="config.MINTING_LIVE">
+      <li v-if="$store.state.contractState && $store.state.contractState.isAnyMintActive">
         <a class="link" :href="config.SCAN_LINK" rel="norefferer nofollow noopener" target="_blank">Smart contract</a>
       </li>
     </ul>
@@ -37,7 +37,38 @@ export default Vue.extend({
   },
   computed: {
     socialLinks (): ISocialLink[] {
-      return this.$store.state.socialLinks
+      return [
+        {
+          text: 'Discord',
+          url: config.SOCIAL.DISCORD,
+          icon: 'discord'
+        },
+        {
+          text: 'Twitter',
+          url: config.SOCIAL.TWITTER,
+          icon: 'twitter'
+        },
+        ...(this.$store.state.contractState && this.$store.state.contractState.isAnyMintActive
+          ? [
+            {
+              text: 'OpenSea',
+              url: config.OPENSEA_LINK,
+              icon: 'opensea'
+            },
+            {
+              text: 'Etherscan',
+              url: config.SCAN_LINK,
+              icon: 'etherscan'
+            }
+          ]
+          : []
+        ),
+        {
+          text: 'Instagram',
+          url: config.SOCIAL.INSTAGRAM,
+          icon: 'instagram'
+        }
+      ]
     }
   }
 })

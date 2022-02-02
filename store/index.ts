@@ -1,7 +1,8 @@
-import { ethers } from 'ethers';
+import { ethers } from 'ethers'
+import axios, { Axios, AxiosResponse } from 'axios'
 import config from '@/config.json'
-import MadParrotCrewABI from '@/contract/abi/MadParrotCrew.json';
-import { MadParrotCrew } from '@/contract/types';
+import MadParrotCrewABI from '@/contract/abi/MadParrotCrew.json'
+import { MadParrotCrew } from '@/contract/types'
 
 export interface ISocialLink {
   text: string;
@@ -9,8 +10,9 @@ export interface ISocialLink {
   icon: string;
 }
 export interface IContractState {
-  isSaleActive: boolean;
-  isWhitelistActive: boolean;
+  isPublicMintActive: boolean;
+  isWhitelistMintActive: boolean;
+  isAnyMintActive: boolean;
   priceInWei: ethers.BigNumber;
   maxSupply: number;
   numberMinted: number;
@@ -20,10 +22,8 @@ export interface IContractState {
 interface IUserContractState {
   isWhitelisted: boolean;
   merkleProof: string[];
-  numberMinted: ethers.BigNumber; 
 }
 interface IState {
-  socialLinks: ISocialLink[];
   contractAddress: string;
   account: null | Record<string, any>;
   isConnectingToWallet: boolean;
@@ -36,38 +36,6 @@ interface IState {
 }
 
 export const state = () => ({
-  socialLinks: [
-    {
-      text: 'Discord',
-      url: config.SOCIAL.DISCORD,
-      icon: 'discord'
-    },
-    {
-      text: 'Twitter',
-      url: config.SOCIAL.TWITTER,
-      icon: 'twitter'
-    },
-    ...(config.MINTING_LIVE
-      ? [
-        {
-          text: 'OpenSea',
-          url: config.OPENSEA_LINK,
-          icon: 'opensea'
-        },
-        {
-          text: 'Etherscan',
-          url: config.SCAN_LINK,
-          icon: 'etherscan'
-        }
-      ]
-      : []
-    ),
-    {
-      text: 'Instagram',
-      url: config.SOCIAL.INSTAGRAM,
-      icon: 'instagram'
-    }
-  ],
   contractAddress: config.CONTRACT_ADDRESS,
   account: null,
   isConnectingToWallet: false,
@@ -121,6 +89,7 @@ export const actions = {
       commit("setConnectionError", null)
       if (!(await dispatch("isCorrectNetwork"))) await dispatch("switchNetwork")
       await dispatch('getContractState')
+      await dispatch('getUserContractState')
     } catch (error) {
       console.error(error)
       commit("setConnectionError", "Wallet account request refused.")
@@ -174,24 +143,65 @@ export const actions = {
   },
   async getContractState({ commit, state }: { commit: (mutation: string, value: any) => void, state: IState }): Promise <void> {
     try {
-      // Sorry, not familiar with this version of flux/redux so I'm pretending like I'm getting the state properly
       const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew
       const maxSupply = parseInt(await(await contract.functions.maxSupply())[0]._hex, 16)
       const numberMinted = parseInt(await (await contract.totalSupply())._hex, 16)
+      const isPublicMintActive = await (await contract.functions.publicSaleActive())[0]
+      const isWhitelistMintActive = await (await contract.functions.whitelistSaleActive())[0]
       const contractState: IContractState = {
-        isSaleActive: await (await contract.functions.publicSaleActive())[0],
-        isWhitelistActive: await (await contract.functions.whitelistSaleActive())[0],
+        isPublicMintActive,
+        isWhitelistMintActive,
+        isAnyMintActive: isPublicMintActive || isWhitelistMintActive,
         priceInWei: await contract.priceInWei(),
         maxSupply, // Max supply will only be 10000 at the end of stage 4 since they are releasing the parrots in stages
         numberMinted,
         supplyLeft: maxSupply - numberMinted,
         maxMintPerWallet: parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
-        //... and anything else you want to grab from the contract once it exists
       }
-      commit("setContractState", contractState);
+      commit("setContractState", contractState)
     } catch (err) {
-      console.log(err);
-      commit("setConnectionError", "Sorry, something went wrong. Please try again later."); // or something
+      console.error(err)
+      commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
+    }
+  },
+  async getUserContractState({ commit, state }: { commit: (mutation: string, value: any) => void, state: IState }): Promise <void> {
+    try {
+      // Go get the merkle proof from the backend so you can show them ahead of time if they're whitelisted
+      const response = await axios.get<any, AxiosResponse<string[], any>, any>(`https://ab6jo7e1v4.execute-api.us-east-2.amazonaws.com/MPCproof/${state.account}`)
+      const merkleProof = response.data // If this array is empty, they are not a whitelisted user
+      const userContractState: IUserContractState = {
+        isWhitelisted: merkleProof.length > 0,
+        merkleProof
+      }
+      commit("setUserContractState", userContractState);
+    } catch (err) {
+      console.error(err)
+      commit("setConnectionError", "Sorry, something went wrong checking if you're a whitelisted user.")
+    }
+  },
+  async mintParrots({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }, numberOfParrots: number): Promise <void> {
+    if (!(await dispatch("isCorrectNetwork"))) return
+    if (!state.contractState) await dispatch("getContractState")
+    if (!state.userContractState) await dispatch("getUserContractState")
+    try {
+      numberOfParrots = numberOfParrots > state.contractState!.maxMintPerWallet ? state.contractState!.maxMintPerWallet : numberOfParrots
+      const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew
+      const isPublicMintActive = state.contractState!.isPublicMintActive
+      const isWhitelistMintActive = state.contractState!.isWhitelistMintActive && !isPublicMintActive // Public mint supersedes all
+      if (isWhitelistMintActive && state.userContractState!.isWhitelisted) {
+        await contract.whitelistMint(numberOfParrots, state.userContractState!.merkleProof, {
+          value: state.contractState!.priceInWei.mul(numberOfParrots),
+        }) 
+      } else if (isPublicMintActive) {
+        await contract.publicMint(numberOfParrots, {
+          value: state.contractState!.priceInWei.mul(numberOfParrots),
+        })
+      } else {
+        // If the user got here, something has gone wrong 🤔
+      }
+    } catch (err) {
+      console.error(err);
+      commit("setMintingError", "Sorry, something went wrong. Please try again later.")
     }
   }
 }

@@ -50,6 +50,7 @@ import Vue from 'vue'
 import Logo from '@/components/Logo.vue'
 import siteconfig from '@/siteconfig.json'
 import { ISocialLink } from '@/store'
+import config from '@/config.json'
 
 interface INavItem {
   text: string;
@@ -100,7 +101,38 @@ export default Vue.extend({
       ]
     },
     socialLinks (): ISocialLink[] {
-      return this.$store.state.socialLinks
+      return [
+        {
+          text: 'Discord',
+          url: config.SOCIAL.DISCORD,
+          icon: 'discord'
+        },
+        {
+          text: 'Twitter',
+          url: config.SOCIAL.TWITTER,
+          icon: 'twitter'
+        },
+        ...(this.$store.state.contractState && this.$store.state.contractState.isAnyMintActive
+          ? [
+            {
+              text: 'OpenSea',
+              url: config.OPENSEA_LINK,
+              icon: 'opensea'
+            },
+            {
+              text: 'Etherscan',
+              url: config.SCAN_LINK,
+              icon: 'etherscan'
+            }
+          ]
+          : []
+        ),
+        {
+          text: 'Instagram',
+          url: config.SOCIAL.INSTAGRAM,
+          icon: 'instagram'
+        }
+      ]
     }
   },
   mounted () {

@@ -4,8 +4,8 @@
       <div class="header__overlay"></div>
       <div class="header__inner">
         <div class="header__calculator-wrapper">
-          <calculator v-if="$store.state.contractState && config.MINTING_LIVE" class="header__calculator" />
-          <img v-else-if="$store.state.contractState && !config.MINTING_LIVE" class="header__soon" src="~assets/images/minting-coming-soon.png" alt="Minting coming soon" width="424" height="245" loading="lazy" />
+          <calculator v-if="$store.state.contractState && $store.state.userContractState && ($store.state.contractState.isPublicMintActive || ($store.state.contractState.isWhitelistMintActive && $store.state.userContractState.isWhitelisted))" class="header__calculator" />
+          <img v-else-if="$store.state.contractState && $store.state.userContractState && (!$store.state.contractState.isPublicMintActive || ($store.state.contractState.isWhitelistMintActive && !$store.state.userContractState.isWhitelisted))" class="header__soon" src="~assets/images/minting-coming-soon.png" alt="Minting coming soon" width="424" height="245" loading="lazy" />
         </div>
       </div>
       <div class="header__curve">
@@ -33,7 +33,7 @@
           <p aria-describedby="to-be-clear">
             The {{ siteconfig.brand_name }} are a bunch of randomly generated parrots who like to wear goofy shit, drink lots, fight more and can often be spotted holding anything (and everything) from a glass of wine to a deadly Katana<span aria-hidden="true">**</span>.
           </p>
-          <p v-if="config.MINTING_LIVE">
+          <p v-if="$store.state.contractState && $store.state.contractState.isAnyMintActive">
             You can check out the <a :href="config.SCAN_LINK" target="_blank" rel="norefferer noopener" class="link">verified smart contract</a> on etherscan.
           </p>
           <p id="fight-club" class="small" style="margin-top: 3rem">
@@ -376,6 +376,7 @@ export default Vue.extend({
     this.canShowDesktopBonusSection()
     if (await this.$store.dispatch("checkIfConnected")) {
       await this.$store.dispatch("getContractState")
+      await this.$store.dispatch("getUserContractState")
     }
   },
   destroyed () {
