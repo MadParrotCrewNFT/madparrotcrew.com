@@ -1,6 +1,6 @@
 <template>
   <div id="mint" class="calculator">
-    <div v-if="$store.state.contractState && $store.state.contractState.numberMinted === $store.state.contractState.maxSupply && $store.state.contractState.maxSupply === 10000" class="calculator__sold-out">
+    <div v-if="hasSoldAllTenThousand()" class="calculator__sold-out">
       <!-- Only show this section if all 10,000 parrots have been minted -->
       <h2>Sold out</h2>
       <p v-if="$store.state.contractState">
@@ -13,34 +13,45 @@
     </div>
     <template v-else>
       <h2>Clubhouse now open!</h2>
-      <p v-if="$store.state.contractState">
-        <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
-      </p>
       <p v-if="$store.state.connectionError" class="calculator__error">{{ $store.state.connectionError }}</p>
-      <p v-if="!$store.state.connectionError && !isConnected">Connect your wallet to begin.</p>
-      <div v-if="!isConnected">
-        <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
-      </div>
-      <template v-if="isConnected">
-        <p v-if="$store.state.contractState && $store.state.contractState.alreadyMinted > 0">You have already minted {{ $store.state.contractState.alreadyMinted }} {{ $store.state.contractState.alreadyMinted === 1 ? 'parrot' : 'parrots' }}</p>
-        <div class="calculator__buttons">
-          <btn color="grey" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT" @click="parrotNumber--">
-            -
-            <span class="sr-only">Minus 1 parrot</span>
-          </btn>
-          <label for="noOfParrots" class="sr-only">Number of parrots</label>
-          <input id="noOfParrots" v-model="parrotNumber" readonly>
-          <btn color="grey" square :disabled="!$store.state.contractState || ($store.state.contractState && (parrotNumber >= $store.state.contractState.maxAllowedToMint || parrotNumber >= $store.state.contractState.supplyLeft || isClaimingNFT))" @click="parrotNumber++">
-            +
-            <span class="sr-only">Plus 1 parrot</span>
-          </btn>
+      <template v-if="!isConnected">
+        <p v-if="!$store.state.connectionError">Connect your wallet to begin.</p>
+        <div>
+          <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
         </div>
-        <p role="text" id="how-many-parrots">
-          Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
-        </p>
-        <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork" icon="wallet" aria-describedby="how-many-parrots">
-          Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
-        </btn>
+      </template>
+      <template v-else>
+        <spinner v-if="!hasGottenSmartContract()" style="height: 2rem; width: 2rem;" />
+        <template v-else-if="isWhitelistActiveAndNotWhitelistedUser()">
+          <p>
+            <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
+          </p>
+          <p class="calculator__error">You are not a whitelisted user, please come back later during public mint</p>
+        </template>
+        <template v-else-if="isPublicMintActive()">
+          <p>
+            <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
+          </p>
+          <p v-if="$store.state.userContractState && $store.state.userContractState.alreadyMinted > 0">You have already minted {{ $store.state.userContractState.alreadyMinted }} {{ $store.state.userContractState.alreadyMinted === 1 ? 'parrot' : 'parrots' }}</p>
+          <div class="calculator__buttons">
+            <btn color="grey" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT" @click="parrotNumber--">
+              -
+              <span class="sr-only">Minus 1 parrot</span>
+            </btn>
+            <label for="noOfParrots" class="sr-only">Number of parrots</label>
+            <input id="noOfParrots" v-model="parrotNumber" readonly>
+            <btn color="grey" square :disabled="!$store.state.contractState || ($store.state.contractState && $store.state.userContractState && (parrotNumber >= $store.state.userContractState.maxAllowedToMint || parrotNumber >= $store.state.contractState.supplyLeft || isClaimingNFT))" @click="parrotNumber++">
+              +
+              <span class="sr-only">Plus 1 parrot</span>
+            </btn>
+          </div>
+          <p role="text" id="how-many-parrots">
+            Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+          </p>
+          <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork" icon="wallet" aria-describedby="how-many-parrots">
+            Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
+          </btn>
+        </template>
       </template>
     </template>
   </div>
@@ -52,12 +63,13 @@ import { ethers } from 'ethers';
 // @ts-ignore
 import commaNumber from 'comma-number'
 import { Btn } from '@/components'
-import { IContractState } from '@/store'
+import Spinner from '@/components/Spinner.vue'
+import { IState } from '@/store'
 import config from '@/config.json'
 
 export default Vue.extend({
   name: 'Calcualtor',
-  components: { Btn },
+  components: { Btn, Spinner },
   data () {
     return {
       config,
@@ -69,27 +81,28 @@ export default Vue.extend({
   },
   computed: {
     isConnected (): boolean {
-      return this.$store.state.account !== null
+      return (this.$store.state as IState).account !== null
     },
     isClaimingNFT (): boolean {
-      return this.$store.state.isClaimingNFT
+      return (this.$store.state as IState).isClaimingNFT
     },
     calculateEthereum (): string {
       if (!this.$store.state.contractState?.priceInWei) return ''
       // @ts-ignore
       const tempPriceInWei: ethers.BigNumber = {
-        _hex: `0x${(parseInt((this.$store.state.contractState as IContractState).priceInWei._hex, 16) * this.parrotNumber).toString(16)}`,
-        _isBigNumber: (this.$store.state.contractState as IContractState).priceInWei._isBigNumber
+        _hex: `0x${(parseInt((this.$store.state as IState).contractState!.priceInWei._hex, 16) * this.parrotNumber).toString(16)}`,
+        _isBigNumber: (this.$store.state as IState).contractState!.priceInWei._isBigNumber
       }
       return ethers.utils.formatEther(tempPriceInWei)
     }
   },
   async mounted () {
-    if (await this.$store.dispatch("checkIfConnected")) {
-      await this.$store.dispatch("getContractState")
-    }
     this.isWalletInstalled = await this.$store.dispatch("isAWalletInstalled")
     this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
+    if (await this.$store.dispatch("checkIfConnected")) {
+      await this.$store.dispatch("getContractState")
+      await this.$store.dispatch("getUserContractState")
+    }
 
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts: string[]) => {
@@ -113,6 +126,18 @@ export default Vue.extend({
     },
     async mintParrots (): Promise<void> {
       await this.$store.dispatch("mintParrots", this.parrotNumber);
+    },
+    hasGottenSmartContract (): boolean {
+      return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).userContractState !== null
+    },
+    hasSoldAllTenThousand (): boolean {
+      return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).contractState!.numberMinted === (this.$store.state as IState).contractState!.maxSupply && (this.$store.state as IState).contractState!.maxSupply === 10000
+    },
+    isWhitelistActiveAndNotWhitelistedUser (): boolean {
+      return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).userContractState !== null && !(this.$store.state as IState).contractState!.isPublicMintActive && (this.$store.state as IState).contractState!.isWhitelistMintActive && !(this.$store.state as IState).userContractState!.isWhitelisted
+    },
+    isPublicMintActive (): boolean {
+      return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).userContractState !== null && (this.$store.state as IState).contractState!.isPublicMintActive
     }
   }
 })

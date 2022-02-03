@@ -2,6 +2,10 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/51a236ba-2359-40f5-927b-3de7a037fec3/deploy-status)](https://app.netlify.com/sites/optimistic-kepler-345fcf/deploys) ![Website status](https://img.shields.io/website?url=https%3A%2F%2Fmadparrotcrew.com)
 
+## Process
+
+- There is currently a manual flag in `config.json` called `MINTING_LIVE`. When minting is live, we must set this to true so we can effectively get the user's wallet and call the smart contract
+
 ## Build Setup
 
 1. Clone repo locally `git clone https://github.com/MadParrotCrew/madparrotcrew.com.git`
