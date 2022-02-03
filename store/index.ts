@@ -246,8 +246,12 @@ export const actions = {
       dispatch("getContractState")
       dispatch("getUserContractState")
     } catch (err) {
-      console.error(err);
-      commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
+      console.error(err)
+      // @ts-ignore
+      console.log(err.reason)
+      // @ts-ignore
+      if (err.reason.includes('insufficient funds')) commit("setConnectionError", "Error: insufficient funds")
+      else commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
     }
   }
 }
