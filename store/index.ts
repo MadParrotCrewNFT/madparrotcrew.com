@@ -183,7 +183,7 @@ export const actions = {
       const isWhitelistMintActive = config.MINTING_LIVE && await (await contract.functions.whitelistSaleActive())[0]
       const maxMintPerWallet = parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
       const contractState: IContractState = {
-        isPublicMintActive: true,
+        isPublicMintActive,
         isWhitelistMintActive,
         isAnyMintActive: isPublicMintActive || isWhitelistMintActive,
         priceInWei: await contract.priceInWei(),
