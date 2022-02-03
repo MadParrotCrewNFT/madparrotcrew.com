@@ -183,7 +183,7 @@ export const actions = {
       const isWhitelistMintActive = config.MINTING_LIVE && await (await contract.functions.whitelistSaleActive())[0]
       const maxMintPerWallet = parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
       const contractState: IContractState = {
-        isPublicMintActive,
+        isPublicMintActive: true,
         isWhitelistMintActive,
         isAnyMintActive: isPublicMintActive || isWhitelistMintActive,
         priceInWei: await contract.priceInWei(),
@@ -225,7 +225,9 @@ export const actions = {
     if (!state.userContractState) await dispatch("getUserContractState")
     try {
       numberOfParrots = numberOfParrots > state.userContractState!.maxAllowedToMint ? state.userContractState!.maxAllowedToMint : numberOfParrots
-      const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+      const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, signer) as MadParrotCrew
       const isPublicMintActive = state.contractState!.isPublicMintActive
       const isWhitelistMintActive = state.contractState!.isWhitelistMintActive && !isPublicMintActive // Public mint supersedes all
       if (isWhitelistMintActive && state.userContractState!.isWhitelisted) {
