@@ -241,9 +241,13 @@ export const actions = {
       } else {
         // If the user got here, something has gone wrong 🤔
       }
+
+      // Refresh contract state
+      dispatch("getContractState")
+      dispatch("getUserContractState")
     } catch (err) {
       console.error(err);
-      commit("setMintingError", "Sorry, something went wrong. Please try again later.")
+      commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
     }
   }
 }
