@@ -224,6 +224,7 @@ export const actions = {
     if (!(await dispatch("isCorrectNetwork"))) return
     if (!state.contractState) await dispatch("getContractState")
     if (!state.userContractState) await dispatch("getUserContractState")
+    if (state.userContractState?.maxAllowedToMint === 0) return
     try {
       numberOfParrots = numberOfParrots > state.userContractState!.maxAllowedToMint ? state.userContractState!.maxAllowedToMint : numberOfParrots
       const provider = new ethers.providers.Web3Provider(window.ethereum)

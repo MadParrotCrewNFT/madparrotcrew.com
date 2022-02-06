@@ -35,7 +35,7 @@
           <p>
             <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
           </p>
-          <p v-if="$store.state.userContractState && $store.state.userContractState.alreadyMinted > 0">
+          <p v-if="$store.state.userContractState && $store.state.userContractState.alreadyMinted > 0" class="small">
             You have already minted {{ $store.state.userContractState.alreadyMinted }} {{ $store.state.userContractState.alreadyMinted === 1 ? 'parrot' : 'parrots' }} <template v-if="$store.state.userContractState.maxAllowedToMint === 0">- the maximum</template>
           </p>
           <div class="calculator__buttons">
