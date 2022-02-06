@@ -28,7 +28,7 @@
           </p>
           <p class="calculator__error">You are not a whitelisted user, please come back later during public mint</p>
         </template>
-        <template v-else-if="isPublicMintActive()">
+        <template v-else-if="isPublicMintActive() || isWhitelistActiveAndWhitelistedUser()">
           <p>
             <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
           </p>
@@ -112,8 +112,8 @@ export default Vue.extend({
         }
         else {
           this.$store.commit('setAccount', accounts[0])
-          await this.$store.dispatch("getContractState")
           await this.$store.dispatch("getUserContractState")
+          await this.$store.dispatch("getContractState")
         }
       })
 
@@ -140,6 +140,9 @@ export default Vue.extend({
     },
     isPublicMintActive (): boolean {
       return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).userContractState !== null && (this.$store.state as IState).contractState!.isPublicMintActive
+    },
+    isWhitelistActiveAndWhitelistedUser (): boolean {
+      return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).userContractState !== null && !(this.$store.state as IState).contractState!.isPublicMintActive && (this.$store.state as IState).contractState!.isWhitelistMintActive && (this.$store.state as IState).userContractState!.isWhitelisted
     }
   }
 })
