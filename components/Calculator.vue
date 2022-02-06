@@ -32,7 +32,9 @@
           <p>
             <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
           </p>
-          <p v-if="$store.state.userContractState && $store.state.userContractState.alreadyMinted > 0">You have already minted {{ $store.state.userContractState.alreadyMinted }} {{ $store.state.userContractState.alreadyMinted === 1 ? 'parrot' : 'parrots' }}</p>
+          <p v-if="$store.state.userContractState && $store.state.userContractState.alreadyMinted > 0">
+            You have already minted {{ $store.state.userContractState.alreadyMinted }} {{ $store.state.userContractState.alreadyMinted === 1 ? 'parrot' : 'parrots' }} <template v-if="$store.state.userContractState.maxAllowedToMint === 0">- the maximum</template>
+          </p>
           <div class="calculator__buttons">
             <btn color="grey" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT" @click="parrotNumber--">
               -
@@ -48,7 +50,7 @@
           <p role="text" id="how-many-parrots">
             Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
           </p>
-          <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork" icon="wallet" aria-describedby="how-many-parrots">
+          <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork || $store.state.userContractState.maxAllowedToMint === 0" icon="wallet" aria-describedby="how-many-parrots">
             Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
           </btn>
         </template>
