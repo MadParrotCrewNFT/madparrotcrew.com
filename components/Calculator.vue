@@ -3,6 +3,7 @@
     <div v-if="hasSoldAllTenThousand()" class="calculator__sold-out">
       <!-- Only show this section if all 10,000 parrots have been minted -->
       <h2>Sold out</h2>
+      <p v-if="$store.state.contractState && $store.state.successfulMint" class="calculator__success">Successfully minted {{ $store.state.successfulMint }} {{ $store.state.successfulMint === 1 ? 'parrot' : 'parrots' }}! Check your wallet shortly</p>
       <p v-if="$store.state.contractState">
         <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
       </p>
@@ -13,6 +14,7 @@
     </div>
     <template v-else>
       <h2>Clubhouse now open!</h2>
+      <p v-if="$store.state.contractState && $store.state.successfulMint" class="calculator__success">Successfully minted {{ $store.state.successfulMint }} {{ $store.state.successfulMint === 1 ? 'parrot' : 'parrots' }}! Check your wallet shortly</p>
       <p v-if="$store.state.connectionError" class="calculator__error">{{ $store.state.connectionError }}</p>
       <template v-if="!isConnected">
         <p v-if="!$store.state.connectionError">Connect your wallet to begin.</p>
@@ -36,13 +38,13 @@
             You have already minted {{ $store.state.userContractState.alreadyMinted }} {{ $store.state.userContractState.alreadyMinted === 1 ? 'parrot' : 'parrots' }} <template v-if="$store.state.userContractState.maxAllowedToMint === 0">- the maximum</template>
           </p>
           <div class="calculator__buttons">
-            <btn color="grey" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT" @click="parrotNumber--">
+            <btn color="grey" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT || $store.state.successfulMint" @click="parrotNumber--">
               -
               <span class="sr-only">Minus 1 parrot</span>
             </btn>
             <label for="noOfParrots" class="sr-only">Number of parrots</label>
             <input id="noOfParrots" v-model="parrotNumber" readonly>
-            <btn color="grey" square :disabled="!$store.state.contractState || ($store.state.contractState && $store.state.userContractState && (parrotNumber >= $store.state.userContractState.maxAllowedToMint || parrotNumber >= $store.state.contractState.supplyLeft || isClaimingNFT))" @click="parrotNumber++">
+            <btn color="grey" square :disabled="!$store.state.contractState || $store.state.successfulMint || ($store.state.contractState && $store.state.userContractState && (parrotNumber >= $store.state.userContractState.maxAllowedToMint || parrotNumber >= $store.state.contractState.supplyLeft || isClaimingNFT))" @click="parrotNumber++">
               +
               <span class="sr-only">Plus 1 parrot</span>
             </btn>
@@ -50,7 +52,7 @@
           <p role="text" id="how-many-parrots">
             Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
           </p>
-          <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork || $store.state.userContractState.maxAllowedToMint === 0" icon="wallet" aria-describedby="how-many-parrots">
+          <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork || $store.state.userContractState.maxAllowedToMint === 0 || $store.state.successfulMint" icon="wallet" aria-describedby="how-many-parrots">
             Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
           </btn>
         </template>
@@ -179,6 +181,12 @@ export default Vue.extend({
   &__error {
     font-size: var(--font-size-small);
     color: var(--mpc-red);
+    margin-block: 0;
+  }
+
+  &__success {
+    font-size: var(--font-size-small);
+    color: var(--mpc-green);
     margin-block: 0;
   }
 

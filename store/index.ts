@@ -34,7 +34,7 @@ export interface IState {
   contractState: null | IContractState;
   userContractState: null | IUserContractState;
   isClaimingNFT: boolean;
-  mintingError: null | string;
+  successfulMint: null | number;
 }
 
 export const state = () => ({
@@ -76,7 +76,8 @@ export const state = () => ({
   connectionError: null,
   contractState: null,
   userContractState: null,
-  isClaimingNFT: false
+  isClaimingNFT: false,
+  successfulMint: null
 } as IState)
 
 export const mutations = {
@@ -98,8 +99,8 @@ export const mutations = {
   setIsClaimingNFT(state: IState, value: boolean): void {
     state.isClaimingNFT = value
   },
-  setMintingError(state: IState, error: string | null): void {
-    state.mintingError = error
+  setSuccessfulMint(state: IState, value: number): void {
+    state.successfulMint = value
   }
 }
 
@@ -243,6 +244,7 @@ export const actions = {
       }
 
       // Refresh contract state
+      commit("setSuccessfulMint", numberOfParrots)
       dispatch("getContractState")
       dispatch("getUserContractState")
     } catch (err) {
