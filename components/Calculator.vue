@@ -102,6 +102,7 @@ export default Vue.extend({
     }
   },
   async mounted () {
+    this.$store.commit("setSuccessfulMint", null)
     this.isWalletInstalled = await this.$store.dispatch("isAWalletInstalled")
     this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
     if (await this.$store.dispatch("checkIfConnected")) {

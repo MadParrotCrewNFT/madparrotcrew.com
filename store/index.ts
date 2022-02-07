@@ -99,7 +99,7 @@ export const mutations = {
   setIsClaimingNFT(state: IState, value: boolean): void {
     state.isClaimingNFT = value
   },
-  setSuccessfulMint(state: IState, value: number): void {
+  setSuccessfulMint(state: IState, value: number | null): void {
     state.successfulMint = value
   }
 }
@@ -252,6 +252,7 @@ export const actions = {
       console.error(err)
       // @ts-ignore
       console.log(err.reason)
+      commit("setSuccessfulMint", null)
       // @ts-ignore
       if (err.reason.includes('insufficient funds')) commit("setConnectionError", "Error: insufficient funds")
       else commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
