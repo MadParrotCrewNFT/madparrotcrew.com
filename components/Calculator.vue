@@ -173,6 +173,7 @@ export default Vue.extend({
   h2 {
     font-size: var(--font-size-subtitle);
     margin-block: 0;
+    text-align: center;
   }
 
   p {
