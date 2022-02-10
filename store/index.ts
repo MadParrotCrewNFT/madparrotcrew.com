@@ -221,6 +221,7 @@ export const actions = {
     }
   },
   async mintParrots({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }, numberOfParrots: number): Promise <void> {
+    commit("setIsClaimingNFT", true)
     if (!(await dispatch("isCorrectNetwork"))) return
     if (!state.contractState) await dispatch("getContractState")
     if (!state.userContractState) await dispatch("getUserContractState")
@@ -253,6 +254,7 @@ export const actions = {
       }
       dispatch("getContractState")
       dispatch("getUserContractState")
+      commit("setIsClaimingNFT", false)
     } catch (err) {
       console.error(err)
       // @ts-ignore
@@ -261,6 +263,7 @@ export const actions = {
       // @ts-ignore
       if (err.reason.includes('insufficient funds')) commit("setConnectionError", "Error: insufficient funds")
       else commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
+      commit("setIsClaimingNFT", false)
     }
   }
 }
