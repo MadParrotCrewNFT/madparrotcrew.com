@@ -1,4 +1,4 @@
-import { ethers } from 'ethers'
+import { ethers, ContractTransaction } from 'ethers'
 import axios, { AxiosResponse } from 'axios'
 import config from '@/config.json'
 import MadParrotCrewABI from '@/contract/abi/MadParrotCrew.json'
@@ -232,12 +232,13 @@ export const actions = {
       const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, signer) as MadParrotCrew
       const isPublicMintActive = state.contractState!.isPublicMintActive
       const isWhitelistMintActive = state.contractState!.isWhitelistMintActive && !isPublicMintActive // Public mint supersedes all
+      let tx: ContractTransaction | undefined
       if (isWhitelistMintActive && state.userContractState!.isWhitelisted) {
-        await contract.whitelistMint(numberOfParrots, state.userContractState!.merkleProof, {
+        tx = await contract.whitelistMint(numberOfParrots, state.userContractState!.merkleProof, {
           value: state.contractState!.priceInWei.mul(numberOfParrots),
         }) 
       } else if (isPublicMintActive) {
-        await contract.publicMint(numberOfParrots, {
+        tx = await contract.publicMint(numberOfParrots, {
           value: state.contractState!.priceInWei.mul(numberOfParrots),
         })
       } else {
@@ -245,7 +246,11 @@ export const actions = {
       }
 
       // Refresh contract state
-      commit("setSuccessfulMint", numberOfParrots)
+      if (tx) {
+        const receipt = await provider.waitForTransaction(tx.hash)
+        if (receipt.status === 1) commit("setSuccessfulMint", numberOfParrots)
+        else commit("setSuccessfulMint", null)
+      }
       dispatch("getContractState")
       dispatch("getUserContractState")
     } catch (err) {
