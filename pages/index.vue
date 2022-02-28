@@ -247,8 +247,8 @@
           <accordion-item id="2" heading-tag="h3" heading="Who created the Mad Parrots?">
             <p>The project was founded by <a :href="config.SHEFTALI.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Sheftali</a> (artist & animator) and <a :href="config.IACOVE.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Iac</a> (web3), but no single person is bigger than the crew. All Mad Parrot holders will have a say in the directions and decisions we make going forward!</p>
           </accordion-item>
-          <accordion-item v-if="$store.state.contractState" id="3" heading-tag="h3" heading="What's the mint price for a Mad Parrot and how many can I get?">
-            <p>At the time of mint, it will cost <strong>{{ $store.state.contractState ? ethers.utils.formatEther($store.state.contractState.priceInWei) : '' }} ETH</strong> per Mad Parrot (aside from gas). You'll be allowed to mint up to <strong>up to {{ $store.state.contractState && $store.state.contractState.maxMintPerWallet }} per wallet</strong>. In order to get more you'll have to browse on the secondary market.</p>
+          <accordion-item id="3" heading-tag="h3" :heading="`${config.MINTING_LIVE ? 'What\'s the' : 'What will the'} mint price for a Mad Parrot${config.MINTING_LIVE ? '' : ' be'} and how many can I get?`">
+            <p>At the time of mint, it will cost <strong>0.06 ETH</strong> per Mad Parrot (aside from gas). You'll be allowed to mint up to <strong>up to 3 per wallet</strong>. In order to get more you'll have to browse on the secondary market.</p>
           </accordion-item>
           <accordion-item id="4" heading-tag="h3" heading="Wen mint?">
             <p>The short answer is: <strong>Q1 2022</strong>. We want to make sure we're 100% ready before we launch, ensuring no unpleasant surprises. The exact date will be revealed in Discord followed by our social channels.</p>
