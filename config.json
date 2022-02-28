@@ -1,20 +1,13 @@
 {
   "MINTING_LIVE": false,
-  "CONTRACT_ADDRESS": "0x0473321e5c0A1dEEbAABC88241845FC4828E798B",
+  "CONTRACT_ADDRESS": "0xaD82d38EdCD36a4a13888220Fe648242247bf6A9",
   "SCAN_LINK": "https://rinkeby.etherscan.io/address/0x0473321e5c0a1deebaabc88241845fc4828e798b",
   "NETWORK": {
     "NAME": "RINKEBY",
     "SYMBOL": "ETHER",
     "ID": 4
   },
-  "NFT_NAME": "SYNERGY",
-  "SYMBOL": "SGY",
-  "MAX_SUPPLY": 10000,
-  "ETH_COST": 0.06,
-  "MAX_MINT_PARROTS": 5,
-  "GAS_LIMIT": 300000,
-  "MARKETPLACE": "OPENSEA",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/Testproj",
+  "OPENSEA_LINK": "https://opensea.io/collection/Testproj",
   "SOCIAL": {
     "DISCORD": "https://discord.gg/EVYDTdFU8j",
     "TWITTER": "https://twitter.com/madparrotcrew",

@@ -1,6 +1,7 @@
 <template>
   <a v-if="to" :href="to" class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }]">
     <slot />
+    <svg-icon v-if="icon" :name="icon" />
   </a>
   <button v-else class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }]" :disabled="disabled || isLoading" @click="$emit('click')">
     <slot />

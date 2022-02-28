@@ -1,3 +1,5 @@
+@use './responsive-vars' as *;
+
 ::selection {
   text-shadow: none;
   color: #000;

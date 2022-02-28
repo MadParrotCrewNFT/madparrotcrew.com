@@ -28,7 +28,7 @@ $duration: 1.4s;
 }
 
 .path {
-  stroke: #fff;
+  stroke: currentColor;
   stroke-dasharray: $offset;
   stroke-dashoffset: 0;
   transform-origin: center;
