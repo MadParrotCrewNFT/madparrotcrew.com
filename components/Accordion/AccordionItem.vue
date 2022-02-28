@@ -120,7 +120,7 @@ export default Vue.extend({
     font-size: var(--font-size-body);
     transition: max-height 500ms ease;
     overflow: hidden;
-    max-height: 25rem;
+    max-height: 50rem;
 
     &-inner {
       padding: 0.125rem 1rem 1.25rem 1rem;

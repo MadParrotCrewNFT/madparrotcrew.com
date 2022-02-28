@@ -188,7 +188,7 @@ export const actions = {
         isWhitelistMintActive,
         isAnyMintActive: isPublicMintActive || isWhitelistMintActive,
         priceInWei: await contract.priceInWei(),
-        maxSupply, // Max supply will only be 10000 at the end of stage 4 since they are releasing the parrots in stages
+        maxSupply,
         numberMinted,
         supplyLeft: maxSupply - numberMinted,
         maxMintPerWallet
@@ -217,7 +217,7 @@ export const actions = {
       commit("setUserContractState", userContractState)
     } catch (err) {
       console.error(err)
-      commit("setConnectionError", "Sorry, something went wrong checking if you're a whitelisted user.")
+      commit("setConnectionError", "Sorry, something went wrong checking if you're on our presale list.")
     }
   },
   async mintParrots({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }, numberOfParrots: number): Promise <void> {

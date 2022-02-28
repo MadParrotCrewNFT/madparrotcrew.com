@@ -78,80 +78,76 @@
     <section id="roadmap" class="roadmap">
       <div class="roadmap__inner">
         <h2>Roadmap 1.0 (Mint)</h2>
-        <p>We’ve split up the mint process into 4 stages and are giving away some cool prizes to early supporters!</p>
         <ol class="roadmap__cards">
           <li>
             <card>
-              <h3 class="card__title">
-                Stage 1 - Fly me... (Pt. 1)
-              </h3>
-              <p>Some Mad Parrots are released into the wild</p>
-              <p>Community Wallet setup, 15ETH deposited</p>
-              <p>We purchase land in the sandbox and start looking into building our clubhouse!</p>
-              <p>After all Mad Parrots from Stage 1 are claimed, all token holders will be enrolled in a giveaway for 5 Mad Parrots as well as 10ETH</p>
+              <p class="card__title">15ETH deposited to Community Wallet</p>
+              <p>We’ve got ideas for Roadmap 2.0, and between myself (Shef) and Iac… we’re pretty darn talented if I do say humbly. But, unless we’re confident we can deliver our vision to an absolute Grade-A quality - we will be more than happy to delegate to people who can. And for this reason we’re establishing a wallet. We’ll start off by depositing 15E.</p>
+              <p class="card__title">Purchase land</p>
+              <p>We need space for our Mad Parrots to hang. (We’ll do extensive research, as well as convene with the community to come to a decision on which we platform we go with)</p>
+              <p class="card__title">Mad Parrots & ETH Giveaway</p>
+              <p>All token holders will be entered into a raffle for 5x Mad Parrots as well as 10ETH!</p>
+              <p style="margin-top: 1rem;"><strong>Each token will count as an entry.</strong></p>
             </card>
             <div class="roadmap__percentage">
-              <p role="text">
-                1
+              <p>
+                25%
               </p>
             </div>
           </li>
           <li>
             <card>
-              <h3 class="card__title">
-                Stage 2 - Do you like dags?
-              </h3>
-              <p>More Mad Parrots are released into the wild</p>
-              <p>15ETH deposited into the Community Wallet</p>
-              <p>After all Mad Parrots from Stage 2 are claimed, all token holders will be enrolled in a giveaway for the Bored Ape Kennel Club NFT</p>
+              <p class="card__title">15ETH deposited to Community Wallet</p>
+              <p class="card__title">BAKC Giveaway</p>
+              <p>All token holders will be entered into a raffle to win a Bored Ape Kennel Club NFT!</p>
+              <p style="margin-top: 1rem;"><strong>Each token will count as an entry.</strong></p>
             </card>
             <div class="roadmap__percentage">
-              <p role="text">
-                2
+              <p>
+                50%
               </p>
             </div>
           </li>
           <li>
             <card>
-              <h3 class="card__title">
-                Stage 3 - ...To the moon (Pt. 2)
-              </h3>
-              <p>More Mad Parrots are released into the wild</p>
-              <p>15ETH Deposited into the Community Wallet</p>
-              <p>Merch designs revealed and we start looking into manufacturers & suppliers</p>
-              <p>After all Mad Parrots from Stage 3 are claimed, all token holders will be enrolled in a giveaway for 10 Mad Parrots as well as 15ETH</p>
+              <p class="card__title">15ETH deposited to Community Wallet</p>
+              <p class="card__title">Merch designs revealed</p>
+              <p>What kind of project doesn’t have merch? Not this one. <strong>Think beanies, caps, hoodies, tees etc,</strong> (Limited run, exclusive to the crew)</p>
+              <p class="card__title">Another Mad Parrots & ETH Giveaway</p>
+              <p>Yeah, we love to give. All token holders will be entered into a raffle for 10x Mad Parrots as well as 15ETH!</p>
+              <p style="margin-top: 1rem;"><strong>Each token will count as an entry.</strong></p>
             </card>
             <div class="roadmap__percentage">
-              <p role="text">
-                3
+              <p>
+                75%
               </p>
             </div>
           </li>
           <li>
             <card>
-              <h3 class="card__title">
-                Stage 4 - Release the Mutant
-              </h3>
-              <p>Final batch of the Mad Parrots are released into the wild</p>
-              <p>15ETH deposited into the Community Wallet</p>
-              <p>Operation: ‘For Better or Worse’ begins</p>
-              <p>After all Mad Parrots from Stage 4 are claimed, all token holders will be enrolled in a giveaway for the Mutant Ape Yacht Club NFT</p>
+              <p class="card__title">15ETH deposited to Community Wallet</p>
+              <p class="card__title">Operation: ‘For Better or Worse’* begins</p>
+              <p class="card__title">MAYC Giveaway</p>
+              <p>All token holders will be entered into a raffle to win a Mutant Ape Yacht Club NFT!</p>
+              <p style="margin-top: 1rem;"><strong>Each token will count as an entry.</strong></p>
             </card>
             <div class="roadmap__percentage">
-              <p role="text">
-                4
+              <p>
+                S/O
               </p>
             </div>
           </li>
         </ol>
-        <h3>Roadmap 2.0</h3>
-        <p><strong>Operation: ‘For Better or Worse’</strong><br/>One of our crew members picked up a bug in the jungle whilst on a heist job. (an actual bug, not a virus - cmon people, too soon) Our hostage-turned scientist, Dr. Tetrarch Tomb was able to churn out an elixir based on very little research and no huma... parrot testing. The results when applied to a Mad Parrot? It could go either way, you’ll have to wait and see.</p>
-        <br/>
-        <p><strong>TL:DR:</strong> Elixir (Free mint to all Mad Parrot holders), applied to a Mad Parrot will create another variant - it'll either be more crazy, or slightly more innocent. Whatever the case, there will also be another elixir on the secondary market which if applied will guarantee the 'other' variant. (You'll get a chance to have both variants per Mad Parrot owned).</p>
-        <br/>
-        <p><strong>...and much more</strong><br/>We’re committed to ensuring the Mad Parrot Crew lives on way past the roadmap illustrated above. We'll continue to contribute to the web3 space and give back to the community that has made all this possible. If you know me (Sheftali) and are familiar with my work then you know creating art is a passion of mine which will never slow down, plus Iac’s fascination in Web3 grows daily. While we’re not fans of over-promising (who is?) we have ideas, and we’re ambitious, and if it can be done we’ll do our best to deliver (with outside help if need).</p>
-        <br/>
-        <p style="align-self: flex-start;">All giveaway draws will be streamed live in <a :href="config.SOCIAL.DISCORD" target="_blank" class="link">Discord</a>.</p>
+        <div class="roadmap-2">
+          <h3>Roadmap 2.0</h3>
+          <h4>Operation: For Better or Worse</h4>
+          <p>One of our crew members picked up a bug in the jungle whilst on a heist job. (an actual bug, not a virus - cmon people, too soon) Our hostage-turned scientist, Dr. Tetrarch Tomb was able to churn out an elixir based on very little research and no huma... parrot testing. The results when applied to a Mad Parrot? It could go either way, you’ll have to wait and see.</p>
+          <p class="small" style="margin-top: 1rem;"><strong>TL:DR:</strong> 1 Elixir (Free mint to all Mad Parrot holders), when applied to a Mad Parrot will create another variant (NFT). It'll either be more crazy, or slightly more innocent. Whatever the case, there will also be another elixir available on the secondary market which if applied will guarantee the 'other' variant (second NFT). (You'll get a chance to have both variants per Mad Parrot owned).</p>
+          <h4>Operation: Beat em’ to the punch!</h4>
+          <p>We can’t disclose too much about this just yet, but let’s just say we’re keeping our eyes open to some trends in the space and acting accordingly... (It’ll be an ‘oooh’ moment when it comes).</p>
+          <h4 class="roadmap-2__header--ampersand">...and more creative stuff</h4>
+          <p>We’re committed to ensuring the Mad Parrot Crew lives on way past the roadmap illustrated above. We'll continue to contribute to the web3 space and give back to the community that has made all this possible. If you know me (Sheftali) and are familiar with my work then you know creating art is a passion of mine which will never slow down, plus Iac’s fascination in Web3 grows daily. While we’re not fans of over-promising (who is?) we have ideas, and we’re ambitious, and if it can be done we’ll do our best to deliver (with outside help if need).</p>
+        </div>
       </div>
     </section>
     <section v-if="showDesktopBonusSection" id="diamond-beak-club" class="bonus bonus--desktop">
@@ -245,20 +241,22 @@
       <div class="faqs__inner">
         <h2>FAQs</h2>
         <accordion>
-          <accordion-item id="1" heading-tag="h3" heading="What's the Mad Parrot Crew (MPC)?">
+          <accordion-item id="1" heading-tag="h3" heading="What is the Mad Parrot Crew?">
             <p>The Mad Parrot Crew is a unique collection of 10,000 randomly generated Mad Parrot NFTs on the Ethereum blockchain. They're pretty crazy, often unpredictable but actually quite lovely if you give them a chance. (They need a home, for the love of God - please take them)</p>
           </accordion-item>
           <accordion-item id="2" heading-tag="h3" heading="Who created the Mad Parrots?">
             <p>The project was founded by <a :href="config.SHEFTALI.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Sheftali</a> (artist & animator) and <a :href="config.IACOVE.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Iac</a> (web3), but no single person is bigger than the crew. All Mad Parrot holders will have a say in the directions and decisions we make going forward!</p>
           </accordion-item>
-          <accordion-item id="3" heading-tag="h3" heading="What's the mint price for a Mad Parrot and how many can I get?">
-            <p>At the time of mint, it will cost <strong>{{ $store.state.contractState ? ethers.utils.formatEther($store.state.contractState.priceInWei) : '' }} ETH</strong> per Mad Parrot, including gas. You'll be allowed to mint <strong>up to {{ $store.state.contractState && $store.state.contractState.maxMintPerWallet }} per wallet</strong>. In order to get more you'll have to browse on the secondary market.</p>
+          <accordion-item v-if="$store.state.contractState" id="3" heading-tag="h3" heading="What's the mint price for a Mad Parrot and how many can I get?">
+            <p>At the time of mint, it will cost <strong>{{ $store.state.contractState ? ethers.utils.formatEther($store.state.contractState.priceInWei) : '' }} ETH</strong> per Mad Parrot (aside from gas). You'll be allowed to mint up to <strong>up to {{ $store.state.contractState && $store.state.contractState.maxMintPerWallet }} per wallet</strong>. In order to get more you'll have to browse on the secondary market.</p>
           </accordion-item>
           <accordion-item id="4" heading-tag="h3" heading="Wen mint?">
-            <p>The short answer is: <strong>Q1 2022</strong>. We want to make sure we're 100% ready before we launch, ensuring no unpleasant surprises. The exact date will be revealed in Discord followed by our social channels. The mint will be split out in 4 stages, (2475 parrots each).</p>
+            <p>The short answer is: <strong>Q1 2022</strong>. We want to make sure we're 100% ready before we launch, ensuring no unpleasant surprises. The exact date will be revealed in Discord followed by our social channels.</p>
           </accordion-item>
-          <accordion-item id="5" heading-tag="h3" heading="Is there a Whitelist?">
-            <p>Hell yeah there's a Whitelist! Whilst we are very busy grafting to bring this project to life, we do keep an eye on our community and take note of who's putting the work in. We have no problem handing out spots to people we believe would make our crew awesome, so <strong>to get Whitelist you just need to show us you care</strong>.<br><br>Being active in Discord, promoting us on Twitter, setting your PFP to one of the MPCs in the #sneak-beaks (thanks, diegoleyva!) channel and generally just showing us love will definitely increases your chances! <br><br>If you were quick enough to <a :href="config.SOCIAL.DISCORD" target="_blank" rel="noopener noreferrer" class="link">Join our Discord</a> when it launched, then you were awarded the 'Early Bird' role which also grants you Whitelist as well as other cool perks in the future.</p>
+          <accordion-item id="5" heading-tag="h3" heading="Is there a presale list?">
+            <p>Hell yeah there's a presale list! Whilst we are very busy grafting to bring this project to life, we do keep an eye on our community and take note of who's putting the work in. We have no problem handing out spots to people we believe would make our crew awesome, so <strong>to be put on the presale list you just need to show us you care</strong>.</p>
+            <p>Being active in Discord, promoting us on Twitter, setting your PFP to one of the MPCs in the #sneak-beaks (thanks, diegoleyva!) channel and generally just showing us love will definitely increases your chances!</p>
+            <p>If you were quick enough to <a :href="config.SOCIAL.DISCORD" target="_blank" rel="noopener noreferrer" class="link">Join our Discord</a> when it launched, then you were awarded the 'Early Bird' role which gave you the opportunity to be added to the presale list. (as well as other cool perks in the future)</p>
           </accordion-item>
           <accordion-item id="6" heading-tag="h3" heading="Will there be giveaways?">
             <p>Yes absolutely! As well as the giveaways detailed on the <a href="#roadmap" class="link">roadmap</a>, we'll also be <strong>running competitions</strong> on <a :href="config.SOCIAL.TWITTER" target="_blank" rel="noopener noreferrer" class="link">Twitter</a> so make sure you're following us on there!</p>
@@ -720,7 +718,7 @@ export default Vue.extend({
 
   @media (min-width: $responsive-standard-tablet) {
     padding-top: 4.125rem;
-    padding-bottom: 10rem;
+    padding-bottom: 7.875rem;
   }
 
   &__inner {
@@ -752,7 +750,8 @@ export default Vue.extend({
     gap: 0.75rem;
 
     @media (min-width: $responsive-standard-tablet) {
-      margin-block: 3.5rem;
+      margin-top: 3.5rem;
+      margin-bottom: 3.625rem;
     }
 
     li {
@@ -782,7 +781,7 @@ export default Vue.extend({
       max-height: 4.375rem;
       min-width: 4.375rem;
       max-width: 4.375rem;
-      font-size: var(--font-size-title);
+      font-size: var(--font-size-subtitle);
       border-radius: 50%;
       background-color: var(--mpc-orange);
       color: #fff;
@@ -806,7 +805,8 @@ export default Vue.extend({
     }
 
     &__title {
-      font-size: var(--font-size-subtitle);
+      font-size: var(--font-size-large);
+      font-weight: 700;
       margin-top: 0;
       margin-bottom: 0.25rem;
       line-height: 1.4;
@@ -817,7 +817,7 @@ export default Vue.extend({
     }
 
     p {
-      margin-block: 0.5rem;
+      margin-block: 0.25rem;
       line-height: 1.4;
 
       &:first-of-type {
@@ -834,6 +834,24 @@ export default Vue.extend({
     font-size: var(--font-size-title);
     margin-top: 0;
     margin-bottom: 0.75rem;
+  }
+
+  &-2 {
+    max-width: 50.75rem;
+    margin-inline: auto;
+    text-align: center;
+
+    h4 {
+      font-family: var(--font-family-opensans);
+      font-size: var(--font-size-large);
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h4.roadmap-2__header--ampersand {
+      font-family: var(--font-family-ampersand);
+      font-size: var(--font-size-subtitle);
+    }
   }
 }
 
@@ -861,11 +879,9 @@ export default Vue.extend({
     @media (min-width: $responsive-standard-tablet) {
       display: flex;
       position: relative;
-      padding: 6.25rem 1rem 5.5rem 1rem;
+      padding: 3rem 1rem;
 
       .bonus__image {
-        position: absolute;
-        top: -5.25rem;
         height: 10.5rem;
         width: 10.5rem;
         background-color: var(--mpc-burgandy);

@@ -2,14 +2,13 @@
   <div id="mint" class="calculator">
     <div v-if="hasSoldOut()" class="calculator__sold-out">
       <!-- Only show this section if all 10,000 parrots have been minted -->
-      <h2 v-if="$store.state.contractState.maxSupply === 10000">Sold out</h2>
-      <h2 v-else>This stage has sold out</h2>
+      <h2>Sold out</h2>
       <p v-if="$store.state.contractState && $store.state.successfulMint" class="calculator__success">Successfully minted {{ $store.state.successfulMint }} {{ $store.state.successfulMint === 1 ? 'parrot' : 'parrots' }}! Check your wallet shortly</p>
       <p v-if="$store.state.contractState">
         <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
       </p>
       <p>
-        All Mad Parrots have been claimed<template v-if="$store.state.successfulMint"> for this stage</template>, but you can still get one on the secondary marketplace.
+        All Mad Parrots have been claimed, but you can still get one on the secondary marketplace.
       </p>
       <btn :to="config.OPENSEA_LINK" icon="opensea-white">OpenSea collection</btn>
     </div>
@@ -29,7 +28,7 @@
           <p>
             <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
           </p>
-          <p class="calculator__error">You are not a whitelisted user, please come back later during public mint</p>
+          <p class="calculator__error">You are not on the presale list, please come back later during public mint</p>
         </template>
         <template v-else-if="isPublicMintActive() || isWhitelistActiveAndWhitelistedUser()">
           <p>
