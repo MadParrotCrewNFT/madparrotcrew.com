@@ -742,19 +742,19 @@ export default Vue.extend({
   &__cards {
     padding-left: 0;
     list-style-type: none;
-    margin-top: 1.5rem;
+    margin-top: 3.5rem;
     margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
+    align-items: stretch;
+    gap: 3.5rem;
 
     @media (min-width: $responsive-standard-tablet) {
-      margin-top: 3.5rem;
       margin-bottom: 3.625rem;
     }
 
     li {
+      position: relative;
       display: flex;
       justify-content: space-between;
       gap: 1rem;
@@ -773,21 +773,28 @@ export default Vue.extend({
   }
 
   &__percentage {
-    display: none;
+    position: absolute;
+    left: 50%;
+    top: -2rem;
+    transform: translateX(-50%);
+    min-height: 4.375rem;
+    max-height: 4.375rem;
+    min-width: 4.375rem;
+    max-width: 4.375rem;
+    font-size: var(--font-size-subtitle);
+    border-radius: 50%;
+    background-color: var(--mpc-orange);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-family-ampersand);
 
     @media (min-width: $responsive-standard-tablet) {
+      position: relative;
+      left: initial;
+      top: initial;
+      transform: none;
       grid-area: percentage;
-      min-height: 4.375rem;
-      max-height: 4.375rem;
-      min-width: 4.375rem;
-      max-width: 4.375rem;
-      font-size: var(--font-size-subtitle);
-      border-radius: 50%;
-      background-color: var(--mpc-orange);
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-family: var(--font-family-ampersand);
     }
 
     p {
@@ -799,7 +806,11 @@ export default Vue.extend({
   }
 
   .card {
+    padding-top: 3.5rem;
+    width: 100%;
+
     @media (min-width: $responsive-standard-tablet) {
+      padding-top: 1.5rem;
       grid-area: card;
       max-width: 29.25rem;
     }
