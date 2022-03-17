@@ -11,7 +11,7 @@ export interface ISocialLink {
 }
 export interface IContractState {
   isPublicMintActive: boolean;
-  isWhitelistMintActive: boolean;
+  isPresaleMintActive: boolean;
   isAnyMintActive: boolean;
   priceInWei: ethers.BigNumber;
   maxSupply: number;
@@ -20,7 +20,7 @@ export interface IContractState {
   maxMintPerWallet: number;
 }
 interface IUserContractState {
-  isWhitelisted: boolean;
+  isPresaleUser: boolean;
   merkleProof: string[];
   alreadyMinted: number;
   maxAllowedToMint: number;
@@ -181,12 +181,12 @@ export const actions = {
       const maxSupply = parseInt(await(await contract.functions.maxSupply())[0]._hex, 16)
       const numberMinted = parseInt(await (await contract.totalSupply())._hex, 16)
       const isPublicMintActive = config.MINTING_LIVE && await (await contract.functions.publicSaleActive())[0]
-      const isWhitelistMintActive = config.MINTING_LIVE && await (await contract.functions.whitelistSaleActive())[0]
+      const isPresaleMintActive = config.MINTING_LIVE && await (await contract.functions.presaleSaleActive())[0]
       const maxMintPerWallet = parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
       const contractState: IContractState = {
         isPublicMintActive,
-        isWhitelistMintActive,
-        isAnyMintActive: isPublicMintActive || isWhitelistMintActive,
+        isPresaleMintActive,
+        isAnyMintActive: isPublicMintActive || isPresaleMintActive,
         priceInWei: await contract.priceInWei(),
         maxSupply,
         numberMinted,
@@ -205,11 +205,11 @@ export const actions = {
       const maxMintPerWallet = parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
       const alreadyMinted = parseInt(await (await contract.functions.addressToMinted(state.account!))[0]._hex, 16)
 
-      // Go get the merkle proof from the backend so you can show them ahead of time if they're whitelisted
+      // Go get the merkle proof from the backend so you can show them ahead of time if they're a presale user
       const response = await axios.get<any, AxiosResponse<string[], any>, any>(`https://ab6jo7e1v4.execute-api.us-east-2.amazonaws.com/MPCproof/${state.account}`)
-      const merkleProof = response.data // If this array is empty, they are not a whitelisted user
+      const merkleProof = response.data // If this array is empty, they are not a presale user
       const userContractState: IUserContractState = {
-        isWhitelisted: merkleProof.length > 0,
+        isPresaleUser: merkleProof.length > 0,
         merkleProof,
         alreadyMinted,
         maxAllowedToMint: maxMintPerWallet - alreadyMinted
@@ -232,10 +232,10 @@ export const actions = {
       const signer = provider.getSigner()
       const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, signer) as MadParrotCrew
       const isPublicMintActive = state.contractState!.isPublicMintActive
-      const isWhitelistMintActive = state.contractState!.isWhitelistMintActive && !isPublicMintActive // Public mint supersedes all
+      const isPresaleMintActive = state.contractState!.isPresaleMintActive && !isPublicMintActive // Public mint supersedes all
       let tx: ContractTransaction | undefined
-      if (isWhitelistMintActive && state.userContractState!.isWhitelisted) {
-        tx = await contract.whitelistMint(numberOfParrots, state.userContractState!.merkleProof, {
+      if (isPresaleMintActive && state.userContractState!.isPresaleUser) {
+        tx = await contract.presaleMint(numberOfParrots, state.userContractState!.merkleProof, {
           value: state.contractState!.priceInWei.mul(numberOfParrots),
         }) 
       } else if (isPublicMintActive) {

@@ -1,7 +1,7 @@
 {
   "MINTING_LIVE": false,
-  "CONTRACT_ADDRESS": "0xaD82d38EdCD36a4a13888220Fe648242247bf6A9",
-  "SCAN_LINK": "https://rinkeby.etherscan.io/address/0x0473321e5c0a1deebaabc88241845fc4828e798b",
+  "CONTRACT_ADDRESS": "0xeB3FaF855976F259c89Ef43CfF426A96Da7d060A",
+  "SCAN_LINK": "https://rinkeby.etherscan.io/address/0xeB3FaF855976F259c89Ef43CfF426A96Da7d060A",
   "NETWORK": {
     "NAME": "RINKEBY",
     "SYMBOL": "ETHER",

@@ -24,13 +24,13 @@
       </template>
       <template v-else>
         <spinner v-if="!hasGottenSmartContract()" style="height: 2rem; width: 2rem;" />
-        <template v-else-if="isWhitelistActiveAndNotWhitelistedUser()">
+        <template v-else-if="isPresaleActiveAndNotPresaleUser()">
           <p>
             <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
           </p>
           <p class="calculator__error">You are not on the presale list, please come back later during public mint</p>
         </template>
-        <template v-else-if="isPublicMintActive() || isWhitelistActiveAndWhitelistedUser()">
+        <template v-else-if="isPublicMintActive() || isPresaleActiveAndPresaleUser()">
           <p>
             <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
           </p>
@@ -140,14 +140,14 @@ export default Vue.extend({
     hasSoldOut (): boolean {
       return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).contractState!.numberMinted === (this.$store.state as IState).contractState!.maxSupply
     },
-    isWhitelistActiveAndNotWhitelistedUser (): boolean {
-      return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).userContractState !== null && !(this.$store.state as IState).contractState!.isPublicMintActive && (this.$store.state as IState).contractState!.isWhitelistMintActive && !(this.$store.state as IState).userContractState!.isWhitelisted
+    isPresaleActiveAndNotPresaleUser (): boolean {
+      return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).userContractState !== null && !(this.$store.state as IState).contractState!.isPublicMintActive && (this.$store.state as IState).contractState!.isPresaleMintActive && !(this.$store.state as IState).userContractState!.isPresaleUser
     },
     isPublicMintActive (): boolean {
       return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).userContractState !== null && (this.$store.state as IState).contractState!.isPublicMintActive
     },
-    isWhitelistActiveAndWhitelistedUser (): boolean {
-      return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).userContractState !== null && !(this.$store.state as IState).contractState!.isPublicMintActive && (this.$store.state as IState).contractState!.isWhitelistMintActive && (this.$store.state as IState).userContractState!.isWhitelisted
+    isPresaleActiveAndPresaleUser (): boolean {
+      return (this.$store.state as IState).contractState !== null && (this.$store.state as IState).userContractState !== null && !(this.$store.state as IState).contractState!.isPublicMintActive && (this.$store.state as IState).contractState!.isPresaleMintActive && (this.$store.state as IState).userContractState!.isPresaleUser
     }
   }
 })
