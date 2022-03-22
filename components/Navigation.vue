@@ -194,6 +194,7 @@ export default Vue.extend({
     justify-content: space-between;
     align-items: stretch;
     gap: 0.1875rem;
+    cursor: pointer;
 
     @media (min-width: $responsive-large-tablet) {
       display: none;

@@ -13,50 +13,57 @@
       <btn :to="config.OPENSEA_LINK" icon="opensea-white">OpenSea collection</btn>
     </div>
     <template v-else>
-      <h2>Clubhouse now open!</h2>
-      <p v-if="$store.state.contractState && $store.state.successfulMint" class="calculator__success">Successfully minted {{ $store.state.successfulMint }} {{ $store.state.successfulMint === 1 ? 'parrot' : 'parrots' }}! Check your wallet shortly</p>
-      <p v-if="$store.state.connectionError" class="calculator__error">{{ $store.state.connectionError }}</p>
-      <template v-if="!isConnected">
-        <p v-if="!$store.state.connectionError">Connect your wallet to begin.</p>
+      <div class="calculator__wrapper">
+        <video width="240" height="240" autoplay loop muted preload="auto" poster="/_nuxt/assets/images/pre-reveal-poster.png">
+          <source src="~/assets/images/pre-reveal.mp4" type="video/mp4">
+        </video>
         <div>
-          <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
+          <h2>Clubhouse now open!</h2>
+          <p v-if="$store.state.contractState && $store.state.successfulMint" class="calculator__success">Successfully minted {{ $store.state.successfulMint }} {{ $store.state.successfulMint === 1 ? 'parrot' : 'parrots' }}! Check your wallet shortly</p>
+          <p v-if="$store.state.connectionError" class="calculator__error">{{ $store.state.connectionError }}</p>
+          <template v-if="!isConnected">
+            <p v-if="!$store.state.connectionError">Connect your wallet to begin.</p>
+            <div>
+              <btn :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
+            </div>
+          </template>
+          <template v-else>
+            <spinner v-if="!hasGottenSmartContract()" style="height: 2rem; width: 2rem;" />
+            <template v-else-if="isPresaleActiveAndNotPresaleUser()">
+              <p>
+                <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
+              </p>
+              <p class="calculator__error">You are not on the presale list, please come back later during public mint</p>
+            </template>
+            <template v-else-if="isPublicMintActive() || isPresaleActiveAndPresaleUser()">
+              <p>
+                <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
+              </p>
+              <p v-if="$store.state.userContractState && $store.state.userContractState.alreadyMinted > 0" class="small">
+                You have already minted {{ $store.state.userContractState.alreadyMinted }} {{ $store.state.userContractState.alreadyMinted === 1 ? 'parrot' : 'parrots' }} <template v-if="$store.state.userContractState.maxAllowedToMint === 0">- the maximum</template>
+              </p>
+              <div class="calculator__buttons">
+                <btn color="grey" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT || $store.state.successfulMint" @click="parrotNumber--">
+                  -
+                  <span class="sr-only">Minus 1 parrot</span>
+                </btn>
+                <label for="noOfParrots" class="sr-only">Number of parrots</label>
+                <input id="noOfParrots" v-model="parrotNumber" readonly>
+                <btn color="grey" square :disabled="!$store.state.contractState || $store.state.successfulMint || ($store.state.contractState && $store.state.userContractState && (parrotNumber >= $store.state.userContractState.maxAllowedToMint || parrotNumber >= $store.state.contractState.supplyLeft || isClaimingNFT))" @click="parrotNumber++">
+                  +
+                  <span class="sr-only">Plus 1 parrot</span>
+                </btn>
+              </div>
+              <p role="text" id="how-many-parrots">
+                Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+              </p>
+              <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork || $store.state.userContractState.maxAllowedToMint === 0 || $store.state.successfulMint" icon="wallet" aria-describedby="how-many-parrots">
+                Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
+              </btn>
+            </template>
+          </template>
         </div>
-      </template>
-      <template v-else>
-        <spinner v-if="!hasGottenSmartContract()" style="height: 2rem; width: 2rem;" />
-        <template v-else-if="isPresaleActiveAndNotPresaleUser()">
-          <p>
-            <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
-          </p>
-          <p class="calculator__error">You are not on the presale list, please come back later during public mint</p>
-        </template>
-        <template v-else-if="isPublicMintActive() || isPresaleActiveAndPresaleUser()">
-          <p>
-            <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
-          </p>
-          <p v-if="$store.state.userContractState && $store.state.userContractState.alreadyMinted > 0" class="small">
-            You have already minted {{ $store.state.userContractState.alreadyMinted }} {{ $store.state.userContractState.alreadyMinted === 1 ? 'parrot' : 'parrots' }} <template v-if="$store.state.userContractState.maxAllowedToMint === 0">- the maximum</template>
-          </p>
-          <div class="calculator__buttons">
-            <btn color="grey" square inverted :disabled="parrotNumber <= 1 || isClaimingNFT || $store.state.successfulMint" @click="parrotNumber--">
-              -
-              <span class="sr-only">Minus 1 parrot</span>
-            </btn>
-            <label for="noOfParrots" class="sr-only">Number of parrots</label>
-            <input id="noOfParrots" v-model="parrotNumber" readonly>
-            <btn color="grey" square :disabled="!$store.state.contractState || $store.state.successfulMint || ($store.state.contractState && $store.state.userContractState && (parrotNumber >= $store.state.userContractState.maxAllowedToMint || parrotNumber >= $store.state.contractState.supplyLeft || isClaimingNFT))" @click="parrotNumber++">
-              +
-              <span class="sr-only">Plus 1 parrot</span>
-            </btn>
-          </div>
-          <p role="text" id="how-many-parrots">
-            Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
-          </p>
-          <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork || $store.state.userContractState.maxAllowedToMint === 0 || $store.state.successfulMint" icon="wallet" aria-describedby="how-many-parrots">
-            Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
-          </btn>
-        </template>
-      </template>
+      </div>
     </template>
   </div>
 </template>
@@ -169,6 +176,11 @@ export default Vue.extend({
     min-width: 23rem;
   }
 
+  @media (min-width: $responsive-small-tablet) {
+    max-width: 40rem;
+    min-width: 40rem;
+  }
+
   h2 {
     font-size: var(--font-size-subtitle);
     margin-block: 0;
@@ -190,6 +202,20 @@ export default Vue.extend({
     font-size: var(--font-size-small);
     color: var(--mpc-green);
     margin-block: 0;
+  }
+
+  &__wrapper {
+    display: flex;
+    gap: 2rem;
+
+    video {
+      display: none;
+
+      @media (min-width: $responsive-small-tablet) {
+        display: block;
+        border-radius: var(--border-radius-standard);
+      }
+    }
   }
 
   &__buttons {
