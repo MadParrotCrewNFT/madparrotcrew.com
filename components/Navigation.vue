@@ -286,7 +286,7 @@ export default Vue.extend({
         a {
           color: var(--mpc-dark-grey);
           font-size: var(--font-size-subtitle);
-          font-family: var(--font-family-ampersand);
+          font-family: var(--font-family-luckiestguy);
           text-decoration: none;
           display: block;
           text-align: center;
@@ -340,7 +340,7 @@ export default Vue.extend({
         }
 
         a {
-          font-family: var(--font-family-ampersand);
+          font-family: var(--font-family-luckiestguy);
           font-size: var(--font-size-large);
           color: var(--mpc-grey);
           text-decoration: none;

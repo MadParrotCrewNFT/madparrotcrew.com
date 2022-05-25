@@ -67,7 +67,7 @@ export default Vue.extend({
   color: #fff;
   font-size: var(--font-size-large);
   font-weight: 800;
-  font-family: var(--font-family-opensans);
+  font-family: var(--font-family-montserrat);
   display: inline-flex;
   gap: 1rem;
   align-items: center;

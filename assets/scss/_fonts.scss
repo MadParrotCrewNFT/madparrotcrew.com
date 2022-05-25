@@ -1,33 +1,36 @@
-$font-family-ampersand: 'Ampersand';
+$font-family-luckiestguy: 'LuckiestGuy';
 
-$font-family-opensans: 'OpenSans';
-$opensans-weights: (
+$font-family-montserrat: 'Montserrat';
+$montserrat-weights: (
   "Regular": 400,
-  "ExtraBold": 800
+  "Bold": 700
 );
 
 :root {
-  --font-family-ampersand: '#{$font-family-ampersand}', Arial, Helvetica, sans-serif;
-  --font-family-opensans: '#{$font-family-opensans}', Arial, Helvetica, sans-serif;
+  --font-family-luckiestguy: '#{$font-family-luckiestguy}', Arial, Helvetica, sans-serif;
+  --font-family-montserrat: '#{$font-family-montserrat}', Arial, Helvetica, sans-serif;
 }
 
 @font-face {
-  font-family: '#{$font-family-ampersand}';
+  font-family: '#{$font-family-luckiestguy}';
   src:
-    local('#{$font-family-ampersand}'),
-    url(~assets/fonts/Ampersand/Ampersand.ttf) format('truetype');
+    local('#{$font-family-luckiestguy}'),
+    url(~assets/fonts/LuckiestGuy/LuckiestGuy.woff2) format('woff2'),
+    url(~assets/fonts/LuckiestGuy/LuckiestGuy.woff) format('woff'),
+    url(~assets/fonts/LuckiestGuy/LuckiestGuy.ttf) format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-@each $name, $weight in $opensans-weights {
+@each $name, $weight in $montserrat-weights {
   @font-face {
-    font-family: '#{$font-family-opensans}';
+    font-family: '#{$font-family-montserrat}';
     src:
-      local('#{$font-family-opensans}'),
-      url(~assets/fonts/OpenSans/OpenSans-#{$name}.woff2) format('woff2'),
-      url(~assets/fonts/OpenSans/OpenSans-#{$name}.woff) format('woff');
+      local('#{$font-family-montserrat}'),
+      url(~assets/fonts/Montserrat/Montserrat-#{$name}.woff2) format('woff2'),
+      url(~assets/fonts/Montserrat/Montserrat-#{$name}.woff) format('woff'),
+      url(~assets/fonts/Montserrat/Montserrat-#{$name}.ttf) format('truetype');
     font-weight: $weight;
     font-style: normal;
     font-display: swap;

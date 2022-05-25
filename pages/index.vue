@@ -145,7 +145,7 @@
           <p class="small" style="margin-top: 1rem;"><strong>TL:DR:</strong> 1 Elixir (Free mint to all Mad Parrot holders), when applied to a Mad Parrot will create another variant (NFT). It'll either be more crazy, or slightly more innocent. Whatever the case, there will also be another elixir available on the secondary market which if applied will guarantee the 'other' variant (second NFT). (You'll get a chance to have both variants per Mad Parrot owned).</p>
           <h4>Operation: Beat em’ to the punch!</h4>
           <p>We can’t disclose too much about this just yet, but let’s just say we’re keeping our eyes open to some trends in the space and acting accordingly... (It’ll be an ‘oooh’ moment when it comes).</p>
-          <h4 class="roadmap-2__header--ampersand">...and more creative stuff</h4>
+          <h4 class="roadmap-2__header--luckiestguy">...and more creative stuff</h4>
           <p>We’re committed to ensuring the Mad Parrot Crew lives on way past the roadmap illustrated above. We'll continue to contribute to the web3 space and give back to the community that has made all this possible. If you know me (Sheftali) and are familiar with my work then you know creating art is a passion of mine which will never slow down, plus Iac’s fascination in Web3 grows daily. While we’re not fans of over-promising (who is?) we have ideas, and we’re ambitious, and if it can be done we’ll do our best to deliver (with outside help if need).</p>
         </div>
       </div>
@@ -787,7 +787,7 @@ export default Vue.extend({
     color: #fff;
     display: grid;
     place-items: center;
-    font-family: var(--font-family-ampersand);
+    font-family: var(--font-family-luckiestguy);
 
     @media (min-width: $responsive-standard-tablet) {
       position: relative;
@@ -853,14 +853,14 @@ export default Vue.extend({
     text-align: center;
 
     h4 {
-      font-family: var(--font-family-opensans);
+      font-family: var(--font-family-montserrat);
       font-size: var(--font-size-large);
       margin-top: 2rem;
       margin-bottom: 0.5rem;
     }
 
-    h4.roadmap-2__header--ampersand {
-      font-family: var(--font-family-ampersand);
+    h4.roadmap-2__header--luckiestguy {
+      font-family: var(--font-family-luckiestguy);
       font-size: var(--font-size-subtitle);
     }
   }
