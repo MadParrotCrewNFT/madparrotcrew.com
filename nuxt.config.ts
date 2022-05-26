@@ -1,5 +1,6 @@
 import siteconfig from './siteconfig.json'
-import config from './config.json'
+
+const metaDescription = "Mad Parrot Crew consists of 10,000 unique parrot NFTs living on the Ethereum blockchain."
 
 export default {
   target: 'static',
@@ -11,6 +12,18 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: metaDescription },
+      { hid: 'og:description', name: 'og:description', content: metaDescription },
+      { hid: 'og:type', name: 'og:type', content: 'website' },
+      { hid: 'og:host', name: 'og:host', content: siteconfig.base_url },
+      { hid: 'og:image', name: 'og:image', content: `${siteconfig.base_url}/og-image.png` },
+      { hid: 'og:image:alt', name: 'og:image:alt', content: 'Mad Parrot Crew NFT' },
+      { hid: 'og:image:width', name: 'og:image:width', content: '1200' },
+      { hid: 'og:image:height', name: 'og:image:height', content: '630' },
+      { hid: 'og:image:type', name: 'og:image:type', content: 'image/png' },
+      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
+      { hid: 'twitter:site', name: 'twitter:site', content: '@madparrotcrew' },
+      { hid: 'twitter:creator', name: 'twitter:creator', content: '@madparrotcrew' },
       { name: 'format-detection', content: 'telephone=no' },
       { hid: 'color-scheme', name: 'color-scheme', content: 'light' }
     ],
@@ -62,7 +75,6 @@ export default {
     ]
   },
   modules: [
-    '@nuxtjs/pwa',
     '@nuxtjs/robots',
     '@nuxtjs/svg-sprite',
     '@nuxtjs/sitemap' // Always declare last
@@ -75,32 +87,6 @@ export default {
   sitemap: {
     hostname: siteconfig.base_url,
     exclude: ['/_icons']
-  },
-
-  // PWA module configuration: https://go.nuxtjs.dev/pwa
-  pwa: {
-    meta: {
-      description: "Mad Parrot Crew consists of 10,000 unique parrot NFTs living on the Ethereum blockchain.",
-      ogHost: siteconfig.base_url,
-      ogSiteName: siteconfig.brand_name,
-      ogType: 'website',
-      ogImage: {
-        path: '/og-image.png',
-        width: '1200',
-        height: '630',
-        type: 'image/png'
-      },
-      twitterCard: 'summary_large_image',
-      twitterSite: config.SOCIAL.TWITTER
-    },
-    manifest: {
-      name: siteconfig.brand_name,
-      /* icons: handled by pwa.icons module, */
-      description: '',
-      start_url: '/',
-      display: 'browser',
-      useWebmanifestExtension: true
-    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

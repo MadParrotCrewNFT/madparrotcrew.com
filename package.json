@@ -21,7 +21,6 @@
     "typechain": "npx typechain --target=ethers-v5 --out-dir contract/types contract/abi/MadParrotCrew.json"
   },
   "dependencies": {
-    "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/robots": "^2.5.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/style-resources": "^1.2.1",
