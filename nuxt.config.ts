@@ -15,7 +15,28 @@ export default {
       { hid: 'color-scheme', name: 'color-scheme', content: 'light' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'preload',
+        as: 'font',
+        type: 'font/woff2',
+        href: '/_nuxt/assets/fonts/Montserrat/Montserrat-Regular.woff2',
+        crossorigin: true,
+      },
+      {
+        rel: 'preload',
+        as: 'font',
+        type: 'font/woff2',
+        href: '/_nuxt/assets/fonts/Montserrat/Montserrat-Bold.woff2',
+        crossorigin: true,
+      },
+      {
+        rel: 'preload',
+        as: 'font',
+        type: 'font/woff2',
+        href: '/_nuxt/assets/fonts/LuckiestGuy/LuckiestGuy.woff2',
+        crossorigin: true,
+      }
     ]
   },
   css: [
@@ -84,5 +105,8 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    filenames: {
+      font: () => '[path][name].[ext]'
+    }
   }
 }
