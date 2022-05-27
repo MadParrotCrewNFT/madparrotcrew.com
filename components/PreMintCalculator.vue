@@ -1,0 +1,62 @@
+<template>
+  <section>
+    <h2 class="orange-gradient-text title">Come back later!</h2>
+    <card class="calculator">
+      <h3 class="calculator__title">Minting <time datetime="2022-06-04">4th June 2022</time></h3>
+      <p class="calculator__paragraph">You don’t want to miss this. Once minting goes live <strong>you’ll only have 69 hours</strong> to mint!</p>
+    </card>
+  </section>
+</template>
+
+<script>
+import Vue from 'vue'
+import Btn from './Btn.vue'
+import Card from './Card.vue'
+
+export default Vue.extend({
+  name: 'PreMintCalculator',
+  components: { Btn, Card }
+})
+</script>
+
+<style lang="scss" scoped>
+.title {
+  font-size: var(--font-size-title);
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1rem;
+
+  @media (min-width: $responsive-standard-tablet) {
+    text-align: left;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.calculator {
+  &__title {
+    color: var(--mpc-purple);
+    font-size: var(--font-size-heading);
+    line-height: 1.75rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    text-align: center;
+
+    @media (min-width: $responsive-standard-tablet) {
+      text-align: left;
+    }
+  }
+
+  &__paragraph {
+    margin: 0;
+    font-size: var(--font-size-body);
+    letter-spacing: -0.01em;
+    text-align: center;
+    font-weight: 500;
+
+    @media (min-width: $responsive-standard-tablet) {
+      text-align: left;
+      font-size: var(--font-size-large);
+    }
+  }
+}
+</style>

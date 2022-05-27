@@ -20,5 +20,9 @@ export default Vue.extend({
   background-color: #fff;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
   border-radius: var(--border-radius-standard);
+
+  @media (min-width: $responsive-standard-tablet) {
+    padding: 2.125rem;
+  }
 }
 </style>

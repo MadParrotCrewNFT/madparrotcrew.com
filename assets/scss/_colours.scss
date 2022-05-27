@@ -1,33 +1,15 @@
-$mpc-green: #378500;
-$mpc-light-green: #B6D2A0;
-$mpc-lightest-green: #e9F1ed;
-$mpc-dark-blue: #031d44;
-$mpc-navy: #253f4c;
-$mpc-beige: #dab785;
-$mpc-gold: #ffd953;
-$mpc-light-beige: #f7f0e6;
-$mpc-orange: #da6832;
+$mpc-text: #414141;
+$mpc-gold: #ffcd36;
+$mpc-pink: #c447a1;
 $mpc-purple: #482c74;
-$mpc-burgandy: #62264a;
-$mpc-red: #de1831;
-$mpc-dark-grey: #2c2c2c;
-$mpc-grey: #595959;
-$mpc-light-grey: #757575;
+$mpc-burgandy: #612649;
+$mpc-dark-burgandy: #491c37;
 
 :root {
-  --mpc-green: #{$mpc-green};
-  --mpc-light-green: #{$mpc-light-green};
-  --mpc-lightest-green: #{$mpc-lightest-green};
-  --mpc-dark-blue: #{$mpc-dark-blue};
-  --mpc-navy: #{$mpc-navy};
-  --mpc-beige: #{$mpc-beige};
+  --mpc-text: #{$mpc-text};
   --mpc-gold: #{$mpc-gold};
-  --mpc-light-beige: #{$mpc-light-beige};
-  --mpc-orange: #{$mpc-orange};
+  --mpc-pink: #{$mpc-pink};
   --mpc-purple: #{$mpc-purple};
   --mpc-burgandy: #{$mpc-burgandy};
-  --mpc-red: #{$mpc-red};
-  --mpc-dark-grey: #{$mpc-dark-grey};
-  --mpc-grey: #{$mpc-grey};
-  --mpc-light-grey: #{$mpc-light-grey};
+  --mpc-dark-burgandy: #{$mpc-dark-burgandy};
 }

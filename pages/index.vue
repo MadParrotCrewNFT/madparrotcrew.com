@@ -1,17 +1,10 @@
 <template>
   <div>
     <header class="header">
-      <div class="header__overlay"></div>
-      <div class="header__inner">
-        <div class="header__calculator-wrapper">
-          <calculator v-if="config.MINTING_LIVE" class="header__calculator" />
-          <img v-else class="header__soon" src="~assets/images/minting-coming-soon.png" alt="Minting coming soon" width="424" height="245" loading="lazy" />
-        </div>
-      </div>
-      <div class="header__curve">
-        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z" fill="currentColor" />
-        </svg>
+      <PreMintCalculator v-if="!config.MINTING_LIVE" class="header__calculator" />
+      <div class="header__parrot">
+        <img class="header__parrot--body" src="~assets/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" />
+        <img class="header__parrot--feet" src="~assets/images/hero-parrot-feet.png" alt="" />
       </div>
     </header>
     <section id="about" class="about">
@@ -194,8 +187,7 @@
               <ul class="team__socials">
                 <li v-for="social in member.socials" :key="social.platform">
                   <a :href="social.url" :title="social.platform" target="_blank">
-                    <img v-if="social.platform.toLowerCase() === 'instagram'" src="~assets/images/instagram-white.svg" :alt="social.platform" loading="lazy" />
-                    <svg-icon v-else :name="`${social.platform.toLowerCase()}-white`" />
+                    <svg-icon :name="`${social.platform.toLowerCase()}`" />
                     <span class="sr-only">{{ social.platform }}</span>
                   </a>
                 </li>
@@ -210,8 +202,7 @@
             <ul class="team__socials">
               <li v-for="social in teamMembers[0].socials" :key="social.platform">
                 <a :href="social.url" :title="social.platform" target="_blank">
-                  <img v-if="social.platform.toLowerCase() === 'instagram'" src="~assets/images/instagram.svg" :alt="social.platform" loading="lazy" />
-                  <svg-icon v-else :name="social.platform.toLowerCase()" />
+                  <svg-icon :name="social.platform.toLowerCase()" />
                   <span class="sr-only">{{ social.platform }}</span>
                 </a>
               </li>
@@ -227,8 +218,7 @@
             <ul class="team__socials">
               <li v-for="social in teamMembers[1].socials" :key="social.platform">
                 <a :href="social.url" :title="social.platform" target="_blank">
-                  <img v-if="social.platform.toLowerCase() === 'instagram'" src="~assets/images/instagram.svg" :alt="social.platform" loading="lazy" />
-                  <svg-icon v-else :name="social.platform.toLowerCase()" />
+                  <svg-icon :name="social.platform.toLowerCase()" />
                   <span class="sr-only">{{ social.platform }}</span>
                 </a>
               </li>
@@ -278,6 +268,7 @@ import { ethers } from 'ethers'
 import { Calculator, Card, Accordion, AccordionItem, Btn, Logo } from '@/components'
 import siteconfig from '@/siteconfig.json'
 import config from '@/config.json'
+import PreMintCalculator from '@/components/PreMintCalculator.vue'
 
 interface IParrotDistribution {
   image: {
@@ -302,7 +293,7 @@ interface ITeamMember {
 }
 
 export default Vue.extend({
-  components: { Calculator, Card, Accordion, AccordionItem, Btn, Logo },
+  components: { Calculator, Card, Accordion, AccordionItem, Btn, Logo, PreMintCalculator },
   data () {
     return {
       ethers,
@@ -388,83 +379,71 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .header {
   position: relative;
-  background-image: url(~assets/images/header-bg.jpg);
+  background: linear-gradient(180deg, #62264A 0%, rgba(98, 38, 74, 0) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(~assets/images/hero-bg.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  padding: 4.75rem 1rem 1rem 1rem;
 
   @media (min-width: $responsive-standard-tablet) {
+    padding-top: 10rem;
+  }
+
+  @media (min-width: $responsive-large-tablet) {
     min-height: 36rem;
     height: 90vh;
-    max-height: 40rem;
-  }
-
-  &__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-
-  &__inner {
-    position: relative;
-    height: 100%;
-    max-width: 120rem;
-    margin-inline: auto;
-  }
-
-  &__curve {
-    display: none;
-
-    @media (min-width: $responsive-large-tablet) {
-      display: block;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-      line-height: 0;
-
-      svg {
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
-        display: block;
-        width: calc(110% + 1.3px);
-        height: 2.375rem;
-        color: #fff;
-      }
-    }
-  }
-
-  &__soon {
-    width: 26.5rem;
-    position: relative;
+    max-height: 36rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   &__calculator {
-    position: relative;
+    max-width: 34rem;
+    margin-bottom: 15rem;
+    margin-inline: auto;
 
-    &-wrapper {
-      margin-inline: 1rem;
-      position: relative;
-      top: 5.5rem;
-      position: relative;
-      z-index: 1;
+    @media (min-width: $responsive-large-tablet) {
+      transform: rotate(-4deg);
+      transform-origin: top right;
+      margin-bottom: 0;
+    }
+  }
 
-      @media (min-width: $responsive-large-mobile) {
-        margin-inline: auto;
-        max-width: max-content;
+  &__parrot {
+    @media (min-width: $responsive-large-tablet) {
+      position: relative;
+    }
+
+    &--body {
+      position: absolute;
+      left: 50%;
+      bottom: -2rem;
+      transform: translateX(-50%);
+      height: 301px;
+      width: 184px;
+
+      @media (min-width: $responsive-large-tablet) {
+        left: 35%;
+        bottom: -6.5rem;
+        height: 636px;
+        width: 388px;
       }
+    }
 
-      @media (min-width: $responsive-standard-tablet) {
-        margin-top: 0;
-        position: absolute;
-        top: 60%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    &--feet {
+      position: absolute;
+      left: calc(50% - 1px);
+      bottom: -15px;
+      transform: translateX(-50%);
+      z-index: 1;
+      height: 68px;
+      width: 47px;
+
+      @media (min-width: $responsive-large-tablet) {
+        left: calc(35% - 3px);
+        bottom: -66px;
+        height: 143px;
+        width: 98px;
       }
     }
   }

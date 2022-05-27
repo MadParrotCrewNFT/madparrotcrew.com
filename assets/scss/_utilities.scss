@@ -1,0 +1,8 @@
+.orange-gradient-text {
+  background: linear-gradient(180deg, #FFD15B 0%, #D44400 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  // text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15); This doesn't seem to work as it does in Figma
+}
