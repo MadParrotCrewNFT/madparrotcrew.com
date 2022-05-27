@@ -11,9 +11,6 @@
     </ul>
     <logo class="footer__logo" />
     <ul class="footer__links">
-      <li>
-        <nuxt-link to="/t-and-c" class="link">Terms & Conditions</nuxt-link>
-      </li>
       <li v-if="config.MINTING_LIVE">
         <a class="link" :href="config.SCAN_LINK" rel="norefferer nofollow noopener" target="_blank">Smart contract</a>
       </li>
