@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar" :class="{ 'navbar--open': isMobileNavOpen, 'navbar--white-bg': setWhiteBgMobile }">
+  <div class="navbar" :class="{ 'navbar--open': isMobileNavOpen, 'navbar--solid': setSolidNav }">
     <div class="navbar__inner">
       <h1 class="navbar__logo">
         <nuxt-link to="/">
@@ -23,8 +23,7 @@
         <ul class="navbar__social-list">
           <li v-for="socialLink in socialLinks" :key="socialLink.url">
             <a :href="socialLink.url" target="_blank" :title="socialLink.text">
-              <img v-if="socialLink.icon === 'instagram'" src="~assets/images/instagram.svg" :alt="socialLink.text" >
-              <svg-icon v-else :name="socialLink.icon" />
+              <svg-icon :name="socialLink.icon" />
               <span class="sr-only">{{ socialLink.text }}</span>
             </a>
           </li>
@@ -34,8 +33,7 @@
         <ul class="navbar__social-list">
           <li v-for="socialLink in socialLinks" :key="socialLink.url">
             <a :href="socialLink.url" target="_blank" :title="socialLink.text">
-              <img v-if="socialLink.icon === 'instagram'" src="~assets/images/instagram.svg" :alt="socialLink.text" >
-              <svg-icon v-else :name="socialLink.icon" />
+              <svg-icon :name="socialLink.icon" />
               <span class="sr-only">{{ socialLink.text }}</span>
             </a>
           </li>
@@ -63,7 +61,7 @@ export default Vue.extend({
     return {
       siteconfig,
       isMobileNavOpen: false,
-      setWhiteBgMobile: false
+      setSolidNav: false
     }
   },
   computed: {
@@ -72,22 +70,6 @@ export default Vue.extend({
         {
           text: 'About',
           url: '#about'
-        },
-        {
-          text: 'Crew Perks',
-          url: '#crew-perks'
-        },
-        {
-          text: 'Roadmap',
-          url: '#roadmap'
-        },
-        {
-          text: 'Diamond-beak Club',
-          url: '#diamond-beak-club'
-        },
-        {
-          text: 'Distribution',
-          url: '#distribution'
         },
         {
           text: 'Team',
@@ -112,10 +94,20 @@ export default Vue.extend({
   },
   methods: {
     handleScroll (): void {
-      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        this.setWhiteBgMobile = true
-      } else {
-        this.setWhiteBgMobile = false
+      const mediaQueryScreenSize = getComputedStyle(document.documentElement).getPropertyValue('--responsive-standard-tablet')
+      if (window.matchMedia(`(min-width: ${mediaQueryScreenSize})`)) { // desktop
+        if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
+          this.setSolidNav = true
+        } else {
+          this.setSolidNav = false
+        }
+      }
+      else { // mobile
+        if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+          this.setSolidNav = true
+        } else {
+          this.setSolidNav = false
+        }
       }
     },
     isTheChosenOne (toUrl: string): boolean {
@@ -134,27 +126,23 @@ export default Vue.extend({
   top: 0;
   width: 100vw;
   height: 3.5rem;
-  transition: all 240ms ease;
+  transition: all 80ms ease;
+  color: #fff;
 
-  @media (min-width: $responsive-large-tablet) {
-    background-color: #fff;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+  @media (min-width: $responsive-standard-tablet) {
+    position: sticky;
+    top: 0;
+    margin-top: 4.25rem;
   }
 
   &--open,
-  &--white-bg {
-    background-color: #fff;
+  &--solid {
+    background-color: var(--mpc-burgandy);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
-
-    @media (max-width: $responsive-large-tablet - math.div(1em, 16)) {
-      .navbar__logo a {
-        color: #3c3c3c;
-      }
-    }
   }
 
   &__inner {
-    max-width: 73rem;
+    max-width: 69.375rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -166,13 +154,14 @@ export default Vue.extend({
 
   &__logo {
     margin: 0;
+    width: 8.625rem;
+
+    @media (min-width: $responsive-standard-tablet) {
+      width: 12.875rem;
+    }
 
     a {
       color: #fff;
-
-      @media (min-width: $responsive-large-tablet) {
-        color: #000;
-      }
     }
 
     img {
@@ -182,10 +171,10 @@ export default Vue.extend({
 
   &__hamburger {
     position: relative;
-    background-color: #fff;
+    background-color: transparent;
     border: none;
     border-radius: 0.25rem;
-    color: var(--mpc-dark-grey);
+    color: #fff;
     width: 2rem;
     height: 2rem;
     padding: 0.375rem 0.25rem;
@@ -196,7 +185,7 @@ export default Vue.extend({
     gap: 0.1875rem;
     cursor: pointer;
 
-    @media (min-width: $responsive-large-tablet) {
+    @media (min-width: $responsive-standard-tablet) {
       display: none;
     }
 
@@ -205,7 +194,7 @@ export default Vue.extend({
       transition: all 240ms ease;
 
       &:not(:nth-last-child(1)) {
-        background-color: var(--mpc-dark-grey);
+        background-color: #fff;
         height: 0.1875rem;
         width: 1.175rem;
         border-radius: 2rem;
@@ -214,7 +203,7 @@ export default Vue.extend({
       }
 
       &:nth-last-child(1) {
-        color: var(--mpc-dark-grey);
+        color: #fff;
         text-transform: uppercase;
         font-size: 0.5rem;
         font-weight: 700;
@@ -235,13 +224,13 @@ export default Vue.extend({
     &--open {
       span {
         &:not(:nth-last-of-type(1)) {
-          background-color: #3c3c3c !important;
+          background-color: #fff !important;
           width: 1rem;
           top: 0.5rem;
         }
 
         &:nth-last-of-type(1) {
-          color: #3c3c3c !important;
+          color: #fff !important;
         }
 
         &:nth-child(1) {
@@ -256,12 +245,12 @@ export default Vue.extend({
   }
 
   &__nav {
-    @media (max-width: $responsive-large-tablet - math.div(1em, 16)) {
+    @media (max-width: $responsive-standard-tablet - math.div(1em, 16)) {
       position: absolute;
       top: -38rem;
       left: 0;
       width: 100%;
-      background-color: #fff;
+      background-color: var(--mpc-dark-burgandy);
       transition: all 240ms ease;
       display: flex;
       flex-direction: column;
@@ -279,17 +268,27 @@ export default Vue.extend({
         flex-direction: column;
         align-items: stretch;
 
-        li {
-          padding-block: 0.75rem;
-        }
-
         a {
-          color: var(--mpc-dark-grey);
-          font-size: var(--font-size-subtitle);
+          color: #fff;
+          font-size: var(--font-size-body);
           font-family: var(--font-family-luckiestguy);
           text-decoration: none;
           display: block;
           text-align: center;
+          padding-block: 1.25rem;
+          position: relative;
+
+          &::after {
+            content: '';
+            display: block;
+            height: 4px;
+            width: calc(100% - 2rem);
+            background-color: rgba(0,0,0,0.15);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+          }
         }
       }
 
@@ -302,6 +301,7 @@ export default Vue.extend({
         gap: 0.75rem;
 
         li, a {
+          color: #fff;
           display: flex;
           align-items: center;
           height: 100%;
@@ -315,7 +315,7 @@ export default Vue.extend({
       }
     }
 
-    @media (min-width: $responsive-large-tablet) {
+    @media (min-width: $responsive-standard-tablet) {
       display: flex;
       height: 100%;
       position: unset;
@@ -341,11 +341,12 @@ export default Vue.extend({
 
         a {
           font-family: var(--font-family-luckiestguy);
-          font-size: var(--font-size-large);
-          color: var(--mpc-grey);
+          font-size: var(--font-size-body);
+          color: #fff;
           text-decoration: none;
           padding: 0.5rem 1rem;
-          transition-property: background-color, color;
+          transition-property: color;
+          will-change: color;
           transition: 160ms ease;
           white-space: nowrap;
           user-select: none;
@@ -353,8 +354,7 @@ export default Vue.extend({
           &:hover,
           &:focus,
           &.active {
-            background-color: var(--mpc-dark-grey);
-            color: #fff;
+            color: var(--mpc-gold);
           }
         }
       }
@@ -364,7 +364,7 @@ export default Vue.extend({
   &__social {
     display: none;
 
-    @media (min-width: $responsive-small-desktop) {
+    @media (min-width: $responsive-standard-tablet) {
       display: flex;
       height: 100%;
 
@@ -376,6 +376,7 @@ export default Vue.extend({
         height: 100%;
 
         li, a {
+          color: #fff;
           display: flex;
           align-items: center;
           height: 100%;

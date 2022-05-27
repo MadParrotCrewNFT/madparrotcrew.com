@@ -40,34 +40,29 @@ export interface IState {
 export const state = () => ({
   socialLinks: [
     {
+      text: 'Twitter',
+      url: config.SOCIAL.TWITTER,
+      icon: 'twitter'
+    },
+    {
       text: 'Discord',
       url: config.SOCIAL.DISCORD,
       icon: 'discord'
     },
     {
-      text: 'Twitter',
-      url: config.SOCIAL.TWITTER,
-      icon: 'twitter'
-    },
-    ...(config.MINTING_LIVE
-      ? [
-        {
-          text: 'OpenSea',
-          url: config.OPENSEA_LINK,
-          icon: 'opensea'
-        },
-        {
-          text: 'Etherscan',
-          url: config.SCAN_LINK,
-          icon: 'etherscan'
-        }
-      ]
-      : []
-    ),
-    {
       text: 'Instagram',
       url: config.SOCIAL.INSTAGRAM,
       icon: 'instagram'
+    },
+    {
+      text: 'OpenSea',
+      url: config.OPENSEA_LINK,
+      icon: 'opensea'
+    },
+    {
+      text: 'Etherscan',
+      url: config.SCAN_LINK,
+      icon: 'etherscan'
     }
   ],
   contractAddress: config.CONTRACT_ADDRESS,

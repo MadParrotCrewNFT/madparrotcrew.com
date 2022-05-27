@@ -28,6 +28,10 @@ export default Vue.extend({
     flex: 1;
     display: flex;
     flex-direction: column;
+    
+    @media (min-width: $responsive-standard-tablet) {
+      margin-top: -7.75rem;
+    }
 
     > * {
       flex: 1;
