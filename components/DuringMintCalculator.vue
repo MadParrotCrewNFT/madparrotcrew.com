@@ -14,7 +14,7 @@
       </div>
       <p class="calculator__remaining"><span>6969</span>/6969 remaining</p>
       <h3 class="calculator__title">Mint your parrot</h3>
-      <p v-if="$store.state.connectionError" class="calculator__error">{{ $store.state.connectionError }}</p>
+      <p v-if="$store.state.connectionError" class="calculator__error" role="alert" aria-live="assertive">{{ $store.state.connectionError }}</p>
       <btn class="calculator__btn" :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
       <ul class="calculator__links">
         <li>
@@ -183,6 +183,18 @@ export default Vue.extend({
     @media (min-width: $responsive-standard-tablet) {
       text-align: left;
       font-size: 1.75rem;
+    }
+  }
+
+  &__error {
+    font-size: var(--font-size-small);
+    color: var(--mpc-red);
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    text-align: center;
+
+    @media (min-width: $responsive-standard-tablet) {
+      text-align: left;
     }
   }
 
