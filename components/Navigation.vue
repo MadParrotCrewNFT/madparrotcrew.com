@@ -96,7 +96,7 @@ export default Vue.extend({
     handleScroll (): void {
       const mediaQueryScreenSize = getComputedStyle(document.documentElement).getPropertyValue('--responsive-standard-tablet')
       if (window.matchMedia(`(min-width: ${mediaQueryScreenSize})`)) { // desktop
-        if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
+        if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
           this.setSolidNav = true
         } else {
           this.setSolidNav = false
@@ -294,6 +294,7 @@ export default Vue.extend({
 
       .navbar__social-list {
         display: flex;
+        gap: 0.75rem;
         list-style-type: none;
         padding-left: 0;
         margin: 2rem auto 2.5rem auto;
@@ -305,12 +306,11 @@ export default Vue.extend({
           display: flex;
           align-items: center;
           height: 100%;
-          padding-inline: 0.125rem;
         }
 
         svg {
-          height: 2rem;
-          width: 2rem;
+          height: 1.5rem;
+          width: 1.5rem;
         }
       }
     }
@@ -370,6 +370,7 @@ export default Vue.extend({
 
       &-list {
         display: flex;
+        gap: 0.75rem;
         list-style-type: none;
         padding-left: 0;
         margin: 0;
@@ -380,12 +381,16 @@ export default Vue.extend({
           display: flex;
           align-items: center;
           height: 100%;
-          padding-inline: 0.125rem;
+
+          &:hover,
+          &:active {
+            color: var(--mpc-gold);
+          }
         }
 
         svg {
-          height: 2rem;
-          width: 2rem;
+          height: 1.5rem;
+          width: 1.5rem;
         }
       }
     }
