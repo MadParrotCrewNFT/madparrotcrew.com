@@ -48,7 +48,6 @@ export default Vue.extend({
   &__paragraph {
     margin: 0;
     font-size: var(--font-size-body);
-    letter-spacing: -0.01em;
     text-align: center;
     font-weight: 500;
 
