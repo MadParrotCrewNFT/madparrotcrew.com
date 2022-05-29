@@ -59,15 +59,14 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .btn {
-  --btn-color: var(--mpc-dark-blue);
+  --btn-color: var(--mpc-pink);
   cursor: pointer;
   background-color: var(--btn-color);
   border: 1px solid var(--btn-color);
-  border-radius: var(--border-radius-standard);
+  border-radius: 0.5rem;
   color: #fff;
   font-size: var(--font-size-large);
-  font-weight: 800;
-  font-family: var(--font-family-montserrat);
+  font-family: var(--font-family-luckiestguy);
   display: inline-flex;
   gap: 1rem;
   align-items: center;

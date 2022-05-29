@@ -1,10 +1,13 @@
 <template>
   <div>
     <header class="header">
-      <PreMintCalculator v-if="!config.MINTING_LIVE" class="header__calculator" />
-      <div class="header__parrot">
-        <img class="header__parrot--body" src="~assets/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" />
-        <img class="header__parrot--feet" src="~assets/images/hero-parrot-feet.png" alt="" />
+      <div class="header__inner">
+        <PreMintCalculator v-if="!config.MINTING_LIVE" class="header__calculator" />
+        <DuringMintCalculator v-else-if="config.MINTING_LIVE" class="header__calculator" />
+        <div class="header__parrot">
+          <img class="header__parrot--body" src="~assets/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" />
+          <img class="header__parrot--feet" src="~assets/images/hero-parrot-feet.png" alt="" />
+        </div>
       </div>
     </header>
     <section id="about" class="about">
@@ -269,6 +272,7 @@ import { Calculator, Card, Accordion, AccordionItem, Btn, Logo } from '@/compone
 import siteconfig from '@/siteconfig.json'
 import config from '@/config.json'
 import PreMintCalculator from '@/components/PreMintCalculator.vue'
+import DuringMintCalculator from '@/components/DuringMintCalculator.vue'
 
 interface IParrotDistribution {
   image: {
@@ -293,7 +297,7 @@ interface ITeamMember {
 }
 
 export default Vue.extend({
-  components: { Calculator, Card, Accordion, AccordionItem, Btn, Logo, PreMintCalculator },
+  components: { Calculator, Card, Accordion, AccordionItem, Btn, Logo, PreMintCalculator, DuringMintCalculator },
   data () {
     return {
       ethers,
@@ -392,9 +396,18 @@ export default Vue.extend({
   @media (min-width: $responsive-large-tablet) {
     min-height: 36rem;
     height: 90vh;
-    max-height: 36rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    max-height: 40rem;
+  }
+
+  &__inner {
+    max-width: 60rem;
+    margin-inline: auto;
+    height: 100%;
+
+    @media (min-width: $responsive-large-tablet) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &__calculator {
@@ -410,6 +423,8 @@ export default Vue.extend({
   }
 
   &__parrot {
+    pointer-events: none;
+
     @media (min-width: $responsive-large-tablet) {
       position: relative;
     }
@@ -423,7 +438,7 @@ export default Vue.extend({
       width: 184px;
 
       @media (min-width: $responsive-large-tablet) {
-        left: 35%;
+        left: 50%;
         bottom: -6.5rem;
         height: 636px;
         width: 388px;
@@ -440,7 +455,7 @@ export default Vue.extend({
       width: 47px;
 
       @media (min-width: $responsive-large-tablet) {
-        left: calc(35% - 3px);
+        left: calc(50% - 3px);
         bottom: -66px;
         height: 143px;
         width: 98px;
@@ -456,7 +471,6 @@ export default Vue.extend({
   text-align: center;
 
   @media (min-width: $responsive-large-tablet) {
-    position: unset;
     background: #fff;
     color: currentColor;
     text-align: left;

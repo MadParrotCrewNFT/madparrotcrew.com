@@ -10,12 +10,11 @@
 
 <script>
 import Vue from 'vue'
-import Btn from './Btn.vue'
 import Card from './Card.vue'
 
 export default Vue.extend({
   name: 'PreMintCalculator',
-  components: { Btn, Card }
+  components: { Card }
 })
 </script>
 
