@@ -21,7 +21,7 @@
           <a class="link" :href="config.SCAN_LINK" target="_blank">Verified Smart Contract</a>
         </li>
         <li>
-          <button class="link">Terms & Conditions</button>
+          <button class="link" @click="$store.commit('setShowTandCsModal', true)">Terms & Conditions</button>
         </li>
       </ul>
     </card>
@@ -30,7 +30,7 @@
         <a class="link" :href="config.SCAN_LINK" target="_blank">Verified Smart Contract</a>
       </li>
       <li>
-        <button class="link">Terms & Conditions</button>
+        <button class="link" @click="$store.commit('setShowTandCsModal', true)">Terms & Conditions</button>
       </li>
     </ul>
   </section>
@@ -101,7 +101,6 @@ export default Vue.extend({
 
 .timer {
   color: #fff;
-  letter-spacing: -0.01em;
   text-align: center;
   margin-top: 0;
   margin-bottom: 3rem;

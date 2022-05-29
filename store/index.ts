@@ -27,6 +27,7 @@ interface IUserContractState {
 }
 export interface IState {
   socialLinks: ISocialLink[];
+  showTandCsModal: boolean;
   contractAddress: string;
   account: null | string;
   isConnectingToWallet: boolean;
@@ -65,6 +66,7 @@ export const state = () => ({
       icon: 'etherscan'
     }
   ],
+  showTandCsModal: false,
   contractAddress: config.CONTRACT_ADDRESS,
   account: null,
   isConnectingToWallet: false,
@@ -76,6 +78,9 @@ export const state = () => ({
 } as IState)
 
 export const mutations = {
+  setShowTandCsModal(state: IState, value: boolean): void {
+    state.showTandCsModal = value
+  },
   setAccount(state: IState, account: null | string): void {
     state.account = account
   },

@@ -5,6 +5,7 @@ $mpc-purple: #482c74;
 $mpc-burgandy: #612649;
 $mpc-dark-burgandy: #491D38;
 $mpc-red: #de1831;
+$mpc-dark-blue: #253f4c;
 
 :root {
   --mpc-text: #{$mpc-text};
@@ -14,4 +15,5 @@ $mpc-red: #de1831;
   --mpc-burgandy: #{$mpc-burgandy};
   --mpc-dark-burgandy: #{$mpc-dark-burgandy};
   --mpc-red: #{$mpc-red};
+  --mpc-dark-blue: #{$mpc-dark-blue};
 }
