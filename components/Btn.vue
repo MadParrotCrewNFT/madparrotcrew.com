@@ -75,6 +75,15 @@ export default Vue.extend({
   padding: 1.125rem 1.5rem;
   user-select: none;
   text-decoration: none;
+  transition: background-color ease 160ms;
+  will-change: background-color;
+
+  &:not(:disabled) {
+    &:hover,
+    &:active {
+      --btn-color: #a53a87;
+    }
+  }
 
   @media (min-width: $responsive-large-mobile) {
     height: 4rem;
