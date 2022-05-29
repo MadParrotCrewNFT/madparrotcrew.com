@@ -5,7 +5,7 @@
       <h2>Sold out</h2>
       <p v-if="$store.state.contractState && $store.state.successfulMint" class="calculator__success">Successfully minted {{ $store.state.successfulMint }} {{ $store.state.successfulMint === 1 ? 'parrot' : 'parrots' }}! Check your wallet shortly</p>
       <p v-if="$store.state.contractState">
-        <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
+        <strong>{{ $store.state.contractState.numberMinted }}</strong> / {{ $store.state.contractState.maxSupply }}
       </p>
       <p>
         All Mad Parrots have been claimed, but you can still get one on the secondary marketplace.
@@ -31,13 +31,13 @@
             <spinner v-if="!hasGottenSmartContract()" style="height: 2rem; width: 2rem;" />
             <template v-else-if="isPresaleActiveAndNotPresaleUser()">
               <p>
-                <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
+                <strong>{{ $store.state.contractState.numberMinted }}</strong> / {{ $store.state.contractState.maxSupply }}
               </p>
               <p class="calculator__error">You are not on the presale list, please come back later during public mint</p>
             </template>
             <template v-else-if="isPublicMintActive() || isPresaleActiveAndPresaleUser()">
               <p>
-                <strong>{{ commaNumber($store.state.contractState.numberMinted) }}</strong> / {{ commaNumber($store.state.contractState.maxSupply) }}
+                <strong>{{ $store.state.contractState.numberMinted }}</strong> / {{ $store.state.contractState.maxSupply }}
               </p>
               <p v-if="$store.state.userContractState && $store.state.userContractState.alreadyMinted > 0" class="small">
                 You have already minted {{ $store.state.userContractState.alreadyMinted }} {{ $store.state.userContractState.alreadyMinted === 1 ? 'parrot' : 'parrots' }} <template v-if="$store.state.userContractState.maxAllowedToMint === 0">- the maximum</template>
@@ -55,7 +55,7 @@
                 </btn>
               </div>
               <p role="text" id="how-many-parrots">
-                Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <img class="calculator__ethereum" aria-hidden="true" src="~assets/images/ethereum-logo.svg" alt="Ethereum logo"> <strong>{{ calculateEthereum }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
+                Mint <strong>{{ parrotNumber }}</strong> parrot{{ parrotNumber !== 1 ? 's' : '' }} for <strong>{{ calculateEthereum }}</strong> <span class="sr-only">ethereum</span> (+ gas fee)
               </p>
               <btn class="calculator__cta" @click="mintParrots()" :is-loading="isClaimingNFT" :disabled="!isCorrectNetwork || $store.state.userContractState.maxAllowedToMint === 0 || $store.state.successfulMint" icon="wallet" aria-describedby="how-many-parrots">
                 Mint parrot{{ parrotNumber !== 1 ? 's' : '' }}
@@ -72,7 +72,6 @@
 import Vue from 'vue'
 import { ethers } from 'ethers';
 // @ts-ignore
-import commaNumber from 'comma-number'
 import { Btn } from '@/components'
 import Spinner from '@/components/Spinner.vue'
 import { IState } from '@/store'
@@ -84,7 +83,6 @@ export default Vue.extend({
   data () {
     return {
       config,
-      commaNumber,
       parrotNumber: 1,
       isWalletInstalled: false,
       isCorrectNetwork: true
