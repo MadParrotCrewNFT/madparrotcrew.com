@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="header">
+    <header id="mint" class="header">
       <div class="header__inner">
         <PreMintCalculator v-if="!config.MINTING_LIVE" class="header__calculator" />
         <DuringMintCalculator v-else-if="config.MINTING_LIVE" class="header__calculator" />
