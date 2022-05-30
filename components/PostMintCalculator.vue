@@ -1,21 +1,14 @@
 <template>
   <section>
-    <h2 class="orange-gradient-text title">69 hours left...</h2>
-    <p class="timer"># days<span>,</span> # hours<span>,</span> # minutes<span>,</span> # seconds</p>
+    <h2 class="orange-gradient-text title">Times's up, mint is over!</h2>
     <card class="calculator">
-      <div class="calculator__video">
-        <video width="176" height="176" autoplay loop muted preload="auto" poster="/_nuxt/assets/images/pre-reveal-poster.png">
-          <source src="~/assets/images/pre-reveal.mp4" type="video/mp4">
-        </video>
-        <div class="calculator__price">
-          <img src="~assets/images/069-price.gif" alt="" height="48" width="48" />
-          <span class="sr-only">0.069 ethereum</span>
-        </div>
+      <div class="calculator__img">
+        <img src="~/assets/images/mint-ended-poster.png" alt="" height="176" width="176" />
+        <img src="~/assets/images/mint-ended-x.png" alt="" height="176" width="176" />
       </div>
-      <p class="calculator__remaining"><span>6969</span>/6969 remaining</p>
-      <h3 class="calculator__title">Mint your parrot</h3>
-      <p v-if="$store.state.connectionError" class="calculator__error" role="alert" aria-live="assertive">{{ $store.state.connectionError }}</p>
-      <btn class="calculator__btn" :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
+      <p class="calculator__minted"><span>3484</span> were minted in total</p>
+      <h3 class="calculator__title">You can still join us!</h3>
+      <btn class="calculator__btn" :to="config.OPENSEA_LINK" icon="opensea">Visit marketplace</btn>
       <ul class="calculator__links">
         <li>
           <a class="link" :href="config.SCAN_LINK" target="_blank">Verified Smart Contract</a>
@@ -43,7 +36,7 @@ import Card from './Card.vue'
 import config from '@/config.json'
 
 export default Vue.extend({
-  name: 'DuringMintCalculator',
+  name: 'PostMintCalculator',
   components: { Btn, Card },
   data () {
     return {
@@ -99,23 +92,6 @@ export default Vue.extend({
   }
 }
 
-.timer {
-  color: #fff;
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 3rem;
-  font-weight: 700;
-
-  span {
-    color: rgba(255,255,255,0.6)
-  }
-
-  @media (min-width: $responsive-standard-tablet) {
-    text-align: left;
-    margin-bottom: 0.5rem;
-  }
-}
-
 .calculator {
   position: relative;
   
@@ -124,44 +100,35 @@ export default Vue.extend({
     padding-left: 12rem;
   }
 
-  &__video {
-    height: 6.5rem;
-    width: 6.5rem;
-    border: 4px solid #fff;
-    position: absolute;
-    top: -2rem;
-    left: 50%;
-    transform: translateX(-50%);
+  &__img {
+    display: none;
 
     @media (min-width: $responsive-standard-tablet) {
-      border-width: 8px;
+      display: block;
+      position: absolute;
+      border: 8px solid #fff;
       height: 12rem;
       width: 12rem;
-      top: unset;
-      transform: unset;
       left: -2rem;
       bottom: -2rem;
       filter: drop-shadow(8px 8px 0px rgba(0, 0, 0, 0.05));
     }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
 
-  &__price {
-    position: absolute;
-    height: 4rem;
-    width: 4rem;
-    bottom: -2rem;
-    right: -2rem;
-  }
-
-  &__remaining {
-    margin-top: 5.5rem;
+  &__minted {
+    margin-top: 0;
     margin-bottom: 0;
     font-family: var(--font-family-luckiestguy);
     text-align: center;
     color: #767676;
 
     @media (min-width: $responsive-standard-tablet) {
-      margin-top: 0;
       font-size: var(--font-size-large);
       text-align: left;
     }
@@ -185,18 +152,6 @@ export default Vue.extend({
     }
   }
 
-  &__error {
-    font-size: var(--font-size-small);
-    color: var(--mpc-red);
-    margin-top: 0;
-    margin-bottom: 0.25rem;
-    text-align: center;
-
-    @media (min-width: $responsive-standard-tablet) {
-      text-align: left;
-    }
-  }
-
   &__btn {
     align-self: center;
 
@@ -217,7 +172,7 @@ export default Vue.extend({
     margin-top: 1.5rem;
     margin-bottom: 0;
 
-    @media (min-width: 373px) {
+    @media (min-width: 375px) {
       flex-direction: row;
 
       li {

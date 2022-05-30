@@ -4,6 +4,7 @@
       <div class="header__inner">
         <PreMintCalculator v-if="!config.MINTING_LIVE" class="header__calculator" />
         <DuringMintCalculator v-else-if="config.MINTING_LIVE" class="header__calculator" />
+        <PostMintCalculator v-else-if="hasSoldOutOrTimeUp()" class="header__calculator" />
         <div class="header__parrot">
           <img class="header__parrot--body" src="~assets/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" />
           <img class="header__parrot--feet" src="~assets/images/hero-parrot-feet.png" alt="" />
@@ -273,6 +274,7 @@ import siteconfig from '@/siteconfig.json'
 import config from '@/config.json'
 import PreMintCalculator from '@/components/PreMintCalculator.vue'
 import DuringMintCalculator from '@/components/DuringMintCalculator.vue'
+import PostMintCalculator from '@/components/PostMintCalculator.vue'
 
 interface IParrotDistribution {
   image: {
@@ -297,7 +299,7 @@ interface ITeamMember {
 }
 
 export default Vue.extend({
-  components: { Calculator, Card, Accordion, AccordionItem, Btn, Logo, PreMintCalculator, DuringMintCalculator },
+  components: { Calculator, Card, Accordion, AccordionItem, Btn, Logo, PreMintCalculator, DuringMintCalculator, PostMintCalculator },
   data () {
     return {
       ethers,
@@ -372,6 +374,9 @@ export default Vue.extend({
     window.removeEventListener('resize', this.canShowDesktopBonusSection)
   },
   methods: {
+    hasSoldOutOrTimeUp (): boolean {
+      return false
+    },
     canShowDesktopBonusSection(): void {
       const showDesktopWidth = window.getComputedStyle(document.documentElement).getPropertyValue('--responsive-standard-tablet')
       this.showDesktopBonusSection = window.matchMedia(`(min-width: ${showDesktopWidth})`).matches
