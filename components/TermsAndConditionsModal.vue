@@ -23,7 +23,20 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'TermsAndConditionsModal'
+  name: 'TermsAndConditionsModal',
+  methods: {
+    escapeKeyHandler: function (event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        this.$store.commit('setShowTandCsModal', false)
+      }
+    }
+  },
+  mounted() {
+    document.addEventListener('keyup', this.escapeKeyHandler);
+  },
+  destroyed() {
+    document.removeEventListener('keyup', this.escapeKeyHandler);
+  }
 })
 </script>
 
