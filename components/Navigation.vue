@@ -13,13 +13,6 @@
         <span>{{ isMobileNavOpen ? 'Close' : 'Menu' }}</span>
       </button>
       <nav class="navbar__nav" :class="{ 'navbar__nav--open': isMobileNavOpen }">
-        <ul class="navbar__nav-list">
-          <li v-for="navItem in navItems" :key="navItem.url">
-            <a :href="($route.path !== '/' ? '/' : '') + navItem.url" :class="{ 'active': isTheChosenOne(navItem.url) }" @click="isMobileNavOpen = false">
-              {{ navItem.text }}
-            </a>
-          </li>
-        </ul>
         <ul class="navbar__social-list">
           <li v-for="socialLink in socialLinks" :key="socialLink.url">
             <a :href="socialLink.url" target="_blank" :title="socialLink.text">
@@ -65,22 +58,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    navItems (): INavItem[] {
-      return [
-        {
-          text: 'About',
-          url: '#about'
-        },
-        {
-          text: 'Team',
-          url: '#team'
-        },
-        {
-          text: 'FAQs',
-          url: '#faqs'
-        }
-      ]
-    },
     socialLinks (): ISocialLink[] {
       return this.$store.state.socialLinks
     }
@@ -109,9 +86,6 @@ export default Vue.extend({
           this.setSolidNav = false
         }
       }
-    },
-    isTheChosenOne (toUrl: string): boolean {
-      return this.$route.hash === toUrl
     }
   }
 })
@@ -260,38 +234,6 @@ export default Vue.extend({
         top: 100%;
       }
 
-      .navbar__nav-list {
-        list-style-type: none;
-        padding-left: 0;
-        margin-block: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-
-        a {
-          color: #fff;
-          font-size: var(--font-size-body);
-          font-family: var(--font-family-luckiestguy);
-          text-decoration: none;
-          display: block;
-          text-align: center;
-          padding-block: 1.25rem;
-          position: relative;
-
-          &::after {
-            content: '';
-            display: block;
-            height: 4px;
-            width: calc(100% - 2rem);
-            background-color: rgba(0,0,0,0.15);
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-          }
-        }
-      }
-
       .navbar__social-list {
         display: flex;
         gap: 0.75rem;
@@ -324,39 +266,6 @@ export default Vue.extend({
 
       .navbar__social-list {
         display: none;
-      }
-
-      &-list {
-        display: flex;
-        list-style-type: none;
-        margin: 0;
-        padding-left: 0;
-        height: 100%;
-
-        li, a {
-          display: flex;
-          align-items: center;
-          height: 100%;
-        }
-
-        a {
-          font-family: var(--font-family-luckiestguy);
-          font-size: var(--font-size-body);
-          color: #fff;
-          text-decoration: none;
-          padding: 0.5rem 1rem;
-          transition-property: color;
-          will-change: color;
-          transition: 160ms ease;
-          white-space: nowrap;
-          user-select: none;
-
-          &:hover,
-          &:focus,
-          &.active {
-            color: var(--mpc-gold);
-          }
-        }
       }
     }
   }
