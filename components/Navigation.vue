@@ -123,7 +123,7 @@ export default Vue.extend({
     height: 100%;
     position: relative;
     margin-inline: auto;
-    padding-inline: 1rem;
+    padding-inline: 2rem;
   }
 
   &__logo {
