@@ -342,10 +342,6 @@ export default Vue.extend({
             {
               platform: 'Twitter',
               url: config.SHEFTALI.TWITTER
-            },
-            {
-              platform: 'Instagram',
-              url: config.SHEFTALI.INSTAGRAM
             }
           ]
         },

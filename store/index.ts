@@ -51,11 +51,6 @@ export const state = () => ({
       icon: 'discord'
     },
     {
-      text: 'Instagram',
-      url: config.SOCIAL.INSTAGRAM,
-      icon: 'instagram'
-    },
-    {
       text: 'OpenSea',
       url: config.OPENSEA_LINK,
       icon: 'opensea'
