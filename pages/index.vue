@@ -15,35 +15,31 @@
       <div class="about__inner">
         <div>
           <div class="about__parrots--desktop">
-            <img src="~assets/images/about-parrot-back.png" alt="An orange parrot smoking a cigar" loading="lazy" />
-            <img src="~assets/images/about-parrot-front.png" alt="A green parrot wearing a tuxedo drinking red wine" loading="lazy" />
-            <img src="~assets/images/about-parrot-feet.png" alt="" loading="lazy" />
+            <img src="~assets/images/about-parrots.png" alt="A pair of Mad Parrots" height="920" width="698" loading="lazy" />
+            <img src="~assets/images/about-parrot-feet.png" alt="" height="173" width="118" loading="lazy" />
           </div>
         </div>
         <div class="about__text">
-          <h2>
-            First rule of <span :aria-label="siteconfig.brand_name">MPC</span> is...
+          <h2 class="about__title">
+            <span class="mobile">About the Mad Parrots<span class="sr-only">.</span></span>
+            <span class="desktop">69 hours to mint!</span>
           </h2>
-          <p aria-describedby="fight-club">
-            ...not to steal quotes from Fight Club<span aria-hidden="true">*</span>.
+          <p aria-describedby="plan-explained">
+            This project was originally intended to be something bigger, but it didn’t work out... so now it’s just about the art<span aria-hidden="true">*</span>.
           </p>
-          <p aria-describedby="to-be-clear">
-            The {{ siteconfig.brand_name }} are a bunch of randomly generated parrots who like to wear goofy shit, drink lots, fight more and can often be spotted holding anything (and everything) from a glass of wine to a deadly Katana<span aria-hidden="true">**</span>.
+          <p>
+            There are a <strong>limited number of parrots</strong> available. You have <strong>69 hours to mint</strong> after which the remaining parrots will be burned.
           </p>
-          <p v-if="config.MINTING_LIVE">
-            You can check out the <a :href="config.SCAN_LINK" target="_blank" rel="norefferer noopener" class="link">verified smart contract</a> on etherscan.
+          <p>
+            You get IP rights to the parrots you mint.
           </p>
-          <p id="fight-club" class="small" style="margin-top: 3rem">
-            <span aria-hidden="true">*</span> It's a great film, check it out.
-          </p>
-          <p id="to-be-clear" class="small">
-            <span aria-hidden="true">**</span> Just so we're clear: We don't condone violence of any kind, nor do we endorse the idea that parrots are deadly psychopaths. However, we do find the idea of a parrot holding nunchucks, smoking a joint or sporting an afro absolutely fucking hilarious and hopefully so do you do... otherwise, you're NGMI.
+          <p id="plan-explained" class="about__smallprint">
+            <span aria-hidden="true">*</span>This is not to say I don’t have plans for this project in the near future, but at this time I want to make it super-clear that it’s all about the art.
           </p>
         </div>
         <div class="about__parrots--mobile">
-          <img src="~assets/images/about-parrot-back.png" alt="An orange parrot smoking a cigar" loading="lazy" />
-          <img src="~assets/images/about-parrot-front.png" alt="A green parrot wearing a tuxedo drinking red wine" loading="lazy" />
-          <img src="~assets/images/about-parrot-feet.png" alt="" loading="lazy" />
+          <img src="~assets/images/about-parrots.png" alt="A pair of Mad Parrots" height="338" width="256" loading="lazy" />
+          <img src="~assets/images/about-parrot-feet.png" alt="" height="63" width="43" loading="lazy" />
         </div>
       </div>
     </section>
@@ -158,25 +154,13 @@ export default Vue.extend({
 
 .about {
   position: relative;
-  background-color: var(--mpc-purple);
-  color: #fff;
-  text-align: center;
-
-  @media (min-width: $responsive-large-tablet) {
-    background: #fff;
-    color: currentColor;
-    text-align: left;
-  }
+  background: linear-gradient(180deg, #ffd15b 0%, #ffcac5 100%);
 
   &__inner {
     max-width: 85rem;
     margin-inline: auto;
     display: grid;
     grid-template-columns: 1fr;
-
-    @media (min-width: $responsive-large-tablet) {
-      grid-template-columns: 2fr 1fr;
-    }
 
     @media (min-width: $responsive-small-desktop) {
       grid-template-columns: repeat(2, 1fr);
@@ -191,18 +175,10 @@ export default Vue.extend({
     position: relative;
     max-width: 30rem;
     margin-inline: auto;
-    margin-top: 6rem;
-    margin-bottom: 12rem;
+    margin-top: 3rem;
+    margin-bottom: 15rem;
     padding-inline: 1rem;
-
-    @media (min-width: $responsive-standard-tablet) {
-      margin-top: 2rem;
-    }
-
-    @media (min-width: $responsive-large-tablet) {
-      margin-top: 2rem;
-      margin-bottom: 2.5rem;
-    }
+    font-size: var(--font-size-large);
 
     @media (min-width: $responsive-small-desktop) {
       max-width: 35.5rem;
@@ -212,56 +188,90 @@ export default Vue.extend({
 
     a {
       font-weight: 700;
+    }
 
-      @media (max-width: $responsive-large-tablet + 0.0625em) {
-        color: #fff;
+    p {
+      margin-block: 1rem;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
       }
     }
   }
 
-  h2 {
-    font-size: var(--font-size-title);
+  &__title {
+    font-size: var(--font-size-subtitle);
     margin-top: 0;
     margin-bottom: 0.5rem;
-    color: #fff;
 
-    @media (min-width: $responsive-large-tablet) {
+    @media (min-width: $responsive-small-desktop) {
       margin-bottom: 2.75rem;
-      color: currentColor;
+    }
+
+    .mobile {
+      @media (min-width: $responsive-small-desktop) {
+        display: none;
+      }
+    }
+
+    .desktop {
+      display: none;
+
+      @media (min-width: $responsive-small-desktop) {
+        display: block;
+      }
+    }
+  }
+
+  &__smallprint {
+    font-size: var(--font-size-small);
+
+    @media (min-width: $responsive-small-desktop) {
+      font-size: var(--font-size-body);
     }
   }
 
   &__parrots {
     &--mobile {
-      background-image: url(~assets/images/about-oval.svg);
-      background-position: bottom;
-      background-repeat: no-repeat;
-      background-size: contain;
+      position: relative;
 
-      @media (min-width: $responsive-large-tablet) {
+      @media (min-width: $responsive-small-desktop) {
         display: none;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: -11rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background-image: url(~assets/images/about-oval.svg);
+        background-position: bottom;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 14.25rem;
+        width: 14.25rem;
       }
 
       img {
         position: absolute;
-        left: 45%;
-        transform: translateX(-50%);
+        left: 50%;
 
-        &[src*="back"] {
-          width: 8.75rem;
-          transform: rotate(2deg);
-          bottom: -2rem;
-        }
-
-        &[src*="front"] {
-          width: 8rem;
-          bottom: -4.5rem;
+        &[src*="parrots"] {
+          width: 16rem;
+          bottom: -7rem;
+          transform: translateX(-50%);
         }
 
         &[src*="feet"] {
-          width: 2rem;
-          bottom: -1rem;
+          width: 2.6875rem;
+          bottom: -1.5rem;
           z-index: 1;
+          transform: translateX(calc(-50% - 2.5rem));
         }
       }
     }
@@ -269,36 +279,40 @@ export default Vue.extend({
     &--desktop {
       display: none;
 
-      @media (min-width: $responsive-large-tablet) {
+      @media (min-width: $responsive-small-desktop) {
         display: block;
         position: relative;
-        bottom: 6%;
-        height: 106%;
-        background-image: url(~assets/images/about-oval.svg);
-        background-position: bottom;
-        background-repeat: no-repeat;
-        background-size: contain;
+        height: 100%;
+
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: -3rem;
+          left: 50%;
+          transform: translateX(-50%);
+          background-image: url(~assets/images/about-oval.svg);
+          background-position: bottom;
+          background-repeat: no-repeat;
+          background-size: contain;
+          height: 33.5rem;
+          width: 33.5rem;
+        }
 
         img {
           position: absolute;
-          left: 40%;
-          transform: translateX(-50%);
+          left: 50%;
 
-          &[src*="back"] {
-            width: 20rem;
-            transform: rotate(2deg);
-            bottom: -4rem;
-          }
-
-          &[src*="front"] {
-            width: 21.875rem;
-            bottom: -13rem;
+          &[src*="parrots"] {
+            width: 43.625rem;
+            bottom: -18rem;
+            transform: translateX(-50%);
           }
 
           &[src*="feet"] {
-            width: 5.375rem;
-            bottom: -3rem;
+            width: 7.375rem;
+            bottom: -4rem;
             z-index: 1;
+            transform: translateX(calc(-50% - 7rem));
           }
         }
       }

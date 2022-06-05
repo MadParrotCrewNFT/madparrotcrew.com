@@ -32,6 +32,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .footer {
+  position: relative;
   padding: 3rem;
   background-color: var(--mpc-light-grey);
 
