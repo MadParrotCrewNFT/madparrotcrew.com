@@ -43,6 +43,45 @@
         </div>
       </div>
     </section>
+    <section id="team" class="team">
+      <h2 class="team__title">The team... Behind the crew</h2>
+      <ul class="team__members">
+        <li v-for="member in team" :key="member.name" class="member">
+          <div class="member--mobile">
+            <img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="96" width="96" loading="lazy" />
+            <p class="member__role">{{ member.role }}</p>
+            <p class="member__name">{{ member.name }}</p>
+            <p class="member__description">{{ member.description }}</p>
+            <ul class="member__social">
+              <li v-for="social in member.social" :key="social.platform">
+                <a :href="social.url" target="_blank">
+                  <svg-icon :name="social.platform" />
+                  <span class="sr-only">{{ social.platform }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="member--desktop">
+            <div class="member__img-social">
+              <img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="96" width="96" loading="lazy" />
+              <ul class="member__social">
+                <li v-for="social in member.social" :key="social.platform">
+                  <a :href="social.url" target="_blank">
+                    <svg-icon :name="social.platform" />
+                    <span class="sr-only">{{ social.platform }}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="member__text">
+              <p class="member__role">{{ member.role }}</p>
+              <p class="member__name">{{ member.name }}</p>
+              <p class="member__description">{{ member.description }}</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -52,12 +91,83 @@ import { Btn, Logo, PreMintCalculator, DuringMintCalculator, PostMintCalculator 
 import siteconfig from '@/siteconfig.json'
 import config from '@/config.json'
 
+interface ITeamMember {
+  image: string;
+  role: string;
+  name: string;
+  description: string;
+  social: {
+    platform: 'twitter',
+    url: `https://${string}`
+  }[]
+}
+
 export default Vue.extend({
   components: { Btn, Logo, PreMintCalculator, DuringMintCalculator, PostMintCalculator },
   data () {
     return {
       siteconfig,
       config
+    }
+  },
+  computed: {
+    team (): ITeamMember[] {
+      return [
+        {
+          name: 'Sheftali',
+          image: 'sheftali.png',
+          role: 'Founder, artist, UX/UI',
+          description: 'Came up with the parrots and more or less kickstarted the whole project.',
+          social: [
+            { platform: 'twitter', url: 'https://twitter.com/iamsheftali' }
+          ]
+        },
+        {
+          name: 'Gerry',
+          image: 'gerry.png',
+          role: 'Adviser',
+          description: 'Long-time fren in the space who’s always shooting straight and giving top advice.',
+          social: [
+            { platform: 'twitter', url: 'https://twitter.com' }
+          ]
+        },
+        {
+          name: 'Fancyrats',
+          image: 'fancyrats.png',
+          role: 'Web3 Developer',
+          description: 'Wrote the smart contract that y’all will be (hopefully) minting from.',
+          social: [
+            { platform: 'twitter', url: 'https://twitter.com' }
+          ]
+        },
+        {
+          name: 'Jack Domleo',
+          image: 'jackdomleo.png',
+          role: 'Web2 Developer',
+          description: 'Built the website as well as endured Shef’s constant tweak requests.',
+          social: [
+            { platform: 'twitter', url: 'https://twitter.com/jackdomleo7' }
+          ]
+        },
+        {
+          name: 'Dejen',
+          image: 'dejen.png',
+          role: 'Community Manager',
+          description: 'Sounds like she’s always smiling and that’s why she’s the the best for this role.',
+          social: [
+            { platform: 'twitter', url: 'https://twitter.com' }
+          ]
+        },
+        {
+          name: 'Zanko',
+          image: 'zanko.png',
+          role: 'Discord Server Wizard',
+          description: 'Set up, configured and maintains the Discord server. Parrots love Zanko.',
+          social: [
+            { platform: 'twitter', url: 'https://twitter.com' }
+          ]
+        }
+      ]
     }
   },
   methods: {
@@ -69,6 +179,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+$responsive-team: 69.375rem;
+
 .header {
   position: relative;
   background: linear-gradient(180deg, #62264A 0%, rgba(98, 38, 74, 0) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(~assets/images/hero-bg.png);
@@ -316,6 +428,165 @@ export default Vue.extend({
           }
         }
       }
+    }
+  }
+}
+
+.team {
+  position: relative;
+  background-color: #fff;
+  padding: 3rem 1rem;
+
+  &__title {
+    font-size: var(--font-size-subtitle);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 3rem;
+  }
+
+  &__members {
+    list-style-type: none;
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+    gap: 3rem;
+    max-width: 69.375rem;
+    margin: 0 auto;
+
+    @media (min-width: $responsive-small-tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: $responsive-team) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .member {
+    position: relative;
+    max-width: 21.75rem;
+    background-color: var(--mpc-light-grey);
+    border-radius: 1rem;
+    padding: 6rem 1rem 2rem 1rem;
+    text-align: center;
+
+    @media (min-width: $responsive-team) {
+      padding: 2rem 1.5rem;
+      text-align: left;
+    }
+
+    &--mobile {
+      display: flex;
+      flex-direction: column;
+
+      @media (min-width: $responsive-team) {
+        display: none;
+      }
+    }
+
+    &--desktop {
+      display: none;
+
+      @media (min-width: $responsive-team) {
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+    }
+
+    &__img {
+      position: absolute;
+      top: -1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 6rem;
+      min-height: 6rem;
+      max-height: 6rem;
+      width: 6rem;
+      min-width: 6rem;
+      max-width: 6rem;
+      border-radius: 50%;
+      background-color: var(--mpc-medium-grey);
+      color: #fff;
+      font-size: var(--font-size-small);
+
+      @media (min-width: $responsive-team) {
+        position: unset;
+        transform: unset;
+      }
+    }
+
+    &__role {
+      font-size: var(--font-size-small);
+      font-weight: 500;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    &__name {
+      font-family: var(--font-family-luckiestguy);
+      letter-spacing: normal;
+      font-size: var(--font-size-body);
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    &__description {
+      font-size: var(--font-size-body);
+      font-weight: 500;
+      color: #000;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      flex: 1;
+
+      @media (min-width: $responsive-team) {
+        margin-bottom: 0;
+      }
+    }
+
+    &__social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+
+      @media (min-width: $responsive-team) {
+        margin-top: 1.5rem;
+      }
+
+      li, a {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        color: var(--mpc-medium-grey);
+        transition: color 160ms ease;
+        will-change: color;
+
+        &:hover,
+        &:active {
+          color: var(--mpc-dark-blue);
+        }
+      }
+
+      svg {
+        height: 2rem;
+        width: 2rem;
+      }
+    }
+
+    &__img-social {
+      height: 100%;
+      border-right: 1px solid #8E8E8E;
+      padding-right: 0.75rem;
+    }
+
+    &__text {
+      padding-left: 0.75rem;
     }
   }
 }
