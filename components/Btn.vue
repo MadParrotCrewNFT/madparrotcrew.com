@@ -1,5 +1,5 @@
 <template>
-  <a v-if="to" :href="to" class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }]">
+  <a v-if="to" :href="to" class="btn" :class="{ 'btn--white': white, 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }">
     <slot />
     <svg-icon v-if="icon" :name="icon" />
   </a>
@@ -18,12 +18,9 @@ export default Vue.extend({
   name: "Btn",
   components: { Spinner },
   props: {
-    color: {
-      type: String as PropType<"dark-blue" | "grey">,
-      default: "dark-blue",
-      validator: (value: string): boolean => {
-        return ["dark-blue", "grey"].includes(value);
-      }
+    white: {
+      type: Boolean,
+      default: false
     },
     square: {
       type: Boolean,
@@ -101,10 +98,18 @@ export default Vue.extend({
     }
   }
 
-  &--grey {
-    --btn-color: var(--mpc-dark-grey);
+  &--white {
+    --btn-color: #fff;
     background-color: var(--btn-color);
     border-color: var(--btn-color);
+    color: #000;
+
+    &:not(:disabled) {
+      &:hover,
+      &:active {
+        --btn-color: #f0f0f0;
+      }
+    }
   }
 
   &--inverted {

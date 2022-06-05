@@ -82,6 +82,17 @@
         </li>
       </ul>
     </section>
+    <section id="frens" class="frens">
+      <img class="frens__logo" src="~assets/images/mpc.png" alt="MPC" height="100" width="100" loading="lazy" />
+      <h2 class="frens__title">Let's be frens</h2>
+      <p class="frens__para">If there’s ever a NFT project that has a close-knit community, it’s us. We’re all about good vibes and we stick to a quality > quantity policy.</p>
+      <p class="frens__para">So If you fancy it, pop in and say hello! We’d love to hear from you.</p>
+      <btn class="frens__btn" icon="discord" white :to="config.SOCIAL.DISCORD">Join us in Discord</btn>
+      <div class="frens__parrots--mobile">
+        <img src="~assets/images/team-parrots.png" alt="A couple of Mad Parrots" height="229" width="261" loading="lazy" />
+        <img src="~assets/images/team-parrot-feet.png" alt="" height="49" width="34" loading="lazy" />
+      </div>
+    </section>
   </div>
 </template>
 
@@ -587,6 +598,98 @@ $responsive-team: 69.375rem;
 
     &__text {
       padding-left: 0.75rem;
+    }
+  }
+}
+
+.frens {
+  position: relative;
+  background-color: var(--mpc-blue);
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 6rem 1rem 0 1rem;
+  text-align: center;
+
+  &__logo {
+    position: absolute;
+    top: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__title {
+    color: #fee75c;
+    font-size: var(--font-size-heading);
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  &__para {
+    color: #fff;
+    font-size: var(--font-size-large);
+    margin: 0;
+
+    &:not(:last-of-type) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__btn {
+    justify-self: center;
+    margin-top: 2rem;
+    margin-bottom: 15rem;
+  }
+
+  &__parrots {
+    &--mobile {
+      @media (min-width: $responsive-small-desktop) {
+        display: none;
+      }
+
+      img {
+        position: absolute;
+        left: 50%;
+
+        &[src*="parrots"] {
+          width: 16.3125rem;
+          bottom: -2rem;
+          transform: translateX(-50%);
+        }
+
+        &[src*="feet"] {
+          width: 2.125rem;
+          bottom: -1.25rem;
+          z-index: 1;
+          transform: translateX(calc(-50% - 1rem));
+        }
+      }
+    }
+
+    &--desktop {
+      display: none;
+
+      @media (min-width: $responsive-small-desktop) {
+        display: block;
+        height: 100%;
+
+        img {
+          position: absolute;
+          left: 50%;
+
+          &[src*="parrots"] {
+            width: 43.625rem;
+            bottom: -18rem;
+            transform: translateX(-50%);
+          }
+
+          &[src*="feet"] {
+            width: 7.375rem;
+            bottom: -4rem;
+            z-index: 1;
+            transform: translateX(calc(-50% - 7rem));
+          }
+        }
+      }
     }
   }
 }
