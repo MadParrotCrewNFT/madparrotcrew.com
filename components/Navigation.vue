@@ -7,10 +7,14 @@
           <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
         </nuxt-link>
       </h1>
-      <button class="navbar__hamburger" :class="{ 'navbar__hamburger--open': isMobileNavOpen }" @click="isMobileNavOpen = !isMobileNavOpen">
-        <span></span>
-        <span></span>
-        <span>{{ isMobileNavOpen ? 'Close' : 'Menu' }}</span>
+      <button class="navbar__hamburger" :class="{'navbar__hamburger--open': isMobileNavOpen}" @click="isMobileNavOpen = !isMobileNavOpen">
+        <div class="navbar__hamburger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="sr-only">{{ isMobileNavOpen ? 'Close' : 'Menu' }}</span>
       </button>
       <nav class="navbar__nav" :class="{ 'navbar__nav--open': isMobileNavOpen }">
         <ul class="navbar__social-list">
@@ -144,75 +148,68 @@ export default Vue.extend({
   }
 
   &__hamburger {
-    position: relative;
-    background-color: transparent;
-    border: none;
-    border-radius: 0.25rem;
-    color: #fff;
-    width: 2rem;
-    height: 2rem;
-    padding: 0.375rem 0.25rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-    gap: 0.1875rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.375rem;
+    height: 1.9375rem;
+    border: none;
+    margin: 1rem 0;
+    background-color: transparent;
 
     @media (min-width: $responsive-standard-tablet) {
       display: none;
     }
 
-    span {
-      position: absolute;
-      transition: all 240ms ease;
+    &-icon {
+      width: 1.3rem;
+      height: 1.1rem;
+      position: relative;
+      z-index: 2;
+      transform: rotate(0deg);
+      cursor: pointer;
 
-      &:not(:nth-last-child(1)) {
-        background-color: #fff;
-        height: 0.1875rem;
-        width: 1.175rem;
-        border-radius: 2rem;
-        left: 0.45rem;
-        z-index: 1;
-      }
-
-      &:nth-last-child(1) {
-        color: #fff;
-        text-transform: uppercase;
-        font-size: 0.5rem;
-        font-weight: 700;
-        bottom: 0.25rem;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      &:nth-child(1) {
-        top: 0.325rem;
-      }
-
-      &:nth-child(2) {
-        top: 0.75rem;
-      }
-    }
-
-    &--open {
       span {
-        &:not(:nth-last-of-type(1)) {
-          background-color: #fff !important;
-          width: 1rem;
-          top: 0.5rem;
-        }
-
-        &:nth-last-of-type(1) {
-          color: #fff !important;
-        }
+        display: block;
+        position: absolute;
+        height: 0.125rem;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 0.5rem;
+        opacity: 1;
+        left: 0;
+        transform: rotate(0deg);
+        transition: 0.25s ease-in-out;
 
         &:nth-child(1) {
-          transform: rotate(45deg);
+          top: 0;
         }
 
-        &:nth-child(2) {
-          transform: rotate(-45deg);
+        &:nth-child(2),
+        &:nth-child(3) {
+          top: 45%;
+        }
+
+        &:nth-child(4) {
+          top: 90%;
+        }
+
+        .navbar__hamburger--open & {
+          &:nth-child(1),
+          &:nth-child(4) {
+            top: 45%;
+            width: 0;
+            left: 50%;
+          }
+
+          &:nth-child(2) {
+            transform: rotate(45deg);
+          }
+
+          &:nth-child(3) {
+            transform: rotate(-45deg);
+          }
         }
       }
     }
