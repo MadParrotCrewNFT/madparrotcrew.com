@@ -83,14 +83,24 @@
       </ul>
     </section>
     <section id="frens" class="frens">
-      <img class="frens__logo" src="~assets/images/mpc.png" alt="MPC" height="100" width="100" loading="lazy" />
-      <h2 class="frens__title">Let's be frens</h2>
-      <p class="frens__para">If there’s ever a NFT project that has a close-knit community, it’s us. We’re all about good vibes and we stick to a quality > quantity policy.</p>
-      <p class="frens__para">So If you fancy it, pop in and say hello! We’d love to hear from you.</p>
-      <btn class="frens__btn" icon="discord" white :to="config.SOCIAL.DISCORD">Join us in Discord</btn>
-      <div class="frens__parrots--mobile">
-        <img src="~assets/images/team-parrots.png" alt="A couple of Mad Parrots" height="229" width="261" loading="lazy" />
-        <img src="~assets/images/team-parrot-feet.png" alt="" height="49" width="34" loading="lazy" />
+      <div>
+        <div class="frens__card">
+          <img class="frens__logo" src="~assets/images/mpc.png" alt="MPC" height="100" width="100" loading="lazy" />
+          <h2 class="frens__title">Let's be frens</h2>
+          <p class="frens__para">If there’s ever a NFT project that has a close-knit community, it’s us. We’re all about good vibes and we stick to a quality > quantity policy.</p>
+          <p class="frens__para">So If you fancy it, pop in and say hello! We’d love to hear from you.</p>
+          <btn class="frens__btn" icon="discord" white :to="config.SOCIAL.DISCORD">Join us in Discord</btn>
+          <div class="frens__parrots--mobile">
+            <img src="~assets/images/team-parrots.png" alt="A couple of Mad Parrots" height="229" width="261" loading="lazy" />
+            <img src="~assets/images/team-parrot-feet.png" alt="" height="49" width="34" loading="lazy" />
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="frens__parrots--desktop">
+          <img src="~assets/images/team-parrots.png" alt="A couple of Mad Parrots" height="542" width="616" loading="lazy" />
+          <img src="~assets/images/team-parrot-feet.png" alt="" height="143" width="98" loading="lazy" />
+        </div>
       </div>
     </section>
   </div>
@@ -604,17 +614,53 @@ $responsive-team: 69.375rem;
 
 .frens {
   position: relative;
-  background-color: var(--mpc-blue);
-  display: grid;
-  grid-template-columns: 1fr;
-  padding: 6rem 1rem 0 1rem;
-  text-align: center;
+  max-width: 85.375rem;
+  margin-inline: auto;
+
+  @media (min-width: $responsive-small-desktop) {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    padding: 3rem 8rem 6rem 8rem;
+
+    > div {
+      &:nth-child(1) {
+        grid-column: span 4;
+        display: grid;
+        place-items: center;
+      }
+
+      &:nth-child(2) {
+        grid-column: span 5;
+        position: relative;
+      }
+    }
+  }
+
+  &__card {
+    position: relative;
+    background-color: var(--mpc-blue);
+    padding: 6rem 1rem 0 1rem;
+    text-align: center;
+
+    @media (min-width: $responsive-small-desktop) {
+      max-width: 27.75rem;
+      border-radius: 1rem;
+      padding: 2rem 4rem 2rem 1.5rem;
+      text-align: left;
+    }
+  }
 
   &__logo {
     position: absolute;
     top: -1.5rem;
     left: 50%;
     transform: translateX(-50%);
+
+    @media (min-width: $responsive-small-desktop) {
+      left: unset;
+      transform: unset;
+      right: 1.5rem;
+    }
   }
 
   &__title {
@@ -638,6 +684,10 @@ $responsive-team: 69.375rem;
     justify-self: center;
     margin-top: 2rem;
     margin-bottom: 15rem;
+
+    @media (min-width: $responsive-small-desktop) {
+      margin-bottom: 0;
+    }
   }
 
   &__parrots {
@@ -678,15 +728,15 @@ $responsive-team: 69.375rem;
 
           &[src*="parrots"] {
             width: 43.625rem;
-            bottom: -18rem;
+            bottom: -9rem;
             transform: translateX(-50%);
           }
 
           &[src*="feet"] {
-            width: 7.375rem;
-            bottom: -4rem;
+            width: 5rem;
+            bottom: -7.25rem;
             z-index: 1;
-            transform: translateX(calc(-50% - 7rem));
+            transform: translateX(calc(-50% - 2.35rem));
           }
         }
       }
