@@ -9,6 +9,7 @@ contract ContractTest is Test {
     address admin = 0x5Fea9DAcdE1fb43E87b8a9259Aebc937D995F51b;
     address dev = 0xbee683d39F969f13Ec44D7Da12aF108842CA7cb7;
     address minter = 0x46F21698726d22d270040Ea720B2d2E72e054888;
+    address teamWallet = 0x443B3af4A1920F492F2090973ae2d0Aa81b892aa;
 
     function setUp() public {
         uint256[] memory shares = new uint256[](2);
@@ -33,6 +34,7 @@ contract ContractTest is Test {
 
     function enableMint() public {
         vm.startPrank(dev);
+        mpc.premint(teamWallet);
         mpc.setIsSaleActive(true);
         mpc.setBaseURI("https://fancyrats.io/");
         vm.stopPrank();
@@ -60,7 +62,7 @@ contract ContractTest is Test {
         mpc.setMaxMintPerWallet(10000);
 
         vm.prank(dev);
-        mpc.mint{value: 0.069 * 6969 ether}(6969, dev);
+        mpc.mint{value: 0.069 * 6569 ether}(6569, dev);
 
         vm.prank(minter);
         vm.expectRevert("Exceeds max supply");
@@ -73,20 +75,20 @@ contract ContractTest is Test {
         mpc.setMaxMintPerWallet(10000);
 
         vm.prank(minter);
-        mpc.mint{value: 0.069 * 6969 ether}(6969, minter);
+        mpc.mint{value: 0.069 * 6569 ether}(6569, minter);
 
         mpc.release(payable(dev));
 
         assertEq(
             dev.balance,
-            1000 ether + (0.069 * 6969 ether) * 0.2,
+            1000 ether + (0.069 * 6569 ether) * 0.2,
             "Dev balance is wrong"
         );
 
         mpc.release(payable(admin));
         assertEq(
             admin.balance,
-            1000 ether + (0.069 * 6969 ether) * 0.8,
+            1000 ether + (0.069 * 6569 ether) * 0.8,
             "Admin balance is wrong"
         );
     }
@@ -132,5 +134,10 @@ contract ContractTest is Test {
             "https://fancyrats.io/0",
             "Base URI is not set"
         );
+    }
+
+    function testPremint() public {
+        enableMint();
+        assertEq(mpc.balanceOf(teamWallet), 400, "Preminted successfully");
     }
 }
