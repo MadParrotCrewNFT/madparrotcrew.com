@@ -4,3 +4,6 @@
 [submodule "contract/lib/ERC721A"]
 	path = contract/lib/ERC721A
 	url = https://github.com/chiru-labs/ERC721A
+[submodule "contract/lib/openzeppelin-contracts"]
+	path = contract/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
