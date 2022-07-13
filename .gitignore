@@ -1,5 +1,11 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
+# Contract Stuff
+contract/cache
+contract/lib
+contract/node_modules
+contract/broadcast
+
 # Logs
 /logs
 *.log
