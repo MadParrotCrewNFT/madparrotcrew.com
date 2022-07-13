@@ -11,6 +11,8 @@ contract ContractTest is Test {
     address minter = 0x46F21698726d22d270040Ea720B2d2E72e054888;
     address teamWallet = 0x443B3af4A1920F492F2090973ae2d0Aa81b892aa;
 
+    uint16 maxAfterPremint = 6969 - 30;
+
     function setUp() public {
         uint256[] memory shares = new uint256[](2);
         shares[0] = 20;
@@ -62,7 +64,7 @@ contract ContractTest is Test {
         mpc.setMaxMintPerWallet(10000);
 
         vm.prank(dev);
-        mpc.mint{value: 0.069 * 6569 ether}(6569, dev);
+        mpc.mint{value: 0.069 * 6939 ether}(6939, dev);
 
         vm.prank(minter);
         vm.expectRevert("Exceeds max supply");
@@ -75,20 +77,20 @@ contract ContractTest is Test {
         mpc.setMaxMintPerWallet(10000);
 
         vm.prank(minter);
-        mpc.mint{value: 0.069 * 6569 ether}(6569, minter);
+        mpc.mint{value: 0.069 * 6939 ether}(6939, minter);
 
         mpc.release(payable(dev));
 
         assertEq(
             dev.balance,
-            1000 ether + (0.069 * 6569 ether) * 0.2,
+            1000 ether + (0.069 * 6939 ether) * 0.2,
             "Dev balance is wrong"
         );
 
         mpc.release(payable(admin));
         assertEq(
             admin.balance,
-            1000 ether + (0.069 * 6569 ether) * 0.8,
+            1000 ether + (0.069 * 6939 ether) * 0.8,
             "Admin balance is wrong"
         );
     }
@@ -138,6 +140,6 @@ contract ContractTest is Test {
 
     function testPremint() public {
         enableMint();
-        assertEq(mpc.balanceOf(teamWallet), 400, "Preminted successfully");
+        assertEq(mpc.balanceOf(teamWallet), 30, "Preminted successfully");
     }
 }
