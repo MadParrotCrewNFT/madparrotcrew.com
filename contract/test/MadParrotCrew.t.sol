@@ -11,8 +11,6 @@ contract ContractTest is Test {
     address minter = 0x46F21698726d22d270040Ea720B2d2E72e054888;
     address teamWallet = 0x443B3af4A1920F492F2090973ae2d0Aa81b892aa;
 
-    uint16 maxAfterPremint = 6969 - 30;
-
     function setUp() public {
         uint256[] memory shares = new uint256[](2);
         shares[0] = 20;
