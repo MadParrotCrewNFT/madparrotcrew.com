@@ -23,7 +23,7 @@ contract MadParrotCrew is
     using Strings for string;
 
     uint256 public constant MAX_SUPPLY = 6969;
-    uint256 public constant RESERVE = 400;
+    uint256 public constant RESERVE = 30;
 
     uint256 public maxPerWallet = 2;
     uint256 public mintPrice = 0.069 ether;
