@@ -18,7 +18,7 @@
     "dev": "npm run typechain && nuxt --open",
     "start": "rimraf node_modules dist && npm ci && npm run generate && nuxt start --open",
     "generate": "concurrently \"rimraf dist\" \"npm run typechain\" && nuxt generate -m --fail-on-error",
-    "typechain": "npx typechain --target=ethers-v5 --out-dir contract/types contract/abi/MadParrotCrew.json"
+    "typechain": "npx typechain --target=ethers-v5 --out-dir contract/types contract/out/MadParrotCrew.sol/MadParrotCrew.json"
   },
   "dependencies": {
     "@nuxtjs/robots": "^2.5.0",
