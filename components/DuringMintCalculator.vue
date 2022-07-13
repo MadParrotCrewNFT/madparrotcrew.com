@@ -12,10 +12,24 @@
           <span class="sr-only">0.069 ethereum</span>
         </div>
       </div>
-      <p class="calculator__remaining"><span>6969</span>/6969 remaining</p>
-      <h3 class="calculator__title">Mint your parrot</h3>
+      <p class="calculator__remaining"><span>2</span> parrots minted so far</p>
+      <h3 class="calculator__title">Mint yours now!</h3>
       <p v-if="$store.state.connectionError" class="calculator__error" role="alert" aria-live="assertive">{{ $store.state.connectionError }}</p>
-      <btn class="calculator__btn" :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
+      <btn v-if="!isConnected" class="calculator__btn" :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
+      <template v-else>
+        <div class="calculator__buttons">
+          <button class="calculator__button" @click="parrotsToMint -= 2">
+            <span class="sr-only">Decrease by 2</span>
+            <svg-icon name="minus" />
+          </button>
+          <span class="calculator__parrots-to-mint">{{ parrotsToMint }}</span>
+          <button class="calculator__button" @click="parrotsToMint += 2">
+            <span class="sr-only">Increase by 2</span>
+            <svg-icon name="plus" />
+          </button>
+        </div>
+        <btn class="calculator__btn" @click="mintParrots()" :is-loading="isClaimingNFT">Mint {{ parrotsToMint }} <span class="sr-only">parrots</span> for {{ calculateEthereum }} <span class="sr-only">ethereum</span></btn>
+      </template>
       <ul class="calculator__links">
         <li>
           <a class="link" :href="config.SCAN_LINK" target="_blank">Verified Smart Contract</a>
@@ -38,9 +52,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ethers } from 'ethers';
 import Btn from './Btn.vue'
 import Card from './Card.vue'
 import config from '@/config.json'
+import { IState } from '@/store'
 
 export default Vue.extend({
   name: 'DuringMintCalculator',
@@ -49,7 +65,21 @@ export default Vue.extend({
     return {
       config,
       isWalletInstalled: false,
-      isCorrectNetwork: true
+      isCorrectNetwork: true,
+      parrotsToMint: 2
+    }
+  },
+  watch: {
+    parrotsToMint () {
+      if (this.parrotsToMint < 2) {
+        this.parrotsToMint = 2
+      }
+      else if (this.parrotsToMint > 10) {
+        this.parrotsToMint = 10
+      }
+      else if (this.parrotsToMint % 2 !== 0) {
+        this.parrotsToMint = 2 * Math.round(this.parrotsToMint / 2)
+      }
     }
   },
   async mounted () {
@@ -79,9 +109,23 @@ export default Vue.extend({
       })
     }
   },
+  computed: {
+    isConnected (): boolean {
+      return (this.$store.state as IState).account !== null
+    },
+    isClaimingNFT (): boolean {
+      return (this.$store.state as IState).isClaimingNFT
+    },
+    calculateEthereum (): number {
+      return ((0.069 * 1000) * (this.parrotsToMint / 2)) / 1000
+    }
+  },
   methods: {
     async connect (): Promise<void> {
       await this.$store.dispatch("connect", true)
+    },
+    mintParrots (): void {
+      window.alert("Minting... not really, but soon!")
     }
   }
 })
@@ -140,7 +184,6 @@ export default Vue.extend({
       top: unset;
       transform: unset;
       left: -2rem;
-      bottom: -2rem;
       filter: drop-shadow(8px 8px 0px rgba(0, 0, 0, 0.05));
     }
   }
@@ -203,6 +246,47 @@ export default Vue.extend({
     @media (min-width: $responsive-standard-tablet) {
       align-self: flex-start;
     }
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.75rem;
+    margin-bottom: 2rem;
+
+    @media (min-width: $responsive-standard-tablet) {
+      justify-content: flex-start;
+      margin-top: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  &__button {
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    padding: 0.5rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    border: 5px solid var(--mpc-darker-blue);
+    color: var(--mpc-darker-blue);
+    background-color: #fff;
+
+    &:last-of-type {
+      color: #fff;
+      background-color: var(--mpc-darker-blue);
+    }
+  }
+
+  &__parrots-to-mint {
+    font-family: var(--font-family-luckiestguy);
+    font-size: var(--font-size-title);
+    color: var(--mpc-darker-blue);
+    min-width: 2.875rem;
+    text-align: center;
+    user-select: none;
   }
 
   &__links {
