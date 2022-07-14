@@ -273,10 +273,16 @@ export default Vue.extend({
     border: 5px solid var(--mpc-darker-blue);
     color: var(--mpc-darker-blue);
     background-color: #fff;
+    transition: transform 160ms ease;
+    will-change: transform;
 
     &:last-of-type {
       color: #fff;
       background-color: var(--mpc-darker-blue);
+    }
+
+    &:active {
+      transform: scale(0.9);
     }
   }
 
