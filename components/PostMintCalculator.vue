@@ -51,7 +51,6 @@ export default Vue.extend({
     this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
     if (await this.$store.dispatch("checkIfConnected")) {
       await this.$store.dispatch("getContractState")
-      await this.$store.dispatch("getUserContractState")
     }
 
     if (window.ethereum) {
@@ -62,7 +61,6 @@ export default Vue.extend({
         }
         else {
           this.$store.commit('setAccount', accounts[0])
-          await this.$store.dispatch("getUserContractState")
           await this.$store.dispatch("getContractState")
         }
       })

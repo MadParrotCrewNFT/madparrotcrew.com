@@ -1,5 +1,4 @@
 import { ethers, ContractTransaction } from 'ethers'
-import axios, { AxiosResponse } from 'axios'
 import config from '@/config.json'
 import MadParrotCrewABI from '@/contract/out/MadParrotCrew.sol/MadParrotCrew.json'
 import { MadParrotCrew } from '@/contract/types'
@@ -15,11 +14,11 @@ export interface IContractState {
   maxSupply: number;
   numberMinted: number;
   supplyLeft: number;
-  maxMintPerWallet: number;
-}
-interface IUserContractState {
-  alreadyMinted: number;
-  maxAllowedToMint: number;
+  user: {
+    maxMintPerWallet: number;
+    alreadyMinted: number;
+    allowedLeftToMint: number
+  }
 }
 export interface IState {
   socialLinks: ISocialLink[];
@@ -29,7 +28,6 @@ export interface IState {
   isConnectingToWallet: boolean;
   connectionError: null | string;
   contractState: null | IContractState;
-  userContractState: null | IUserContractState;
   isClaimingNFT: boolean;
   successfulMint: null | number;
 }
@@ -63,7 +61,6 @@ export const state = () => ({
   isConnectingToWallet: false,
   connectionError: null,
   contractState: null,
-  userContractState: null,
   isClaimingNFT: false,
   successfulMint: null
 } as IState)
@@ -83,9 +80,6 @@ export const mutations = {
   },
   setContractState(state: IState, contractState: IContractState | null): void {
     state.contractState = contractState
-  },
-  setUserContractState(state: IState, userContractState: IUserContractState | null): void {
-    state.userContractState = userContractState
   },
   setIsClaimingNFT(state: IState, value: boolean): void {
     state.isClaimingNFT = value
@@ -114,7 +108,6 @@ export const actions = {
       commit("setConnectionError", null)
       if (!(await dispatch("isCorrectNetwork"))) await dispatch("switchNetwork")
       await dispatch('getContractState')
-      await dispatch('getUserContractState')
     } catch (error) {
       console.error(error)
       commit("setConnectionError", "Wallet account request refused.")
@@ -173,13 +166,19 @@ export const actions = {
       const numberMinted = parseInt(await (await contract.totalSupply())._hex, 16)
       const isMintActive = config.MINTING_LIVE && await (await contract.functions.isSaleActive())[0]
       const maxMintPerWallet = parseInt(await (await contract.maxPerWallet())._hex, 16)
+      const alreadyMinted = 2
+
       const contractState: IContractState = {
         isMintActive,
         priceInWei: parseInt(await (await contract.mintPrice())._hex, 16),
         maxSupply,
         numberMinted,
         supplyLeft: maxSupply - numberMinted,
-        maxMintPerWallet
+        user: {
+          maxMintPerWallet,
+          alreadyMinted,
+          allowedLeftToMint: maxMintPerWallet - alreadyMinted
+        }
       }
       commit("setContractState", contractState)
     } catch (err) {
@@ -187,35 +186,13 @@ export const actions = {
       commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
     }
   },
-  // async getUserContractState({ commit, state }: { commit: (mutation: string, value: any) => void, state: IState }): Promise <void> {
-  //   try {
-  //     const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew
-  //     const maxMintPerWallet = parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
-  //     const alreadyMinted = parseInt(await (await contract.functions.addressToMinted(state.account!))[0]._hex, 16)
-
-  //     // Go get the merkle proof from the backend so you can show them ahead of time if they're a presale user
-  //     const response = await axios.get<any, AxiosResponse<string[], any>, any>(`https://ab6jo7e1v4.execute-api.us-east-2.amazonaws.com/MPCproof/${state.account}`)
-  //     const merkleProof = response.data // If this array is empty, they are not a presale user
-  //     const userContractState: IUserContractState = {
-  //       isPresaleUser: merkleProof.length > 0,
-  //       merkleProof,
-  //       alreadyMinted,
-  //       maxAllowedToMint: maxMintPerWallet - alreadyMinted
-  //     }
-  //     commit("setUserContractState", userContractState)
-  //   } catch (err) {
-  //     console.error(err)
-  //     commit("setConnectionError", "Sorry, something went wrong checking if you're on our presale list.")
-  //   }
-  // },
   // async mintParrots({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }, numberOfParrots: number): Promise <void> {
   //   commit("setIsClaimingNFT", true)
   //   if (!(await dispatch("isCorrectNetwork"))) return
   //   if (!state.contractState) await dispatch("getContractState")
-  //   if (!state.userContractState) await dispatch("getUserContractState")
-  //   if (state.userContractState?.maxAllowedToMint === 0) return
+  //   if (state.contractState?.user.maxAllowedToMint === 0) return
   //   try {
-  //     numberOfParrots = numberOfParrots > state.userContractState!.maxAllowedToMint ? state.userContractState!.maxAllowedToMint : numberOfParrots
+  //     numberOfParrots = numberOfParrots > state.contractState!.user.maxAllowedToMint ? state.contractState!.user.maxAllowedToMint : numberOfParrots
   //     const provider = new ethers.providers.Web3Provider(window.ethereum)
   //     const signer = provider.getSigner()
   //     const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, signer) as MadParrotCrew
@@ -241,7 +218,6 @@ export const actions = {
   //       else commit("setSuccessfulMint", null)
   //     }
   //     dispatch("getContractState")
-  //     dispatch("getUserContractState")
   //     commit("setIsClaimingNFT", false)
   //   } catch (err) {
   //     console.error(err)

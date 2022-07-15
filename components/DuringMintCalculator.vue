@@ -74,8 +74,8 @@ export default Vue.extend({
       if (this.parrotsToMint < 2) { // Less than minimum mint allowance
         this.parrotsToMint = 2
       }
-      else if (this.parrotsToMint > this.$store.state.contractState.maxMintPerWallet) { // More than maximum mint allowance
-        this.parrotsToMint = this.$store.state.contractState.maxMintPerWallet
+      else if (this.parrotsToMint > this.$store.state.contractState.user.maxMintPerWallet) { // More than maximum mint allowance
+        this.parrotsToMint = this.$store.state.contractState.user.maxMintPerWallet
       }
       else if (this.parrotsToMint % 2 !== 0) { // If no. of parrots is an odd number, round to nearest even number (since you can only mint in multiples of 2)
         this.parrotsToMint = 2 * Math.round(this.parrotsToMint / 2)
@@ -89,7 +89,6 @@ export default Vue.extend({
     if (await this.$store.dispatch("checkIfConnected")) {
       await this.$store.dispatch("getContractState")
       console.log(this.$store.state.contractState)
-      // await this.$store.dispatch("getUserContractState")
     }
 
     if (window.ethereum) {
@@ -100,7 +99,6 @@ export default Vue.extend({
         }
         else {
           this.$store.commit('setAccount', accounts[0])
-          await this.$store.dispatch("getUserContractState")
           await this.$store.dispatch("getContractState")
         }
       })
