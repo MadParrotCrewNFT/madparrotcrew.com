@@ -123,8 +123,8 @@ export default Vue.extend({
     async connect (): Promise<void> {
       await this.$store.dispatch("connect", true)
     },
-    mintParrots (): void {
-      window.alert("Minting... not really, but soon!")
+    async mintParrots (): Promise<void> {
+      await this.$store.dispatch("mintParrots", this.parrotsToMint);
     }
   }
 })

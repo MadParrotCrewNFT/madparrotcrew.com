@@ -166,7 +166,7 @@ export const actions = {
       const numberMinted = parseInt(await (await contract.totalSupply())._hex, 16)
       const isMintActive = config.MINTING_LIVE && await (await contract.functions.isSaleActive())[0]
       const maxMintPerWallet = parseInt(await (await contract.maxPerWallet())._hex, 16)
-      const alreadyMinted = 2
+      const alreadyMinted = parseInt(await (await contract.balanceOf(state.account!))._hex, 16)
 
       const contractState: IContractState = {
         isMintActive,
@@ -186,48 +186,65 @@ export const actions = {
       commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
     }
   },
-  // async mintParrots({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }, numberOfParrots: number): Promise <void> {
-  //   commit("setIsClaimingNFT", true)
-  //   if (!(await dispatch("isCorrectNetwork"))) return
-  //   if (!state.contractState) await dispatch("getContractState")
-  //   if (state.contractState?.user.maxAllowedToMint === 0) return
-  //   try {
-  //     numberOfParrots = numberOfParrots > state.contractState!.user.maxAllowedToMint ? state.contractState!.user.maxAllowedToMint : numberOfParrots
-  //     const provider = new ethers.providers.Web3Provider(window.ethereum)
-  //     const signer = provider.getSigner()
-  //     const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, signer) as MadParrotCrew
-  //     const isPublicMintActive = state.contractState!.isPublicMintActive
-  //     const isPresaleMintActive = state.contractState!.isPresaleMintActive && !isPublicMintActive // Public mint supersedes all
-  //     let tx: ContractTransaction | undefined
-  //     if (isPresaleMintActive && state.userContractState!.isPresaleUser) {
-  //       tx = await contract.presaleMint(numberOfParrots, state.userContractState!.merkleProof, {
-  //         value: state.contractState!.priceInWei.mul(numberOfParrots),
-  //       }) 
-  //     } else if (isPublicMintActive) {
-  //       tx = await contract.publicMint(numberOfParrots, {
-  //         value: state.contractState!.priceInWei.mul(numberOfParrots),
-  //       })
-  //     } else {
-  //       // If the user got here, something has gone wrong 🤔
-  //     }
+  async mintParrots({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }, numberOfParrots: number): Promise <void> {
+    commit("setIsClaimingNFT", true)
 
-  //     // Refresh contract state
-  //     if (tx) {
-  //       const receipt = await provider.waitForTransaction(tx.hash)
-  //       if (receipt.status === 1) commit("setSuccessfulMint", numberOfParrots)
-  //       else commit("setSuccessfulMint", null)
-  //     }
-  //     dispatch("getContractState")
-  //     commit("setIsClaimingNFT", false)
-  //   } catch (err) {
-  //     console.error(err)
-  //     // @ts-ignore
-  //     console.log(err.reason)
-  //     commit("setSuccessfulMint", null)
-  //     // @ts-ignore
-  //     if (err.reason.includes('insufficient funds')) commit("setConnectionError", "Error: insufficient funds")
-  //     else commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
-  //     commit("setIsClaimingNFT", false)
-  //   }
-  // }
+    if (!(await dispatch("isCorrectNetwork"))) {
+      commit("setIsClaimingNFT", false)
+      commit("setConnectionError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
+      return
+    }
+
+    if (!state.contractState) {
+      await dispatch("getContractState")
+
+      if (!state.contractState) {
+        commit("setIsClaimingNFT", false)
+        commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
+        return
+      }
+    }
+
+    if (state.contractState.user.allowedLeftToMint === 0) {
+      commit("setIsClaimingNFT", false)
+      commit("setConnectionError", "You have already minted the maximum of 10 parrots.")
+      return
+    }
+
+    try {
+      numberOfParrots = numberOfParrots > state.contractState.user.allowedLeftToMint ? state.contractState.user.allowedLeftToMint : numberOfParrots
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+      const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI.abi, signer) as MadParrotCrew
+      const isMintActive = state.contractState!.isMintActive
+      let tx: ContractTransaction | undefined = undefined
+
+      if (isMintActive) {
+        tx = await contract.mint(numberOfParrots, state.account!)
+      } else {
+        // If the user got here, something has gone wrong 🤔
+        commit("setConnectionError", "Minting is not available yet.")
+      }
+
+      // Refresh contract state
+      if (tx) {
+        const receipt = await provider.waitForTransaction(tx.hash)
+        if (receipt.status === 1) commit("setSuccessfulMint", numberOfParrots)
+        else commit("setSuccessfulMint", null)
+      }
+
+      dispatch("getContractState")
+
+      commit("setIsClaimingNFT", false)
+    } catch (err) {
+      console.error(err)
+      // @ts-ignore
+      console.log(err.reason)
+      commit("setSuccessfulMint", null)
+      // @ts-ignore
+      if (err.reason.includes('insufficient funds')) commit("setConnectionError", "Error: insufficient funds")
+      else commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
+      commit("setIsClaimingNFT", false)
+    }
+  }
 }
