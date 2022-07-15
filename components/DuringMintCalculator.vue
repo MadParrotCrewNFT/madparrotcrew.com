@@ -14,7 +14,7 @@
       </div>
       <p class="calculator__remaining"><span>{{ $store.state.contractState && $store.state.contractState.numberMinted }}</span> parrots minted so far</p>
       <h3 class="calculator__title">Mint yours now!</h3>
-      <p v-if="$store.state.connectionError" class="calculator__error" role="alert" aria-live="assertive">{{ $store.state.connectionError }}</p>
+      <p v-if="$store.state.error" class="calculator__error" role="alert" aria-live="assertive">{{ $store.state.error }}</p>
       <btn v-if="!isConnected" class="calculator__btn" :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
       <template v-else>
         <div class="calculator__buttons">
@@ -95,7 +95,7 @@ export default Vue.extend({
       window.ethereum.on("accountsChanged", async (accounts: string[]) => {
         if (accounts.length === 0) {
           this.$store.commit('setAccount', null)
-          this.$store.commit("setConnectionError", "Wallet was disconnected.")
+          this.$store.commit("setError", "Wallet was disconnected.")
         }
         else {
           this.$store.commit('setAccount', accounts[0])

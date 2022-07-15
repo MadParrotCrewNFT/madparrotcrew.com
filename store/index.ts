@@ -26,7 +26,7 @@ export interface IState {
   contractAddress: string;
   account: null | string;
   isConnectingToWallet: boolean;
-  connectionError: null | string;
+  error: null | string;
   contractState: null | IContractState;
   isClaimingNFT: boolean;
   successfulMint: null | number;
@@ -59,7 +59,7 @@ export const state = () => ({
   contractAddress: config.CONTRACT_ADDRESS,
   account: null,
   isConnectingToWallet: false,
-  connectionError: null,
+  error: null,
   contractState: null,
   isClaimingNFT: false,
   successfulMint: null
@@ -75,8 +75,8 @@ export const mutations = {
   setIsConnectingToWallet(state: IState, value: boolean): void {
     state.isConnectingToWallet = value
   },
-  setConnectionError(state: IState, error: string | null): void {
-    state.connectionError = error
+  setError(state: IState, error: string | null): void {
+    state.error = error
   },
   setContractState(state: IState, contractState: IContractState | null): void {
     state.contractState = contractState
@@ -93,7 +93,7 @@ export const actions = {
   isAWalletInstalled ({ commit }: { commit: (mutation: string, value: any) => void }): boolean {
     const { ethereum } = window
     if (!ethereum) {
-      commit("setConnectionError", "A wallet is not installed.")
+      commit("setError", "A wallet is not installed.")
       return false
     }
     else return true
@@ -105,12 +105,12 @@ export const actions = {
       if (!(await dispatch("checkIfConnected"))) { // User has granted access to wallet?
         await dispatch("requestAccess")
       }
-      commit("setConnectionError", null)
+      commit("setError", null)
       if (!(await dispatch("isCorrectNetwork"))) await dispatch("switchNetwork")
       await dispatch('getContractState')
     } catch (error) {
       console.error(error)
-      commit("setConnectionError", "Wallet account request refused.")
+      commit("setError", "Wallet account request refused.")
     }
     commit("setIsConnectingToWallet", false)
   },
@@ -139,8 +139,8 @@ export const actions = {
       let chainId = await ethereum.request({ method: "eth_chainId" })
       const requiredChainId = `0x${config.NETWORK.ID}`
       const isCorrect = chainId === requiredChainId
-      if (isCorrect) commit("setConnectionError", null)
-      else commit("setConnectionError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
+      if (isCorrect) commit("setError", null)
+      else commit("setError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
       return isCorrect
     }
     else return false
@@ -153,10 +153,10 @@ export const actions = {
         params: [{ chainId: `0x${config.NETWORK.ID}` }],
       })
       // You may have to recreate your provider here, but I'm not entirely sure
-      commit("setConnectionError", null)
+      commit("setError", null)
     } catch (err) {
       console.error(err)
-      commit("setConnectionError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
+      commit("setError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
     }
   },
   async getContractState({ commit, state }: { commit: (mutation: string, value: any) => void, state: IState }): Promise <void> {
@@ -183,7 +183,7 @@ export const actions = {
       commit("setContractState", contractState)
     } catch (err) {
       console.error(err)
-      commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
+      commit("setError", "Sorry, something went wrong. Please try again later.")
     }
   },
   async mintParrots({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }, numberOfParrots: number): Promise <void> {
@@ -191,7 +191,7 @@ export const actions = {
 
     if (!(await dispatch("isCorrectNetwork"))) {
       commit("setIsClaimingNFT", false)
-      commit("setConnectionError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
+      commit("setError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
       return
     }
 
@@ -200,14 +200,14 @@ export const actions = {
 
       if (!state.contractState) {
         commit("setIsClaimingNFT", false)
-        commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
+        commit("setError", "Sorry, something went wrong. Please try again later.")
         return
       }
     }
 
     if (state.contractState.user.allowedLeftToMint === 0) {
       commit("setIsClaimingNFT", false)
-      commit("setConnectionError", "You have already minted the maximum of 10 parrots.")
+      commit("setError", "You have already minted the maximum of 10 parrots.")
       return
     }
 
@@ -223,7 +223,7 @@ export const actions = {
         tx = await contract.mint(numberOfParrots, state.account!)
       } else {
         // If the user got here, something has gone wrong 🤔
-        commit("setConnectionError", "Minting is not available yet.")
+        commit("setError", "Minting is not available yet.")
       }
 
       // Refresh contract state
@@ -242,8 +242,8 @@ export const actions = {
       console.log(err.reason)
       commit("setSuccessfulMint", null)
       // @ts-ignore
-      if (err.reason.includes('insufficient funds')) commit("setConnectionError", "Error: insufficient funds")
-      else commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
+      if (err.reason.includes('insufficient funds')) commit("setError", "Error: insufficient funds")
+      else commit("setError", "Sorry, something went wrong. Please try again later.")
       commit("setIsClaimingNFT", false)
     }
   }

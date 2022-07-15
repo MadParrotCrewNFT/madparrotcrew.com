@@ -57,7 +57,7 @@ export default Vue.extend({
       window.ethereum.on("accountsChanged", async (accounts: string[]) => {
         if (accounts.length === 0) {
           this.$store.commit('setAccount', null)
-          this.$store.commit("setConnectionError", "Wallet was disconnected.")
+          this.$store.commit("setError", "Wallet was disconnected.")
         }
         else {
           this.$store.commit('setAccount', accounts[0])
