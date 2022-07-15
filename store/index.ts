@@ -11,7 +11,7 @@ export interface ISocialLink {
 }
 export interface IContractState {
   isMintActive: boolean;
-  priceInWei: ethers.BigNumber;
+  priceInWei: number;
   maxSupply: number;
   numberMinted: number;
   supplyLeft: number;
@@ -166,30 +166,27 @@ export const actions = {
       commit("setConnectionError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
     }
   },
-  // async getContractState({ commit, state }: { commit: (mutation: string, value: any) => void, state: IState }): Promise <void> {
-  //   try {
-  //     const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew
-  //     const maxSupply = parseInt(await(await contract.functions.maxSupply())[0]._hex, 16)
-  //     const numberMinted = parseInt(await (await contract.totalSupply())._hex, 16)
-  //     const isPublicMintActive = config.MINTING_LIVE && await (await contract.functions.publicSaleActive())[0]
-  //     const isPresaleMintActive = config.MINTING_LIVE && await (await contract.functions.presaleSaleActive())[0]
-  //     const maxMintPerWallet = parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
-  //     const contractState: IContractState = {
-  //       isPublicMintActive,
-  //       isPresaleMintActive,
-  //       isAnyMintActive: isPublicMintActive || isPresaleMintActive,
-  //       priceInWei: await contract.priceInWei(),
-  //       maxSupply,
-  //       numberMinted,
-  //       supplyLeft: maxSupply - numberMinted,
-  //       maxMintPerWallet
-  //     }
-  //     commit("setContractState", contractState)
-  //   } catch (err) {
-  //     console.error(err)
-  //     commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
-  //   }
-  // },
+  async getContractState({ commit, state }: { commit: (mutation: string, value: any) => void, state: IState }): Promise <void> {
+    try {
+      const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI.abi, window.web3Provider) as MadParrotCrew
+      const maxSupply = parseInt(await(await contract.functions.MAX_SUPPLY())[0]._hex, 16)
+      const numberMinted = parseInt(await (await contract.totalSupply())._hex, 16)
+      const isMintActive = config.MINTING_LIVE && await (await contract.functions.isSaleActive())[0]
+      const maxMintPerWallet = parseInt(await (await contract.maxPerWallet())._hex, 16)
+      const contractState: IContractState = {
+        isMintActive,
+        priceInWei: parseInt(await (await contract.mintPrice())._hex, 16),
+        maxSupply,
+        numberMinted,
+        supplyLeft: maxSupply - numberMinted,
+        maxMintPerWallet
+      }
+      commit("setContractState", contractState)
+    } catch (err) {
+      console.error(err)
+      commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
+    }
+  },
   // async getUserContractState({ commit, state }: { commit: (mutation: string, value: any) => void, state: IState }): Promise <void> {
   //   try {
   //     const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew

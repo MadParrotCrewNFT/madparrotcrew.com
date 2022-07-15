@@ -12,7 +12,7 @@
           <span class="sr-only">0.069 ethereum</span>
         </div>
       </div>
-      <p class="calculator__remaining"><span>2</span> parrots minted so far</p>
+      <p class="calculator__remaining"><span>{{ $store.state.contractState && $store.state.contractState.numberMinted }}</span> parrots minted so far</p>
       <h3 class="calculator__title">Mint yours now!</h3>
       <p v-if="$store.state.connectionError" class="calculator__error" role="alert" aria-live="assertive">{{ $store.state.connectionError }}</p>
       <btn v-if="!isConnected" class="calculator__btn" :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
@@ -71,13 +71,13 @@ export default Vue.extend({
   },
   watch: {
     parrotsToMint () {
-      if (this.parrotsToMint < 2) {
+      if (this.parrotsToMint < 2) { // Less than minimum mint allowance
         this.parrotsToMint = 2
       }
-      else if (this.parrotsToMint > 10) {
-        this.parrotsToMint = 10
+      else if (this.parrotsToMint > this.$store.state.contractState.maxMintPerWallet) { // More than maximum mint allowance
+        this.parrotsToMint = this.$store.state.contractState.maxMintPerWallet
       }
-      else if (this.parrotsToMint % 2 !== 0) {
+      else if (this.parrotsToMint % 2 !== 0) { // If no. of parrots is an odd number, round to nearest even number (since you can only mint in multiples of 2)
         this.parrotsToMint = 2 * Math.round(this.parrotsToMint / 2)
       }
     }
@@ -88,7 +88,8 @@ export default Vue.extend({
     this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
     if (await this.$store.dispatch("checkIfConnected")) {
       await this.$store.dispatch("getContractState")
-      await this.$store.dispatch("getUserContractState")
+      console.log(this.$store.state.contractState)
+      // await this.$store.dispatch("getUserContractState")
     }
 
     if (window.ethereum) {
