@@ -204,6 +204,9 @@ export default Vue.extend({
       window.ethereum.on("accountsChanged", async (accounts: string[]) => {
         if (accounts.length === 0) {
           this.$store.commit('setAccount', null)
+          this.$store.dispatch('isAWalletInstalled')
+          this.$store.dispatch('checkIfWalletConnected')
+          this.$store.dispatch('isCorrectNetwork')
           this.$store.commit("setError", "Wallet was disconnected.")
         }
         else {
