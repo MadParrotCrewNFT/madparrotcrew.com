@@ -15,7 +15,7 @@
       <p class="calculator__remaining"><span>{{ $store.state.contractState && $store.state.contractState.numberMinted }}</span> parrots minted so far</p>
       <h3 class="calculator__title">Mint yours now!</h3>
       <p v-if="$store.state.error" class="calculator__error" role="alert" aria-live="assertive">{{ $store.state.error }}</p>
-      <btn v-if="!isConnected" class="calculator__btn" :disabled="!isWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
+      <btn v-if="!$store.state.walletIsConnected" class="calculator__btn" :disabled="!$store.state.isAWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
       <template v-else>
         <div class="calculator__buttons">
           <button class="calculator__button" @click="parrotsToMint -= 2">
@@ -28,7 +28,7 @@
             <svg-icon name="plus" />
           </button>
         </div>
-        <btn class="calculator__btn" @click="mintParrots()" :is-loading="isClaimingNFT">Mint {{ parrotsToMint }} <span class="sr-only">parrots</span> for {{ calculateEthereum }} <span class="sr-only">ethereum</span></btn>
+        <btn class="calculator__btn" @click="mintParrots()" :is-loading="$store.state.isClaimingNFT">Mint {{ parrotsToMint }} <span class="sr-only">parrots</span> for {{ calculateEthereum }} <span class="sr-only">ethereum</span></btn>
       </template>
       <ul class="calculator__links">
         <li>
@@ -52,11 +52,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { ethers } from 'ethers';
 import Btn from './Btn.vue'
 import Card from './Card.vue'
 import config from '@/config.json'
-import { IState } from '@/store'
 
 export default Vue.extend({
   name: 'DuringMintCalculator',
@@ -64,8 +62,6 @@ export default Vue.extend({
   data () {
     return {
       config,
-      isWalletInstalled: false,
-      isCorrectNetwork: true,
       parrotsToMint: 2
     }
   },
@@ -82,39 +78,7 @@ export default Vue.extend({
       }
     }
   },
-  async mounted () {
-    this.$store.commit("setSuccessfulMint", null)
-    this.isWalletInstalled = await this.$store.dispatch("isAWalletInstalled")
-    this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
-    if (await this.$store.dispatch("checkIfConnected")) {
-      await this.$store.dispatch("getContractState")
-      console.log(this.$store.state.contractState)
-    }
-
-    if (window.ethereum) {
-      window.ethereum.on("accountsChanged", async (accounts: string[]) => {
-        if (accounts.length === 0) {
-          this.$store.commit('setAccount', null)
-          this.$store.commit("setError", "Wallet was disconnected.")
-        }
-        else {
-          this.$store.commit('setAccount', accounts[0])
-          await this.$store.dispatch("getContractState")
-        }
-      })
-
-      window.ethereum.on('chainChanged', async () => {
-        this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
-      })
-    }
-  },
   computed: {
-    isConnected (): boolean {
-      return (this.$store.state as IState).account !== null
-    },
-    isClaimingNFT (): boolean {
-      return (this.$store.state as IState).isClaimingNFT
-    },
     calculateEthereum (): number {
       return ((0.069 * 1000) * (this.parrotsToMint / 2)) / 1000
     }

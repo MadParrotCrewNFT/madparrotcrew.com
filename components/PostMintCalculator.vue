@@ -40,39 +40,7 @@ export default Vue.extend({
   components: { Btn, Card },
   data () {
     return {
-      config,
-      isWalletInstalled: false,
-      isCorrectNetwork: true
-    }
-  },
-  async mounted () {
-    this.$store.commit("setSuccessfulMint", null)
-    this.isWalletInstalled = await this.$store.dispatch("isAWalletInstalled")
-    this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
-    if (await this.$store.dispatch("checkIfConnected")) {
-      await this.$store.dispatch("getContractState")
-    }
-
-    if (window.ethereum) {
-      window.ethereum.on("accountsChanged", async (accounts: string[]) => {
-        if (accounts.length === 0) {
-          this.$store.commit('setAccount', null)
-          this.$store.commit("setError", "Wallet was disconnected.")
-        }
-        else {
-          this.$store.commit('setAccount', accounts[0])
-          await this.$store.dispatch("getContractState")
-        }
-      })
-
-      window.ethereum.on('chainChanged', async () => {
-        this.isCorrectNetwork = await this.$store.dispatch("isCorrectNetwork")
-      })
-    }
-  },
-  methods: {
-    async connect (): Promise<void> {
-      await this.$store.dispatch("connect", true)
+      config
     }
   }
 })

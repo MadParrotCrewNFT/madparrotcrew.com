@@ -191,6 +191,32 @@ export default Vue.extend({
       ]
     }
   },
+  async mounted () {
+    this.$store.commit("setSuccessfulMint", null)
+    await this.$store.dispatch("isAWalletInstalled")
+    await this.$store.dispatch("checkIfWalletConnected")
+    await this.$store.dispatch("isCorrectNetwork")
+    if (this.$store.state.walletIsConnected) {
+      await this.$store.dispatch("getContractState")
+    }
+
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", async (accounts: string[]) => {
+        if (accounts.length === 0) {
+          this.$store.commit('setAccount', null)
+          this.$store.commit("setError", "Wallet was disconnected.")
+        }
+        else {
+          this.$store.commit('setAccount', accounts[0])
+          await this.$store.dispatch("getContractState")
+        }
+      })
+
+      window.ethereum.on('chainChanged', async () => {
+        await this.$store.dispatch("isCorrectNetwork")
+      })
+    }
+  },
   methods: {
     hasSoldOutOrTimeUp (): boolean {
       return false

@@ -25,7 +25,10 @@ export interface IState {
   showTandCsModal: boolean;
   contractAddress: string;
   account: null | string;
+  isAWalletInstalled: boolean;
   isConnectingToWallet: boolean;
+  walletIsConnected: boolean;
+  isCorrectNetwork: boolean,
   error: null | string;
   contractState: null | IContractState;
   isClaimingNFT: boolean;
@@ -58,7 +61,10 @@ export const state = () => ({
   showTandCsModal: false,
   contractAddress: config.CONTRACT_ADDRESS,
   account: null,
+  isAWalletInstalled: false,
   isConnectingToWallet: false,
+  walletIsConnected: false,
+  isCorrectNetwork: false,
   error: null,
   contractState: null,
   isClaimingNFT: false,
@@ -72,8 +78,17 @@ export const mutations = {
   setAccount(state: IState, account: null | string): void {
     state.account = account
   },
+  setIsAWalletInstalled(state: IState, value: boolean): void {
+    state.isAWalletInstalled = value
+  },
   setIsConnectingToWallet(state: IState, value: boolean): void {
     state.isConnectingToWallet = value
+  },
+  setWalletIsConnected(state: IState, value: boolean): void {
+    state.walletIsConnected = value
+  },
+  setIsCorrectNetwork(state: IState, value: boolean): void {
+    state.isCorrectNetwork = value
   },
   setError(state: IState, error: string | null): void {
     state.error = error
@@ -90,23 +105,31 @@ export const mutations = {
 }
 
 export const actions = {
-  isAWalletInstalled ({ commit }: { commit: (mutation: string, value: any) => void }): boolean {
+  isAWalletInstalled ({ commit }: { commit: (mutation: string, value: any) => void }): void {
     const { ethereum } = window
     if (!ethereum) {
       commit("setError", "A wallet is not installed.")
-      return false
+      commit("setIsAWalletInstalled", false)
     }
-    else return true
+    else commit("setIsAWalletInstalled", true)
   },
-  async connect({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }): Promise<void> {
+  async connect({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }): Promise<void> {
     commit("setIsConnectingToWallet", true)
+
     try {
-      if (!(await dispatch("isAWalletInstalled"))) return
-      if (!(await dispatch("checkIfConnected"))) { // User has granted access to wallet?
+      await dispatch("isAWalletInstalled")
+      if (!state.isAWalletInstalled) return
+
+      await dispatch("checkIfWalletConnected")
+      if (!state.walletIsConnected) {
         await dispatch("requestAccess")
       }
+
       commit("setError", null)
-      if (!(await dispatch("isCorrectNetwork"))) await dispatch("switchNetwork")
+
+      await dispatch("isCorrectNetwork")
+      if (!state.isCorrectNetwork) await dispatch("switchNetwork")
+
       await dispatch('getContractState')
     } catch (error) {
       console.error(error)
@@ -114,36 +137,41 @@ export const actions = {
     }
     commit("setIsConnectingToWallet", false)
   },
-  async checkIfConnected({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }) {
-    if (!(await dispatch("isAWalletInstalled"))) return false
+  async checkIfWalletConnected({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }): Promise<void> {
+    await dispatch("isAWalletInstalled")
+    if (!state.isAWalletInstalled) {
+      commit("setWalletIsConnected", false)
+      return
+    }
     const { ethereum } = window
     window.web3Provider = new ethers.providers.Web3Provider(ethereum)
     const accounts = await ethereum.request({ method: "eth_accounts" })
     if (accounts.length !== 0) {
       commit("setAccount", accounts[0])
-      return true
+      commit("setWalletIsConnected", true)
     } else {
-      return false
+      commit("setWalletIsConnected", false)
     }
   },
-  async requestAccess({ commit }: { commit: (mutation: string, value: any) => void }) {
+  async requestAccess({ commit }: { commit: (mutation: string, value: any) => void }): Promise<void> {
     const { ethereum } = window
     const accounts = await ethereum.request({
       method: "eth_requestAccounts",
     });
     commit("setAccount", accounts[0])
   },
-  async isCorrectNetwork({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }): Promise<boolean> {
-    if ((await dispatch("checkIfConnected"))) {
+  async isCorrectNetwork({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }): Promise<void> {
+    await dispatch("checkIfWalletConnected")
+    if (state.walletIsConnected) {
       const { ethereum } = window
       let chainId = await ethereum.request({ method: "eth_chainId" })
       const requiredChainId = `0x${config.NETWORK.ID}`
       const isCorrect = chainId === requiredChainId
       if (isCorrect) commit("setError", null)
       else commit("setError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
-      return isCorrect
+      commit("setIsCorrectNetwork", isCorrect)
     }
-    else return false
+    else commit("setIsCorrectNetwork", false)
   },
   async switchNetwork({ commit }: { commit: (mutation: string, value: any) => void }): Promise<void> {
     try {
@@ -189,9 +217,10 @@ export const actions = {
   async mintParrots({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }, numberOfParrots: number): Promise <void> {
     commit("setIsClaimingNFT", true)
 
-    if (!(await dispatch("isCorrectNetwork"))) {
+    await dispatch("isCorrectNetwork")
+    if (!state.isCorrectNetwork) {
       commit("setIsClaimingNFT", false)
-      commit("setError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
+      commit("setError", `Connectt to the ${config.NETWORK.NAME} network to proceed.`)
       return
     }
 
