@@ -2,9 +2,9 @@
   <div>
     <header id="mint" class="header">
       <div class="header__inner">
-        <PreMintCalculator v-if="!config.MINTING_LIVE" class="header__calculator" />
-        <DuringMintCalculator v-else-if="(config.MINTING_LIVE && !hasSoldOutOrTimeUp()) || !$store.state.contractState" class="header__calculator" />
-        <PostMintCalculator v-else-if="hasSoldOutOrTimeUp()" class="header__calculator" />
+        <PreMintCalculator v-if="showPreMintCalculator" class="header__calculator" />
+        <DuringMintCalculator v-else-if="showDuringMintCalculator" class="header__calculator" />
+        <PostMintCalculator v-else-if="showPostMintCalculator" class="header__calculator" />
         <div class="header__parrot">
           <img class="header__parrot--body" src="~assets/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" />
           <img class="header__parrot--feet" src="~assets/images/hero-parrot-feet.png" alt="" />
@@ -191,6 +191,41 @@ export default Vue.extend({
           ]
         }
       ]
+    },
+    showPreMintCalculator (): boolean {
+      const startDateTime = (this.$store.state as IState).mintStartDateTime.getTime()
+      const nowDateTime = new Date().getTime()
+
+      if (nowDateTime < startDateTime) return true
+      else return false
+    },
+    showDuringMintCalculator (): boolean {
+      const startDateTime = (this.$store.state as IState).mintStartDateTime.getTime()
+      const nowDateTime = new Date().getTime()
+      const endDateTime = (this.$store.state as IState).mintEndDateTime.getTime()
+      const hasSoldOut = (this.$store.state as IState).contractState?.numberMinted! >= (this.$store.state as IState).contractState?.maxSupply!
+
+      if (
+        (nowDateTime >= startDateTime && nowDateTime <= endDateTime && !hasSoldOut)
+        || (nowDateTime >= startDateTime && !(this.$store.state as IState).contractState)
+      ) {
+        return true
+      }
+      else {
+        return false
+      }
+    },
+    showPostMintCalculator (): boolean {
+      const nowDateTime = new Date().getTime()
+      const endDateTime = (this.$store.state as IState).mintEndDateTime.getTime()
+      const hasSoldOut = (this.$store.state as IState).contractState?.numberMinted! >= (this.$store.state as IState).contractState?.maxSupply!
+
+      if (nowDateTime >= endDateTime || hasSoldOut) {
+        return true
+      }
+      else {
+        return false
+      }
     }
   },
   async mounted () {
@@ -250,20 +285,6 @@ export default Vue.extend({
   },
   destroyed () {
     window.clearInterval(this.interval)
-  },
-  methods: {
-    hasSoldOutOrTimeUp (): boolean {
-      console.log((this.$store.state as IState).contractState)
-      if ((this.$store.state as IState).contractState?.numberMinted === (this.$store.state as IState).contractState?.maxSupply) {
-        return true
-      }
-      else if ((this.$store.state as IState).mintTimeEnded) {
-        return true
-      }
-      else {
-        return false
-      }
-    }
   }
 })
 </script>

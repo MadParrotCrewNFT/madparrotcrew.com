@@ -224,7 +224,7 @@ export const actions = {
       const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI.abi, window.web3Provider) as MadParrotCrew
       const maxSupply = parseInt(await(await contract.functions.MAX_SUPPLY())[0]._hex, 16)
       const numberMinted = parseInt(await (await contract.totalSupply())._hex, 16)
-      const isMintActive = config.MINTING_LIVE && await (await contract.functions.isSaleActive())[0]
+      const isMintActive = await (await contract.functions.isSaleActive())[0]
       const maxMintPerWallet = parseInt(await (await contract.maxPerWallet())._hex, 16)
       const alreadyMinted = parseInt(await (await contract.balanceOf(state.account!))._hex, 16)
 
