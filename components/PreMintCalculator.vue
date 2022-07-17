@@ -2,7 +2,7 @@
   <section>
     <h2 class="orange-gradient-text title">Come back later!</h2>
     <card class="calculator">
-      <h3 class="calculator__title">Minting <time :datetime="format(mintStartDate, 'yyyy-MM-dd HH:mm')">{{ format(mintStartDate, 'do MMMM yyyy hbb') }}</time></h3>
+      <h3 class="calculator__title">Minting <time :datetime="format($store.state.mintStartDate, 'yyyy-MM-dd HH:mm')">{{ format($store.state.mintStartDate, 'do MMMM yyyy hbb') }}</time></h3>
       <p class="calculator__paragraph">You don’t want to miss this. Once minting goes live <strong>you’ll only have 69 hours</strong> to mint!</p>
     </card>
   </section>
@@ -19,11 +19,6 @@ export default Vue.extend({
   data () {
     return {
       format
-    }
-  },
-  computed: {
-    mintStartDate (): Date {
-      return sub((this.$store.state.mintEndDateTime as Date), { hours: 69 })
     }
   }
 })

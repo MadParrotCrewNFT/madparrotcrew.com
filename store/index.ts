@@ -1,7 +1,13 @@
 import { ethers, ContractTransaction } from 'ethers'
+import { add } from 'date-fns'
 import config from '@/config.json'
 import MadParrotCrewABI from '@/contract/out/MadParrotCrew.sol/MadParrotCrew.json'
 import { MadParrotCrew } from '@/contract/types'
+
+// Start mint 23 July 2022 01:00 UTC
+const mintStartDateTime = new Date(Date.UTC(2022, 6, 23, 1, 0, 0, 0)) // Month is 0-11
+// End mint 69 hours later
+const mintEndDateTime = add(mintStartDateTime, { hours: 69 })
 
 export interface ISocialLink {
   text: string;
@@ -30,6 +36,7 @@ export interface IContractState {
 export interface IState {
   socialLinks: ISocialLink[];
   showTandCsModal: boolean;
+  mintStartDateTime: Date;
   mintEndDateTime: Date,
   mintTimeLeft: IMintTimeLeft;
   mintTimeEnded: boolean;
@@ -69,7 +76,8 @@ export const state = () => ({
     }
   ],
   showTandCsModal: false,
-  mintEndDateTime: new Date(Date.UTC(2022, 6, 23, 21, 0, 0, 0)), // Month is 0-11
+  mintStartDateTime,
+  mintEndDateTime,
   mintTimeLeft: {
     days: 0,
     hours: 0,
