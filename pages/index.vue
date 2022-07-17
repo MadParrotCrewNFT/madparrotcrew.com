@@ -3,7 +3,7 @@
     <header id="mint" class="header">
       <div class="header__inner">
         <PreMintCalculator v-if="!config.MINTING_LIVE" class="header__calculator" />
-        <DuringMintCalculator v-else-if="config.MINTING_LIVE && !hasSoldOutOrTimeUp()" class="header__calculator" />
+        <DuringMintCalculator v-else-if="(config.MINTING_LIVE && !hasSoldOutOrTimeUp()) || !$store.state.contractState" class="header__calculator" />
         <PostMintCalculator v-else-if="hasSoldOutOrTimeUp()" class="header__calculator" />
         <div class="header__parrot">
           <img class="header__parrot--body" src="~assets/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" />
@@ -225,10 +225,15 @@ export default Vue.extend({
     this.interval = window.setInterval(() => {
       let diff = (this.$store.state.mintEndDateTime as Date).getTime() - new Date().getTime()
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      days = days <= 0 ? 0 : days
+      hours = hours <= 0 ? 0 : hours
+      minutes = minutes <= 0 ? 0 : minutes
+      seconds = seconds <= 0 ? 0 : seconds
 
       this.$store.commit("setMintTimeLeft", {
         days,
@@ -248,6 +253,7 @@ export default Vue.extend({
   },
   methods: {
     hasSoldOutOrTimeUp (): boolean {
+      console.log((this.$store.state as IState).contractState)
       if ((this.$store.state as IState).contractState?.numberMinted === (this.$store.state as IState).contractState?.maxSupply) {
         return true
       }

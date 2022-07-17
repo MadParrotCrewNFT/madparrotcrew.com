@@ -69,7 +69,7 @@ export const state = () => ({
     }
   ],
   showTandCsModal: false,
-  mintEndDateTime: new Date(Date.UTC(2021, 6, 23, 21, 0, 0, 0)), // Month is 0-11
+  mintEndDateTime: new Date(Date.UTC(2022, 6, 23, 21, 0, 0, 0)), // Month is 0-11
   mintTimeLeft: {
     days: 0,
     hours: 0,
