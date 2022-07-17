@@ -4,9 +4,9 @@
     <card class="calculator">
       <div class="calculator__img">
         <img src="~/assets/images/mint-ended-poster.png" alt="" height="176" width="176" />
-        <img src="~/assets/images/mint-ended-x.png" alt="" height="176" width="176" />
+        <img src="~/assets/images/mint-ended-x.png" alt="" height="226" width="226" />
       </div>
-      <p class="calculator__minted"><span>3484</span> were minted in total</p>
+      <p class="calculator__minted"><span>{{ $store.state.contractState && $store.state.contractState.numberMinted }}</span> were minted in total</p>
       <h3 class="calculator__title">You can still join us!</h3>
       <btn class="calculator__btn" :to="config.OPENSEA_LINK" icon="opensea">Visit marketplace</btn>
       <ul class="calculator__links">
@@ -82,8 +82,14 @@ export default Vue.extend({
 
     img {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      &:last-of-type {
+        max-width: 120%;
+        width: 120%;
+      }
     }
   }
 

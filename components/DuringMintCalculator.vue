@@ -12,7 +12,7 @@
           <span class="sr-only">0.069 ethereum</span>
         </div>
       </div>
-      <p class="calculator__remaining"><span>{{ $store.state.contractState && $store.state.contractState.numberMinted }}</span> parrots minted so far</p>
+      <p class="calculator__remaining" v-if="$store.state.contractState"><span>{{ $store.state.contractState.numberMinted }}</span> parrots minted so far</p>
       <h3 class="calculator__title">Mint yours now!</h3>
       <p v-if="$store.state.error" class="calculator__error" role="alert" aria-live="assertive">{{ $store.state.error }}</p>
       <btn v-if="!$store.state.walletIsConnected" class="calculator__btn" :disabled="!$store.state.isAWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>

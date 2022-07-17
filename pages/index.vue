@@ -20,19 +20,47 @@
           </div>
         </div>
         <div class="about__text">
-          <h2 class="about__title">69 hours to mint!</h2>
-          <p aria-describedby="plan-explained">
-            This project was originally intended to be something bigger, but it didn’t work out... so now it’s just about the art<span aria-hidden="true">*</span>.
-          </p>
-          <p>
-            There are a <strong>limited number of parrots</strong> available. You have <strong>69 hours to mint</strong> after which the remaining parrots will be burned.
-          </p>
-          <p>
-            You get IP rights to the parrots you mint.
-          </p>
-          <p id="plan-explained" class="about__smallprint">
-            <span aria-hidden="true">*</span>This is not to say I don’t have plans for this project in the near future, but at this time I want to make it super-clear that it’s all about the art.
-          </p>
+          <h2 class="about__title">
+            <template v-if="showPreMintCalculator">Be Ready...</template>
+            <template v-else-if="showDuringMintCalculator">69 hours to mint!</template>
+            <template v-else-if="showPostMintCalculator">Dum, dum, dum. another {{ $store.state.contractState && $store.state.contractState.numberMinted }} bite the dust!</template>
+          </h2>
+          <template v-if="showPreMintCalculator">
+            <p>
+              <strong>Minting 2 parrots will cost 0.069<span aria-hidden="true">e</span> <span class="sr-only">ethereum</span></strong>. Yes you read that right, you get 2.
+            </p>
+            <p>
+              Once the time is up, <strong>the unclaimed parrots will be sent to a furnace</strong> that lives in the basement of my local KFP (<strong>burned</strong>).
+            </p>
+            <p>
+              Obviously it goes without saying that <strong>you’ll get the IP rights</strong> to the parrots you claim.
+            </p>
+          </template>
+          <template v-else-if="showDuringMintCalculator">
+            <p>
+              There's only <strong>a limited amount of parrots available</strong> and you've got 69 hours to claim yours so... chop chop!
+            </p>
+            <p>
+              Once the time is up, <strong>the unclaimed parrots will be sent to a furnace</strong> that lives in the basement of my local KFP (<strong>burned</strong>).
+            </p>
+            <p>
+              Obviously it goes without saying that <strong>you get the IP rights</strong> to the parrots you claim.
+            </p>
+          </template>
+          <template v-else-if="showPostMintCalculator">
+            <p>
+              <strong>There were a limited amount of parrots available and after 69 hours the community managed to save {{ $store.state.contractState && $store.state.contractState.numberMinted }} parrots.</strong>
+            </p>
+            <p v-if="$store.state.contractState && $store.state.contractState.numberMinted < $store.state.contractState.maxSupply">
+              This means that not all of the parrots made it and unfortunately, <strong>the unclaimed parrots were sent to a furnace</strong> that lives in the basement of my local KFP (burned).
+            </p>
+            <p v-else>
+              This means that all of the parrots were saved by the community and none were sent to the furnace that lives in the basement of my local KFP.
+            </p>
+            <p>
+              Obviously it goes without saying, <strong>IP rights were given to those who claimed parrots</strong>.
+            </p>
+          </template>
         </div>
         <div class="about__parrots--mobile">
           <img src="~assets/images/about-parrots.png" alt="A pair of Mad Parrots" height="338" width="256" loading="lazy" />
@@ -243,6 +271,7 @@ export default Vue.extend({
           this.$store.dispatch('checkIfWalletConnected')
           this.$store.dispatch('isCorrectNetwork')
           this.$store.commit("setError", "Wallet was disconnected.")
+          this.$store.commit("setContractState", null)
         }
         else {
           this.$store.commit('setAccount', accounts[0])
