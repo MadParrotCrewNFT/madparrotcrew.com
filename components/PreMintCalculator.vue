@@ -2,8 +2,8 @@
   <section>
     <h2 class="orange-gradient-text title">Come back later!</h2>
     <card class="calculator">
-      <h3 class="calculator__title">Minting <time :datetime="format($store.state.mintStartDateTime, 'yyyy-MM-dd HH:mm')">{{ format($store.state.mintStartDateTime, 'do MMMM yyyy hbb') }}</time></h3>
-      <p class="calculator__paragraph">You don’t want to miss this. Once minting goes live <strong>you’ll only have 69 hours</strong> to mint!</p>
+      <h3 class="calculator__title">Minting starts <time :datetime="format($store.state.mintStartDateTime, 'yyyy-MM-dd HH:mm')">{{ format($store.state.mintStartDateTime, 'do MMMM yyyy hbb') }}</time></h3>
+      <p class="calculator__paragraph">You don’t want to miss this. Once minting goes live <strong>you’ll only have 69 hours</strong> to claim your parrots!</p>
     </card>
   </section>
 </template>

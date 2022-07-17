@@ -10,6 +10,7 @@
           </a>
         </li>
       </ul>
+      <img src="/images/sheftali-signature.svg" loading="lazy" width="86" height="68" alt="Sheftali" />
     </div>
   </footer>
 </template>
@@ -49,7 +50,7 @@ export default Vue.extend({
     max-width: 69.375rem;
     margin-inline: auto;
 
-    @media (min-width: $responsive-large-mobile) {
+    @media (min-width: $responsive-small-tablet) {
       flex-direction: row;
       gap: 2.5rem;
     }

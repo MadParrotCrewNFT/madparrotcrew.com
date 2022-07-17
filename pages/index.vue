@@ -20,10 +20,7 @@
           </div>
         </div>
         <div class="about__text">
-          <h2 class="about__title">
-            <span class="mobile">About the Mad Parrots<span class="sr-only">.</span></span>
-            <span class="desktop">69 hours to mint!</span>
-          </h2>
+          <h2 class="about__title">69 hours to mint!</h2>
           <p aria-describedby="plan-explained">
             This project was originally intended to be something bigger, but it didn’t work out... so now it’s just about the art<span aria-hidden="true">*</span>.
           </p>
@@ -87,8 +84,9 @@
         <div class="frens__card">
           <img class="frens__logo" src="~assets/images/mpc.png" alt="MPC" height="100" width="100" loading="lazy" />
           <h2 class="frens__title">Let's be frens</h2>
-          <p class="frens__para">If there’s ever a NFT project that has a close-knit community, it’s us. We’re all about good vibes and we stick to a quality > quantity policy.</p>
-          <p class="frens__para">So If you fancy it, pop in and say hello! We’d love to hear from you.</p>
+          <p class="frens__para">
+            We got a Discord, pop in and say hello! We’d love to hear from you.
+          </p>
           <btn class="frens__btn" icon="discord" white :to="config.SOCIAL.DISCORD">Join us in Discord</btn>
           <div class="frens__parrots--mobile">
             <img src="~assets/images/team-parrots.png" alt="A couple of Mad Parrots" height="229" width="261" loading="lazy" />
@@ -140,7 +138,7 @@ export default Vue.extend({
           name: 'Sheftali',
           image: 'sheftali.png',
           role: 'Founder, artist, UX/UI',
-          description: 'Came up with the parrots and more or less kickstarted the whole project.',
+          description: 'Designed the parrots, the UI, the brand and kickstarted the original project.',
           social: [
             { platform: 'twitter', url: 'https://twitter.com/iamsheftali' }
           ]
@@ -151,7 +149,7 @@ export default Vue.extend({
           role: 'Adviser',
           description: 'Long-time fren in the space who’s always shooting straight and giving top advice.',
           social: [
-            { platform: 'twitter', url: 'https://twitter.com' }
+            { platform: 'twitter', url: 'https://twitter.com/nftgerry' }
           ]
         },
         {
@@ -160,14 +158,14 @@ export default Vue.extend({
           role: 'Web3 Developer',
           description: 'Wrote the smart contract that y’all will be (hopefully) minting from.',
           social: [
-            { platform: 'twitter', url: 'https://twitter.com' }
+            { platform: 'twitter', url: 'https://twitter.com/fancyrats_eth' }
           ]
         },
         {
           name: 'Jack Domleo',
           image: 'jackdomleo.png',
           role: 'Web2 Developer',
-          description: 'Built the website as well as endured Shef’s constant tweak requests.',
+          description: 'Built the website as well as endured my constant tweak requests.',
           social: [
             { platform: 'twitter', url: 'https://twitter.com/jackdomleo7' }
           ]
@@ -178,7 +176,7 @@ export default Vue.extend({
           role: 'Community Manager',
           description: 'Sounds like she’s always smiling and that’s why she’s the the best for this role.',
           social: [
-            { platform: 'twitter', url: 'https://twitter.com' }
+            { platform: 'twitter', url: 'https://twitter.com/dejen_art' }
           ]
         },
         {
@@ -187,7 +185,7 @@ export default Vue.extend({
           role: 'Discord Server Wizard',
           description: 'Set up, configured and maintains the Discord server. Parrots love Zanko.',
           social: [
-            { platform: 'twitter', url: 'https://twitter.com' }
+            { platform: 'twitter', url: 'https://twitter.com/rupica3' }
           ]
         }
       ]
@@ -450,14 +448,6 @@ $responsive-team: 69.375rem;
     }
   }
 
-  &__smallprint {
-    font-size: var(--font-size-small);
-
-    @media (min-width: $responsive-small-desktop) {
-      font-size: var(--font-size-body);
-    }
-  }
-
   &__parrots {
     &--mobile {
       position: relative;
@@ -712,6 +702,7 @@ $responsive-team: 69.375rem;
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     padding: 3rem 8rem 6rem 8rem;
+    min-height: 30rem;
 
     > div {
       &:nth-child(1) {

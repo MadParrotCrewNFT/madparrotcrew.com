@@ -64,11 +64,11 @@ export const state = () => ({
       url: config.SOCIAL.DISCORD,
       icon: 'discord'
     },
-    {
-      text: 'OpenSea',
-      url: config.OPENSEA_LINK,
-      icon: 'opensea'
-    },
+    // {
+    //   text: 'OpenSea',
+    //   url: config.OPENSEA_LINK,
+    //   icon: 'opensea'
+    // },
     {
       text: 'Etherscan',
       url: config.SCAN_LINK,
