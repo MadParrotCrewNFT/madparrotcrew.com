@@ -503,6 +503,7 @@ $responsive-team: 69.375rem;
         img {
           position: absolute;
           left: 50%;
+          pointer-events: none;
 
           &[src*="parrots"] {
             width: 43.625rem;
