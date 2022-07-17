@@ -1,7 +1,7 @@
 <template>
   <section>
-    <h2 class="orange-gradient-text title">69 hours left...</h2>
-    <p class="timer"># days<span>,</span> # hours<span>,</span> # minutes<span>,</span> # seconds</p>
+    <h2 class="orange-gradient-text title">{{ ($store.state.mintTimeLeft.days * 24) + $store.state.mintTimeLeft.hours }} hours left...</h2>
+    <p class="timer">{{ $store.state.mintTimeLeft.days }} days<span>,</span> {{ $store.state.mintTimeLeft.hours }} hours<span>,</span> {{ $store.state.mintTimeLeft.minutes }} minutes<span>,</span> {{ $store.state.mintTimeLeft.seconds }} seconds</p>
     <card class="calculator">
       <div class="calculator__video">
         <video width="176" height="176" autoplay loop muted preload="auto" poster="/_nuxt/assets/images/pre-reveal-poster.png">

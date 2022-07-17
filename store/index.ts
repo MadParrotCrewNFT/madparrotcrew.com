@@ -8,6 +8,13 @@ export interface ISocialLink {
   url: string;
   icon: string;
 }
+
+export interface IMintTimeLeft {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
 export interface IContractState {
   isMintActive: boolean;
   priceInWei: number;
@@ -23,6 +30,9 @@ export interface IContractState {
 export interface IState {
   socialLinks: ISocialLink[];
   showTandCsModal: boolean;
+  mintEndDateTime: Date,
+  mintTimeLeft: IMintTimeLeft;
+  mintTimeEnded: boolean;
   contractAddress: string;
   account: null | string;
   isAWalletInstalled: boolean;
@@ -59,6 +69,14 @@ export const state = () => ({
     }
   ],
   showTandCsModal: false,
+  mintEndDateTime: new Date(Date.UTC(2021, 6, 23, 21, 0, 0, 0)), // Month is 0-11
+  mintTimeLeft: {
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  },
+  mintTimeEnded: false,
   contractAddress: config.CONTRACT_ADDRESS,
   account: null,
   isAWalletInstalled: false,
@@ -74,6 +92,12 @@ export const state = () => ({
 export const mutations = {
   setShowTandCsModal(state: IState, value: boolean): void {
     state.showTandCsModal = value
+  },
+  setMintTimeLeft(state: IState, value: IMintTimeLeft): void {
+    state.mintTimeLeft = value
+  },
+  setMintTimeEnded(state: IState, value: boolean): void {
+    state.mintTimeEnded = value
   },
   setAccount(state: IState, account: null | string): void {
     state.account = account

@@ -2,19 +2,30 @@
   <section>
     <h2 class="orange-gradient-text title">Come back later!</h2>
     <card class="calculator">
-      <h3 class="calculator__title">Minting <time datetime="2022-06-04">4th June 2022</time></h3>
+      <h3 class="calculator__title">Minting <time :datetime="format(mintStartDate, 'yyyy-MM-dd HH:mm')">{{ format(mintStartDate, 'do MMMM yyyy hbb') }}</time></h3>
       <p class="calculator__paragraph">You don’t want to miss this. Once minting goes live <strong>you’ll only have 69 hours</strong> to mint!</p>
     </card>
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
+import { sub, format } from 'date-fns'
 import Card from './Card.vue'
 
 export default Vue.extend({
   name: 'PreMintCalculator',
-  components: { Card }
+  components: { Card },
+  data () {
+    return {
+      format
+    }
+  },
+  computed: {
+    mintStartDate (): Date {
+      return sub((this.$store.state.mintEndDateTime as Date), { hours: 69 })
+    }
+  }
 })
 </script>
 

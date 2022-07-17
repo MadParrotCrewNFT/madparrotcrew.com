@@ -3,7 +3,7 @@
     <header id="mint" class="header">
       <div class="header__inner">
         <PreMintCalculator v-if="!config.MINTING_LIVE" class="header__calculator" />
-        <DuringMintCalculator v-else-if="config.MINTING_LIVE" class="header__calculator" />
+        <DuringMintCalculator v-else-if="config.MINTING_LIVE && !hasSoldOutOrTimeUp()" class="header__calculator" />
         <PostMintCalculator v-else-if="hasSoldOutOrTimeUp()" class="header__calculator" />
         <div class="header__parrot">
           <img class="header__parrot--body" src="~assets/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" />
@@ -111,6 +111,7 @@ import Vue from 'vue'
 import { Btn, Logo, PreMintCalculator, DuringMintCalculator, PostMintCalculator } from '@/components'
 import siteconfig from '@/siteconfig.json'
 import config from '@/config.json'
+import { IState } from '@/store'
 
 interface ITeamMember {
   image: string;
@@ -128,7 +129,8 @@ export default Vue.extend({
   data () {
     return {
       siteconfig,
-      config
+      config,
+      interval: undefined as undefined | number
     }
   },
   computed: {
@@ -219,10 +221,42 @@ export default Vue.extend({
         await this.$store.dispatch("isCorrectNetwork")
       })
     }
+
+    this.interval = window.setInterval(() => {
+      let diff = (this.$store.state.mintEndDateTime as Date).getTime() - new Date().getTime()
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      this.$store.commit("setMintTimeLeft", {
+        days,
+        hours,
+        minutes,
+        seconds
+      })
+
+      if (diff < 0) {
+        this.$store.commit("setMintTimeEnded", true)
+        window.clearInterval(this.interval)
+      }
+    }, 1000);
+  },
+  destroyed () {
+    window.clearInterval(this.interval)
   },
   methods: {
     hasSoldOutOrTimeUp (): boolean {
-      return false
+      if ((this.$store.state as IState).contractState?.numberMinted === (this.$store.state as IState).contractState?.maxSupply) {
+        return true
+      }
+      else if ((this.$store.state as IState).mintTimeEnded) {
+        return true
+      }
+      else {
+        return false
+      }
     }
   }
 })
