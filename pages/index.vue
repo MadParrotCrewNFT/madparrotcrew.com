@@ -414,6 +414,7 @@ $responsive-team: 69.375rem;
 
     @media (min-width: $responsive-small-desktop) {
       grid-template-columns: repeat(2, 1fr);
+      min-height: 36rem;
     }
 
     > div:nth-child(1) {
@@ -434,6 +435,7 @@ $responsive-team: 69.375rem;
       max-width: 35.5rem;
       margin-top: 5.125rem;
       margin-bottom: 2.875rem;
+      place-self: center;
     }
 
     a {
