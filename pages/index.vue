@@ -219,11 +219,12 @@ export default Vue.extend({
       ]
     },
     showPreMintCalculator (): boolean {
-      const startDateTime = (this.$store.state as IState).mintStartDateTime.getTime()
-      const nowDateTime = new Date().getTime()
+      return true
+      // const startDateTime = (this.$store.state as IState).mintStartDateTime.getTime()
+      // const nowDateTime = new Date().getTime()
 
-      if (nowDateTime < startDateTime) return true
-      else return false
+      // if (nowDateTime < startDateTime) return true
+      // else return false
     },
     showDuringMintCalculator (): boolean {
       const startDateTime = (this.$store.state as IState).mintStartDateTime.getTime()
