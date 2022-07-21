@@ -2,8 +2,9 @@
   <section>
     <h2 class="orange-gradient-text title">Come back later!</h2>
     <card class="calculator">
-      <h3 class="calculator__title">Minting starts<br/><time :datetime="format($store.state.mintStartDateTime, 'yyyy-MM-dd HH:mm')">{{ format($store.state.mintStartDateTime, 'do MMMM yyyy hbb O') }}</time></h3>
-      <p class="calculator__paragraph">You don’t want to miss this. Once minting goes live <strong>you’ll only have 69 hours</strong> to claim your parrots!</p>
+      <!-- <h3 class="calculator__title">Minting starts<br/><time :datetime="format($store.state.mintStartDateTime, 'yyyy-MM-dd HH:mm')">{{ format($store.state.mintStartDateTime, 'do MMMM yyyy hbb O') }}</time></h3> -->
+      <h3 class="calculator__title">You don't want to miss this...</h3>
+      <p class="calculator__paragraph">Once minting goes live <strong>you’ll only have 69 hours</strong> to claim your parrots. I'll let you know when via <a :href="config.SOCIAL.TWITTER" class="link--pink">Twitter</a> & <a :href="config.SOCIAL.DISCORD" class="link--pink">Discord</a>.</p>
     </card>
   </section>
 </template>
@@ -12,13 +13,15 @@
 import Vue from 'vue'
 import { format } from 'date-fns'
 import Card from './Card.vue'
+import config from '@/config.json'
 
 export default Vue.extend({
   name: 'PreMintCalculator',
   components: { Card },
   data () {
     return {
-      format
+      format,
+      config
     }
   }
 })
