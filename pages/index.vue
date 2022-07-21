@@ -110,7 +110,7 @@
     <section id="frens" class="frens">
       <div>
         <div class="frens__card">
-          <img class="frens__logo" src="~assets/images/mpc.png" alt="MPC" height="100" width="100" loading="lazy" />
+          <img class="frens__logo" src="~assets/images/mpc.gif" alt="MPC" height="100" width="100" loading="lazy" />
           <h2 class="frens__title">Let's be frens</h2>
           <p class="frens__para">
             We got a Discord, pop in and say hello! We’d love to hear from you.
@@ -769,6 +769,7 @@ $responsive-team: 69.375rem;
     top: -1.5rem;
     left: 50%;
     transform: translateX(-50%);
+    border-radius: 50%;
 
     @media (min-width: $responsive-small-desktop) {
       left: unset;
