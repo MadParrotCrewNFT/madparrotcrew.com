@@ -69,11 +69,11 @@ export const state = () => ({
     //   url: config.OPENSEA_LINK,
     //   icon: 'opensea'
     // },
-    {
-      text: 'Etherscan',
-      url: config.SCAN_LINK,
-      icon: 'etherscan'
-    }
+    // {
+    //   text: 'Etherscan',
+    //   url: config.SCAN_LINK,
+    //   icon: 'etherscan'
+    // }
   ],
   showTandCsModal: false,
   mintStartDateTime,
