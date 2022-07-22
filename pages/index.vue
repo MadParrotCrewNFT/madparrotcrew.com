@@ -129,12 +129,49 @@
         </div>
       </div>
     </section>
+    <section id="faq" class="faq">
+      <h2 class="faq__title">Frequently asked questions</h2>
+      <div class="faq__inner">
+        <div>
+          <div class="faq__parrots--desktop">
+            <img src="~assets/images/faq-parrots.png" alt="A pair of Mad Parrots" height="631" width="634" loading="lazy" />
+            <img src="~assets/images/faq-parrots-feet.png" alt="" height="133" width="91" loading="lazy" />
+          </div>
+        </div>
+        <div class="faq__text">
+          <ul>
+            <Accordion heading="How many and how much?" heading-tag="h3" id="faq-1">
+              <p>
+                There’s a <strong>total of 6969</strong> randomly generated Mad Parrots (with <strong>30 being held back</strong> for giveaways and early supporters), <strong>max 10 per wallet, 0.069<span aria-hidden="true">e</span> <span class="sr-only">ethereum</span> for 2</strong>.
+              </p>
+              <p>
+                Whatever Mad Parrots are left after the 69 hour minting window will be sent to the furnace (burnt).
+              </p>
+            </Accordion>
+            <Accordion heading="Presale list?" heading-tag="h3" id="faq-2">
+              <p>
+                Negative, everyone gets the same chance to mint.
+              </p>
+            </Accordion>
+            <Accordion heading="Does this awesome looking parrot have any utility?" heading-tag="h3" id="faq-3">
+              <p>
+                Not for the moment, but wouldn’t rule it out for the future (I got ideas!)
+              </p>
+            </Accordion>
+          </ul>
+        </div>
+        <div class="faq__parrots--mobile">
+          <img src="~assets/images/faq-parrots.png" alt="A pair of Mad Parrots" height="255" width="256" loading="lazy" />
+          <img src="~assets/images/faq-parrots-feet.png" alt="" height="53" width="36" loading="lazy" />
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { Btn, Logo, PreMintCalculator, DuringMintCalculator, PostMintCalculator } from '@/components'
+import { Accordion, Btn, Logo, PreMintCalculator, DuringMintCalculator, PostMintCalculator } from '@/components'
 import siteconfig from '@/siteconfig.json'
 import config from '@/config.json'
 import { IState } from '@/store'
@@ -151,7 +188,7 @@ interface ITeamMember {
 }
 
 export default Vue.extend({
-  components: { Btn, Logo, PreMintCalculator, DuringMintCalculator, PostMintCalculator },
+  components: { Accordion, Btn, Logo, PreMintCalculator, DuringMintCalculator, PostMintCalculator },
   data () {
     return {
       siteconfig,
@@ -463,20 +500,6 @@ $responsive-team: 69.375rem;
 
     @media (min-width: $responsive-small-desktop) {
       margin-bottom: 2.75rem;
-    }
-
-    .mobile {
-      @media (min-width: $responsive-small-desktop) {
-        display: none;
-      }
-    }
-
-    .desktop {
-      display: none;
-
-      @media (min-width: $responsive-small-desktop) {
-        display: block;
-      }
     }
   }
 
@@ -843,15 +866,146 @@ $responsive-team: 69.375rem;
 
           &[src*="parrots"] {
             width: 43.625rem;
-            bottom: -9rem;
+            bottom: -10.75rem;
             transform: translateX(-50%);
           }
 
           &[src*="feet"] {
             width: 5rem;
-            bottom: -7.25rem;
+            bottom: -9rem;
             z-index: 1;
             transform: translateX(calc(-50% - 2.35rem));
+          }
+        }
+      }
+    }
+  }
+}
+
+.faq {
+  position: relative;
+  background: linear-gradient(180deg, #ffd15b 0%, #ffcac5 100%);
+  padding: 3rem 1rem 0 1rem;
+
+  @media (min-width: $responsive-small-desktop) {
+    padding: 6rem 8rem 0 8rem;
+  }
+
+  &__inner {
+    max-width: 85rem;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @media (min-width: $responsive-small-desktop) {
+      grid-template-columns: repeat(2, 1fr);
+      min-height: 36rem;
+    }
+
+    > div:nth-child(1) {
+      max-width: 50rem;
+    }
+  }
+
+  &__title {
+    font-size: var(--font-size-subtitle);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 3rem;
+  }
+
+  &__text {
+    position: relative;
+    max-width: 30rem;
+    margin-inline: auto;
+    margin-bottom: 15rem;
+    padding-inline: 1rem;
+    font-size: var(--font-size-large);
+
+    @media (min-width: $responsive-small-desktop) {
+      max-width: 35.5rem;
+      margin-top: 5.125rem;
+      margin-bottom: 2.875rem;
+      place-self: center;
+    }
+
+    a {
+      font-weight: 700;
+    }
+
+    p {
+      margin-block: 1rem;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+
+    ul {
+      padding-left: 0;
+      list-style-type: none;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  &__parrots {
+    &--mobile {
+      position: relative;
+
+      @media (min-width: $responsive-small-desktop) {
+        display: none;
+      }
+
+      img {
+        position: absolute;
+        left: 50%;
+
+        &[src*="parrots"] {
+          width: 16rem;
+          bottom: -2rem;
+          transform: translateX(-50%);
+        }
+
+        &[src*="feet"] {
+          width: 2.25rem;
+          bottom: -1.15rem;
+          z-index: 1;
+          transform: translateX(calc(-50% - 1.67rem));
+        }
+      }
+    }
+
+    &--desktop {
+      display: none;
+
+      @media (min-width: $responsive-small-desktop) {
+        display: block;
+        position: relative;
+        height: 100%;
+
+        img {
+          position: absolute;
+          left: 50%;
+          pointer-events: none;
+
+          &[src*="parrots"] {
+            width: 39.625rem;
+            bottom: -5.5rem;
+            transform: translateX(-50%);
+          }
+
+          &[src*="feet"] {
+            width: 5.6875rem;
+            bottom: -3.4rem;
+            z-index: 1;
+            transform: translateX(calc(-50% - 4.15rem));
           }
         }
       }
