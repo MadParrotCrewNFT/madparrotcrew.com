@@ -64,7 +64,8 @@ export default {
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/google-analytics',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@nuxt/image'
   ],
   googleAnalytics: {
     id: 'UA-215627717-1',
@@ -74,6 +75,20 @@ export default {
     scss: [
       '~/assets/scss/responsive-vars.scss'
     ]
+  },
+  image: {
+    screens: {
+      smallmobile: 340,
+      standardmobile: 390,
+      largemobile: 450,
+      smalltablet: 640,
+      standardtablet: 768,
+      largetablet: 1000,
+      smalldesktop: 1366,
+      standarddesktop: 1920,
+      largedesktop: 2880,
+      '4kdesktop': 3840
+    }
   },
   modules: [
     '@nuxtjs/robots',

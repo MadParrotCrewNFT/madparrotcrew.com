@@ -3,8 +3,8 @@
     <h2 class="orange-gradient-text title">Times's up, mint is over!</h2>
     <card class="calculator">
       <div class="calculator__img">
-        <img src="~/assets/images/mint-ended-poster.png" alt="" height="176" width="176" />
-        <img src="~/assets/images/mint-ended-x.png" alt="" height="226" width="226" />
+        <img src="/images/mint-ended-poster.png" alt="" height="176" width="176" />
+        <img src="/images/mint-ended-x.png" alt="" height="226" width="226" />
       </div>
       <p class="calculator__minted"><span>{{ $store.state.contractState && $store.state.contractState.numberMinted }}</span> were minted in total</p>
       <h3 class="calculator__title">You can still join us!</h3>

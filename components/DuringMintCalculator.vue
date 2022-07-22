@@ -4,11 +4,11 @@
     <p class="timer">{{ $store.state.mintTimeLeft.days }} days<span>,</span> {{ $store.state.mintTimeLeft.hours }} hours<span>,</span> {{ $store.state.mintTimeLeft.minutes }} minutes<span>,</span> {{ $store.state.mintTimeLeft.seconds }} seconds</p>
     <card class="calculator">
       <div class="calculator__video">
-        <video width="176" height="176" autoplay loop muted preload="auto" poster="/_nuxt/assets/images/pre-reveal-poster.png">
-          <source src="~/assets/images/pre-reveal.mp4" type="video/mp4">
+        <video width="176" height="176" autoplay loop muted preload="auto" poster="/images/pre-reveal-poster.png">
+          <source src="/images/pre-reveal.mp4" type="video/mp4">
         </video>
         <div class="calculator__price">
-          <img src="~assets/images/069-price.gif" alt="" height="48" width="48" />
+          <img src="/images/069-price.gif" alt="" height="48" width="48" />
           <span class="sr-only">0.069 ethereum</span>
         </div>
       </div>

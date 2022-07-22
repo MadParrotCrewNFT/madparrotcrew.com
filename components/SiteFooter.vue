@@ -10,7 +10,7 @@
           </a>
         </li>
       </ul>
-      <img src="/images/sheftali-signature.svg" loading="lazy" width="86" height="68" alt="Sheftali" />
+      <nuxt-img src="/images/sheftali-signature.svg" loading="lazy" width="86" height="68" alt="Sheftali" />
     </div>
   </footer>
 </template>

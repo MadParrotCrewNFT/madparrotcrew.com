@@ -24,7 +24,8 @@
     "types": [
       "node",
       "@types/node",
-      "@nuxt/types"
+      "@nuxt/types",
+      "@nuxt/image"
     ]
   },
   "exclude": [
