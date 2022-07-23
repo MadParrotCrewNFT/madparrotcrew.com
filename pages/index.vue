@@ -72,38 +72,30 @@
       <h2 class="team__title">The team... Behind the crew</h2>
       <ul class="team__members">
         <li v-for="member in team" :key="member.name" class="member">
-          <div class="member--mobile">
+          <a :href="member.twitter" rel="nofollow noopener" target="_blank" class="member--mobile">
             <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="96" width="96" loading="lazy" format="webp" />
             <p class="member__role">{{ member.role }}</p>
             <p class="member__name">{{ member.name }}</p>
             <p class="member__description">{{ member.description }}</p>
-            <ul class="member__social">
-              <li v-for="social in member.social" :key="social.platform">
-                <a :href="social.url" target="_blank">
-                  <svg-icon :name="social.platform" />
-                  <span class="sr-only">{{ social.platform }}</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="member--desktop">
+            <div class="member__social">
+              <svg-icon name="twitter" />
+              <span class="sr-only">Twiiter</span>
+            </div>
+          </a>
+          <a :href="member.twitter" rel="nofollow noopener" target="_blank" class="member--desktop">
             <div class="member__img-social">
               <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="96" width="96" loading="lazy" format="webp" />
-              <ul class="member__social">
-                <li v-for="social in member.social" :key="social.platform">
-                  <a :href="social.url" target="_blank">
-                    <svg-icon :name="social.platform" />
-                    <span class="sr-only">{{ social.platform }}</span>
-                  </a>
-                </li>
-              </ul>
+              <div class="member__social">
+                <svg-icon name="twitter" />
+                <span class="sr-only">Twiiter</span>
+              </div>
             </div>
             <div class="member__text">
               <p class="member__role">{{ member.role }}</p>
               <p class="member__name">{{ member.name }}</p>
               <p class="member__description">{{ member.description }}</p>
             </div>
-          </div>
+          </a>
         </li>
       </ul>
     </section>
@@ -181,10 +173,7 @@ interface ITeamMember {
   role: string;
   name: string;
   description: string;
-  social: {
-    platform: 'twitter',
-    url: `https://${string}`
-  }[]
+  twitter: `https://${string}`
 }
 
 export default Vue.extend({
@@ -204,54 +193,42 @@ export default Vue.extend({
           image: 'sheftali.png',
           role: 'Founder, artist, UX/UI',
           description: 'Designed the parrots, the UI, the brand and kickstarted the original project.',
-          social: [
-            { platform: 'twitter', url: 'https://twitter.com/iamsheftali' }
-          ]
+          twitter: 'https://twitter.com/iamsheftali'
         },
         {
           name: 'Gerry',
           image: 'gerry.png',
           role: 'Adviser',
           description: 'Long-time fren in the space who’s always shooting straight and giving top advice.',
-          social: [
-            { platform: 'twitter', url: 'https://twitter.com/nftgerry' }
-          ]
+          twitter: 'https://twitter.com/nftgerry'
         },
         {
           name: 'Fancyrats',
           image: 'fancyrats.png',
           role: 'Web3 Developer',
           description: 'Wrote the smart contract that y’all will be (hopefully) minting from.',
-          social: [
-            { platform: 'twitter', url: 'https://twitter.com/fancyrats_eth' }
-          ]
+          twitter: 'https://twitter.com/fancyrats_eth'
         },
         {
           name: 'Jack Domleo',
           image: 'jackdomleo.png',
           role: 'Web2 Developer',
           description: 'Built the website as well as endured my constant tweak requests.',
-          social: [
-            { platform: 'twitter', url: 'https://twitter.com/jackdomleo7' }
-          ]
+          twitter: 'https://twitter.com/jackdomleo7'
         },
         {
           name: 'Dejen',
           image: 'dejen.png',
           role: 'Community Manager',
           description: 'Sounds like she’s always smiling and that’s why she’s the the best for this role.',
-          social: [
-            { platform: 'twitter', url: 'https://twitter.com/dejen_art' }
-          ]
+          twitter: 'https://twitter.com/dejen_art'
         },
         {
           name: 'Zanko',
           image: 'zanko.png',
           role: 'Discord Server Wizard',
           description: 'Set up, configured and maintains the Discord server. Parrots love Zanko.',
-          social: [
-            { platform: 'twitter', url: 'https://twitter.com/rupica3' }
-          ]
+          twitter: 'https://twitter.com/rupica3'
         }
       ]
     },
@@ -628,15 +605,23 @@ $responsive-team: 69.375rem;
     border-radius: 1rem;
     padding: 6rem 1rem 2rem 1rem;
     text-align: center;
+    transition-property: transform, box-shadow;
+    transition: transform ease 160ms;
 
     @media (min-width: $responsive-team) {
       padding: 2rem 1.5rem;
       text-align: left;
     }
 
+    &:hover {
+      transform: scale(1.05) rotate(1deg);
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+    }
+
     &--mobile {
       display: flex;
       flex-direction: column;
+      text-decoration: none;
 
       @media (min-width: $responsive-team) {
         display: none;
@@ -645,6 +630,7 @@ $responsive-team: 69.375rem;
 
     &--desktop {
       display: none;
+      text-decoration: none;
 
       @media (min-width: $responsive-team) {
         display: flex;
@@ -679,7 +665,7 @@ $responsive-team: 69.375rem;
       font-size: var(--font-size-small);
       font-weight: 500;
       margin-top: 0;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0;
     }
 
     &__name {
@@ -704,22 +690,17 @@ $responsive-team: 69.375rem;
     }
 
     &__social {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      list-style-type: none;
-      padding-left: 0;
       margin: 0;
+      display: flex;
+      justify-content: center;
 
       @media (min-width: $responsive-team) {
         margin-top: 1.5rem;
       }
 
-      li, a {
-        display: flex;
-        align-items: center;
-        height: 100%;
+      svg {
+        height: 2rem;
+        width: 2rem;
         color: var(--mpc-medium-grey);
         transition: color 160ms ease;
         will-change: color;
@@ -728,11 +709,6 @@ $responsive-team: 69.375rem;
         &:active {
           color: var(--mpc-dark-blue);
         }
-      }
-
-      svg {
-        height: 2rem;
-        width: 2rem;
       }
     }
 
