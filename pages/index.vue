@@ -102,7 +102,7 @@
     <section id="frens" class="frens">
       <div>
         <div class="frens__card">
-          <nuxt-img class="frens__logo" src="/images/mpc.gif" alt="MPC" height="100" width="100" loading="lazy" format="webp" />
+          <nuxt-img class="frens__logo" src="/images/mpc.gif" alt="MPC" height="100" width="100" loading="lazy" />
           <h2 class="frens__title">Let's be frens</h2>
           <p class="frens__para">
             We got a Discord, pop in and say hello! We’d love to hear from you.
@@ -760,6 +760,19 @@ $responsive-team: 69.375rem;
       border-radius: 1rem;
       padding: 2rem 4rem 2rem 1.5rem;
       text-align: left;
+      animation: float-up-down linear 5s infinite;
+
+      @keyframes float-up-down {
+        33% {
+          transform: translateY(-0.5rem);
+        }
+        66% {
+          transform: translateY(0.5rem);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
     }
   }
 
