@@ -16,7 +16,7 @@
   "scripts": {
     "postinstall": "npm run typechain",
     "dev": "npm run typechain && nuxt --open",
-    "start": "rimraf node_modules dist && npm ci && npm run generate && nuxt start --open",
+    "start": "nuxt start --open",
     "generate": "concurrently \"rimraf dist\" \"npm run typechain\" && nuxt generate -m --fail-on-error",
     "typechain": "npx typechain --target=ethers-v5 --out-dir contract/types contract/out/MadParrotCrew.sol/MadParrotCrew.json"
   },
@@ -41,6 +41,7 @@
     "@types/node": "^16.11.45",
     "babel-core": "7.0.0-bridge.0",
     "concurrently": "^7.3.0",
+    "nuxt-compress": "^5.0.0",
     "rimraf": "^3.0.2",
     "sass": "^1.53.0",
     "sass-loader": "^10.3.1",

@@ -65,7 +65,8 @@ export default {
     '@nuxt/typescript-build',
     '@nuxtjs/google-analytics',
     '@nuxtjs/style-resources',
-    '@nuxt/image'
+    '@nuxt/image',
+    'nuxt-compress'
   ],
   googleAnalytics: {
     id: 'UA-215627717-1',
@@ -89,6 +90,14 @@ export default {
       largedesktop: 2880,
       '4kdesktop': 3840
     }
+  },
+  'nuxt-compress': {
+    gzip: {
+      threshold: 8192,
+    },
+    brotli: {
+      threshold: 8192,
+    },
   },
   modules: [
     '@nuxtjs/robots',
