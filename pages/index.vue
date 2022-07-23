@@ -359,7 +359,7 @@ $responsive-team: 69.375rem;
 
 .header {
   position: relative;
-  background: linear-gradient(180deg, #62264A 0%, rgba(98, 38, 74, 0) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/images/hero-bg.png);
+  background: linear-gradient(180deg, #62264A 0%, rgba(98, 38, 74, 0) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/images/hero-bg.webp);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
