@@ -6,8 +6,8 @@
         <DuringMintCalculator v-else-if="showDuringMintCalculator" class="header__calculator" />
         <PostMintCalculator v-else-if="showPostMintCalculator" class="header__calculator" />
         <div class="header__parrot">
-          <nuxt-img preload class="header__parrot--body" src="/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" height="636" width="388" sizes="largetablet:184px 4kdesktop:388px" />
-          <nuxt-img preload class="header__parrot--feet" src="/images/hero-parrot-feet.png" alt="" height="143" width="98" sizes="largetablet:47px 4kdesktop:98px" />
+          <nuxt-img preload class="header__parrot--body" src="/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" height="636" width="388" sizes="largetablet:184px 4kdesktop:388px" format="webp" />
+          <nuxt-img preload class="header__parrot--feet" src="/images/hero-parrot-feet.png" alt="" height="143" width="98" sizes="largetablet:47px 4kdesktop:98px" format="webp" />
         </div>
       </div>
     </header>
@@ -15,8 +15,8 @@
       <div class="about__inner">
         <div>
           <div class="about__parrots--desktop">
-            <nuxt-img src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="920" width="698" loading="lazy" />
-            <nuxt-img src="/images/about-parrot-feet.png" alt="" height="173" width="118" loading="lazy" />
+            <nuxt-img src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="920" width="698" loading="lazy" format="webp" />
+            <nuxt-img src="/images/about-parrot-feet.png" alt="" height="173" width="118" loading="lazy" format="webp" />
           </div>
         </div>
         <div class="about__text">
@@ -63,8 +63,8 @@
           </template>
         </div>
         <div class="about__parrots--mobile">
-          <nuxt-img src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="338" width="256" loading="lazy" />
-          <nuxt-img src="/images/about-parrot-feet.png" alt="" height="63" width="43" loading="lazy" />
+          <nuxt-img src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="338" width="256" loading="lazy" format="webp" />
+          <nuxt-img src="/images/about-parrot-feet.png" alt="" height="63" width="43" loading="lazy" format="webp" />
         </div>
       </div>
     </section>
@@ -73,7 +73,7 @@
       <ul class="team__members">
         <li v-for="member in team" :key="member.name" class="member">
           <div class="member--mobile">
-            <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="96" width="96" loading="lazy" />
+            <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="96" width="96" loading="lazy" format="webp" />
             <p class="member__role">{{ member.role }}</p>
             <p class="member__name">{{ member.name }}</p>
             <p class="member__description">{{ member.description }}</p>
@@ -88,7 +88,7 @@
           </div>
           <div class="member--desktop">
             <div class="member__img-social">
-              <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="96" width="96" loading="lazy" />
+              <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="96" width="96" loading="lazy" format="webp" />
               <ul class="member__social">
                 <li v-for="social in member.social" :key="social.platform">
                   <a :href="social.url" target="_blank">
@@ -110,22 +110,22 @@
     <section id="frens" class="frens">
       <div>
         <div class="frens__card">
-          <nuxt-img class="frens__logo" src="/images/mpc.gif" alt="MPC" height="100" width="100" loading="lazy" />
+          <nuxt-img class="frens__logo" src="/images/mpc.gif" alt="MPC" height="100" width="100" loading="lazy" format="webp" />
           <h2 class="frens__title">Let's be frens</h2>
           <p class="frens__para">
             We got a Discord, pop in and say hello! We’d love to hear from you.
           </p>
           <btn class="frens__btn" icon="discord" white :to="config.SOCIAL.DISCORD">Join us in Discord</btn>
           <div class="frens__parrots--mobile">
-            <nuxt-img src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="229" width="261" loading="lazy" />
-            <nuxt-img src="/images/team-parrot-feet.png" alt="" height="49" width="34" loading="lazy" />
+            <nuxt-img src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="229" width="261" loading="lazy" format="webp" />
+            <nuxt-img src="/images/team-parrot-feet.png" alt="" height="49" width="34" loading="lazy" format="webp" />
           </div>
         </div>
       </div>
       <div>
         <div class="frens__parrots--desktop">
-          <nuxt-img src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="542" width="616" loading="lazy" />
-          <nuxt-img src="/images/team-parrot-feet.png" alt="" height="143" width="98" loading="lazy" />
+          <nuxt-img src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="542" width="616" loading="lazy" format="webp" />
+          <nuxt-img src="/images/team-parrot-feet.png" alt="" height="143" width="98" loading="lazy" format="webp" />
         </div>
       </div>
     </section>
@@ -134,8 +134,8 @@
       <div class="faq__inner">
         <div>
           <div class="faq__parrots--desktop">
-            <nuxt-img src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="631" width="634" loading="lazy" />
-            <nuxt-img src="/images/faq-parrots-feet.png" alt="" height="133" width="91" loading="lazy" />
+            <nuxt-img src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="631" width="634" loading="lazy" format="webp" />
+            <nuxt-img src="/images/faq-parrots-feet.png" alt="" height="133" width="91" loading="lazy" format="webp" />
           </div>
         </div>
         <div class="faq__text">
@@ -161,8 +161,8 @@
           </ul>
         </div>
         <div class="faq__parrots--mobile">
-          <nuxt-img src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="255" width="256" loading="lazy" />
-          <nuxt-img src="/images/faq-parrots-feet.png" alt="" height="53" width="36" loading="lazy" />
+          <nuxt-img src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="255" width="256" loading="lazy" format="webp" />
+          <nuxt-img src="/images/faq-parrots-feet.png" alt="" height="53" width="36" loading="lazy" format="webp" />
         </div>
       </div>
     </section>
