@@ -15,8 +15,8 @@
       <div class="about__inner">
         <div>
           <div class="about__parrots--desktop">
-            <nuxt-img src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="920" width="698" loading="lazy" format="webp" />
-            <nuxt-img src="/images/about-parrot-feet.png" alt="" height="173" width="118" loading="lazy" format="webp" />
+            <nuxt-img class="body" src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="920" width="698" loading="lazy" format="webp" />
+            <nuxt-img class="feet" src="/images/about-parrot-feet.png" alt="" height="173" width="118" loading="lazy" format="webp" />
           </div>
         </div>
         <div class="about__text">
@@ -63,8 +63,8 @@
           </template>
         </div>
         <div class="about__parrots--mobile">
-          <nuxt-img src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="338" width="256" loading="lazy" format="webp" />
-          <nuxt-img src="/images/about-parrot-feet.png" alt="" height="63" width="43" loading="lazy" format="webp" />
+          <nuxt-img class="body" src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="338" width="256" loading="lazy" format="webp" />
+          <nuxt-img class="feet" src="/images/about-parrot-feet.png" alt="" height="63" width="43" loading="lazy" format="webp" />
         </div>
       </div>
     </section>
@@ -117,15 +117,15 @@
           </p>
           <btn class="frens__btn" icon="discord" white :to="config.SOCIAL.DISCORD">Join us in Discord</btn>
           <div class="frens__parrots--mobile">
-            <nuxt-img src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="229" width="261" loading="lazy" format="webp" />
-            <nuxt-img src="/images/team-parrot-feet.png" alt="" height="49" width="34" loading="lazy" format="webp" />
+            <nuxt-img class="body" src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="229" width="261" loading="lazy" format="webp" />
+            <nuxt-img class="feet" src="/images/team-parrot-feet.png" alt="" height="49" width="34" loading="lazy" format="webp" />
           </div>
         </div>
       </div>
       <div>
         <div class="frens__parrots--desktop">
-          <nuxt-img src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="542" width="616" loading="lazy" format="webp" />
-          <nuxt-img src="/images/team-parrot-feet.png" alt="" height="143" width="98" loading="lazy" format="webp" />
+          <nuxt-img class="body" src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="542" width="616" loading="lazy" format="webp" />
+          <nuxt-img class="feet" src="/images/team-parrot-feet.png" alt="" height="143" width="98" loading="lazy" format="webp" />
         </div>
       </div>
     </section>
@@ -134,8 +134,8 @@
       <div class="faq__inner">
         <div>
           <div class="faq__parrots--desktop">
-            <nuxt-img src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="631" width="634" loading="lazy" format="webp" />
-            <nuxt-img src="/images/faq-parrots-feet.png" alt="" height="133" width="91" loading="lazy" format="webp" />
+            <nuxt-img class="body" src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="631" width="634" loading="lazy" format="webp" />
+            <nuxt-img class="feet" src="/images/faq-parrots-feet.png" alt="" height="133" width="91" loading="lazy" format="webp" />
           </div>
         </div>
         <div class="faq__text">
@@ -161,8 +161,8 @@
           </ul>
         </div>
         <div class="faq__parrots--mobile">
-          <nuxt-img src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="255" width="256" loading="lazy" format="webp" />
-          <nuxt-img src="/images/faq-parrots-feet.png" alt="" height="53" width="36" loading="lazy" format="webp" />
+          <nuxt-img class="body" src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="255" width="256" loading="lazy" format="webp" />
+          <nuxt-img class="feet" src="/images/faq-parrots-feet.png" alt="" height="53" width="36" loading="lazy" format="webp" />
         </div>
       </div>
     </section>
@@ -529,13 +529,13 @@ $responsive-team: 69.375rem;
         position: absolute;
         left: 50%;
 
-        &[src*="parrots"] {
+        &.body {
           width: 16rem;
           bottom: -7rem;
           transform: translateX(-50%);
         }
 
-        &[src*="feet"] {
+        &.feet {
           width: 2.6875rem;
           bottom: -1.5rem;
           z-index: 1;
@@ -571,13 +571,13 @@ $responsive-team: 69.375rem;
           left: 50%;
           pointer-events: none;
 
-          &[src*="parrots"] {
+          &.body {
             width: 43.625rem;
             bottom: -18rem;
             transform: translateX(-50%);
           }
 
-          &[src*="feet"] {
+          &.feet {
             width: 7.375rem;
             bottom: -4rem;
             z-index: 1;
@@ -838,13 +838,13 @@ $responsive-team: 69.375rem;
         position: absolute;
         left: 50%;
 
-        &[src*="parrots"] {
+        &.body {
           width: 16.3125rem;
           bottom: -2rem;
           transform: translateX(-50%);
         }
 
-        &[src*="feet"] {
+        &.feet {
           width: 2.125rem;
           bottom: -1.25rem;
           z-index: 1;
@@ -864,13 +864,13 @@ $responsive-team: 69.375rem;
           position: absolute;
           left: 50%;
 
-          &[src*="parrots"] {
+          &.body {
             width: 43.625rem;
             bottom: -10.75rem;
             transform: translateX(-50%);
           }
 
-          &[src*="feet"] {
+          &.feet {
             width: 5rem;
             bottom: -9rem;
             z-index: 1;
@@ -967,13 +967,13 @@ $responsive-team: 69.375rem;
         position: absolute;
         left: 50%;
 
-        &[src*="parrots"] {
+        &.body {
           width: 16rem;
           bottom: -2rem;
           transform: translateX(-50%);
         }
 
-        &[src*="feet"] {
+        &.feet {
           width: 2.25rem;
           bottom: -1.15rem;
           z-index: 1;
@@ -995,13 +995,13 @@ $responsive-team: 69.375rem;
           left: 50%;
           pointer-events: none;
 
-          &[src*="parrots"] {
+          &.body {
             width: 39.625rem;
             bottom: -5.5rem;
             transform: translateX(-50%);
           }
 
-          &[src*="feet"] {
+          &.feet {
             width: 5.6875rem;
             bottom: -3.4rem;
             z-index: 1;
