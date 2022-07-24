@@ -23,8 +23,9 @@
     },
     "types": [
       "node",
+      "@types/node",
       "@nuxt/types",
-      "@types/node"
+      "@nuxt/image"
     ]
   },
   "exclude": [

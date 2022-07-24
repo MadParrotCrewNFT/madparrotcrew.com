@@ -1,7 +1,6 @@
 {
-  "MINTING_LIVE": false,
-  "CONTRACT_ADDRESS": "0xeB3FaF855976F259c89Ef43CfF426A96Da7d060A",
-  "SCAN_LINK": "https://rinkeby.etherscan.io/address/0xeB3FaF855976F259c89Ef43CfF426A96Da7d060A",
+  "CONTRACT_ADDRESS": "0x6e98fA569BCD02a157B5b7a67f24c0Da3bD36fD5",
+  "SCAN_LINK": "https://rinkeby.etherscan.io/address/0x6e98fA569BCD02a157B5b7a67f24c0Da3bD36fD5",
   "NETWORK": {
     "NAME": "RINKEBY",
     "SYMBOL": "ETHER",
@@ -10,14 +9,6 @@
   "OPENSEA_LINK": "https://opensea.io/collection/Testproj",
   "SOCIAL": {
     "DISCORD": "https://discord.gg/EVYDTdFU8j",
-    "TWITTER": "https://twitter.com/madparrotcrew",
-    "INSTAGRAM": "https://www.instagram.com/madparrotcrew"
-  },
-  "SHEFTALI": {
-    "TWITTER": "https://twitter.com/iamsheftali",
-    "INSTAGRAM": "https://www.instagram.com/iamsheftali"
-  },
-  "IACOVE": {
-    "TWITTER": "https://twitter.com/IacNft"
+    "TWITTER": "https://twitter.com/madparrotcrew"
   }
 }

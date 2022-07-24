@@ -1,11 +1,5 @@
 @use './responsive-vars' as *;
 
-::selection {
-  text-shadow: none;
-  color: #000;
-  background-color: var(--mpc-light-green);
-}
-
 html {
   font-family: sans-serif;
   box-sizing: border-box;
@@ -27,11 +21,11 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--mpc-light-grey);
-  font-family: var(--font-family-opensans);
+  color: var(--mpc-text);
+  font-family: var(--font-family-montserrat);
   font-size: var(--font-size-body);
   line-height: 1.5;
-  letter-spacing: -0.45px;
+  letter-spacing: -0.01em;
   overflow-x: hidden;
 }
 
@@ -56,7 +50,7 @@ svg {
   pointer-events: none;
 }
 
-iframe {
+iframe, video {
   height: 100%;
   width: 100%
 }
@@ -71,7 +65,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--mpc-grey);
-  font-family: var(--font-family-ampersand);
+  color: var(--mpc-purple);
+  font-family: var(--font-family-luckiestguy);
   letter-spacing: normal;
 }

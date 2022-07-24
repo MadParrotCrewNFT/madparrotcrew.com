@@ -1,9 +1,9 @@
 <template>
-  <a v-if="to" :href="to" class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }]">
+  <a v-if="to" :href="to" class="btn" :class="{ 'btn--white': white, 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }">
     <slot />
     <svg-icon v-if="icon" :name="icon" />
   </a>
-  <button v-else class="btn" :class="[color !== 'dark-blue' ? `btn--${color}` : '', { 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }]" :disabled="disabled || isLoading" @click="$emit('click')">
+  <button v-else class="btn" :class="{ 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }" :disabled="disabled || isLoading" @click="$emit('click')">
     <slot />
     <svg-icon v-if="icon && !isLoading" :name="icon" />
     <spinner v-if="isLoading" />
@@ -18,12 +18,9 @@ export default Vue.extend({
   name: "Btn",
   components: { Spinner },
   props: {
-    color: {
-      type: String as PropType<"dark-blue" | "grey">,
-      default: "dark-blue",
-      validator: (value: string): boolean => {
-        return ["dark-blue", "grey"].includes(value);
-      }
+    white: {
+      type: Boolean,
+      default: false
     },
     square: {
       type: Boolean,
@@ -59,15 +56,14 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .btn {
-  --btn-color: var(--mpc-dark-blue);
+  --btn-color: var(--mpc-pink);
   cursor: pointer;
   background-color: var(--btn-color);
   border: 1px solid var(--btn-color);
-  border-radius: var(--border-radius-standard);
+  border-radius: 0.5rem;
   color: #fff;
   font-size: var(--font-size-large);
-  font-weight: 800;
-  font-family: var(--font-family-opensans);
+  font-family: var(--font-family-luckiestguy);
   display: inline-flex;
   gap: 1rem;
   align-items: center;
@@ -76,6 +72,15 @@ export default Vue.extend({
   padding: 1.125rem 1.5rem;
   user-select: none;
   text-decoration: none;
+  transition: background-color ease 160ms;
+  will-change: background-color;
+
+  &:not(:disabled) {
+    &:hover,
+    &:active {
+      --btn-color: #a53a87;
+    }
+  }
 
   @media (min-width: $responsive-large-mobile) {
     height: 4rem;
@@ -93,10 +98,18 @@ export default Vue.extend({
     }
   }
 
-  &--grey {
-    --btn-color: var(--mpc-dark-grey);
+  &--white {
+    --btn-color: #fff;
     background-color: var(--btn-color);
     border-color: var(--btn-color);
+    color: #000;
+
+    &:not(:disabled) {
+      &:hover,
+      &:active {
+        --btn-color: #f0f0f0;
+      }
+    }
   }
 
   &--inverted {

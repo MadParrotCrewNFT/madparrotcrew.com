@@ -1,38 +1,53 @@
 import { ethers, ContractTransaction } from 'ethers'
-import axios, { AxiosResponse } from 'axios'
+import { add } from 'date-fns'
 import config from '@/config.json'
-import MadParrotCrewABI from '@/contract/abi/MadParrotCrew.json'
+import MadParrotCrewABI from '@/contract/out/MadParrotCrew.sol/MadParrotCrew.json'
 import { MadParrotCrew } from '@/contract/types'
+
+// Start mint 23 July 2022 01:00 UTC
+const mintStartDateTime = new Date(Date.UTC(2022, 6, 23, 1, 0, 0, 0)) // Month is 0-11
+// End mint 69 hours later
+const mintEndDateTime = add(mintStartDateTime, { hours: 69 })
 
 export interface ISocialLink {
   text: string;
   url: string;
   icon: string;
 }
+
+export interface IMintTimeLeft {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
 export interface IContractState {
-  isPublicMintActive: boolean;
-  isPresaleMintActive: boolean;
-  isAnyMintActive: boolean;
-  priceInWei: ethers.BigNumber;
+  isMintActive: boolean;
+  priceInWei: number;
   maxSupply: number;
   numberMinted: number;
   supplyLeft: number;
-  maxMintPerWallet: number;
-}
-interface IUserContractState {
-  isPresaleUser: boolean;
-  merkleProof: string[];
-  alreadyMinted: number;
-  maxAllowedToMint: number;
+  user: {
+    maxMintPerWallet: number;
+    alreadyMinted: number;
+    allowedLeftToMint: number
+  }
 }
 export interface IState {
   socialLinks: ISocialLink[];
+  showTandCsModal: boolean;
+  mintStartDateTime: Date;
+  mintEndDateTime: Date,
+  mintTimeLeft: IMintTimeLeft;
+  mintTimeEnded: boolean;
   contractAddress: string;
   account: null | string;
+  isAWalletInstalled: boolean;
   isConnectingToWallet: boolean;
-  connectionError: null | string;
+  walletIsConnected: boolean;
+  isCorrectNetwork: boolean,
+  error: null | string;
   contractState: null | IContractState;
-  userContractState: null | IUserContractState;
   isClaimingNFT: boolean;
   successfulMint: null | number;
 }
@@ -40,61 +55,78 @@ export interface IState {
 export const state = () => ({
   socialLinks: [
     {
-      text: 'Discord',
-      url: config.SOCIAL.DISCORD,
-      icon: 'discord'
-    },
-    {
       text: 'Twitter',
       url: config.SOCIAL.TWITTER,
       icon: 'twitter'
     },
-    ...(config.MINTING_LIVE
-      ? [
-        {
-          text: 'OpenSea',
-          url: config.OPENSEA_LINK,
-          icon: 'opensea'
-        },
-        {
-          text: 'Etherscan',
-          url: config.SCAN_LINK,
-          icon: 'etherscan'
-        }
-      ]
-      : []
-    ),
     {
-      text: 'Instagram',
-      url: config.SOCIAL.INSTAGRAM,
-      icon: 'instagram'
-    }
+      text: 'Discord',
+      url: config.SOCIAL.DISCORD,
+      icon: 'discord'
+    },
+    // {
+    //   text: 'OpenSea',
+    //   url: config.OPENSEA_LINK,
+    //   icon: 'opensea'
+    // },
+    // {
+    //   text: 'Etherscan',
+    //   url: config.SCAN_LINK,
+    //   icon: 'etherscan'
+    // }
   ],
+  showTandCsModal: false,
+  mintStartDateTime,
+  mintEndDateTime,
+  mintTimeLeft: {
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  },
+  mintTimeEnded: false,
   contractAddress: config.CONTRACT_ADDRESS,
   account: null,
+  isAWalletInstalled: false,
   isConnectingToWallet: false,
-  connectionError: null,
+  walletIsConnected: false,
+  isCorrectNetwork: false,
+  error: null,
   contractState: null,
-  userContractState: null,
   isClaimingNFT: false,
   successfulMint: null
 } as IState)
 
 export const mutations = {
+  setShowTandCsModal(state: IState, value: boolean): void {
+    state.showTandCsModal = value
+  },
+  setMintTimeLeft(state: IState, value: IMintTimeLeft): void {
+    state.mintTimeLeft = value
+  },
+  setMintTimeEnded(state: IState, value: boolean): void {
+    state.mintTimeEnded = value
+  },
   setAccount(state: IState, account: null | string): void {
     state.account = account
+  },
+  setIsAWalletInstalled(state: IState, value: boolean): void {
+    state.isAWalletInstalled = value
   },
   setIsConnectingToWallet(state: IState, value: boolean): void {
     state.isConnectingToWallet = value
   },
-  setConnectionError(state: IState, error: string | null): void {
-    state.connectionError = error
+  setWalletIsConnected(state: IState, value: boolean): void {
+    state.walletIsConnected = value
+  },
+  setIsCorrectNetwork(state: IState, value: boolean): void {
+    state.isCorrectNetwork = value
+  },
+  setError(state: IState, error: string | null): void {
+    state.error = error
   },
   setContractState(state: IState, contractState: IContractState | null): void {
     state.contractState = contractState
-  },
-  setUserContractState(state: IState, userContractState: IUserContractState | null): void {
-    state.userContractState = userContractState
   },
   setIsClaimingNFT(state: IState, value: boolean): void {
     state.isClaimingNFT = value
@@ -105,61 +137,73 @@ export const mutations = {
 }
 
 export const actions = {
-  isAWalletInstalled ({ commit }: { commit: (mutation: string, value: any) => void }): boolean {
+  isAWalletInstalled ({ commit }: { commit: (mutation: string, value: any) => void }): void {
     const { ethereum } = window
     if (!ethereum) {
-      commit("setConnectionError", "A wallet is not installed.")
-      return false
+      commit("setError", "A wallet is not installed.")
+      commit("setIsAWalletInstalled", false)
     }
-    else return true
+    else commit("setIsAWalletInstalled", true)
   },
-  async connect({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }): Promise<void> {
+  async connect({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }): Promise<void> {
     commit("setIsConnectingToWallet", true)
+
     try {
-      if (!(await dispatch("isAWalletInstalled"))) return
-      if (!(await dispatch("checkIfConnected"))) { // User has granted access to wallet?
+      await dispatch("isAWalletInstalled")
+      if (!state.isAWalletInstalled) return
+
+      await dispatch("checkIfWalletConnected")
+      if (!state.walletIsConnected) {
         await dispatch("requestAccess")
       }
-      commit("setConnectionError", null)
-      if (!(await dispatch("isCorrectNetwork"))) await dispatch("switchNetwork")
+
+      commit("setError", null)
+
+      await dispatch("isCorrectNetwork")
+      if (!state.isCorrectNetwork) await dispatch("switchNetwork")
+
       await dispatch('getContractState')
-      await dispatch('getUserContractState')
     } catch (error) {
       console.error(error)
-      commit("setConnectionError", "Wallet account request refused.")
+      commit("setError", "Wallet account request refused.")
     }
     commit("setIsConnectingToWallet", false)
   },
-  async checkIfConnected({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }) {
-    if (!(await dispatch("isAWalletInstalled"))) return false
+  async checkIfWalletConnected({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }): Promise<void> {
+    await dispatch("isAWalletInstalled")
+    if (!state.isAWalletInstalled) {
+      commit("setWalletIsConnected", false)
+      return
+    }
     const { ethereum } = window
     window.web3Provider = new ethers.providers.Web3Provider(ethereum)
     const accounts = await ethereum.request({ method: "eth_accounts" })
     if (accounts.length !== 0) {
       commit("setAccount", accounts[0])
-      return true
+      commit("setWalletIsConnected", true)
     } else {
-      return false
+      commit("setWalletIsConnected", false)
     }
   },
-  async requestAccess({ commit }: { commit: (mutation: string, value: any) => void }) {
+  async requestAccess({ commit }: { commit: (mutation: string, value: any) => void }): Promise<void> {
     const { ethereum } = window
     const accounts = await ethereum.request({
       method: "eth_requestAccounts",
     });
     commit("setAccount", accounts[0])
   },
-  async isCorrectNetwork({ commit, dispatch }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any }): Promise<boolean> {
-    if ((await dispatch("checkIfConnected"))) {
+  async isCorrectNetwork({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }): Promise<void> {
+    await dispatch("checkIfWalletConnected")
+    if (state.walletIsConnected) {
       const { ethereum } = window
       let chainId = await ethereum.request({ method: "eth_chainId" })
       const requiredChainId = `0x${config.NETWORK.ID}`
       const isCorrect = chainId === requiredChainId
-      if (isCorrect) commit("setConnectionError", null)
-      else commit("setConnectionError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
-      return isCorrect
+      if (isCorrect) commit("setError", null)
+      else commit("setError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
+      commit("setIsCorrectNetwork", isCorrect)
     }
-    else return false
+    else commit("setIsCorrectNetwork", false)
   },
   async switchNetwork({ commit }: { commit: (mutation: string, value: any) => void }): Promise<void> {
     try {
@@ -169,81 +213,78 @@ export const actions = {
         params: [{ chainId: `0x${config.NETWORK.ID}` }],
       })
       // You may have to recreate your provider here, but I'm not entirely sure
-      commit("setConnectionError", null)
+      commit("setError", null)
     } catch (err) {
       console.error(err)
-      commit("setConnectionError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
+      commit("setError", `Connect to the ${config.NETWORK.NAME} network to proceed.`)
     }
   },
   async getContractState({ commit, state }: { commit: (mutation: string, value: any) => void, state: IState }): Promise <void> {
     try {
-      const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew
-      const maxSupply = parseInt(await(await contract.functions.maxSupply())[0]._hex, 16)
+      const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI.abi, window.web3Provider) as MadParrotCrew
+      const maxSupply = parseInt(await(await contract.functions.MAX_SUPPLY())[0]._hex, 16)
       const numberMinted = parseInt(await (await contract.totalSupply())._hex, 16)
-      const isPublicMintActive = config.MINTING_LIVE && await (await contract.functions.publicSaleActive())[0]
-      const isPresaleMintActive = config.MINTING_LIVE && await (await contract.functions.presaleSaleActive())[0]
-      const maxMintPerWallet = parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
+      const isMintActive = await (await contract.functions.isSaleActive())[0]
+      const maxMintPerWallet = parseInt(await (await contract.maxPerWallet())._hex, 16)
+      const alreadyMinted = parseInt(await (await contract.balanceOf(state.account!))._hex, 16)
+
       const contractState: IContractState = {
-        isPublicMintActive,
-        isPresaleMintActive,
-        isAnyMintActive: isPublicMintActive || isPresaleMintActive,
-        priceInWei: await contract.priceInWei(),
+        isMintActive,
+        priceInWei: parseInt(await (await contract.mintPrice())._hex, 16),
         maxSupply,
         numberMinted,
         supplyLeft: maxSupply - numberMinted,
-        maxMintPerWallet
+        user: {
+          maxMintPerWallet,
+          alreadyMinted,
+          allowedLeftToMint: maxMintPerWallet - alreadyMinted
+        }
       }
       commit("setContractState", contractState)
     } catch (err) {
       console.error(err)
-      commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
-    }
-  },
-  async getUserContractState({ commit, state }: { commit: (mutation: string, value: any) => void, state: IState }): Promise <void> {
-    try {
-      const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, window.web3Provider) as MadParrotCrew
-      const maxMintPerWallet = parseInt(await (await contract.MAX_PER_TX())._hex, 16) - 1 // The contract sets this value to 1 higher than the actual max mint allowance since this results in a cheaper gas cost
-      const alreadyMinted = parseInt(await (await contract.functions.addressToMinted(state.account!))[0]._hex, 16)
-
-      // Go get the merkle proof from the backend so you can show them ahead of time if they're a presale user
-      const response = await axios.get<any, AxiosResponse<string[], any>, any>(`https://ab6jo7e1v4.execute-api.us-east-2.amazonaws.com/MPCproof/${state.account}`)
-      const merkleProof = response.data // If this array is empty, they are not a presale user
-      const userContractState: IUserContractState = {
-        isPresaleUser: merkleProof.length > 0,
-        merkleProof,
-        alreadyMinted,
-        maxAllowedToMint: maxMintPerWallet - alreadyMinted
-      }
-      commit("setUserContractState", userContractState)
-    } catch (err) {
-      console.error(err)
-      commit("setConnectionError", "Sorry, something went wrong checking if you're on our presale list.")
+      commit("setError", "Sorry, something went wrong. Please try again later.")
     }
   },
   async mintParrots({ commit, dispatch, state }: { commit: (mutation: string, value: any) => void, dispatch: (action: string) => any, state: IState }, numberOfParrots: number): Promise <void> {
     commit("setIsClaimingNFT", true)
-    if (!(await dispatch("isCorrectNetwork"))) return
-    if (!state.contractState) await dispatch("getContractState")
-    if (!state.userContractState) await dispatch("getUserContractState")
-    if (state.userContractState?.maxAllowedToMint === 0) return
+
+    await dispatch("isCorrectNetwork")
+    if (!state.isCorrectNetwork) {
+      commit("setIsClaimingNFT", false)
+      commit("setError", `Connectt to the ${config.NETWORK.NAME} network to proceed.`)
+      return
+    }
+
+    if (!state.contractState) {
+      await dispatch("getContractState")
+
+      if (!state.contractState) {
+        commit("setIsClaimingNFT", false)
+        commit("setError", "Sorry, something went wrong. Please try again later.")
+        return
+      }
+    }
+
+    if (state.contractState.user.allowedLeftToMint === 0) {
+      commit("setIsClaimingNFT", false)
+      commit("setError", "You have already minted the maximum of 10 parrots.")
+      return
+    }
+
     try {
-      numberOfParrots = numberOfParrots > state.userContractState!.maxAllowedToMint ? state.userContractState!.maxAllowedToMint : numberOfParrots
+      numberOfParrots = numberOfParrots > state.contractState.user.allowedLeftToMint ? state.contractState.user.allowedLeftToMint : numberOfParrots
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
-      const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI, signer) as MadParrotCrew
-      const isPublicMintActive = state.contractState!.isPublicMintActive
-      const isPresaleMintActive = state.contractState!.isPresaleMintActive && !isPublicMintActive // Public mint supersedes all
-      let tx: ContractTransaction | undefined
-      if (isPresaleMintActive && state.userContractState!.isPresaleUser) {
-        tx = await contract.presaleMint(numberOfParrots, state.userContractState!.merkleProof, {
-          value: state.contractState!.priceInWei.mul(numberOfParrots),
-        }) 
-      } else if (isPublicMintActive) {
-        tx = await contract.publicMint(numberOfParrots, {
-          value: state.contractState!.priceInWei.mul(numberOfParrots),
-        })
+      const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI.abi, signer) as MadParrotCrew
+      const isMintActive = state.contractState!.isMintActive
+      let tx: ContractTransaction | undefined = undefined
+
+      if (isMintActive) {
+        tx = await contract.mint(numberOfParrots, state.account!)
       } else {
         // If the user got here, something has gone wrong 🤔
+        commit("setError", "Minting is not available yet.")
       }
 
       // Refresh contract state
@@ -252,8 +293,9 @@ export const actions = {
         if (receipt.status === 1) commit("setSuccessfulMint", numberOfParrots)
         else commit("setSuccessfulMint", null)
       }
+
       dispatch("getContractState")
-      dispatch("getUserContractState")
+
       commit("setIsClaimingNFT", false)
     } catch (err) {
       console.error(err)
@@ -261,8 +303,8 @@ export const actions = {
       console.log(err.reason)
       commit("setSuccessfulMint", null)
       // @ts-ignore
-      if (err.reason.includes('insufficient funds')) commit("setConnectionError", "Error: insufficient funds")
-      else commit("setConnectionError", "Sorry, something went wrong. Please try again later.")
+      if (err.reason.includes('insufficient funds')) commit("setError", "Error: insufficient funds")
+      else commit("setError", "Sorry, something went wrong. Please try again later.")
       commit("setIsClaimingNFT", false)
     }
   }

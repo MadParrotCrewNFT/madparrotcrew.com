@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar" :class="{ 'navbar--open': isMobileNavOpen, 'navbar--white-bg': setWhiteBgMobile }">
+  <div class="navbar" :class="{ 'navbar--open': isMobileNavOpen, 'navbar--solid': setSolidNav }">
     <div class="navbar__inner">
       <h1 class="navbar__logo">
         <nuxt-link to="/">
@@ -7,24 +7,20 @@
           <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
         </nuxt-link>
       </h1>
-      <button class="navbar__hamburger" :class="{ 'navbar__hamburger--open': isMobileNavOpen }" @click="isMobileNavOpen = !isMobileNavOpen">
-        <span></span>
-        <span></span>
-        <span>{{ isMobileNavOpen ? 'Close' : 'Menu' }}</span>
+      <button class="navbar__hamburger" :class="{'navbar__hamburger--open': isMobileNavOpen}" @click="isMobileNavOpen = !isMobileNavOpen">
+        <div class="navbar__hamburger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="sr-only">{{ isMobileNavOpen ? 'Close' : 'Menu' }}</span>
       </button>
       <nav class="navbar__nav" :class="{ 'navbar__nav--open': isMobileNavOpen }">
-        <ul class="navbar__nav-list">
-          <li v-for="navItem in navItems" :key="navItem.url">
-            <a :href="($route.path !== '/' ? '/' : '') + navItem.url" :class="{ 'active': isTheChosenOne(navItem.url) }" @click="isMobileNavOpen = false">
-              {{ navItem.text }}
-            </a>
-          </li>
-        </ul>
         <ul class="navbar__social-list">
           <li v-for="socialLink in socialLinks" :key="socialLink.url">
             <a :href="socialLink.url" target="_blank" :title="socialLink.text">
-              <img v-if="socialLink.icon === 'instagram'" src="~assets/images/instagram.svg" :alt="socialLink.text" >
-              <svg-icon v-else :name="socialLink.icon" />
+              <svg-icon :name="socialLink.icon" />
               <span class="sr-only">{{ socialLink.text }}</span>
             </a>
           </li>
@@ -34,8 +30,7 @@
         <ul class="navbar__social-list">
           <li v-for="socialLink in socialLinks" :key="socialLink.url">
             <a :href="socialLink.url" target="_blank" :title="socialLink.text">
-              <img v-if="socialLink.icon === 'instagram'" src="~assets/images/instagram.svg" :alt="socialLink.text" >
-              <svg-icon v-else :name="socialLink.icon" />
+              <svg-icon :name="socialLink.icon" />
               <span class="sr-only">{{ socialLink.text }}</span>
             </a>
           </li>
@@ -63,42 +58,10 @@ export default Vue.extend({
     return {
       siteconfig,
       isMobileNavOpen: false,
-      setWhiteBgMobile: false
+      setSolidNav: false
     }
   },
   computed: {
-    navItems (): INavItem[] {
-      return [
-        {
-          text: 'About',
-          url: '#about'
-        },
-        {
-          text: 'Crew Perks',
-          url: '#crew-perks'
-        },
-        {
-          text: 'Roadmap',
-          url: '#roadmap'
-        },
-        {
-          text: 'Diamond-beak Club',
-          url: '#diamond-beak-club'
-        },
-        {
-          text: 'Distribution',
-          url: '#distribution'
-        },
-        {
-          text: 'Team',
-          url: '#team'
-        },
-        {
-          text: 'FAQs',
-          url: '#faqs'
-        }
-      ]
-    },
     socialLinks (): ISocialLink[] {
       return this.$store.state.socialLinks
     }
@@ -112,14 +75,21 @@ export default Vue.extend({
   },
   methods: {
     handleScroll (): void {
-      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        this.setWhiteBgMobile = true
-      } else {
-        this.setWhiteBgMobile = false
+      const mediaQueryScreenSize = getComputedStyle(document.documentElement).getPropertyValue('--responsive-standard-tablet')
+      if (window.matchMedia(`(min-width: ${mediaQueryScreenSize})`)) { // desktop
+        if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
+          this.setSolidNav = true
+        } else {
+          this.setSolidNav = false
+        }
       }
-    },
-    isTheChosenOne (toUrl: string): boolean {
-      return this.$route.hash === toUrl
+      else { // mobile
+        if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+          this.setSolidNav = true
+        } else {
+          this.setSolidNav = false
+        }
+      }
     }
   }
 })
@@ -134,45 +104,42 @@ export default Vue.extend({
   top: 0;
   width: 100vw;
   height: 3.5rem;
-  transition: all 240ms ease;
+  transition: all 80ms ease;
+  color: #fff;
 
-  @media (min-width: $responsive-large-tablet) {
-    background-color: #fff;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+  @media (min-width: $responsive-standard-tablet) {
+    position: sticky;
+    top: 0;
+    margin-top: 4.25rem;
   }
 
   &--open,
-  &--white-bg {
-    background-color: #fff;
+  &--solid {
+    background-color: var(--mpc-burgandy);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
-
-    @media (max-width: $responsive-large-tablet - math.div(1em, 16)) {
-      .navbar__logo a {
-        color: #3c3c3c;
-      }
-    }
   }
 
   &__inner {
-    max-width: 73rem;
+    max-width: 69.375rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100%;
     position: relative;
     margin-inline: auto;
-    padding-inline: 1rem;
+    padding-inline: 2rem;
   }
 
   &__logo {
     margin: 0;
+    width: 8.625rem;
+
+    @media (min-width: $responsive-standard-tablet) {
+      width: 12.875rem;
+    }
 
     a {
       color: #fff;
-
-      @media (min-width: $responsive-large-tablet) {
-        color: #000;
-      }
     }
 
     img {
@@ -181,87 +148,80 @@ export default Vue.extend({
   }
 
   &__hamburger {
-    position: relative;
-    background-color: #fff;
-    border: none;
-    border-radius: 0.25rem;
-    color: var(--mpc-dark-grey);
-    width: 2rem;
-    height: 2rem;
-    padding: 0.375rem 0.25rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-    gap: 0.1875rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.375rem;
+    height: 1.9375rem;
+    border: none;
+    margin: 1rem 0;
+    background-color: transparent;
 
-    @media (min-width: $responsive-large-tablet) {
+    @media (min-width: $responsive-standard-tablet) {
       display: none;
     }
 
-    span {
-      position: absolute;
-      transition: all 240ms ease;
+    &-icon {
+      width: 1.3rem;
+      height: 1.1rem;
+      position: relative;
+      z-index: 2;
+      transform: rotate(0deg);
+      cursor: pointer;
 
-      &:not(:nth-last-child(1)) {
-        background-color: var(--mpc-dark-grey);
-        height: 0.1875rem;
-        width: 1.175rem;
-        border-radius: 2rem;
-        left: 0.45rem;
-        z-index: 1;
-      }
-
-      &:nth-last-child(1) {
-        color: var(--mpc-dark-grey);
-        text-transform: uppercase;
-        font-size: 0.5rem;
-        font-weight: 700;
-        bottom: 0.25rem;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      &:nth-child(1) {
-        top: 0.325rem;
-      }
-
-      &:nth-child(2) {
-        top: 0.75rem;
-      }
-    }
-
-    &--open {
       span {
-        &:not(:nth-last-of-type(1)) {
-          background-color: #3c3c3c !important;
-          width: 1rem;
-          top: 0.5rem;
-        }
-
-        &:nth-last-of-type(1) {
-          color: #3c3c3c !important;
-        }
+        display: block;
+        position: absolute;
+        height: 0.125rem;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 0.5rem;
+        opacity: 1;
+        left: 0;
+        transform: rotate(0deg);
+        transition: 0.25s ease-in-out;
 
         &:nth-child(1) {
-          transform: rotate(45deg);
+          top: 0;
         }
 
-        &:nth-child(2) {
-          transform: rotate(-45deg);
+        &:nth-child(2),
+        &:nth-child(3) {
+          top: 45%;
+        }
+
+        &:nth-child(4) {
+          top: 90%;
+        }
+
+        .navbar__hamburger--open & {
+          &:nth-child(1),
+          &:nth-child(4) {
+            top: 45%;
+            width: 0;
+            left: 50%;
+          }
+
+          &:nth-child(2) {
+            transform: rotate(45deg);
+          }
+
+          &:nth-child(3) {
+            transform: rotate(-45deg);
+          }
         }
       }
     }
   }
 
   &__nav {
-    @media (max-width: $responsive-large-tablet - math.div(1em, 16)) {
+    @media (max-width: $responsive-standard-tablet - math.div(1em, 16)) {
       position: absolute;
       top: -38rem;
       left: 0;
       width: 100%;
-      background-color: #fff;
+      background-color: var(--mpc-dark-burgandy);
       transition: all 240ms ease;
       display: flex;
       flex-direction: column;
@@ -271,30 +231,9 @@ export default Vue.extend({
         top: 100%;
       }
 
-      .navbar__nav-list {
-        list-style-type: none;
-        padding-left: 0;
-        margin-block: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-
-        li {
-          padding-block: 0.75rem;
-        }
-
-        a {
-          color: var(--mpc-dark-grey);
-          font-size: var(--font-size-subtitle);
-          font-family: var(--font-family-ampersand);
-          text-decoration: none;
-          display: block;
-          text-align: center;
-        }
-      }
-
       .navbar__social-list {
         display: flex;
+        gap: 0.75rem;
         list-style-type: none;
         padding-left: 0;
         margin: 2rem auto 2.5rem auto;
@@ -302,20 +241,20 @@ export default Vue.extend({
         gap: 0.75rem;
 
         li, a {
+          color: #fff;
           display: flex;
           align-items: center;
           height: 100%;
-          padding-inline: 0.125rem;
         }
 
         svg {
-          height: 2rem;
-          width: 2rem;
+          height: 1.5rem;
+          width: 1.5rem;
         }
       }
     }
 
-    @media (min-width: $responsive-large-tablet) {
+    @media (min-width: $responsive-standard-tablet) {
       display: flex;
       height: 100%;
       position: unset;
@@ -325,66 +264,39 @@ export default Vue.extend({
       .navbar__social-list {
         display: none;
       }
-
-      &-list {
-        display: flex;
-        list-style-type: none;
-        margin: 0;
-        padding-left: 0;
-        height: 100%;
-
-        li, a {
-          display: flex;
-          align-items: center;
-          height: 100%;
-        }
-
-        a {
-          font-family: var(--font-family-ampersand);
-          font-size: var(--font-size-large);
-          color: var(--mpc-grey);
-          text-decoration: none;
-          padding: 0.5rem 1rem;
-          transition-property: background-color, color;
-          transition: 160ms ease;
-          white-space: nowrap;
-          user-select: none;
-
-          &:hover,
-          &:focus,
-          &.active {
-            background-color: var(--mpc-dark-grey);
-            color: #fff;
-          }
-        }
-      }
     }
   }
 
   &__social {
     display: none;
 
-    @media (min-width: $responsive-small-desktop) {
+    @media (min-width: $responsive-standard-tablet) {
       display: flex;
       height: 100%;
 
       &-list {
         display: flex;
+        gap: 0.75rem;
         list-style-type: none;
         padding-left: 0;
         margin: 0;
         height: 100%;
 
         li, a {
+          color: #fff;
           display: flex;
           align-items: center;
           height: 100%;
-          padding-inline: 0.125rem;
+
+          &:hover,
+          &:active {
+            color: var(--mpc-gold);
+          }
         }
 
         svg {
-          height: 2rem;
-          width: 2rem;
+          height: 1.5rem;
+          width: 1.5rem;
         }
       }
     }

@@ -4,7 +4,6 @@
 cache
 contract/cache
 contract/lib
-contract/node_modules
 contract/broadcast
 
 # Logs

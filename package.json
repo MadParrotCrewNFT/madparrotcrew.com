@@ -6,8 +6,8 @@
   "author": "Mad Parrot Crew team",
   "contributors": [
     "Sheftali (https://github.com/sheftali)",
-    "Iacove (https://github.com/Iacove)",
-    "Jack Domleo <jackdomleo7@gmail.com> (https://jackdomleo.dev)"
+    "Jack Domleo (https://jackdomleo.dev)",
+    "FancyRatsDave (https://github.com/FancyRatsDave)"
   ],
   "repository": {
     "type": "git",
@@ -16,37 +16,39 @@
   "scripts": {
     "postinstall": "npm run typechain",
     "dev": "npm run typechain && nuxt --open",
-    "start": "concurrently \"rimraf node_modules\" \"rimraf dist\" && npm ci && npm run generate && nuxt start --open",
+    "start": "nuxt start --open",
     "generate": "concurrently \"rimraf dist\" \"npm run typechain\" && nuxt generate -m --fail-on-error",
-    "typechain": "npx typechain --target=ethers-v5 --out-dir contract/types contract/abi/MadParrotCrew.json"
+    "typechain": "npx typechain --target=ethers-v5 --out-dir contract/types contract/out/MadParrotCrew.sol/MadParrotCrew.json"
   },
   "dependencies": {
-    "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/robots": "^2.5.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/style-resources": "^1.2.1",
     "@nuxtjs/svg-sprite": "^0.5.2",
-    "axios": "^0.27.2",
-    "comma-number": "^2.1.0",
-    "core-js": "^3.22.7",
-    "ethers": "^5.6.8",
+    "core-js": "^3.23.5",
+    "date-fns": "^2.29.1",
+    "ethers": "^5.6.9",
+    "focus-trap": "^6.9.4",
+    "focus-trap-vue": "^1.1.1",
     "modern-normalize": "^1.1.0",
     "nuxt": "^2.15.8"
   },
   "devDependencies": {
+    "@nuxt/image": "^0.7.1",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/google-analytics": "^2.4.0",
-    "@typechain/ethers-v5": "^10.0.0",
-    "@types/node": "^17.0.35",
+    "@typechain/ethers-v5": "^10.1.0",
+    "@types/node": "^16.11.45",
     "babel-core": "7.0.0-bridge.0",
-    "concurrently": "^7.2.1",
+    "concurrently": "^7.3.0",
+    "nuxt-compress": "^5.0.0",
     "rimraf": "^3.0.2",
-    "sass": "^1.52.1",
-    "sass-loader": "^10.2.1",
-    "typechain": "^8.0.0"
+    "sass": "^1.54.0",
+    "sass-loader": "^10.3.1",
+    "typechain": "^8.1.0"
   },
   "engines": {
-    "node": ">=16",
-    "npm": ">=8"
+    "node": "16",
+    "npm": "8"
   }
 }
