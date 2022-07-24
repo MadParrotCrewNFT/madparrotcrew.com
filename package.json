@@ -17,8 +17,8 @@
     "postinstall": "npm run typechain",
     "dev": "npm run typechain && nuxt --open",
     "start": "nuxt start --open",
-    "generate": "concurrently \"rimraf dist\" \"npm run typechain\" && nuxt generate -m",
-    "typechain": "npx typechain --target=ethers-v5 --out-dir contract/types contract/out/MadParrotCrew.sol/MadParrotCrew.json"
+    "generate": "concurrently \"rimraf dist\" \"npm run typechain\" && nuxt generate -m --fail-on-error",
+    "typechain": "npx typechain --target=ethers-v5 --out-dir contract/types MadParrotCrew.json"
   },
   "dependencies": {
     "@nuxtjs/robots": "^2.5.0",
@@ -38,11 +38,9 @@
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/google-analytics": "^2.4.0",
     "@typechain/ethers-v5": "^10.1.0",
-    "@types/mocha": "^9.1.1",
     "@types/node": "^16.11.45",
     "babel-core": "7.0.0-bridge.0",
     "concurrently": "^7.3.0",
-    "mocha": "^10.0.0",
     "nuxt-compress": "^5.0.0",
     "rimraf": "^3.0.2",
     "sass": "^1.54.0",

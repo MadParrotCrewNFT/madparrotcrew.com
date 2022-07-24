@@ -1,7 +1,7 @@
 import { ethers, ContractTransaction } from 'ethers'
 import { add } from 'date-fns'
 import config from '@/config.json'
-import MadParrotCrewABI from '@/contract/out/MadParrotCrew.sol/MadParrotCrew.json'
+import MadParrotCrewABI from '@/MadParrotCrew.json'
 import { MadParrotCrew } from '@/contract/types'
 
 // Start mint 23 July 2022 01:00 UTC
