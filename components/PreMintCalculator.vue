@@ -29,10 +29,24 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .title {
+  @keyframes grow-shrink {
+    25% {
+      transform: scale(1.05);
+    }
+    75% {
+      transform: scale(0.95);
+    }
+    0%, 100% {
+      transform: scale(1);
+    }
+  }
+
   font-size: var(--font-size-title);
   text-align: center;
   margin-top: 0;
   margin-bottom: 1rem;
+  animation: grow-shrink linear 5s infinite;
+  will-change: transform;
 
   @media (min-width: $responsive-standard-tablet) {
     text-align: left;

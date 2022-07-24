@@ -21,7 +21,7 @@
         </div>
         <div class="about__text">
           <h2 class="about__title">
-            <template v-if="showPreMintCalculator">Be Ready...</template>
+            <template v-if="showPreMintCalculator">Be Ready<span>.</span><span>.</span><span>.</span></template>
             <template v-else-if="showDuringMintCalculator">69 hours to mint!</template>
             <template v-else-if="showPostMintCalculator">Dum, dum, dum. another {{ $store.state.contractState && $store.state.contractState.numberMinted }} bite the dust!</template>
           </h2>
@@ -69,7 +69,7 @@
       </div>
     </section>
     <section id="team" class="team">
-      <h2 class="team__title">The team... Behind the crew</h2>
+      <h2 class="team__title">The team... Behind the <span>crew</span></h2>
       <ul class="team__members">
         <li v-for="member in team" :key="member.name" class="member">
           <a :href="member.twitter" rel="nofollow noopener" target="_blank" class="member--mobile">
@@ -478,6 +478,28 @@ $responsive-team: 69.375rem;
     @media (min-width: $responsive-small-desktop) {
       margin-bottom: 2.75rem;
     }
+
+    span {
+      @keyframes bounce {
+        0%, 20%, 100% {
+          transform: translateY(0);
+        }
+        10% {
+          transform: translateY(-0.25rem);
+        }
+      }
+
+      display: inline-block;
+      animation: bounce linear 4s infinite 3s;
+
+      &:nth-child(2) {
+        animation-delay: 3.25s;
+      }
+
+      &:nth-child(3) {
+        animation-delay: 3.5s;
+      }
+    }
   }
 
   &__parrots {
@@ -576,6 +598,24 @@ $responsive-team: 69.375rem;
     text-align: center;
     margin-top: 0;
     margin-bottom: 3rem;
+
+    span {
+      @keyframes wow {
+        0%, 24%, 100% {
+          transform: scale(1) rotate(0deg);
+        }
+        6%, 10%, 14%, 18%, 22% {
+          transform: scale(1.05) rotate(3deg);
+        }
+        8%, 12%, 16%, 20% {
+          transform: scale(1.05) rotate(1deg);
+        }
+      }
+
+      display: inline-block;
+      animation: wow 6s ease infinite;
+      will-change: transform;
+    }
   }
 
   &__members {
@@ -663,6 +703,7 @@ $responsive-team: 69.375rem;
 
     &__role {
       font-size: var(--font-size-small);
+      color: var(--mpc-text);
       font-weight: 500;
       margin-top: 0;
       margin-bottom: 0;
@@ -761,15 +802,16 @@ $responsive-team: 69.375rem;
       padding: 2rem 4rem 2rem 1.5rem;
       text-align: left;
       animation: float-up-down linear 5s infinite;
+      will-change: transform;
 
       @keyframes float-up-down {
-        33% {
+        25% {
           transform: translateY(-0.5rem);
         }
-        66% {
+        75% {
           transform: translateY(0.5rem);
         }
-        100% {
+        0%, 100% {
           transform: translateY(0);
         }
       }

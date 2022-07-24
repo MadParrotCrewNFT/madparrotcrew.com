@@ -68,6 +68,14 @@ export default Vue.extend({
   background-color: #fff;
   border-radius: 1rem;
   box-shadow: 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.05);
+  transition-property: transform, box-shadow;
+  will-change: transform, box-shadow;
+  transition: 160ms ease;
+
+  &:hover {
+    transform: translate(-0.25rem, -0.25rem);
+    box-shadow: 0.75rem 0.75rem 0 rgba(0, 0, 0, 0.05);
+  }
 
   &__header {
     margin: 0;
