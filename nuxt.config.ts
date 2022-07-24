@@ -1,6 +1,6 @@
 import siteconfig from './siteconfig.json'
 
-const metaDescription = "Mad Parrot Crew consists of 10,000 unique parrot NFTs living on the Ethereum blockchain."
+const metaDescription = "Mad Parrot Crew brought to you by Sheftali are unique parrot NFTs living on the Ethereum blockchain."
 
 export default {
   target: 'static',
