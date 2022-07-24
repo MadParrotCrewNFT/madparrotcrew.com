@@ -17,7 +17,7 @@
     "postinstall": "npm run typechain",
     "dev": "npm run typechain && nuxt --open",
     "start": "nuxt start --open",
-    "generate": "concurrently \"rimraf dist\" \"npm run typechain\" && nuxt generate -m --fail-on-error",
+    "generate": "concurrently \"rimraf dist\" \"npm run typechain\" && nuxt generate -m",
     "typechain": "npx typechain --target=ethers-v5 --out-dir contract/types contract/out/MadParrotCrew.sol/MadParrotCrew.json"
   },
   "dependencies": {
