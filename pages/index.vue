@@ -270,7 +270,7 @@ export default Vue.extend({
     }
   },
   async mounted () {
-    if (this.showDuringMintCalculator) {
+    if (!this.showPreMintCalculator && this.showDuringMintCalculator) {
       this.$store.commit("setSuccessfulMint", null)
       await this.$store.dispatch("isAWalletInstalled")
       await this.$store.dispatch("checkIfWalletConnected")
