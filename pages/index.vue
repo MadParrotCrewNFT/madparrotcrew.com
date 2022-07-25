@@ -492,14 +492,14 @@ $responsive-team: 69.375rem;
       }
 
       display: inline-block;
-      animation: bounce linear 4s infinite 3s;
+      animation: bounce linear 3s infinite 3s;
 
       &:nth-child(2) {
-        animation-delay: 3.25s;
+        animation-delay: 3.15s;
       }
 
       &:nth-child(3) {
-        animation-delay: 3.5s;
+        animation-delay: 3.3s;
       }
     }
   }

@@ -45,7 +45,7 @@ export default Vue.extend({
   text-align: center;
   margin-top: 0;
   margin-bottom: 1rem;
-  animation: grow-shrink linear 5s infinite;
+  animation: grow-shrink linear 4s infinite;
   will-change: transform;
 
   @media (min-width: $responsive-standard-tablet) {
