@@ -715,6 +715,7 @@ $responsive-team: 69.375rem;
       font-family: var(--font-family-luckiestguy);
       letter-spacing: normal;
       font-size: var(--font-size-body);
+      color: var(--mpc-purple);
       margin-top: 0;
       margin-bottom: 1rem;
     }
