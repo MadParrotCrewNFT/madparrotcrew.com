@@ -27,7 +27,7 @@
           </h2>
           <template v-if="showPreMintCalculator">
             <p>
-              <strong>Minting 2 parrots will cost 0.069<span aria-hidden="true">e</span> <span class="sr-only">ethereum</span></strong>. Yes you read that right, you get 2.
+              <strong>Minting 2 parrots will cost 0.069<span aria-hidden="true">e</span><span class="sr-only">ethereum</span></strong>. Yes you read that right, you get 2.
             </p>
             <p>
               Once the time is up, <strong>the unclaimed parrots will be sent to a furnace</strong> that lives in the basement of my local KFP (<strong>burned</strong>).
