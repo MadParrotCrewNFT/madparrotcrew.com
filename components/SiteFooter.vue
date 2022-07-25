@@ -10,7 +10,10 @@
           </a>
         </li>
       </ul>
-      <nuxt-img src="/images/sheftali-signature.svg" loading="lazy" width="86" height="68" alt="Sheftali" />
+      <a href="https://twitter.com/iamsheftali" target="_blank" rel="noopener nofollow">
+        <nuxt-img src="/images/sheftali-signature.svg" loading="lazy" width="86" height="68" alt="Sheftali" />
+        <span class="sr-only">Sheftali</span>
+      </a>
     </div>
   </footer>
 </template>
