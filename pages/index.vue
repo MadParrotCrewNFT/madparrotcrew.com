@@ -270,60 +270,62 @@ export default Vue.extend({
     }
   },
   async mounted () {
-    this.$store.commit("setSuccessfulMint", null)
-    await this.$store.dispatch("isAWalletInstalled")
-    await this.$store.dispatch("checkIfWalletConnected")
-    await this.$store.dispatch("isCorrectNetwork")
-    if (this.$store.state.walletIsConnected) {
-      await this.$store.dispatch("getContractState")
-    }
-
-    if (window.ethereum) {
-      window.ethereum.on("accountsChanged", async (accounts: string[]) => {
-        if (accounts.length === 0) {
-          this.$store.commit('setAccount', null)
-          this.$store.dispatch('isAWalletInstalled')
-          this.$store.dispatch('checkIfWalletConnected')
-          this.$store.dispatch('isCorrectNetwork')
-          this.$store.commit("setError", "Wallet was disconnected.")
-          this.$store.commit("setContractState", null)
-        }
-        else {
-          this.$store.commit('setAccount', accounts[0])
-          await this.$store.dispatch("getContractState")
-        }
-      })
-
-      window.ethereum.on('chainChanged', async () => {
-        await this.$store.dispatch("isCorrectNetwork")
-      })
-    }
-
-    this.interval = window.setInterval(() => {
-      let diff = (this.$store.state.mintEndDateTime as Date).getTime() - new Date().getTime()
-
-      let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      let seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      days = days <= 0 ? 0 : days
-      hours = hours <= 0 ? 0 : hours
-      minutes = minutes <= 0 ? 0 : minutes
-      seconds = seconds <= 0 ? 0 : seconds
-
-      this.$store.commit("setMintTimeLeft", {
-        days,
-        hours,
-        minutes,
-        seconds
-      })
-
-      if (diff < 0) {
-        this.$store.commit("setMintTimeEnded", true)
-        window.clearInterval(this.interval)
+    if (this.showDuringMintCalculator) {
+      this.$store.commit("setSuccessfulMint", null)
+      await this.$store.dispatch("isAWalletInstalled")
+      await this.$store.dispatch("checkIfWalletConnected")
+      await this.$store.dispatch("isCorrectNetwork")
+      if (this.$store.state.walletIsConnected) {
+        await this.$store.dispatch("getContractState")
       }
-    }, 1000);
+
+      if (window.ethereum) {
+        window.ethereum.on("accountsChanged", async (accounts: string[]) => {
+          if (accounts.length === 0) {
+            this.$store.commit('setAccount', null)
+            this.$store.dispatch('isAWalletInstalled')
+            this.$store.dispatch('checkIfWalletConnected')
+            this.$store.dispatch('isCorrectNetwork')
+            this.$store.commit("setError", "Wallet was disconnected.")
+            this.$store.commit("setContractState", null)
+          }
+          else {
+            this.$store.commit('setAccount', accounts[0])
+            await this.$store.dispatch("getContractState")
+          }
+        })
+
+        window.ethereum.on('chainChanged', async () => {
+          await this.$store.dispatch("isCorrectNetwork")
+        })
+      }
+
+      this.interval = window.setInterval(() => {
+        let diff = (this.$store.state.mintEndDateTime as Date).getTime() - new Date().getTime()
+
+        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        days = days <= 0 ? 0 : days
+        hours = hours <= 0 ? 0 : hours
+        minutes = minutes <= 0 ? 0 : minutes
+        seconds = seconds <= 0 ? 0 : seconds
+
+        this.$store.commit("setMintTimeLeft", {
+          days,
+          hours,
+          minutes,
+          seconds
+        })
+
+        if (diff < 0) {
+          this.$store.commit("setMintTimeEnded", true)
+          window.clearInterval(this.interval)
+        }
+      }, 1000);
+    }
   },
   destroyed () {
     window.clearInterval(this.interval)
