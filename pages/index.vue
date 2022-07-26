@@ -942,10 +942,40 @@ $responsive-team: 69.375rem;
   }
 
   &__title {
+    @keyframes question-mark {
+      0%, 100% {
+        transform: scale(0.5) rotate(-10deg);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1.5) rotate(-10deg);
+        opacity: 0.8;
+      }
+    }
+
     font-size: var(--font-size-subtitle);
     text-align: center;
     margin-top: 0;
     margin-bottom: 3rem;
+    position: relative;
+    max-width: 32rem;
+    margin-inline: auto;
+
+    &::before {
+      content: '';
+      position: absolute;
+      right: 0.5rem;
+      display: block;
+      color: var(--mpc-purple);
+      background-image: url(@/assets/sprite/svg/question.svg);
+      background-repeat: no-repeat;
+      height: 1rem;
+      width: 1rem;
+      opacity: 0.8;
+      transform: rotate(-10deg);
+      animation: question-mark 8s linear infinite;
+      will-change: transform, opacity;
+    }
   }
 
   &__text {
