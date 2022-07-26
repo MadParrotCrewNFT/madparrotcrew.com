@@ -1,9 +1,9 @@
 <template>
-  <a v-if="to" :href="to" class="btn" :class="{ 'btn--white': white, 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }">
+  <a v-if="to" :href="to" class="btn" :class="{ 'btn--white': white }">
     <slot />
     <svg-icon v-if="icon" :name="icon" />
   </a>
-  <button v-else class="btn" :class="{ 'btn--square': square, 'btn--inverted': inverted, 'btn--small': small }" :disabled="disabled || isLoading" @click="$emit('click')">
+  <button v-else class="btn" :disabled="disabled || isLoading" @click="$emit('click')">
     <slot />
     <svg-icon v-if="icon && !isLoading" :name="icon" />
     <spinner v-if="isLoading" />
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
+import Vue from 'vue'
 import Spinner from './Spinner.vue'
 
 export default Vue.extend({
@@ -22,23 +22,11 @@ export default Vue.extend({
       type: Boolean,
       default: false
     },
-    square: {
-      type: Boolean,
-      default: false
-    },
-    inverted: {
-      type: Boolean,
-      default: false
-    },
     disabled: {
       type: Boolean,
       default: false
     },
     isLoading: {
-      type: Boolean,
-      default: false
-    },
-    small: {
       type: Boolean,
       default: false
     },
@@ -86,18 +74,6 @@ export default Vue.extend({
     height: 4rem;
   }
 
-  &--square {
-    height: 3rem;
-    min-width: 3rem;
-    max-width: 3rem;
-    padding: 0;
-
-    ::v-deep svg {
-      height: 2rem;
-      width: 2rem;
-    }
-  }
-
   &--white {
     --btn-color: #fff;
     background-color: var(--btn-color);
@@ -110,15 +86,6 @@ export default Vue.extend({
         --btn-color: #f0f0f0;
       }
     }
-  }
-
-  &--inverted {
-    background-color: transparent;
-    color: var(--btn-color);
-  }
-
-  &--small {
-    padding: 1rem;
   }
 
   &:disabled {
