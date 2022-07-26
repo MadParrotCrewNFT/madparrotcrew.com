@@ -6,7 +6,7 @@
         <DuringMintCalculator v-else-if="showDuringMintCalculator" class="header__calculator" />
         <PostMintCalculator v-else-if="showPostMintCalculator" class="header__calculator" />
         <div class="header__parrot">
-          <nuxt-img preload class="header__parrot--body" src="/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" height="636" width="388" sizes="largetablet:184px 4kdesktop:388px" format="webp" />
+          <nuxt-img preload class="header__parrot--body" src="/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" height="637" width="389" sizes="largetablet:184px 4kdesktop:389px" format="webp" />
           <nuxt-img preload class="header__parrot--feet" src="/images/hero-parrot-feet.png" alt="" height="143" width="98" sizes="largetablet:47px 4kdesktop:98px" format="webp" />
         </div>
       </div>
@@ -15,8 +15,8 @@
       <div class="about__inner">
         <div>
           <div class="about__parrots--desktop">
-            <nuxt-img class="body" src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="920" width="698" loading="lazy" format="webp" />
-            <nuxt-img class="feet" src="/images/about-parrot-feet.png" alt="" height="173" width="118" loading="lazy" format="webp" />
+            <nuxt-img class="body" src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="921" width="698" loading="lazy" sizes="4kdesktop:698px" format="webp" />
+            <nuxt-img class="feet" src="/images/about-parrot-feet.png" alt="" height="174" width="118" loading="lazy" sizes="4kdesktop:118px" format="webp" />
           </div>
         </div>
         <div class="about__text">
@@ -63,8 +63,8 @@
           </template>
         </div>
         <div class="about__parrots--mobile">
-          <nuxt-img class="body" src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="338" width="256" loading="lazy" format="webp" />
-          <nuxt-img class="feet" src="/images/about-parrot-feet.png" alt="" height="63" width="43" loading="lazy" format="webp" />
+          <nuxt-img class="body" src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="921" width="698" loading="lazy" sizes="4kdesktop:256px" format="webp" />
+          <nuxt-img class="feet" src="/images/about-parrot-feet.png" alt="" height="174" width="118" loading="lazy" sizes="4kdesktop:43px" format="webp" />
         </div>
       </div>
     </section>
@@ -73,7 +73,7 @@
       <ul class="team__members">
         <li v-for="member in team" :key="member.name" class="member">
           <a :href="member.twitter" rel="nofollow noopener" target="_blank" class="member--mobile">
-            <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="96" width="96" loading="lazy" format="webp" />
+            <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="384" width="384" loading="lazy" sizes="4kdesktop:96px" format="webp" />
             <p class="member__role">{{ member.role }}</p>
             <p class="member__name">{{ member.name }}</p>
             <p class="member__description">{{ member.description }}</p>
@@ -84,7 +84,7 @@
           </a>
           <a :href="member.twitter" rel="nofollow noopener" target="_blank" class="member--desktop">
             <div class="member__img-social">
-              <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="96" width="96" loading="lazy" format="webp" />
+              <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="384" width="384" loading="lazy" sizes="4kdesktop:96px" format="webp" />
               <div class="member__social">
                 <svg-icon name="twitter" />
                 <span class="sr-only">Twiiter</span>
@@ -109,15 +109,15 @@
           </p>
           <btn class="frens__btn" icon="discord" white :to="config.SOCIAL.DISCORD">Join us in Discord</btn>
           <div class="frens__parrots--mobile">
-            <nuxt-img class="body" src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="229" width="261" loading="lazy" format="webp" />
-            <nuxt-img class="feet" src="/images/team-parrot-feet.png" alt="" height="49" width="34" loading="lazy" format="webp" />
+            <nuxt-img class="body" src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="666" width="757" loading="lazy" sizes="4kdesktop:261px" format="webp" />
+            <nuxt-img class="feet" src="/images/team-parrots-feet.png" alt="" height="144" width="98" loading="lazy" sizes="4kdesktop:34px" format="webp" />
           </div>
         </div>
       </div>
       <div>
         <div class="frens__parrots--desktop">
-          <nuxt-img class="body" src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="542" width="616" loading="lazy" format="webp" />
-          <nuxt-img class="feet" src="/images/team-parrot-feet.png" alt="" height="143" width="98" loading="lazy" format="webp" />
+          <nuxt-img class="body" src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="666" width="757" loading="lazy" sizes="4kdesktop:757px" format="webp" />
+          <nuxt-img class="feet" src="/images/team-parrots-feet.png" alt="" height="144" width="98" loading="lazy" sizes="4kdesktop:98px" format="webp" />
         </div>
       </div>
     </section>
@@ -126,8 +126,8 @@
       <div class="faq__inner">
         <div>
           <div class="faq__parrots--desktop">
-            <nuxt-img class="body" src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="631" width="634" loading="lazy" format="webp" />
-            <nuxt-img class="feet" src="/images/faq-parrots-feet.png" alt="" height="133" width="91" loading="lazy" format="webp" />
+            <nuxt-img class="body" src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="632" width="634" loading="lazy" sizes="4kdesktop:634px" format="webp" />
+            <nuxt-img class="feet" src="/images/faq-parrots-feet.png" alt="" height="133" width="91" loading="lazy" sizes="4kdesktop:91px" format="webp" />
           </div>
         </div>
         <div class="faq__text">
@@ -153,8 +153,8 @@
           </ul>
         </div>
         <div class="faq__parrots--mobile">
-          <nuxt-img class="body" src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="255" width="256" loading="lazy" format="webp" />
-          <nuxt-img class="feet" src="/images/faq-parrots-feet.png" alt="" height="53" width="36" loading="lazy" format="webp" />
+          <nuxt-img class="body" src="/images/faq-parrots.png" alt="A pair of Mad Parrots" height="632" width="634" loading="lazy" sizes="4kdesktop:256px" format="webp" />
+          <nuxt-img class="feet" src="/images/faq-parrots-feet.png" alt="" height="133" width="91" loading="lazy" sizes="4kdesktop:36px" format="webp" />
         </div>
       </div>
     </section>
@@ -190,42 +190,42 @@ export default Vue.extend({
       return [
         {
           name: 'Sheftali',
-          image: 'sheftali.png',
+          image: 'sheftali.jpg',
           role: 'Founder, artist, UX/UI',
           description: 'Designed the parrots, the UI, the brand and kickstarted the original project.',
           twitter: 'https://twitter.com/iamsheftali'
         },
         {
           name: 'Gerry',
-          image: 'gerry.png',
+          image: 'gerry.jpg',
           role: 'Adviser',
           description: 'Long-time fren in the space who’s always shooting straight and giving top advice.',
           twitter: 'https://twitter.com/nftgerry'
         },
         {
           name: 'Fancyrats',
-          image: 'fancyrats.png',
+          image: 'fancyrats.jpg',
           role: 'Web3 Developer',
           description: 'Wrote the smart contract that y’all will be (hopefully) minting from.',
           twitter: 'https://twitter.com/fancyrats_eth'
         },
         {
           name: 'Jack Domleo',
-          image: 'jackdomleo.png',
+          image: 'jackdomleo.jpg',
           role: 'Web2 Developer',
           description: 'Built the website as well as endured my constant tweak requests.',
           twitter: 'https://twitter.com/jackdomleo7'
         },
         {
           name: 'Dejen',
-          image: 'dejen.png',
+          image: 'dejen.jpg',
           role: 'Community Manager',
           description: 'Sounds like she’s always smiling and that’s why she’s the the best for this role.',
           twitter: 'https://twitter.com/dejen_art'
         },
         {
           name: 'Zanko',
-          image: 'zanko.png',
+          image: 'zanko.jpg',
           role: 'Discord Server Wizard',
           description: 'Set up, configured and maintains the Discord server. Parrots love Zanko.',
           twitter: 'https://twitter.com/rupica3'
@@ -389,14 +389,12 @@ $responsive-team: 69.375rem;
       left: 50%;
       bottom: -2rem;
       transform: translateX(-50%);
-      height: 301px;
       width: 184px;
 
       @media (min-width: $responsive-large-tablet) {
         left: 50%;
         bottom: -6.5rem;
-        height: 636px;
-        width: 388px;
+        width: 389px;
       }
     }
 
@@ -406,13 +404,11 @@ $responsive-team: 69.375rem;
       bottom: -15px;
       transform: translateX(-50%);
       z-index: 1;
-      height: 68px;
       width: 47px;
 
       @media (min-width: $responsive-large-tablet) {
-        left: calc(50% - 3px);
+        left: calc(50% - 2px);
         bottom: -66px;
-        height: 143px;
         width: 98px;
       }
     }
@@ -531,13 +527,13 @@ $responsive-team: 69.375rem;
         left: 50%;
 
         &.body {
-          width: 16rem;
+          width: 256px;
           bottom: -7rem;
           transform: translateX(-50%);
         }
 
         &.feet {
-          width: 2.6875rem;
+          width: 43px;
           bottom: -1.5rem;
           z-index: 1;
           transform: translateX(calc(-50% - 2.5rem));
@@ -573,13 +569,13 @@ $responsive-team: 69.375rem;
           pointer-events: none;
 
           &.body {
-            width: 43.625rem;
+            width: 698px;
             bottom: -18rem;
             transform: translateX(-50%);
           }
 
           &.feet {
-            width: 7.375rem;
+            width: 118px;
             bottom: -4rem;
             z-index: 1;
             transform: translateX(calc(-50% - 7rem));
@@ -873,13 +869,13 @@ $responsive-team: 69.375rem;
         left: 50%;
 
         &.body {
-          width: 16.3125rem;
+          width: 261px;
           bottom: -2rem;
           transform: translateX(-50%);
         }
 
         &.feet {
-          width: 2.125rem;
+          width: 34px;
           bottom: -1.25rem;
           z-index: 1;
           transform: translateX(calc(-50% - 1rem));
@@ -899,13 +895,13 @@ $responsive-team: 69.375rem;
           left: 50%;
 
           &.body {
-            width: 43.625rem;
+            width: 757px;
             bottom: -10.75rem;
             transform: translateX(-50%);
           }
 
           &.feet {
-            width: 5rem;
+            width: 80px;
             bottom: -9rem;
             z-index: 1;
             transform: translateX(calc(-50% - 2.35rem));
@@ -1032,13 +1028,13 @@ $responsive-team: 69.375rem;
         left: 50%;
 
         &.body {
-          width: 16rem;
+          width: 256px;
           bottom: -2rem;
           transform: translateX(-50%);
         }
 
         &.feet {
-          width: 2.25rem;
+          width: 36px;
           bottom: -1.15rem;
           z-index: 1;
           transform: translateX(calc(-50% - 1.67rem));
@@ -1060,13 +1056,13 @@ $responsive-team: 69.375rem;
           pointer-events: none;
 
           &.body {
-            width: 39.625rem;
+            width: 634px;
             bottom: -5.5rem;
             transform: translateX(-50%);
           }
 
           &.feet {
-            width: 5.6875rem;
+            width: 91px;
             bottom: -3.4rem;
             z-index: 1;
             transform: translateX(calc(-50% - 4.15rem));
