@@ -63,15 +63,19 @@ export default Vue.extend({
   transition: background-color ease 160ms;
   will-change: background-color;
 
+  @media (min-width: $responsive-large-mobile) {
+    height: 4rem;
+  }
+
   &:not(:disabled) {
     &:hover,
     &:active {
       --btn-color: #a53a87;
-    }
-  }
 
-  @media (min-width: $responsive-large-mobile) {
-    height: 4rem;
+      ::v-deep svg {
+        transform: rotate(12deg) translateY(-0.25rem);
+      }
+    }
   }
 
   &--white {
@@ -96,6 +100,8 @@ export default Vue.extend({
   ::v-deep svg {
     height: var(--font-size-heading);
     width: var(--font-size-heading);
+    transition: transform 240ms ease;
+    will-change: transform;
   }
 }
 </style>
