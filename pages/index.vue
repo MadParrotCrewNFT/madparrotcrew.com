@@ -939,13 +939,14 @@ $responsive-team: 69.375rem;
 
   &__title {
     @keyframes question-mark {
-      0%, 100% {
-        transform: scale(0.5) rotate(-10deg);
-        opacity: 0.5;
+      0%, 60%, 100% {
+        transform: skew(0);
       }
-      50% {
-        transform: scale(1.5) rotate(-10deg);
-        opacity: 0.8;
+      15% {
+        transform: skew(20deg);
+      }
+      45% {
+        transform: skew(-20deg);
       }
     }
 
@@ -956,22 +957,8 @@ $responsive-team: 69.375rem;
     position: relative;
     max-width: 32rem;
     margin-inline: auto;
-
-    &::before {
-      content: '';
-      position: absolute;
-      right: 0.5rem;
-      display: block;
-      color: var(--mpc-purple);
-      background-image: url(@/assets/sprite/svg/question.svg);
-      background-repeat: no-repeat;
-      height: 1rem;
-      width: 1rem;
-      opacity: 0.8;
-      transform: rotate(-10deg);
-      animation: question-mark 8s linear infinite;
-      will-change: transform, opacity;
-    }
+    animation: question-mark 8s linear infinite;
+    display: block;
   }
 
   &__text {
