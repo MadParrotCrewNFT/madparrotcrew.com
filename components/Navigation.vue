@@ -76,7 +76,7 @@ export default Vue.extend({
   methods: {
     handleScroll (): void {
       const mediaQueryScreenSize = getComputedStyle(document.documentElement).getPropertyValue('--responsive-standard-tablet')
-      if (window.matchMedia(`(min-width: ${mediaQueryScreenSize})`)) { // desktop
+      if (window.matchMedia(`(min-width: ${mediaQueryScreenSize})`).matches) { // desktop
         if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
           this.setSolidNav = true
         } else {
