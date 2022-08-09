@@ -72,8 +72,10 @@ export default Vue.extend({
     &:active {
       --btn-color: #a53a87;
 
-      ::v-deep svg {
-        transform: rotate(12deg) translateY(-0.25rem);
+      @media (hover: hover) {
+        ::v-deep svg {
+          transform: rotate(12deg) translateY(-0.25rem);
+        }
       }
     }
   }
