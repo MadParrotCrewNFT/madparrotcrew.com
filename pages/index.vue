@@ -23,7 +23,7 @@
           <h2 class="about__title">
             <template v-if="showPreMintCalculator">Be Ready<span>.</span><span>.</span><span>.</span></template>
             <template v-else-if="showDuringMintCalculator">69 hours to mint!</template>
-            <template v-else-if="showPostMintCalculator">Dum, dum, dum. another {{ $store.state.contractState && $store.state.contractState.numberMinted }} bite the dust!</template>
+            <template v-else-if="showPostMintCalculator">{{ $store.state.contractState && $store.state.contractState.numberMinted }} Mad Parrots Made It</template>
           </h2>
           <template v-if="showPreMintCalculator">
             <p>
@@ -49,17 +49,19 @@
           </template>
           <template v-else-if="showPostMintCalculator">
             <p>
-              <strong>There were a limited amount of parrots available and after 69 hours the community managed to save {{ $store.state.contractState && $store.state.contractState.numberMinted }} parrots.</strong>
-            </p>
-            <p v-if="$store.state.contractState && $store.state.contractState.numberMinted < $store.state.contractState.maxSupply">
-              This means that not all of the parrots made it and unfortunately, <strong>the unclaimed parrots were sent to a furnace</strong> that lives in the basement of my local KFP (burned).
-            </p>
-            <p v-else>
-              This means that all of the parrots were saved by the community and none were sent to the furnace that lives in the basement of my local KFP.
+              There were a limited amount of parrots available and <strong>after the 69 hour mint window, the community managed to save {{ $store.state.contractState && $store.state.contractState.numberMinted }} parrots.</strong>
             </p>
             <p>
-              Obviously it goes without saying, <strong>IP rights were given to those who claimed parrots</strong>.
+              Unfortunately, <strong>the unclaimed parrots were sent to a furnace</strong> that lives in the basement of my local KFP (burned).
             </p>
+            <p>
+              IP rights were given to those who claimed parrots and it should go without saying that the same rights will be transferred to anyone who buys a parrot on the open market <strong>(own the NFT, own the IP rights)</strong>.
+            </p>
+            <p>Thank you so much for supporting my art <span style="font-family: sans-serif; color: #C82323;">❤</span></p>
+            <a class="about__signature" href="https://twitter.com/iamsheftali" target="_blank" rel="noopener nofollow">
+              <nuxt-img src="/images/sheftali-signature.svg" loading="lazy" width="86" height="68" alt="Sheftali" />
+              <span class="sr-only">Sheftali</span>
+            </a>
           </template>
         </div>
         <div class="about__parrots--mobile">
@@ -233,7 +235,7 @@ export default Vue.extend({
       ]
     },
     showPreMintCalculator (): boolean {
-      return true
+      return false
       // const startDateTime = (this.$store.state as IState).mintStartDateTime.getTime()
       // const nowDateTime = new Date().getTime()
 
@@ -241,6 +243,7 @@ export default Vue.extend({
       // else return false
     },
     showDuringMintCalculator (): boolean {
+      return false
       const startDateTime = (this.$store.state as IState).mintStartDateTime.getTime()
       const nowDateTime = new Date().getTime()
       const endDateTime = (this.$store.state as IState).mintEndDateTime.getTime()
@@ -257,6 +260,7 @@ export default Vue.extend({
       }
     },
     showPostMintCalculator (): boolean {
+      return true
       const nowDateTime = new Date().getTime()
       const endDateTime = (this.$store.state as IState).mintEndDateTime.getTime()
       const hasSoldOut = (this.$store.state as IState).contractState?.numberMinted! >= (this.$store.state as IState).contractState?.maxSupply!
@@ -498,6 +502,11 @@ $responsive-team: 69.375rem;
         animation-delay: 3.3s;
       }
     }
+  }
+
+  &__signature {
+    margin-top: 1rem;
+    display: block;
   }
 
   &__parrots {
