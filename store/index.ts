@@ -222,7 +222,7 @@ export const actions = {
   async getContractState({ commit, state }: { commit: (mutation: string, value: any) => void, state: IState }): Promise <void> {
     try {
       const contract = new ethers.Contract(state.contractAddress, MadParrotCrewABI.abi, window.web3Provider) as MadParrotCrew
-      const maxSupply = parseInt(await(await contract.functions.MAX_SUPPLY())[0]._hex, 16)
+      const maxSupply = parseInt(await (await contract.functions.MAX_SUPPLY())[0]._hex, 16)
       const numberMinted = parseInt(await (await contract.totalSupply())._hex, 16)
       const isMintActive = await (await contract.functions.isSaleActive())[0]
       const maxMintPerWallet = parseInt(await (await contract.maxPerWallet())._hex, 16)

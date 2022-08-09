@@ -67,11 +67,12 @@ export default Vue.extend({
   },
   watch: {
     parrotsToMint () {
+      const maxMintPerWallet: number = this.$store.state.contractState.user && this.$store.state.contractState.user.maxMintPerWallet ? this.$store.state.contractState.user.maxMintPerWallet : 2
       if (this.parrotsToMint < 2) { // Less than minimum mint allowance
         this.parrotsToMint = 2
       }
-      else if (this.parrotsToMint > this.$store.state.contractState.user.maxMintPerWallet) { // More than maximum mint allowance
-        this.parrotsToMint = this.$store.state.contractState.user.maxMintPerWallet
+      else if (this.parrotsToMint > maxMintPerWallet) { // More than maximum mint allowance
+        this.parrotsToMint = maxMintPerWallet
       }
       else if (this.parrotsToMint % 2 !== 0) { // If no. of parrots is an odd number, round to nearest even number (since you can only mint in multiples of 2)
         this.parrotsToMint = 2 * Math.round(this.parrotsToMint / 2)
