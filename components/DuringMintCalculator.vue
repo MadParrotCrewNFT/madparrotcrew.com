@@ -25,12 +25,12 @@
       <btn v-if="!$store.state.walletIsConnected" class="calculator__btn" :disabled="!$store.state.isAWalletInstalled" @click="connect()" :is-loading="$store.state.isConnectingToWallet" icon="wallet">Connect Wallet</btn>
       <template v-else>
         <div class="calculator__buttons">
-          <button class="calculator__button" @click="parrotsToMint -= 2">
+          <button class="calculator__button" @click="parrotsToMint -= 2" :disabled="disableButton('decrease')">
             <span class="sr-only">Decrease by 2</span>
             <svg-icon name="minus" />
           </button>
           <span class="calculator__parrots-to-mint">{{ parrotsToMint }}</span>
-          <button class="calculator__button" @click="parrotsToMint += 2">
+          <button class="calculator__button" @click="parrotsToMint += 2" :disabled="disableButton('decrease')">
             <span class="sr-only">Increase by 2</span>
             <svg-icon name="plus" />
           </button>
@@ -97,6 +97,15 @@ export default Vue.extend({
     },
     async mintParrots (): Promise<void> {
       await this.$store.dispatch("mintParrots", this.parrotsToMint);
+    },
+    disableButton (button: 'increase'|'decrease'): boolean {
+      if (button === 'increase') {
+        const maxMintPerWallet: number = this.$store.state.contractState.user && this.$store.state.contractState.user.maxMintPerWallet ? this.$store.state.contractState.user.maxMintPerWallet : 2
+        return this.parrotsToMint >= maxMintPerWallet
+      }
+      else {
+        return this.parrotsToMint <= 2
+      }
     }
   }
 })
@@ -242,18 +251,22 @@ export default Vue.extend({
     height: 3.25rem;
     border-radius: 50%;
     border: 5px solid var(--mpc-darker-blue);
-    color: var(--mpc-darker-blue);
-    background-color: #fff;
-    transition: transform 160ms ease;
-    will-change: transform;
+    color: #fff;
+    background-color: var(--mpc-darker-blue);
+    transition-property: transform, color, background-color;
+    transition: 160ms ease;
+    will-change: transform, color, background-color;
 
-    &:last-of-type {
-      color: #fff;
-      background-color: var(--mpc-darker-blue);
+    &:disabled {
+      color: var(--mpc-darker-blue);
+      background-color: #fff;
+      cursor: default;
     }
 
-    &:active {
-      transform: scale(0.9);
+    &:not(:disabled) {
+      &:active {
+        transform: scale(0.9);
+      }
     }
   }
 
