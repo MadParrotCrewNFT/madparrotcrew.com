@@ -3,7 +3,7 @@
     <h2 class="orange-gradient-text title">Times's up, mint is over!</h2>
     <card class="calculator">
       <div class="calculator__img">
-        <img src="/images/mint-ended-poster.png" alt="" height="176" width="176" />
+        <img src="/images/pre-reveal-poster.png" alt="" height="176" width="176" />
         <img src="/images/mint-ended-x.png" alt="" height="226" width="226" />
       </div>
       <p class="calculator__minted"><span>{{ $store.state.contractState && $store.state.contractState.numberMinted }}</span> were minted in total</p>
@@ -42,6 +42,14 @@ export default Vue.extend({
     return {
       config
     }
+  },
+  mounted () {
+    document.querySelector('body')?.classList.add('body--rattle')
+    document.querySelector('.header')?.classList.add('header--rattle')
+  },
+  destroyed () {
+    document.querySelector('body')?.classList.remove('body--rattle')
+    document.querySelector('.header')?.classList.remove('header--rattle')
   }
 })
 </script>
@@ -78,17 +86,53 @@ export default Vue.extend({
       left: -2rem;
       bottom: -2rem;
       filter: drop-shadow(8px 8px 0px rgba(0, 0, 0, 0.05));
-    }
 
-    img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
 
-      &:last-of-type {
-        max-width: 120%;
-        width: 120%;
+        &:first-of-type {
+          @keyframes fade {
+            from {
+              filter: none;
+            }
+            to {
+              filter: grayscale(100%);
+            }
+          }
+
+          animation: fade 1s;
+          animation-timing-function: ease-in;
+          filter: grayscale(100%);
+        }
+
+        &:last-of-type {
+          @keyframes slam {
+            0%
+            {
+              transform: scale(10, 10) translate(-50%, -50%);
+              opacity: 0;
+            }
+            
+            40%
+            {
+              opacity: 0;
+            }
+            
+            100%
+            {
+              transform: scale(1, 1) translate(-50%, -50%);
+              opacity: 1;
+            }
+          }
+
+          max-width: 120%;
+          width: 120%;
+          animation: slam 0.95s;
+          animation-timing-function: ease-in;
+        }
       }
     }
   }
@@ -192,6 +236,35 @@ export default Vue.extend({
         font-weight: 400;
       }
     }
+  }
+}
+</style>
+
+<style lang="scss">
+@media (min-width: $responsive-standard-tablet) { // Slam animaton only applies to desktop
+  .body--rattle {
+    @keyframes rattle {
+      0% { margin-top: 0; margin-left: 0; }
+      10% { margin-top: -5px; margin-left: 0; }
+      20% { margin-top: 0; margin-left: -5px; }
+      30% { margin-top: 5px; margin-left: 0; }
+      40% { margin-top: 0; margin-left: 5px; }
+      50% { margin-top: -2px; margin-left: 0; }
+      60% { margin-top: 0; margin-left: -2px; }
+      70% { margin-top: 2px; margin-left: 0; }
+      80% { margin-top: 0; margin-left: 2px; }
+      90% { margin-top: -1px; margin-left: 0; }
+      100% { margin-top: 0; margin-left: 0; }
+    }
+
+    animation: rattle 0.2s;
+    animation-delay: 1s;
+  }
+
+  .header--rattle {
+    width: calc(100vw + 10px);
+    margin-left: -5px;
+    margin-top: -5px;
   }
 }
 </style>
