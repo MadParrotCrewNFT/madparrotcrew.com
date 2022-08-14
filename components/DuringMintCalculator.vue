@@ -4,8 +4,11 @@
       <template v-if="($store.state.mintTimeLeft.days > 0 && $store.state.mintTimeLeft.hours > 0) || $store.state.mintTimeLeft.hours > 0">
         {{ ($store.state.mintTimeLeft.days * 24) + $store.state.mintTimeLeft.hours }} Hour{{ $store.state.mintTimeLeft.hours === 1 ? '' : 's' }} Left...
       </template>
-      <template v-else>
+      <template v-else-if="$store.state.mintTimeLeft.minutes > 0">
         {{ $store.state.mintTimeLeft.minutes }} Minute{{ $store.state.mintTimeLeft.minutes === 1 ? '': 's' }} Left...
+      </template>
+      <template v-else>
+        {{ $store.state.mintTimeLeft.seconds }} Second{{ $store.state.mintTimeLeft.seconds === 1 ? '': 's' }} Left...
       </template>
     </h2>
     <p class="timer">{{ $store.state.mintTimeLeft.days }} days<span>,</span> {{ $store.state.mintTimeLeft.hours }} hours<span>,</span> {{ $store.state.mintTimeLeft.minutes }} minutes<span>,</span> {{ $store.state.mintTimeLeft.seconds }} seconds</p>

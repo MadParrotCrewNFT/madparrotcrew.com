@@ -26,8 +26,11 @@
               <template v-if="($store.state.mintTimeLeft.days > 0 && $store.state.mintTimeLeft.hours > 0) || $store.state.mintTimeLeft.hours > 0">
                 {{ ($store.state.mintTimeLeft.days * 24) + $store.state.mintTimeLeft.hours }} hour{{ $store.state.mintTimeLeft.hours === 1 ? '' : 's' }} left to mint!
               </template>
-              <template v-else>
+              <template v-else-if="$store.state.mintTimeLeft.minutes > 0">
                 {{ $store.state.mintTimeLeft.minutes }} minute{{ $store.state.mintTimeLeft.minutes === 1 ? '': 's' }} left to mint!
+              </template>
+              <template v-else>
+                {{ $store.state.mintTimeLeft.seconds }} second{{ $store.state.mintTimeLeft.seconds === 1 ? '': 's' }} left to mint!
               </template>
             </template>
             <template v-else-if="showPostMintCalculator">{{ $store.state.contractState && $store.state.contractState.numberMinted }} Mad Parrots Made It</template>
