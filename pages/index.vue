@@ -67,7 +67,7 @@
             <p>
               IP rights were given to those who claimed parrots and it should go without saying that the same rights will be transferred to anyone who buys a parrot on the open market <strong>(own the NFT, own the IP rights)</strong>.
             </p>
-            <p>Thank you so much for supporting my art <span style="font-family: sans-serif; color: #C82323;">❤</span></p>
+            <p>Thank you so much for supporting my art <nuxt-img src="/images/heart.png" loading="lazy" alt="Love heart emoji" height="16" width="16" format="webp" sizes="4kdesktop:16px" /></p>
             <a class="about__signature" href="https://twitter.com/iamsheftali" target="_blank" rel="noopener nofollow">
               <nuxt-img src="/images/sheftali-signature.svg" loading="lazy" width="86" height="68" alt="Sheftali" />
               <span class="sr-only">Sheftali</span>
