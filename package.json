@@ -38,11 +38,11 @@
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/google-analytics": "^2.4.0",
     "@typechain/ethers-v5": "^10.1.0",
-    "@types/node": "^16.11.47",
+    "@types/node": "^16.11.48",
     "babel-core": "7.0.0-bridge.0",
     "nuxt-compress": "^5.0.0",
     "rimraf": "^3.0.2",
-    "sass": "^1.54.3",
+    "sass": "^1.54.4",
     "sass-loader": "^10.3.1",
     "typechain": "^8.1.0"
   },
