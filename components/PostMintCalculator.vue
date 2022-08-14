@@ -44,8 +44,10 @@ export default Vue.extend({
     }
   },
   mounted () {
-    document.querySelector('body')?.classList.add('body--rattle')
-    document.querySelector('.header')?.classList.add('header--rattle')
+    if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+      document.querySelector('body')?.classList.add('body--rattle')
+      document.querySelector('.header')?.classList.add('header--rattle')
+    }
   },
   destroyed () {
     document.querySelector('body')?.classList.remove('body--rattle')
@@ -94,44 +96,47 @@ export default Vue.extend({
         transform: translate(-50%, -50%);
 
         &:first-of-type {
-          @keyframes fade {
-            from {
-              filter: none;
-            }
-            to {
-              filter: grayscale(100%);
-            }
-          }
-
-          animation: fade 1s;
-          animation-timing-function: ease-in;
           filter: grayscale(100%);
+
+          @media (prefers-reduced-motion: no-preference) {
+            @keyframes fade {
+              from {
+                filter: none;
+              }
+              to {
+                filter: grayscale(100%);
+              }
+            }
+
+            animation: fade 1s;
+            animation-timing-function: ease-in;
+          }
         }
 
         &:last-of-type {
-          @keyframes slam {
-            0%
-            {
-              transform: scale(10, 10) translate(-50%, -50%);
-              opacity: 0;
-            }
-            
-            40%
-            {
-              opacity: 0;
-            }
-            
-            100%
-            {
-              transform: scale(1, 1) translate(-50%, -50%);
-              opacity: 1;
-            }
-          }
-
           max-width: 120%;
           width: 120%;
-          animation: slam 0.95s;
-          animation-timing-function: ease-in;
+
+          @media (prefers-reduced-motion: no-preference) {
+            @keyframes slam {
+              0% {
+                transform: scale(10, 10) translate(-50%, -50%);
+                opacity: 0;
+              }
+              
+              40% {
+                opacity: 0;
+              }
+              
+              100% {
+                transform: scale(1, 1) translate(-50%, -50%);
+                opacity: 1;
+              }
+            }
+
+            animation: slam 0.95s;
+            animation-timing-function: ease-in;
+          }
         }
       }
     }
@@ -241,7 +246,7 @@ export default Vue.extend({
 </style>
 
 <style lang="scss">
-@media (min-width: $responsive-standard-tablet) { // Slam animaton only applies to desktop
+@media (min-width: $responsive-standard-tablet) and (prefers-reduced-motion: no-preference) { // Slam animaton only applies to desktop
   .body--rattle {
     @keyframes rattle {
       0% { margin-top: 0; margin-left: 0; }

@@ -60,8 +60,11 @@ export default Vue.extend({
   padding: 1.125rem 1.5rem;
   user-select: none;
   text-decoration: none;
-  transition: background-color ease 160ms;
-  will-change: background-color;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color ease 160ms;
+    will-change: background-color;
+  }
 
   @media (min-width: $responsive-large-mobile) {
     height: 4rem;
@@ -72,7 +75,7 @@ export default Vue.extend({
     &:active {
       --btn-color: #a53a87;
 
-      @media (hover: hover) {
+      @media (hover: hover) and (prefers-reduced-motion: no-preference) {
         ::v-deep svg {
           transform: rotate(12deg) translateY(-0.25rem);
         }

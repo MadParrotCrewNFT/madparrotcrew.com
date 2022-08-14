@@ -104,8 +104,11 @@ export default Vue.extend({
   top: 0;
   width: 100vw;
   height: 3.5rem;
-  transition: all 80ms ease;
   color: #fff;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: all 80ms ease;
+  }
 
   @media (min-width: $responsive-standard-tablet) {
     position: sticky;

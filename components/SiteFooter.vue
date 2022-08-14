@@ -72,8 +72,11 @@ export default Vue.extend({
       align-items: center;
       height: 100%;
       color: var(--mpc-medium-grey);
-      transition: color 160ms ease;
-      will-change: color;
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: color 160ms ease;
+        will-change: color;
+      }
 
       &:hover,
       &:active {

@@ -503,24 +503,27 @@ $responsive-team: 69.375rem;
     }
 
     span {
-      @keyframes bounce {
-        0%, 20%, 100% {
-          transform: translateY(0);
-        }
-        10% {
-          transform: translateY(-0.25rem);
-        }
-      }
-
       display: inline-block;
-      animation: bounce linear 3s infinite 3s;
 
-      &:nth-child(2) {
-        animation-delay: 3.15s;
-      }
+      @media (prefers-reduced-motion: no-preference) {
+        @keyframes bounce {
+          0%, 20%, 100% {
+            transform: translateY(0);
+          }
+          10% {
+            transform: translateY(-0.25rem);
+          }
+        }
 
-      &:nth-child(3) {
-        animation-delay: 3.3s;
+        animation: bounce linear 3s infinite 3s;
+
+        &:nth-child(2) {
+          animation-delay: 3.15s;
+        }
+
+        &:nth-child(3) {
+          animation-delay: 3.3s;
+        }
       }
     }
   }
@@ -628,21 +631,24 @@ $responsive-team: 69.375rem;
     margin-bottom: 3rem;
 
     span {
-      @keyframes wow {
-        0%, 24%, 100% {
-          transform: scale(1) rotate(0deg);
-        }
-        6%, 10%, 14%, 18%, 22% {
-          transform: scale(1.05) rotate(3deg);
-        }
-        8%, 12%, 16%, 20% {
-          transform: scale(1.05) rotate(1deg);
-        }
-      }
-
       display: inline-block;
-      animation: wow 6s ease infinite;
-      will-change: transform;
+
+      @media (prefers-reduced-motion: no-preference) {
+        @keyframes wow {
+          0%, 24%, 100% {
+            transform: scale(1) rotate(0deg);
+          }
+          6%, 10%, 14%, 18%, 22% {
+            transform: scale(1.05) rotate(3deg);
+          }
+          8%, 12%, 16%, 20% {
+            transform: scale(1.05) rotate(1deg);
+          }
+        }
+
+        animation: wow 6s ease infinite;
+        will-change: transform;
+      }
     }
   }
 
@@ -673,8 +679,12 @@ $responsive-team: 69.375rem;
     border-radius: 1rem;
     padding: 6rem 1rem 2rem 1rem;
     text-align: center;
-    transition-property: transform, box-shadow;
-    transition: transform ease 160ms;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition-property: transform, box-shadow;
+      transition: transform ease 160ms;
+      will-change: transform, box-shadow;
+    }
 
     @media (min-width: $responsive-team) {
       padding: 2rem 1.5rem;
@@ -682,8 +692,11 @@ $responsive-team: 69.375rem;
     }
 
     &:hover {
-      transform: scale(1.05) rotate(1deg);
       box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transform: scale(1.05) rotate(1deg);
+      }
     }
 
     &--mobile {
@@ -772,13 +785,6 @@ $responsive-team: 69.375rem;
         height: 2rem;
         width: 2rem;
         color: var(--mpc-medium-grey);
-        transition: color 160ms ease;
-        will-change: color;
-
-        &:hover,
-        &:active {
-          color: var(--mpc-dark-blue);
-        }
       }
     }
 
@@ -830,6 +836,9 @@ $responsive-team: 69.375rem;
       border-radius: 1rem;
       padding: 2rem 4rem 2rem 1.5rem;
       text-align: left;
+    }
+
+    @media (min-width: $responsive-small-desktop) and (prefers-reduced-motion: no-preference) {
       animation: float-up-down linear 5s infinite;
       will-change: transform;
 
@@ -968,18 +977,6 @@ $responsive-team: 69.375rem;
   }
 
   &__title {
-    @keyframes question-mark {
-      0%, 60%, 100% {
-        transform: skew(0);
-      }
-      15% {
-        transform: skew(20deg);
-      }
-      45% {
-        transform: skew(-20deg);
-      }
-    }
-
     font-size: var(--font-size-subtitle);
     text-align: center;
     margin-top: 0;
@@ -987,8 +984,24 @@ $responsive-team: 69.375rem;
     position: relative;
     max-width: 32rem;
     margin-inline: auto;
-    animation: question-mark 8s linear infinite;
     display: block;
+
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes skew-it {
+        0%, 60%, 100% {
+          transform: skew(0);
+        }
+        15% {
+          transform: skew(20deg);
+        }
+        45% {
+          transform: skew(-20deg);
+        }
+      }
+
+      animation: skew-it 8s linear infinite;
+      will-change: transform;
+    }
   }
 
   &__text {

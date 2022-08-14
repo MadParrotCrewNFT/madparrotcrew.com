@@ -256,9 +256,12 @@ export default Vue.extend({
     border: 5px solid var(--mpc-darker-blue);
     color: #fff;
     background-color: var(--mpc-darker-blue);
-    transition-property: transform, color, background-color;
-    transition: 160ms ease;
-    will-change: transform, color, background-color;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition-property: transform, color, background-color;
+      transition: 160ms ease;
+      will-change: transform, color, background-color;
+    }
 
     &:disabled {
       color: var(--mpc-darker-blue);

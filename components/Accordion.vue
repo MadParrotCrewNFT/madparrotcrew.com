@@ -69,7 +69,7 @@ export default Vue.extend({
   border-radius: 1rem;
   box-shadow: 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.05);
 
-  @media (hover: hover) {
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
     transition-property: transform, box-shadow;
     will-change: transform, box-shadow;
     transition: 160ms ease;
@@ -130,9 +130,6 @@ export default Vue.extend({
   &__icon {
     height: 1.625rem;
     width: 1.625rem;
-    transition-property: transform, color, background-color, border-color;
-    transition: 380ms ease;
-    will-change: transform, color, background-color, border-color;
     background-color: #fff;
     color: #000;
     border: 2px solid #000;
@@ -140,14 +137,23 @@ export default Vue.extend({
     padding: 0.25rem;
     display: grid;
     place-items: center;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition-property: transform, color, background-color, border-color;
+      transition: 380ms ease;
+      will-change: transform, color, background-color, border-color;
+    }
   }
 
   &__body {
     font-size: var(--font-size-large);
-    transition: max-height 500ms ease;
-    will-change: max-height;
     overflow: hidden;
     max-height: 50rem;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: max-height 500ms ease;
+      will-change: max-height;
+    }
 
     &-inner {
       padding: 0.125rem 1rem 1.25rem 1rem;
