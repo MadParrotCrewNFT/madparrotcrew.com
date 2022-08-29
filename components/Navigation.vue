@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar" :class="{ 'navbar--open': isMobileNavOpen, 'navbar--solid': setSolidNav }">
+  <nav class="navbar" :class="{ 'navbar--open': isMobileNavOpen, 'navbar--solid': setSolidNav }">
     <div class="navbar__inner">
       <h1 class="navbar__logo">
         <nuxt-link to="/">
@@ -7,25 +7,6 @@
           <span class="sr-only" translate="no">{{ siteconfig.brand_name }}</span>
         </nuxt-link>
       </h1>
-      <button class="navbar__hamburger" :class="{'navbar__hamburger--open': isMobileNavOpen}" @click="isMobileNavOpen = !isMobileNavOpen">
-        <div class="navbar__hamburger-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <span class="sr-only">{{ isMobileNavOpen ? 'Close' : 'Menu' }}</span>
-      </button>
-      <nav class="navbar__nav" :class="{ 'navbar__nav--open': isMobileNavOpen }">
-        <ul class="navbar__social-list">
-          <li v-for="socialLink in socialLinks" :key="socialLink.url">
-            <a :href="socialLink.url" target="_blank" :title="socialLink.text">
-              <svg-icon :name="socialLink.icon" />
-              <span class="sr-only">{{ socialLink.text }}</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
       <div class="navbar__social">
         <ul class="navbar__social-list">
           <li v-for="socialLink in socialLinks" :key="socialLink.url">
@@ -36,8 +17,27 @@
           </li>
         </ul>
       </div>
+      <button class="navbar__hamburger" :class="{'navbar__hamburger--open': isMobileNavOpen}" @click="isMobileNavOpen = !isMobileNavOpen">
+        <div class="navbar__hamburger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="sr-only">{{ isMobileNavOpen ? 'Close' : 'Menu' }}</span>
+      </button>
     </div>
-  </div>
+    <div class="navbar__nav" :class="{ 'navbar__nav--open': isMobileNavOpen }">
+      <ul class="navbar__social-list">
+        <li v-for="socialLink in socialLinks" :key="socialLink.url">
+          <a :href="socialLink.url" target="_blank" :title="socialLink.text">
+            <svg-icon :name="socialLink.icon" />
+            <span class="sr-only">{{ socialLink.text }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -107,7 +107,7 @@ export default Vue.extend({
   color: #fff;
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: all 80ms ease;
+    transition: all 360ms ease;
   }
 
   @media (min-width: $responsive-standard-tablet) {
@@ -131,6 +131,13 @@ export default Vue.extend({
     position: relative;
     margin-inline: auto;
     padding-inline: 2rem;
+    position: relative;
+    z-index: 1;
+
+    .navbar--open &,
+    .navbar--solid & {
+      background-color: var(--mpc-burgandy);
+    }
   }
 
   &__logo {
@@ -221,11 +228,11 @@ export default Vue.extend({
   &__nav {
     @media (max-width: $responsive-standard-tablet - math.div(1em, 16)) {
       position: absolute;
-      top: -38rem;
+      top: -6.5rem;
       left: 0;
       width: 100%;
       background-color: var(--mpc-dark-burgandy);
-      transition: all 240ms ease;
+      transition: all 360ms ease;
       display: flex;
       flex-direction: column;
       box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
