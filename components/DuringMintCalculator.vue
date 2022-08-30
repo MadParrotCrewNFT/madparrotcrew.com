@@ -33,7 +33,7 @@
             <svg-icon name="minus" />
           </button>
           <span class="calculator__parrots-to-mint">{{ parrotsToMint }}</span>
-          <button class="calculator__button" @click="parrotsToMint += 2" :disabled="disableButton('decrease')">
+          <button class="calculator__button" @click="parrotsToMint += 2" :disabled="disableButton('increase')">
             <span class="sr-only">Increase by 2</span>
             <svg-icon name="plus" />
           </button>
@@ -103,7 +103,7 @@ export default Vue.extend({
     },
     disableButton (button: 'increase'|'decrease'): boolean {
       if (button === 'increase') {
-        const maxMintPerWallet: number = this.$store.state.contractState.user && this.$store.state.contractState.user.maxMintPerWallet ? this.$store.state.contractState.user.maxMintPerWallet : 2
+        const maxMintPerWallet: number = this.$store.state.contractState && this.$store.state.contractState.user && this.$store.state.contractState.user.maxMintPerWallet ? this.$store.state.contractState.user.maxMintPerWallet : 2
         return this.parrotsToMint >= maxMintPerWallet
       }
       else {
