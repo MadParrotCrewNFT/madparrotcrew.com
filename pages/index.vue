@@ -119,34 +119,18 @@
         <div class="faq__text">
           <ul>
             <Accordion heading="How many and how much?" heading-tag="h3" id="faq-1">
-              <template v-if="showPreMintCalculator || showDuringMintCalculator">
-                <p>
-                  There’s a <strong>total of 6969</strong> randomly generated Mad Parrots (with <strong>30 being held back</strong> for giveaways and early supporters), <strong>max 10 per wallet, 0.069<span aria-hidden="true">e</span> <span class="sr-only">ethereum</span> for 2</strong>.
-                </p>
-                <p>
-                  Whatever Mad Parrots are left after the 69 hour minting window will be sent to the furnace (burnt).
-                </p>
-              </template>
-              <template v-else-if="showPostMintCalculator">
-                <p>
-                  There were a <strong>total of 6969</strong> randomly generated Mad Parrots (with <strong>30 held back</strong> for giveaways and early supporters). <strong>The max someone was able to mint per wallet was 10 at 0.069e for 2</strong>.
-                </p>
-                <p>
-                  Whatever Mad Parrots were left after the 69 hour mint window were sent to the furnace (burnt).
-                </p>
-              </template>
+              <p>
+                <strong>6969</strong> (<strong>30 held back</strong> for early supporters), 1 per wallet and... <strong>FREE</strong>.
+              </p>
             </Accordion>
             <Accordion heading="Presale list?" heading-tag="h3" id="faq-2">
-              <p v-if="showPreMintCalculator || showDuringMintCalculator">
+              <p>
                 Negative, everyone gets the same chance to mint.
-              </p>
-              <p v-else-if="showPostMintCalculator">
-                Negative, everyone had the same chance to mint.
               </p>
             </Accordion>
             <Accordion heading="Does this awesome looking parrot have any utility?" heading-tag="h3" id="faq-3">
               <p>
-                Not for the moment, but wouldn’t rule it out for the future (I got ideas!)
+                Not for the moment. <strong>For now, it’s just about the art</strong> (hence it is free). That said, anybody who owns a Mad Parrot will be granted exclusive benefits for any future projects I get involved with.
               </p>
             </Accordion>
           </ul>
