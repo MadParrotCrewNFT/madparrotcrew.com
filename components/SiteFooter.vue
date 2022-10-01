@@ -10,8 +10,8 @@
           </a>
         </li>
       </ul>
-      <a href="https://twitter.com/iamsheftali" target="_blank" rel="noopener nofollow">
-        <nuxt-img src="/images/sheftali-signature.svg" loading="lazy" width="86" height="68" alt="Sheftali" />
+      <a href="https://twitter.com/iamsheftali" target="_blank" rel="noopener nofollow" class="footer__signature">
+        <nuxt-img src="/images/sheftali-signature.gif" loading="lazy" width="399" height="293" alt="Sheftali" />
         <span class="sr-only">Sheftali</span>
       </a>
     </div>
@@ -93,6 +93,10 @@ export default Vue.extend({
   &__logo {
     width: 9rem;
     color: var(--mpc-medium-grey);
+  }
+
+  &__signature {
+    max-width: 5.375rem;
   }
 }
 </style>

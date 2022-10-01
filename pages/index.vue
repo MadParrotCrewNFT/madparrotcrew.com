@@ -21,26 +21,13 @@
         </div>
         <div class="about__text">
           <h2 class="about__title">
-            <template v-if="showPreMintCalculator">Be Ready<span>.</span><span>.</span><span>.</span></template>
-            <template v-else-if="showDuringMintCalculator">
-              <template v-if="($store.state.mintTimeLeft.days > 0 && $store.state.mintTimeLeft.hours > 0) || $store.state.mintTimeLeft.hours > 0">
-                {{ ($store.state.mintTimeLeft.days * 24) + $store.state.mintTimeLeft.hours }} hour{{ $store.state.mintTimeLeft.hours === 1 ? '' : 's' }} left to mint!
-              </template>
-              <template v-else-if="$store.state.mintTimeLeft.minutes > 0">
-                {{ $store.state.mintTimeLeft.minutes }} minute{{ $store.state.mintTimeLeft.minutes === 1 ? '': 's' }} left to mint!
-              </template>
-              <template v-else>
-                {{ $store.state.mintTimeLeft.seconds }} second{{ $store.state.mintTimeLeft.seconds === 1 ? '': 's' }} left to mint!
-              </template>
-            </template>
-            <template v-else-if="showPostMintCalculator">{{ $store.state.contractState && $store.state.contractState.numberMinted }} Mad Parrots Made It</template>
+            <template v-if="showPreMintCalculator">Let's f*cking go!</template>
+            <template v-else-if="showDuringMintCalculator">Free mint, enjoy!</template>
+            <template v-else-if="showPostMintCalculator">Thanks for supporting</template>
           </h2>
           <template v-if="showPreMintCalculator">
             <p>
-              <strong>Minting 2 parrots will cost 0.069<span aria-hidden="true">e</span><span class="sr-only">ethereum</span></strong>. Yes you read that right, you get 2.
-            </p>
-            <p>
-              Once the time is up, <strong>the unclaimed parrots will be sent to a furnace</strong> that lives in the basement of my local KFP (<strong>burned</strong>).
+              <strong>Minting will be FREE.</strong>
             </p>
             <p>
               Obviously it goes without saying that <strong>you’ll get the IP rights</strong> to the parrots you claim.
@@ -48,31 +35,18 @@
           </template>
           <template v-else-if="showDuringMintCalculator">
             <p>
-              There's only <strong>a limited amount of parrots available</strong> and you've got 69 hours to claim yours so... chop chop!
-            </p>
-            <p>
-              Once the time is up, <strong>the unclaimed parrots will be sent to a furnace</strong> that lives in the basement of my local KFP (<strong>burned</strong>).
-            </p>
-            <p>
-              Obviously it goes without saying that <strong>you get the IP rights</strong> to the parrots you claim.
+              Obviously it goes without saying that <strong>you’ll get the IP rights</strong> to the parrots you claim.
             </p>
           </template>
           <template v-else-if="showPostMintCalculator">
             <p>
-              There were a limited amount of parrots available and <strong>after the 69 hour mint window, the community managed to save {{ $store.state.contractState && $store.state.contractState.numberMinted }} parrots.</strong>
+              IP rights were given to those who claimed parrots, and it should go without saying that the same rights will be transferred to anyone who buys a parrot on the open market <strong>(own the NFT, own the IP rights)</strong>.
             </p>
-            <p>
-              Unfortunately, <strong>the unclaimed parrots were sent to a furnace</strong> that lives in the basement of my local KFP (burned).
-            </p>
-            <p>
-              IP rights were given to those who claimed parrots and it should go without saying that the same rights will be transferred to anyone who buys a parrot on the open market <strong>(own the NFT, own the IP rights)</strong>.
-            </p>
-            <p>Thank you so much for supporting my art <nuxt-img src="/images/heart.png" loading="lazy" alt="Love heart emoji" height="16" width="16" format="webp" sizes="4kdesktop:16px" /></p>
-            <a class="about__signature" href="https://twitter.com/iamsheftali" target="_blank" rel="noopener nofollow">
-              <nuxt-img src="/images/sheftali-signature.svg" loading="lazy" width="86" height="68" alt="Sheftali" />
-              <span class="sr-only">Sheftali</span>
-            </a>
           </template>
+          <a class="about__signature" href="https://twitter.com/iamsheftali" target="_blank" rel="noopener nofollow">
+            <nuxt-img src="/images/sheftali-signature.gif" loading="lazy" width="399" height="293" alt="Sheftali" />
+            <span class="sr-only">Sheftali</span>
+          </a>
         </div>
         <div class="about__parrots--mobile">
           <nuxt-img class="body" src="/images/about-parrots.png" alt="A pair of Mad Parrots" height="921" width="698" loading="lazy" sizes="4kdesktop:256px" format="webp" />
@@ -501,36 +475,12 @@ $responsive-team: 69.375rem;
     @media (min-width: $responsive-small-desktop) {
       margin-bottom: 2.75rem;
     }
-
-    span {
-      display: inline-block;
-
-      @media (prefers-reduced-motion: no-preference) {
-        @keyframes bounce {
-          0%, 20%, 100% {
-            transform: translateY(0);
-          }
-          10% {
-            transform: translateY(-0.25rem);
-          }
-        }
-
-        animation: bounce linear 3s infinite 3s;
-
-        &:nth-child(2) {
-          animation-delay: 3.15s;
-        }
-
-        &:nth-child(3) {
-          animation-delay: 3.3s;
-        }
-      }
-    }
   }
 
   &__signature {
     margin-top: 1rem;
     display: block;
+    max-width: 5.5rem;
   }
 
   &__parrots {
