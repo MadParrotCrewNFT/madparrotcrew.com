@@ -4,7 +4,7 @@
     <card class="calculator">
       <!-- <h3 class="calculator__title">Minting starts<br/><time :datetime="format($store.state.mintStartDateTime, 'yyyy-MM-dd HH:mm')">{{ format($store.state.mintStartDateTime, 'do MMMM yyyy hbb O') }}</time></h3> -->
       <h3 class="calculator__title">You don't want to miss this...</h3>
-      <p class="calculator__paragraph">Once minting goes live <strong>you’ll only have 69 hours</strong> to claim your parrots. I'll let you know when via <a :href="config.SOCIAL.TWITTER" class="link--pink" target="_blank" rel="noopener nofollow">Twitter</a> & <a :href="config.SOCIAL.DISCORD" class="link--pink" target="_blank" rel="noopener nofollow">Discord</a>.</p>
+      <p class="calculator__paragraph">Keep your eyes open! I'll let you know when via <a :href="config.SOCIAL.TWITTER" class="link--pink" target="_blank" rel="noopener nofollow">Twitter</a> & <a :href="config.SOCIAL.DISCORD" class="link--pink" target="_blank" rel="noopener nofollow">Discord</a>.</p>
     </card>
   </section>
 </template>
