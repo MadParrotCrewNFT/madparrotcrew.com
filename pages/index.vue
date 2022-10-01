@@ -91,7 +91,7 @@
           <nuxt-img class="frens__logo" src="/images/mpc.gif" alt="MPC" height="100" width="100" loading="lazy" />
           <h2 class="frens__title">Let's be frens</h2>
           <p class="frens__para">
-            We got a Discord, pop in and say hello! We’d love to hear from you.
+            We got a Discord; pop in and say hello! We’d love to hear from you.
           </p>
           <btn class="frens__btn" icon="discord" white :to="config.SOCIAL.DISCORD">Join us in Discord</btn>
           <div class="frens__parrots--mobile">
