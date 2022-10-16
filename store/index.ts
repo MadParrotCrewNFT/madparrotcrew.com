@@ -59,11 +59,6 @@ export const state = () => ({
       url: config.SOCIAL.TWITTER,
       icon: 'twitter'
     },
-    {
-      text: 'Discord',
-      url: config.SOCIAL.DISCORD,
-      icon: 'discord'
-    },
     // {
     //   text: 'OpenSea',
     //   url: config.OPENSEA_LINK,

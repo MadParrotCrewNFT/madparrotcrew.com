@@ -86,20 +86,7 @@
       </ul>
     </section>
     <section id="frens" class="frens">
-      <div>
-        <div class="frens__card">
-          <nuxt-img class="frens__logo" src="/images/mpc.gif" alt="MPC" height="100" width="100" loading="lazy" />
-          <h2 class="frens__title">Let's be frens</h2>
-          <p class="frens__para">
-            We got a Discord; pop in and say hello! We’d love to hear from you.
-          </p>
-          <btn class="frens__btn" icon="discord" white :to="config.SOCIAL.DISCORD">Join us in Discord</btn>
-          <div class="frens__parrots--mobile">
-            <nuxt-img class="body" src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="666" width="757" loading="lazy" sizes="4kdesktop:261px" format="webp" />
-            <nuxt-img class="feet" src="/images/team-parrots-feet.png" alt="" height="144" width="98" loading="lazy" sizes="4kdesktop:34px" format="webp" />
-          </div>
-        </div>
-      </div>
+      <div></div>
       <div>
         <div class="frens__parrots--desktop">
           <nuxt-img class="body" src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="666" width="757" loading="lazy" sizes="4kdesktop:757px" format="webp" />
@@ -735,78 +722,6 @@ $responsive-team: 69.375rem;
         grid-column: span 5;
         position: relative;
       }
-    }
-  }
-
-  &__card {
-    position: relative;
-    background-color: var(--mpc-blue);
-    padding: 6rem 1rem 0 1rem;
-    text-align: center;
-
-    @media (min-width: $responsive-small-desktop) {
-      max-width: 27.75rem;
-      border-radius: 1rem;
-      padding: 2rem 4rem 2rem 1.5rem;
-      text-align: left;
-    }
-
-    @media (min-width: $responsive-small-desktop) and (prefers-reduced-motion: no-preference) {
-      animation: float-up-down linear 5s infinite;
-      will-change: transform;
-
-      @keyframes float-up-down {
-        25% {
-          transform: translateY(-0.5rem);
-        }
-        75% {
-          transform: translateY(0.5rem);
-        }
-        0%, 100% {
-          transform: translateY(0);
-        }
-      }
-    }
-  }
-
-  &__logo {
-    position: absolute;
-    top: -1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 50%;
-
-    @media (min-width: $responsive-small-desktop) {
-      left: unset;
-      transform: unset;
-      right: 1.5rem;
-    }
-  }
-
-  &__title {
-    color: #fee75c;
-    font-size: var(--font-size-heading);
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-  }
-
-  &__para {
-    color: #fff;
-    font-size: var(--font-size-large);
-    margin: 0;
-
-    &:not(:last-of-type) {
-      margin-bottom: 1rem;
-    }
-  }
-
-  &__btn {
-    justify-self: center;
-    margin-top: 2rem;
-    margin-bottom: 15rem;
-
-    @media (min-width: $responsive-small-desktop) {
-      margin-bottom: 0;
     }
   }
 
