@@ -179,13 +179,6 @@ export default Vue.extend({
           twitter: 'https://twitter.com/iamsheftali'
         },
         {
-          name: 'Gerry',
-          image: 'gerry.jpg',
-          role: 'Adviser',
-          description: 'Long-time fren in the space who’s always shooting straight and giving top advice.',
-          twitter: 'https://twitter.com/nftgerry'
-        },
-        {
           name: 'Fancyrats',
           image: 'fancyrats.jpg',
           role: 'Web3 Developer',
@@ -198,20 +191,6 @@ export default Vue.extend({
           role: 'Web2 Developer',
           description: 'Built the website as well as endured my constant tweak requests.',
           twitter: 'https://twitter.com/jackdomleo7'
-        },
-        {
-          name: 'Dejen',
-          image: 'dejen.jpg',
-          role: 'Community Manager',
-          description: 'Sounds like she’s always smiling and that’s why she’s the the best for this role.',
-          twitter: 'https://twitter.com/dejen_art'
-        },
-        {
-          name: 'Zanko',
-          image: 'zanko.jpg',
-          role: 'Discord Server Wizard',
-          description: 'Set up, configured and maintains the Discord server. Parrots love Zanko.',
-          twitter: 'https://twitter.com/rupica3'
         }
       ]
     },
