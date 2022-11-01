@@ -3,30 +3,23 @@
     <slot />
     <svg-icon v-if="icon" :name="icon" />
   </a>
-  <button v-else class="btn" :disabled="disabled || isLoading" @click="$emit('click')">
+  <button v-else class="btn" :disabled="disabled" @click="$emit('click')">
     <slot />
-    <svg-icon v-if="icon && !isLoading" :name="icon" />
-    <spinner v-if="isLoading" />
+    <svg-icon v-if="icon" :name="icon" />
   </button>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Spinner from './Spinner.vue'
 
 export default Vue.extend({
   name: "Btn",
-  components: { Spinner },
   props: {
     white: {
       type: Boolean,
       default: false
     },
     disabled: {
-      type: Boolean,
-      default: false
-    },
-    isLoading: {
       type: Boolean,
       default: false
     },

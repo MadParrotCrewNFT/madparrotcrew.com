@@ -4,9 +4,7 @@ import Navigation from './Navigation.vue'
 import Card from './Card.vue'
 import Logo from './Logo.vue'
 import SiteFooter from './SiteFooter.vue'
-import PreMintCalculator from './PreMintCalculator.vue'
-import DuringMintCalculator from './DuringMintCalculator.vue'
-import PostMintCalculator from './PostMintCalculator.vue'
+import MintCalculator from './MintCalculator.vue'
 
 export {
   Accordion,
@@ -15,7 +13,5 @@ export {
   Card,
   Logo,
   SiteFooter,
-  PreMintCalculator,
-  DuringMintCalculator,
-  PostMintCalculator
+  MintCalculator
 }

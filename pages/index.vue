@@ -2,9 +2,7 @@
   <div>
     <header id="mint" class="header">
       <div class="header__inner">
-        <PreMintCalculator v-if="showPreMintCalculator" class="header__calculator" />
-        <DuringMintCalculator v-else-if="showDuringMintCalculator" class="header__calculator" />
-        <PostMintCalculator v-else-if="showPostMintCalculator" class="header__calculator" />
+        <MintCalculator class="header__calculator" />
         <div class="header__parrot">
           <nuxt-img preload class="header__parrot--body" src="/images/hero-parrot.png" alt="A purple parrot with a green head, holding a beer, wearing a bandana and a denim jacket" height="637" width="389" sizes="largetablet:184px 4kdesktop:389px" format="webp" />
           <nuxt-img preload class="header__parrot--feet" src="/images/hero-parrot-feet.png" alt="" height="143" width="98" sizes="largetablet:47px 4kdesktop:98px" format="webp" />
@@ -21,28 +19,14 @@
         </div>
         <div class="about__text">
           <h2 class="about__title">
-            <template v-if="showPreMintCalculator">Let's f*cking go!</template>
-            <template v-else-if="showDuringMintCalculator">Free mint, enjoy!</template>
-            <template v-else-if="showPostMintCalculator">Thanks for supporting</template>
+            Got 0.01 eth? of course you do.
           </h2>
-          <template v-if="showPreMintCalculator">
-            <p>
-              <strong>Minting will be FREE.</strong>
-            </p>
-            <p>
-              Obviously it goes without saying that <strong>you’ll get the IP rights</strong> to the parrots you claim.
-            </p>
-          </template>
-          <template v-else-if="showDuringMintCalculator">
-            <p>
-              Obviously it goes without saying that <strong>you’ll get the IP rights</strong> to the parrots you claim.
-            </p>
-          </template>
-          <template v-else-if="showPostMintCalculator">
-            <p>
-              IP rights were given to those who claimed parrots, and it should go without saying that the same rights will be transferred to anyone who buys a parrot on the open market <strong>(own the NFT, own the IP rights)</strong>.
-            </p>
-          </template>
+          <p>
+            <strong>Adopt a Mad Parrot. You'll love it; it'll love you. You'll also own the IP rights, so you can do tons of stuff.</strong> Fridge magnet? Poster? Bed Sheets? Pillow? Coaster? Lunch Box? T-Shirt? You name it, the sky's the limit (pun definitely intended).
+          </p>
+          <p>
+            Nah, but jokes aside, anybody who does mint, you have my undying gratitude; I'll love you forever because it's the gesture that counts. And anybody who knows me knows that I'm in web3 for the long term, and I'm ALWAYS building. So for any and all future projects, know that if you own one of my Mad Parrots, you'll get perks as a "non-fungible token of my appreciation" it's the least I can do. 
+          </p>
           <a class="about__signature" href="https://twitter.com/iamsheftali" target="_blank" rel="noopener nofollow">
             <nuxt-img src="/images/sheftali-signature.gif" loading="lazy" width="399" height="293" alt="Sheftali" />
             <span class="sr-only">Sheftali</span>
@@ -133,10 +117,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Accordion, Btn, Logo, PreMintCalculator, DuringMintCalculator, PostMintCalculator } from '@/components'
+import { Accordion, Btn, Logo, MintCalculator } from '@/components'
 import siteconfig from '@/siteconfig.json'
 import config from '@/config.json'
-import { IState } from '@/store'
 
 interface ITeamMember {
   image: string;
@@ -147,12 +130,11 @@ interface ITeamMember {
 }
 
 export default Vue.extend({
-  components: { Accordion, Btn, Logo, PreMintCalculator, DuringMintCalculator, PostMintCalculator },
+  components: { Accordion, Btn, Logo, MintCalculator },
   data () {
     return {
       siteconfig,
-      config,
-      interval: undefined as undefined | number
+      config
     }
   },
   computed: {
@@ -181,103 +163,6 @@ export default Vue.extend({
         }
       ]
     },
-    showPreMintCalculator (): boolean {
-      return true
-      // const startDateTime = (this.$store.state as IState).mintStartDateTime.getTime()
-      // const nowDateTime = new Date().getTime()
-
-      // if (nowDateTime < startDateTime) return true
-      // else return false
-    },
-    showDuringMintCalculator (): boolean {
-      const startDateTime = (this.$store.state as IState).mintStartDateTime.getTime()
-      const nowDateTime = new Date().getTime()
-      const endDateTime = (this.$store.state as IState).mintEndDateTime.getTime()
-      const hasSoldOut = (this.$store.state as IState).contractState?.numberMinted! >= (this.$store.state as IState).contractState?.maxSupply!
-
-      if (
-        (nowDateTime >= startDateTime && nowDateTime <= endDateTime && !hasSoldOut)
-        || (nowDateTime >= startDateTime && !(this.$store.state as IState).contractState)
-      ) {
-        return true
-      }
-      else {
-        return false
-      }
-    },
-    showPostMintCalculator (): boolean {
-      const nowDateTime = new Date().getTime()
-      const endDateTime = (this.$store.state as IState).mintEndDateTime.getTime()
-      const hasSoldOut = (this.$store.state as IState).contractState?.numberMinted! >= (this.$store.state as IState).contractState?.maxSupply!
-
-      if (nowDateTime >= endDateTime || hasSoldOut) {
-        return true
-      }
-      else {
-        return false
-      }
-    }
-  },
-  async mounted () {
-    if (!this.showPreMintCalculator && this.showDuringMintCalculator) {
-      this.$store.commit("setSuccessfulMint", null)
-      await this.$store.dispatch("isAWalletInstalled")
-      await this.$store.dispatch("checkIfWalletConnected")
-      await this.$store.dispatch("isCorrectNetwork")
-      if (this.$store.state.walletIsConnected) {
-        await this.$store.dispatch("getContractState")
-      }
-
-      if (window.ethereum) {
-        window.ethereum.on("accountsChanged", async (accounts: string[]) => {
-          if (accounts.length === 0) {
-            this.$store.commit('setAccount', null)
-            this.$store.dispatch('isAWalletInstalled')
-            this.$store.dispatch('checkIfWalletConnected')
-            this.$store.dispatch('isCorrectNetwork')
-            this.$store.commit("setError", "Wallet was disconnected.")
-            this.$store.commit("setContractState", null)
-          }
-          else {
-            this.$store.commit('setAccount', accounts[0])
-            await this.$store.dispatch("getContractState")
-          }
-        })
-
-        window.ethereum.on('chainChanged', async () => {
-          await this.$store.dispatch("isCorrectNetwork")
-        })
-      }
-
-      this.interval = window.setInterval(() => {
-        let diff = (this.$store.state.mintEndDateTime as Date).getTime() - new Date().getTime()
-
-        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        days = days <= 0 ? 0 : days
-        hours = hours <= 0 ? 0 : hours
-        minutes = minutes <= 0 ? 0 : minutes
-        seconds = seconds <= 0 ? 0 : seconds
-
-        this.$store.commit("setMintTimeLeft", {
-          days,
-          hours,
-          minutes,
-          seconds
-        })
-
-        if (diff < 0) {
-          this.$store.commit("setMintTimeEnded", true)
-          window.clearInterval(this.interval)
-        }
-      }, 1000);
-    }
-  },
-  destroyed () {
-    window.clearInterval(this.interval)
   }
 })
 </script>
