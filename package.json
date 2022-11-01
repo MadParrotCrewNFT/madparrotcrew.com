@@ -6,8 +6,7 @@
   "author": "Mad Parrot Crew team",
   "contributors": [
     "Sheftali (https://github.com/sheftali)",
-    "Jack Domleo (https://jackdomleo.dev)",
-    "FancyRatsDave (https://github.com/FancyRatsDave)"
+    "Jack Domleo (https://jackdomleo.dev)"
   ],
   "repository": {
     "type": "git",
@@ -25,9 +24,9 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/style-resources": "^1.2.1",
     "@nuxtjs/svg-sprite": "^0.5.2",
-    "core-js": "^3.25.5",
+    "core-js": "^3.26.0",
     "date-fns": "^2.29.3",
-    "ethers": "^5.7.1",
+    "ethers": "^5.7.2",
     "focus-trap": "^6.9.4",
     "focus-trap-vue": "^1.1.1",
     "modern-normalize": "^1.1.0",
