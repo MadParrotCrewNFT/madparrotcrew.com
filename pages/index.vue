@@ -91,17 +91,22 @@
           <ul>
             <Accordion heading="How many and how much?" heading-tag="h3" id="faq-1">
               <p>
-                <strong>6969</strong> (<strong>30 held back</strong> for early supporters), 1 per wallet and... <strong>FREE</strong>.
+                <strong>3,333</strong> (with some held back for early supporters), 0.01<span aria-hidden="true">e</span><span class="sr-only">ethereum</span>.
               </p>
             </Accordion>
-            <Accordion heading="Presale list?" heading-tag="h3" id="faq-2">
+            <Accordion heading="Presale list? Pre-reveal?" heading-tag="h3" id="faq-2">
               <p>
-                Negative, everyone gets the same chance to mint.
+                Negative and... negative. Everyone gets the same chance to mint, and you can see what your parrot looks like instantly!
               </p>
             </Accordion>
             <Accordion heading="Does this awesome looking parrot have any utility?" heading-tag="h3" id="faq-3">
               <p>
-                Not for the moment. <strong>For now, it’s just about the art</strong> (hence it is free). That said, anybody who owns a Mad Parrot will be granted exclusive benefits for any future projects I get involved with.
+                Not for the moment. <strong>For now, it’s just about the art</strong>. That said, anybody who owns a Mad Parrot will be granted exclusive benefits for any future projects I get involved with.
+              </p>
+            </Accordion>
+            <Accordion heading="Who made the Smart Contract?" heading-tag="h3" id="faq-4">
+              <p>
+                I used Bueno. You can learn more about them at nft.bueno.art (<a href="https://nft.bueno.art/" target="_blank">https://nft.bueno.art/</a>). 
               </p>
             </Accordion>
           </ul>
