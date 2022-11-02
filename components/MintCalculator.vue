@@ -4,12 +4,21 @@
     <card class="calculator">
       <div id="bueno-embed-container" class="header__calculator" />
     </card>
+    <ul class="links">
+      <li>
+        <a class="link" :href="config.SCAN_LINK" target="_blank">Verified Smart Contract</a>
+      </li>
+      <li>
+        <button class="link" @click="$store.commit('setShowTandCsModal', true)">Terms & Conditions</button>
+      </li>
+    </ul>
   </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Card from './Card.vue'
+import config from '@/config.json'
 
 export default Vue.extend({
   name: 'PreMintCalculator',
@@ -22,6 +31,11 @@ export default Vue.extend({
           type: 'module'
         }
       ]
+    }
+  },
+  data () {
+    return {
+      config
     }
   }
 })
@@ -54,6 +68,37 @@ export default Vue.extend({
   @media (min-width: $responsive-standard-tablet) {
     text-align: left;
     margin-bottom: 0.5rem;
+  }
+}
+
+.links {
+  display: none;
+
+  @media (min-width: $responsive-standard-tablet) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.25rem;
+    padding-left: 0;
+    list-style-type: none;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    font-size: var(--font-size-small);
+
+    li {
+      &:not(:nth-child(1)) {
+        &::before {
+          content: '·';
+          color: #fff;
+          margin-right: 0.25rem;
+        }
+      }
+
+      ::v-deep .link {
+        color: #fff;
+        font-weight: 400;
+      }
+    }
   }
 }
 </style>
