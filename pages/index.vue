@@ -40,41 +40,46 @@
     </section>
     <section id="team" class="team">
       <h2 class="team__title">The team... Behind the <span>crew</span></h2>
-      <ul class="team__members">
-        <li v-for="member in team" :key="member.name" class="member">
-          <a :href="member.twitter" rel="nofollow noopener" target="_blank" class="member--mobile">
-            <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="384" width="384" loading="lazy" sizes="4kdesktop:96px" format="webp" />
-            <p class="member__role">{{ member.role }}</p>
-            <p class="member__name">{{ member.name }}</p>
-            <p class="member__description">{{ member.description }}</p>
-            <div class="member__social">
-              <svg-icon name="twitter" />
-              <span class="sr-only">Twiiter</span>
-            </div>
-          </a>
-          <a :href="member.twitter" rel="nofollow noopener" target="_blank" class="member--desktop">
-            <div class="member__img-social">
-              <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="384" width="384" loading="lazy" sizes="4kdesktop:96px" format="webp" />
-              <div class="member__social">
-                <svg-icon name="twitter" />
-                <span class="sr-only">Twiiter</span>
-              </div>
-            </div>
-            <div class="member__text">
-              <p class="member__role">{{ member.role }}</p>
-              <p class="member__name">{{ member.name }}</p>
-              <p class="member__description">{{ member.description }}</p>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </section>
-    <section id="frens" class="frens">
-      <div></div>
       <div>
-        <div class="frens__parrots--desktop">
-          <nuxt-img class="body" src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="666" width="757" loading="lazy" sizes="4kdesktop:757px" format="webp" />
-          <nuxt-img class="feet" src="/images/team-parrots-feet.png" alt="" height="144" width="98" loading="lazy" sizes="4kdesktop:98px" format="webp" />
+        <div>
+          <ul class="team__members">
+            <li v-for="member in team" :key="member.name" class="member">
+              <a :href="member.twitter" rel="nofollow noopener" target="_blank" class="member--mobile">
+                <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="384" width="384" loading="lazy" sizes="4kdesktop:96px" format="webp" />
+                <p class="member__role">{{ member.role }}</p>
+                <p class="member__name">{{ member.name }}</p>
+                <p class="member__description">{{ member.description }}</p>
+                <div class="member__social">
+                  <svg-icon name="twitter" />
+                  <span class="sr-only">Twiiter</span>
+                </div>
+              </a>
+              <a :href="member.twitter" rel="nofollow noopener" target="_blank" class="member--desktop">
+                <div class="member__img-social">
+                  <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="384" width="384" loading="lazy" sizes="4kdesktop:96px" format="webp" />
+                  <div class="member__social">
+                    <svg-icon name="twitter" />
+                    <span class="sr-only">Twiiter</span>
+                  </div>
+                </div>
+                <div class="member__text">
+                  <p class="member__role">{{ member.role }}</p>
+                  <p class="member__name">{{ member.name }}</p>
+                  <p class="member__description">{{ member.description }}</p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="team__parrots--desktop">
+            <nuxt-img class="body" src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="666" width="757" loading="lazy" sizes="4kdesktop:757px" format="webp" />
+            <nuxt-img class="feet" src="/images/team-parrots-feet.png" alt="" height="144" width="98" loading="lazy" sizes="4kdesktop:98px" format="webp" />
+          </div>
+          <div class="team__parrots--mobile">
+            <nuxt-img class="body" src="/images/team-parrots.png" alt="A couple of Mad Parrots" height="666" width="757" loading="lazy" sizes="4kdesktop:261px" format="webp" />
+            <nuxt-img class="feet" src="/images/team-parrots-feet.png" alt="" height="144" width="98" loading="lazy" sizes="4kdesktop:34px" format="webp" />
+          </div>
         </div>
       </div>
     </section>
@@ -151,13 +156,6 @@ export default Vue.extend({
           role: 'Founder, artist, UX/UI',
           description: 'Designed the parrots, the UI, the brand and kickstarted the original project.',
           twitter: 'https://twitter.com/iamsheftali'
-        },
-        {
-          name: 'Fancyrats',
-          image: 'fancyrats.jpg',
-          role: 'Web3 Developer',
-          description: 'Wrote the smart contract that y’all will be (hopefully) minting from.',
-          twitter: 'https://twitter.com/fancyrats_eth'
         },
         {
           name: 'Jack Domleo',
@@ -411,8 +409,86 @@ $responsive-team: 69.375rem;
 
 .team {
   position: relative;
+  max-width: 85.375rem;
+  margin-inline: auto;
   background-color: #fff;
-  padding: 3rem 1rem;
+  padding: 3rem 1rem 14rem 1rem;
+
+  @media (min-width: $responsive-small-desktop) {
+    padding: 3rem 8rem 6rem 8rem;
+
+    > div {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      min-height: 30rem;
+
+      > div {
+        &:nth-child(1) {
+          grid-column: span 4;
+          display: grid;
+          place-items: center;
+        }
+
+        &:nth-child(2) {
+          grid-column: span 5;
+          position: relative;
+        }
+      }
+    }
+  }
+
+  &__parrots {
+    &--mobile {
+      @media (min-width: $responsive-small-desktop) {
+        display: none;
+      }
+
+      img {
+        position: absolute;
+        left: 50%;
+
+        &.body {
+          width: 261px;
+          bottom: -2rem;
+          transform: translateX(-50%);
+        }
+
+        &.feet {
+          width: 34px;
+          bottom: -1.25rem;
+          z-index: 1;
+          transform: translateX(calc(-50% - 1rem));
+        }
+      }
+    }
+
+    &--desktop {
+      display: none;
+
+      @media (min-width: $responsive-small-desktop) {
+        display: block;
+        height: 100%;
+
+        img {
+          position: absolute;
+          left: 50%;
+
+          &.body {
+            width: 757px;
+            bottom: -10.75rem;
+            transform: translateX(-50%);
+          }
+
+          &.feet {
+            width: 80px;
+            bottom: -9rem;
+            z-index: 1;
+            transform: translateX(calc(-50% - 2.35rem));
+          }
+        }
+      }
+    }
+  }
 
   &__title {
     font-size: var(--font-size-subtitle);
@@ -456,9 +532,8 @@ $responsive-team: 69.375rem;
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @media (min-width: $responsive-team) {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+    @media (min-width: $responsive-small-desktop) {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -586,85 +661,6 @@ $responsive-team: 69.375rem;
 
     &__text {
       padding-left: 0.75rem;
-    }
-  }
-}
-
-.frens {
-  position: relative;
-  max-width: 85.375rem;
-  margin-inline: auto;
-
-  @media (min-width: $responsive-small-desktop) {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    padding: 3rem 8rem 6rem 8rem;
-    min-height: 30rem;
-
-    > div {
-      &:nth-child(1) {
-        grid-column: span 4;
-        display: grid;
-        place-items: center;
-      }
-
-      &:nth-child(2) {
-        grid-column: span 5;
-        position: relative;
-      }
-    }
-  }
-
-  &__parrots {
-    &--mobile {
-      @media (min-width: $responsive-small-desktop) {
-        display: none;
-      }
-
-      img {
-        position: absolute;
-        left: 50%;
-
-        &.body {
-          width: 261px;
-          bottom: -2rem;
-          transform: translateX(-50%);
-        }
-
-        &.feet {
-          width: 34px;
-          bottom: -1.25rem;
-          z-index: 1;
-          transform: translateX(calc(-50% - 1rem));
-        }
-      }
-    }
-
-    &--desktop {
-      display: none;
-
-      @media (min-width: $responsive-small-desktop) {
-        display: block;
-        height: 100%;
-
-        img {
-          position: absolute;
-          left: 50%;
-
-          &.body {
-            width: 757px;
-            bottom: -10.75rem;
-            transform: translateX(-50%);
-          }
-
-          &.feet {
-            width: 80px;
-            bottom: -9rem;
-            z-index: 1;
-            transform: translateX(calc(-50% - 2.35rem));
-          }
-        }
-      }
     }
   }
 }
