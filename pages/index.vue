@@ -111,7 +111,7 @@
             </Accordion>
             <Accordion heading="Who made the Smart Contract?" heading-tag="h3" id="faq-4">
               <p>
-                I used Bueno. You can learn more about them at nft.bueno.art (<a href="https://nft.bueno.art/" target="_blank">https://nft.bueno.art/</a>). 
+                I used Bueno. You can learn more about them at <a href="https://nft.bueno.art/" target="_blank">nft.bueno.art</a>. 
               </p>
             </Accordion>
           </ul>
