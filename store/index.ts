@@ -17,16 +17,16 @@ export const state = () => ({
       url: config.SOCIAL.TWITTER,
       icon: 'twitter'
     },
-    // {
-    //   text: 'OpenSea',
-    //   url: config.OPENSEA_LINK,
-    //   icon: 'opensea'
-    // },
-    // {
-    //   text: 'Etherscan',
-    //   url: config.SCAN_LINK,
-    //   icon: 'etherscan'
-    // }
+    {
+      text: 'OpenSea',
+      url: config.OPENSEA_LINK,
+      icon: 'opensea'
+    },
+    {
+      text: 'Etherscan',
+      url: config.SCAN_LINK,
+      icon: 'etherscan'
+    }
   ],
   showTandCsModal: false
 } as IState)

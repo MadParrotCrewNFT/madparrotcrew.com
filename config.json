@@ -1,12 +1,12 @@
 {
-  "CONTRACT_ADDRESS": "0x3F537d3598a9eb5278810F71bf84f1529FCd597F",
-  "SCAN_LINK": "https://rinkeby.etherscan.io/address/0x3F537d3598a9eb5278810F71bf84f1529FCd597F",
+  "CONTRACT_ADDRESS": "0x059f9c0d1f276b41acd6dc68ba8b8f984d2b8a5a",
+  "SCAN_LINK": "https://etherscan.io/address/0x059f9c0d1f276b41acd6dc68ba8b8f984d2b8a5a",
   "NETWORK": {
     "NAME": "RINKEBY",
     "SYMBOL": "ETHER",
     "ID": 4
   },
-  "OPENSEA_LINK": "https://opensea.io/collection/Testproj",
+  "OPENSEA_LINK": "https://opensea.io/collection/mad-parrot-crew",
   "SOCIAL": {
     "TWITTER": "https://twitter.com/madparrotcrew"
   }
