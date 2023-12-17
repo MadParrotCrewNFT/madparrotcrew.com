@@ -44,20 +44,20 @@
         <div>
           <ul class="team__members">
             <li v-for="member in team" :key="member.name" class="member">
-              <a :href="member.twitter" rel="nofollow noopener" target="_blank" class="member--mobile">
+              <a :href="member.url" rel="nofollow noopener" target="_blank" class="member--mobile">
                 <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="384" width="384" loading="lazy" sizes="4kdesktop:96px" format="webp" />
                 <p class="member__role">{{ member.role }}</p>
                 <p class="member__name">{{ member.name }}</p>
                 <p class="member__description">{{ member.description }}</p>
-                <div class="member__social">
+                <div v-if="member.url.includes('twitter.com')" class="member__social">
                   <svg-icon name="twitter" />
                   <span class="sr-only">Twiiter</span>
                 </div>
               </a>
-              <a :href="member.twitter" rel="nofollow noopener" target="_blank" class="member--desktop">
+              <a :href="member.url" rel="nofollow noopener" target="_blank" class="member--desktop">
                 <div class="member__img-social">
                   <nuxt-img class="member__img" :src="`/images/${member.image}`" :alt="`${member.name}'s avatar`" height="384" width="384" loading="lazy" sizes="4kdesktop:96px" format="webp" />
-                  <div class="member__social">
+                  <div v-if="member.url.includes('twitter.com')" class="member__social">
                     <svg-icon name="twitter" />
                     <span class="sr-only">Twiiter</span>
                   </div>
@@ -136,7 +136,7 @@ interface ITeamMember {
   role: string;
   name: string;
   description: string;
-  twitter: `https://${string}`
+  url: `https://${string}`
 }
 
 export default Vue.extend({
@@ -155,14 +155,14 @@ export default Vue.extend({
           image: 'sheftali.jpg',
           role: 'Founder, artist, UX/UI',
           description: 'Designed the parrots, the UI, the brand and kickstarted the original project.',
-          twitter: 'https://twitter.com/iamsheftali'
+          url: 'https://twitter.com/iamsheftali'
         },
         {
           name: 'Jack Domleo',
           image: 'jackdomleo.jpg',
           role: 'Web2 Developer',
           description: 'Built the website as well as endured my constant tweak requests.',
-          twitter: 'https://twitter.com/jackdomleo7'
+          url: 'https://jackdomleo.dev'
         }
       ]
     },
@@ -544,6 +544,7 @@ $responsive-team: 69.375rem;
     border-radius: 1rem;
     padding: 6rem 1rem 2rem 1rem;
     text-align: center;
+    height: 100%;
 
     @media (prefers-reduced-motion: no-preference) {
       transition-property: transform, box-shadow;
@@ -655,12 +656,13 @@ $responsive-team: 69.375rem;
 
     &__img-social {
       height: 100%;
-      border-right: 1px solid #8E8E8E;
       padding-right: 0.75rem;
+      align-self: flex-start;
     }
 
     &__text {
       padding-left: 0.75rem;
+      border-left: 1px solid #8E8E8E;
     }
   }
 }
